@@ -36,7 +36,8 @@ import { SlaResolutionMonitoring } from './components/SlaResolutionMonitoring';
 import { PropertyMasterDirectory } from './components/PropertyMasterDirectory';
 import { StakeholderFeedbackConsole } from './components/StakeholderFeedbackConsole';
 import { LeaderCommandChatbot } from './components/LeaderCommandChatbot';
-import { Mail, UserPlus, Compass, ShieldAlert, Star, Bot } from 'lucide-react';
+import { PlatformLoginScreen } from './components/PlatformLoginScreen';
+import { Mail, UserPlus, Compass, ShieldAlert, Star, Bot, LogOut } from 'lucide-react';
 
 // Persona / Role Types
 export type PlatformRole =
@@ -536,6 +537,11 @@ export default function OperationsControlTower() {
     showToast(`Ticket #${newTicket.ticketNumber} created and assigned to Central Ops.`);
   };
 
+  // If not authenticated, render the dedicated Enterprise Platform Login Screen (Partners & Employees Only)
+  if (!currentUser) {
+    return <PlatformLoginScreen onLogin={handleSwitchRole} />;
+  }
+
   return (
     <div className="min-h-screen bg-[#001428] text-white flex flex-col font-sans selection:bg-[#00A9A5] selection:text-white">
       {/* Toast Notification */}
@@ -568,6 +574,17 @@ export default function OperationsControlTower() {
           >
             <UserCheck className="w-3.5 h-3.5" />
             <span>Switch Persona</span>
+          </button>
+          <button
+            onClick={() => {
+              setCurrentUser(null);
+              showToast('Logged out of platform session.');
+            }}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-300 hover:text-rose-300 hover:border-rose-500/30 font-bold hover:brightness-110 text-xs cursor-pointer shadow-sm"
+            title="Log Out to Enterprise Platform Gateway"
+          >
+            <LogOut className="w-3.5 h-3.5 text-rose-400" />
+            <span>Log Out</span>
           </button>
           <a
             href={typeof window !== 'undefined' ? (window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://staysphere-guest.vercel.app') : 'https://staysphere-guest.vercel.app'}
@@ -770,6 +787,20 @@ export default function OperationsControlTower() {
               </div>
             </div>
           )}
+
+          {/* Log Out Button */}
+          <button
+            type="button"
+            onClick={() => {
+              setCurrentUser(null);
+              showToast('Logged out of platform session.');
+            }}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/5 hover:bg-rose-500/15 border border-white/10 hover:border-rose-500/30 text-xs font-bold text-slate-300 hover:text-rose-300 transition-all cursor-pointer shrink-0"
+            title="Log Out to Enterprise Gateway"
+          >
+            <LogOut className="w-3.5 h-3.5 text-rose-400" />
+            <span className="hidden sm:inline">Log Out</span>
+          </button>
         </div>
       </header>
 
@@ -1150,6 +1181,23 @@ export default function OperationsControlTower() {
                   </button>
                 );
               })}
+            </div>
+
+            {/* Modal Bottom Log Out Action */}
+            <div className="p-4 border-t border-white/10 bg-[#000E1C] flex items-center justify-between">
+              <span className="text-xs text-slate-400">Want to sign in with different credentials?</span>
+              <button
+                type="button"
+                onClick={() => {
+                  setCurrentUser(null);
+                  setIsAuthModalOpen(false);
+                  showToast('Logged out of platform session.');
+                }}
+                className="px-4 py-2 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/40 text-rose-300 text-xs font-bold transition-all flex items-center gap-2 cursor-pointer"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span>Log Out to Platform Gateway</span>
+              </button>
             </div>
           </div>
         </div>
