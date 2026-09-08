@@ -1729,17 +1729,25 @@ export default function GuestApp() {
             </section>
 
             {/* B2B Partner Onboarding Banner */}
-            <section className="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-[#002B4D] via-[#001830] to-[#001020] border border-[#FFC857]/40 shadow-2xl relative overflow-hidden">
+            <section className={`p-8 sm:p-10 rounded-3xl border shadow-xl relative overflow-hidden transition-all ${
+              isPearl
+                ? 'bg-gradient-to-br from-[#FFFFFF] via-[#FAF8F5] to-[#F5EFEA] border-[#D4AF37]/40 shadow-slate-200/50'
+                : 'bg-gradient-to-br from-[#002B4D] via-[#001830] to-[#001020] border-[#FFC857]/40 shadow-2xl'
+            }`}>
               <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="space-y-2 max-w-2xl">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFC857]/20 border border-[#FFC857]/40 text-[#FFC857] text-xs font-black">
+                  <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black border ${
+                    isPearl
+                      ? 'bg-[#D4AF37]/15 border-[#D4AF37]/40 text-[#996515]'
+                      : 'bg-[#FFC857]/20 border-[#FFC857]/40 text-[#FFC857]'
+                  }`}>
                     <Building2 className="w-3.5 h-3.5 shrink-0" />
                     <span>For Homestay Hosts, Boutique Hotels & Luxury Resorts</span>
                   </div>
-                  <h3 className="text-2xl sm:text-3xl font-black text-white">
+                  <h3 className={`text-2xl sm:text-3xl font-black ${isPearl ? 'text-[#0F172A]' : 'text-white'}`}>
                     Partner With StaySphere — List Any Accommodation Class
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  <p className={`text-xs sm:text-sm leading-relaxed ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
                     Join India's unified travel marketplace. Enjoy automated escrow payouts, integrated airport taxi logistics, and zero booking friction across budget, premium, and luxury properties.
                   </p>
                 </div>
