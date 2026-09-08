@@ -796,7 +796,7 @@ export default function GuestApp() {
   const [showGuestChatbot, setShowGuestChatbot] = useState<boolean>(false);
   const [showPartnerChatbot, setShowPartnerChatbot] = useState<boolean>(false);
 
-  const [activeTab, setActiveTab] = useState<'landing' | 'explore' | 'booking' | 'myjourney' | 'resolve'>('landing');
+  const [activeTab, setActiveTab] = useState<'landing' | 'stay' | 'move' | 'experience' | 'booking' | 'myjourney' | 'resolve'>('landing');
   const [showResolveModal, setShowResolveModal] = useState<boolean>(false);
   const [resolveCategory, setResolveCategory] = useState<string>('GENERAL_INQUIRY');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -887,7 +887,7 @@ export default function GuestApp() {
   const totalBill = subtotalAfterDiscount + hospitalityTaxes;
 
   const navigateToTab = (
-    tab: 'landing' | 'explore' | 'booking' | 'myjourney' | 'resolve',
+    tab: 'landing' | 'stay' | 'move' | 'experience' | 'booking' | 'myjourney' | 'resolve',
     step: 1 | 2 | 3 = 1,
     estate?: StayEstate
   ) => {
@@ -1114,9 +1114,9 @@ export default function GuestApp() {
 
               <button
                 type="button"
-                onClick={() => navigateToTab('explore')}
+                onClick={() => navigateToTab('stay')}
                 className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-                  activeTab === 'explore'
+                  activeTab === 'stay' || activeTab === 'booking'
                     ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
                     : isPearl
                     ? 'text-slate-600 hover:text-[#001E3D] hover:bg-slate-100'
@@ -1124,22 +1124,37 @@ export default function GuestApp() {
                 }`}
               >
                 <Hotel className="w-3.5 h-3.5 text-[#00A9A5] shrink-0" />
-                <span>1. Stays & Itineraries</span>
+                <span>Stay</span>
               </button>
 
               <button
                 type="button"
-                onClick={() => navigateToTab('booking', 1)}
+                onClick={() => navigateToTab('move')}
                 className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-                  activeTab === 'booking'
-                    ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
+                  activeTab === 'move'
+                    ? 'bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] text-[#001428] shadow-md'
                     : isPearl
                     ? 'text-slate-600 hover:text-[#001E3D] hover:bg-slate-100'
                     : 'text-slate-300 hover:text-white hover:bg-white/5'
                 }`}
               >
                 <Car className="w-3.5 h-3.5 text-[#FF8A3D] shrink-0" />
-                <span>2. Book Unified Journey</span>
+                <span>Move</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => navigateToTab('experience')}
+                className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
+                  activeTab === 'experience'
+                    ? 'bg-gradient-to-r from-[#FFC857] to-[#D4AF37] text-[#001428] shadow-md'
+                    : isPearl
+                    ? 'text-slate-600 hover:text-[#001E3D] hover:bg-slate-100'
+                    : 'text-slate-300 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                <Compass className="w-3.5 h-3.5 text-[#FFC857] shrink-0" />
+                <span>Experience</span>
               </button>
 
               <button
@@ -1154,23 +1169,22 @@ export default function GuestApp() {
                 }`}
               >
                 <Navigation className="w-3.5 h-3.5 text-[#3CCF91] shrink-0" />
-                <span>3. My Journey (Live Timeline)</span>
+                <span>My Journey</span>
               </button>
 
               <button
                 type="button"
-                onClick={() => {
-                  setResolveCategory('GENERAL_INQUIRY');
-                  setShowResolveModal(true);
-                }}
+                onClick={() => navigateToTab('resolve')}
                 className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer border ${
-                  isPearl
+                  activeTab === 'resolve'
+                    ? 'bg-[#FF8A3D]/30 border-[#FF8A3D] text-[#FFC857] shadow-md'
+                    : isPearl
                     ? 'bg-amber-50 hover:bg-amber-100 border-amber-300 text-amber-900'
                     : 'bg-[#FF8A3D]/15 hover:bg-[#FF8A3D]/25 border-[#FF8A3D]/40 text-[#FFC857]'
                 }`}
               >
                 <ShieldCheck className="w-3.5 h-3.5 text-[#FF8A3D] shrink-0" />
-                <span>4. Resolve (15-Min SLA)</span>
+                <span>Resolve</span>
               </button>
             </nav>
           </div>
@@ -1403,7 +1417,7 @@ export default function GuestApp() {
                       if (!matched) {
                         matched = PROPERTIES.find((p) => searchDestination === 'all' || p.destinationCity.toLowerCase() === searchDestination.toLowerCase()) || PROPERTIES[0];
                       }
-                      navigateToTab('explore');
+                      navigateToTab('stay');
                     }}
                     className="w-full p-2.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] via-[#FFC857] to-[#E5B869] hover:brightness-110 text-[#001428] font-black text-xs shadow-lg shadow-[#FF8A3D]/25 transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
                   >
@@ -1447,7 +1461,7 @@ export default function GuestApp() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
                 {/* Step 1 */}
                 <div
-                  onClick={() => navigateToTab('explore')}
+                  onClick={() => navigateToTab('stay')}  
                   className="p-5 rounded-2xl glass-panel border border-white/10 hover:border-[#00A9A5] hover:bg-[#002B4D]/40 transition-all cursor-pointer space-y-3 group flex flex-col justify-between"
                 >
                   <div className="space-y-3">
@@ -1543,7 +1557,7 @@ export default function GuestApp() {
                 </div>
                 <button
                   type="button"
-                  onClick={() => navigateToTab('explore')}
+                  onClick={() => navigateToTab('stay')}
                   className="text-xs font-bold text-[#00D2C4] hover:underline flex items-center gap-1 cursor-pointer shrink-0"
                 >
                   <span>View All 10 Properties in Catalog</span>
@@ -1722,7 +1736,7 @@ export default function GuestApp() {
         {/* ========================================================================= */}
         {/* TAB 2: EXPLORE ALL-CLASS HOTELS, HOMESTAYS, RESORTS & SUITES              */}
         {/* ========================================================================= */}
-        {activeTab === 'explore' && (
+        {activeTab === 'stay' && (
           <div className="space-y-8">
             <div className="flex flex-col gap-4 pb-4 border-b border-white/10">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -2546,9 +2560,157 @@ export default function GuestApp() {
         )}
 
         {/* ========================================================================= */}
+        {/* TAB: MOVE — Transport Fleet & Airport Transfer Explorer                  */}
+        {/* ========================================================================= */}
+        {activeTab === 'move' && (
+          <div className="space-y-8">
+            <div className="flex flex-col gap-2 pb-4 border-b border-white/10">
+              <span className={`text-xs font-bold uppercase tracking-widest flex items-center gap-1 ${isPearl ? 'text-[#FF8A3D]' : 'text-[#FF8A3D]'}`}>
+                <Car className="w-3.5 h-3.5" /> Flight-Synced Mobility
+              </span>
+              <h1 className={`text-3xl font-black mt-1 ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>Move — Airport Transfers & City Mobility</h1>
+              <p className={`text-xs mt-1 ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
+                Every vehicle is flight-tracked. Your driver adjusts in real-time to delays, cancellations, and early arrivals.
+              </p>
+            </div>
+
+            {/* Vehicle Fleet Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {[
+                { name: 'Sedan', label: 'Economy Sedan', icon: '🚖', price: 900, desc: 'Swift, comfortable city transfers. Maruti Ciaz / Honda City.', perks: ['AC', 'Flight tracking', '1–3 pax'], color: '#00A9A5' },
+                { name: 'Comfort MPV', label: 'Comfort MPV', icon: '🚐', price: 1600, desc: 'Spacious Innova Crysta for families. 6–7 seats with luggage.', perks: ['AC', 'Flight tracking', 'Up to 6 pax'], color: '#3CCF91' },
+                { name: 'Electric EV', label: 'Premium EV', icon: '⚡', price: 2400, desc: 'Silent, zero-emission luxury. BYD Atto 3 / Tata Nexon EV.', perks: ['Zero emission', 'Ambient lighting', 'USB-C charging'], color: '#00D2C4' },
+                { name: 'Defender 4x4', label: 'Mountain Defender', icon: '🏔️', price: 3800, desc: 'Land Rover Defender 4x4 for mountain & hill routes.', perks: ['All-terrain', 'Snow-ready', 'Mountain routes'], color: '#FFC857' },
+                { name: 'Maybach', label: 'Maybach Ultra-Luxe', icon: '👑', price: 4500, desc: 'Mercedes-Maybach S680. Champagne, privacy glass, personal host.', perks: ['Champagne service', 'Privacy glass', 'Personal escort'], color: '#D4AF37' },
+              ].map((vehicle) => (
+                <div
+                  key={vehicle.name}
+                  onClick={() => { navigateToTab('booking', 2, PROPERTIES[4]); }}
+                  className={`rounded-3xl border p-6 space-y-4 cursor-pointer hover:scale-[1.02] transition-all group ${
+                    isPearl
+                      ? 'bg-white border-slate-200 hover:border-[#0B3D91] shadow-sm'
+                      : 'bg-[#001E36] border-white/10 hover:border-white/30 shadow-xl'
+                  }`}
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="text-4xl">{vehicle.icon}</div>
+                    <span className={`text-[10px] font-black px-2.5 py-1 rounded-full border`} style={{ color: vehicle.color, borderColor: `${vehicle.color}40`, background: `${vehicle.color}15` }}>
+                      FLIGHT-SYNCED
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className={`text-lg font-black ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>{vehicle.label}</h3>
+                    <p className={`text-xs mt-1 ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>{vehicle.desc}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {vehicle.perks.map((p) => (
+                      <span key={p} className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${isPearl ? 'bg-slate-100 text-slate-600' : 'bg-white/5 text-slate-300'}`}>{p}</span>
+                    ))}
+                  </div>
+                  <div className={`pt-3 border-t flex items-center justify-between ${isPearl ? 'border-slate-100' : 'border-white/10'}`}>
+                    <div>
+                      <span className={`text-xl font-black ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>₹{vehicle.price.toLocaleString()}</span>
+                      <span className={`text-xs ml-1 ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>/ leg</span>
+                    </div>
+                    <span className="text-xs font-black text-[#FF8A3D] group-hover:translate-x-1 transition-transform">Add to Journey →</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Move + Stay CTA */}
+            <div className={`rounded-3xl p-8 border text-center space-y-4 ${isPearl ? 'bg-gradient-to-r from-orange-50 to-white border-orange-200' : 'bg-gradient-to-r from-[#FF8A3D]/10 to-[#001E36] border-[#FF8A3D]/30'}`}>
+              <h3 className={`text-xl font-black ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>Bundle Stay + Move for Best Price</h3>
+              <p className={`text-xs max-w-lg mx-auto ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
+                Select your stay first, then add round-trip airport transfers and sightseeing to one protected journey.
+              </p>
+              <button
+                onClick={() => navigateToTab('stay')}
+                className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] text-[#001428] font-black text-xs shadow-lg hover:brightness-110 transition-all inline-flex items-center gap-2"
+              >
+                <Hotel className="w-4 h-4" /> Choose Your Stay First
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================================= */}
+        {/* TAB: EXPERIENCE — Curated Sightseeing & Activities Catalog               */}
+        {/* ========================================================================= */}
+        {activeTab === 'experience' && (
+          <div className="space-y-8">
+            <div className="flex flex-col gap-2 pb-4 border-b border-white/10">
+              <span className={`text-xs font-bold uppercase tracking-widest flex items-center gap-1 ${isPearl ? 'text-[#FFC857]' : 'text-[#FFC857]'}`}>
+                <Compass className="w-3.5 h-3.5" /> Curated Experiences
+              </span>
+              <h1 className={`text-3xl font-black mt-1 ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>Experience — Local Excursions & Tours</h1>
+              <p className={`text-xs mt-1 ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
+                Private sightseeing packages, adventure tours, cultural excursions and curated day trips — all part of your Journey.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {SIGHTSEEING_CATALOG.map((tour) => (
+                <div
+                  key={tour.id}
+                  onClick={() => { navigateToTab('booking', 2, PROPERTIES.find(p => p.destinationCity === tour.destinationCity) || PROPERTIES[0]); }}
+                  className={`rounded-3xl border p-6 space-y-4 cursor-pointer hover:scale-[1.02] transition-all group ${
+                    isPearl
+                      ? 'bg-white border-slate-200 hover:border-[#FFC857] shadow-sm'
+                      : 'bg-[#001E36] border-white/10 hover:border-[#FFC857]/50 shadow-xl'
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <span className={`text-[10px] font-black px-2.5 py-1 rounded-full border bg-[#FFC857]/15 text-[#FFC857] border-[#FFC857]/30 whitespace-nowrap shrink-0`}>
+                      {tour.badge}
+                    </span>
+                    <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${isPearl ? 'bg-slate-100 text-slate-600' : 'bg-white/5 text-slate-400'} whitespace-nowrap shrink-0`}>
+                      {tour.destinationCity}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className={`text-base font-black leading-snug ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>{tour.name}</h3>
+                    <p className={`text-[11px] mt-1.5 leading-relaxed ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>{tour.tagline}</p>
+                  </div>
+                  <div className="space-y-1">
+                    {tour.highlights.slice(0, 3).map((h) => (
+                      <div key={h} className="flex items-center gap-1.5 text-[11px]">
+                        <CheckCircle2 className="w-3 h-3 text-[#3CCF91] shrink-0" />
+                        <span className={isPearl ? 'text-slate-600' : 'text-slate-300'}>{h}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className={`pt-3 border-t flex items-center justify-between ${isPearl ? 'border-slate-100' : 'border-white/10'}`}>
+                    <div>
+                      <div className={`text-[10px] ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>{tour.duration}</div>
+                      <span className={`text-lg font-black ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>₹{tour.price.toLocaleString()}</span>
+                      <span className={`text-xs ml-1 ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>/ group</span>
+                    </div>
+                    <span className="text-xs font-black text-[#FFC857] group-hover:translate-x-1 transition-transform">Add to Journey →</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className={`rounded-3xl p-8 border text-center space-y-4 ${isPearl ? 'bg-gradient-to-r from-amber-50 to-white border-amber-200' : 'bg-gradient-to-r from-[#FFC857]/10 to-[#001E36] border-[#FFC857]/20'}`}>
+              <h3 className={`text-xl font-black ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>Experiences are bundled into your Journey</h3>
+              <p className={`text-xs max-w-lg mx-auto ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
+                Add a sightseeing package to your stay booking. One payment, one protected journey.
+              </p>
+              <button
+                onClick={() => navigateToTab('stay')}
+                className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#FFC857] to-[#FF8A3D] text-[#001428] font-black text-xs shadow-lg hover:brightness-110 transition-all inline-flex items-center gap-2"
+              >
+                <Hotel className="w-4 h-4" /> Browse Stays & Bundle Experiences
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================================= */}
         {/* TAB 4: MY JOURNEY (SYNCHRONIZED TIMELINE & PROACTIVE RESOLVE SENTINEL)   */}
         {/* ========================================================================= */}
-        {(activeTab === 'myjourney' || activeTab === 'resolve') && (
+        {activeTab === 'myjourney' && (
           <MyJourneyView
             onOpenResolve={(cat) => {
               setResolveCategory(cat || 'GENERAL_INQUIRY');
@@ -2557,6 +2719,79 @@ export default function GuestApp() {
             theme={theme}
             currentUser={currentUser}
           />
+        )}
+
+        {/* ========================================================================= */}
+        {/* TAB 5: RESOLVE — Journey Protection & 15-Min SLA Desk                   */}
+        {/* ========================================================================= */}
+        {activeTab === 'resolve' && (
+          <div className="space-y-6 max-w-3xl mx-auto">
+            {/* Resolve header */}
+            <div className={`rounded-3xl p-6 border shadow-xl ${isPearl ? 'bg-amber-50 border-amber-200' : 'bg-gradient-to-r from-[#FF8A3D]/10 to-[#001E36] border-[#FF8A3D]/30'}`}>
+              <div className="flex items-center gap-3 mb-2">
+                <ShieldCheck className="w-6 h-6 text-[#FF8A3D]" />
+                <h1 className={`text-2xl font-black ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>Resolve — Journey Protection</h1>
+                <span className="text-[10px] font-black px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">15-Min SLA Guarantee</span>
+              </div>
+              <p className={`text-xs ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
+                Report any issue with your stay, transport, or experience. Our Sentinel AI tracks and resolves within 15 minutes.
+              </p>
+            </div>
+
+            {/* Issue category grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { cat: 'PRE_ARRIVAL', icon: Plane, label: 'Pre-Arrival Issue', desc: 'Flight change, driver delay, property problem before check-in', color: '#00A9A5' },
+                { cat: 'CHECKIN_ISSUE', icon: Hotel, label: 'Check-In Problem', desc: 'Room not ready, wrong room category, facilities issue', color: '#7C6DF2' },
+                { cat: 'IN_STAY', icon: AlertTriangle, label: 'In-Stay Issue', desc: 'AC, housekeeping, maintenance, noise, security concern', color: '#FF8A3D' },
+                { cat: 'TRANSPORT_DELAY', icon: Car, label: 'Transport Delay', desc: 'Driver late, wrong vehicle, route issue or breakdown', color: '#FFC857' },
+                { cat: 'PAYMENT_ISSUE', icon: CreditCard, label: 'Payment / Billing', desc: 'Overcharge, receipt mismatch, refund or escrow query', color: '#3CCF91' },
+                { cat: 'GENERAL_INQUIRY', icon: HelpCircle, label: 'General Inquiry', desc: 'Anything else — our team responds in under 15 minutes', color: '#D4AF37' },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={item.cat}
+                    onClick={() => { setResolveCategory(item.cat); setShowResolveModal(true); }}
+                    className={`text-left p-5 rounded-2xl border transition-all group cursor-pointer hover:scale-[1.02] ${
+                      isPearl
+                        ? 'bg-white border-slate-200 hover:border-[#0B3D91] shadow-sm'
+                        : 'bg-[#001E36] border-white/10 hover:border-white/30'
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${item.color}20` }}>
+                        <Icon className="w-4 h-4" style={{ color: item.color }} />
+                      </div>
+                      <div className="min-w-0">
+                        <div className={`text-sm font-black ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>{item.label}</div>
+                        <div className={`text-[11px] mt-0.5 ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>{item.desc}</div>
+                      </div>
+                    </div>
+                    <div className="mt-3 text-[11px] font-bold flex items-center gap-1" style={{ color: item.color }}>
+                      Open Resolve Desk <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* SLA promise strip */}
+            <div className={`rounded-2xl p-5 border text-center ${isPearl ? 'bg-slate-50 border-slate-200' : 'bg-[#001428] border-white/5'}`}>
+              <div className="flex flex-wrap items-center justify-center gap-6 text-xs">
+                {[
+                  { icon: Clock, label: '15-Min SLA', color: '#3CCF91' },
+                  { icon: ShieldCheck, label: 'Milestone Escrow Hold', color: '#00A9A5' },
+                  { icon: Users, label: '24/7 Sentinel Team', color: '#FFC857' },
+                  { icon: CheckCircle2, label: 'Guaranteed Resolution', color: '#FF8A3D' },
+                ].map(({ icon: Icon, label, color }) => (
+                  <span key={label} className="flex items-center gap-1.5 font-bold" style={{ color }}>
+                    <Icon className="w-3.5 h-3.5 shrink-0" /> {label}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
         )}
       </main>
 

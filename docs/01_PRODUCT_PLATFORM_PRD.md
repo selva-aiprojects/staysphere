@@ -24,6 +24,7 @@
    - 6.5 [Operations Control Tower & 360° Feedback](#65-operations-control-tower--360-feedback)
    - 6.6 [Trust, Safety & Marketplace Ranking](#66-trust-safety--marketplace-ranking)
    - 6.7 [Finance, Escrow & Settlement Engine](#67-finance-escrow--settlement-engine)
+   - 6.8 [Offer Management Engine (Season-Based)](#68-offer-management-engine-season-based)
 7. [Technical Architecture & Integrations](#7-technical-architecture--integrations)
 8. [Phased Implementation Roadmap](#8-phased-implementation-roadmap)
 9. [Metrics & Success Criteria](#9-metrics--success-criteria)
@@ -112,3 +113,47 @@ Cybelinx maintains a dual-product hospitality ecosystem where **HostSphere** and
 - **Hotel Partner Trust Score**: $\ge 98.0\%$
 - **Channel Partner NPS**: $\ge +70$
 - **On-Time Chauffeur Dispatch Rate**: $\ge 99.0\%$
+
+---
+
+## 6.8 Offer Management Engine (Season-Based)
+
+StaySphere's Offer Management Engine enables Platform Operations to define **promotional offers tied to demand seasons**, driving occupancy during low-demand windows without compromising brand positioning or rate parity.
+
+### Offer Engine Architecture
+
+```
+PLATFORM OPS
+     │
+     ├── Season Calendar
+     │     ├── PEAK Season     (Dec 20–Jan 10, Apr 1–Apr 30)
+     │     ├── OFF-PEAK Season (Jul 1–Aug 31, Feb 1–Mar 31)
+     │     └── SHOULDER Season (Sep 1–Nov 30)
+     │
+     ├── Offer Types
+     │     ├── Flat % Discount
+     │     ├── Free Night (Stay X, Pay Y)
+     │     ├── Complimentary Add-On (Transfer / Experience / Upgrade)
+     │     ├── Early Bird (60+ days advance booking)
+     │     └── Flash Deal (within 72 hrs of check-in)
+     │
+     ├── Eligibility Rules per Offer
+     │     ├── Minimum stay nights
+     │     ├── Advance booking window
+     │     ├── Guest tier (All / Gold+ / Sovereign Only)
+     │     ├── Channel (Direct / B2B / Both)
+     │     └── Stackability
+     │
+     └── Partner Proposal Queue
+           └── Property Partners may propose offers → Platform Ops approves
+```
+
+### Key Design Principles
+- **Peak Season**: Complimentary add-ons only. Flat discounts require Finance Officer approval.
+- **Off-Peak Season**: All offer types permitted. Flash Deals actively encouraged.
+- **Rate Parity**: Offers reducing price below the public rate floor trigger a warning badge (soft block); the RM is notified automatically.
+- **Commission Calculation**: Always based on the discounted net price after offer is applied.
+- **Lifecycle**: `DRAFT → LIVE → PAUSED → EXPIRED` (auto-archives after validity window).
+
+> Full policy reference: [13_OFFER_MANAGEMENT_POLICY.md](./13_OFFER_MANAGEMENT_POLICY.md)  
+> Platform console: Control Tower Workspace 14 — Offer Mgmt

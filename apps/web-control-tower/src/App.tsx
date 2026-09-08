@@ -11,13 +11,12 @@ import {
   KeyRound,
   Sparkles,
   UserCheck,
-  Check,
   Download,
-  Eye,
   Car,
   MessageSquare,
   LifeBuoy,
   Code,
+  Tag,
 } from 'lucide-react';
 import { HorizontalLogo } from '@staysphere/ui-kit';
 import { PropertyPartnersWorkflow } from './components/PropertyPartnersWorkflow';
@@ -37,7 +36,15 @@ import { PropertyMasterDirectory } from './components/PropertyMasterDirectory';
 import { StakeholderFeedbackConsole } from './components/StakeholderFeedbackConsole';
 import { LeaderCommandChatbot } from './components/LeaderCommandChatbot';
 import { PlatformLoginScreen } from './components/PlatformLoginScreen';
-import { Mail, UserPlus, Compass, ShieldAlert, Star, Bot, LogOut } from 'lucide-react';
+import { OfferManagementConsole } from './components/OfferManagementConsole';
+import { OverviewDashboard } from './components/OverviewDashboard';
+import { PropertyPartnerPortal } from './components/PropertyPartnerPortal';
+import { TransportPartnerPortal } from './components/TransportPartnerPortal';
+import { FinanceEngineWorkspace } from './components/FinanceEngineWorkspace';
+import { TrustSafetyWorkspace } from './components/TrustSafetyWorkspace';
+import { Mail, UserPlus, Compass, ShieldAlert, Star, Bot, LogOut, LayoutDashboard } from 'lucide-react';
+
+export type PortalMode = 'CONTROL_TOWER' | 'PROPERTY_PORTAL' | 'TRANSPORT_PORTAL';
 
 // Persona / Role Types
 export type PlatformRole =
@@ -282,50 +289,6 @@ const INITIAL_FRONTDESK_GUESTS: FrontdeskGuestRecord[] = [
   },
 ];
 
-const INITIAL_PAYMENTS: PaymentReceiptRecord[] = [
-  {
-    id: 'pay-1',
-    receiptNumber: 'RCP-SS-2026-9041',
-    guestName: 'Vikram Malhotra',
-    propertyName: 'The Vana Azure Ocean Estate',
-    date: '07 Sep 2026',
-    stayAmount: 126000,
-    transitAmount: 4500,
-    taxesAmount: 15660,
-    totalAmount: 146160,
-    paymentMethod: 'Amex Centurion Black',
-    escrowStatus: 'ESCROW_LOCKED',
-    releaseETA: 'In 2 hrs (Post Check-In)',
-  },
-  {
-    id: 'pay-2',
-    receiptNumber: 'RCP-SS-2026-9040',
-    guestName: 'Dr. Siddharth Singhania',
-    propertyName: 'The Vana Azure Ocean Estate',
-    date: '06 Sep 2026',
-    stayAmount: 234000,
-    transitAmount: 7600,
-    taxesAmount: 28992,
-    totalAmount: 270592,
-    paymentMethod: 'HDFC Infinia Metal',
-    escrowStatus: 'RELEASED_TO_HOST',
-    releaseETA: 'Settled to Coastal Hospitality LLP',
-  },
-  {
-    id: 'pay-3',
-    receiptNumber: 'RCP-SS-2026-9039',
-    guestName: 'Elena Rostova',
-    propertyName: 'The Sovereign Horizon Sky Penthouse',
-    date: '04 Sep 2026',
-    stayAmount: 144000,
-    transitAmount: 9000,
-    taxesAmount: 18360,
-    totalAmount: 171360,
-    paymentMethod: 'Wire Transfer / Swift',
-    escrowStatus: 'RELEASED_TO_HOST',
-    releaseETA: 'Settled to Bandra Sky Residences',
-  },
-];
 
 const INITIAL_COLLAB_TICKETS: CollaborativeTicket[] = [
   {
@@ -439,7 +402,9 @@ export default function OperationsControlTower() {
   // Session / Authentication State
   const [currentUser, setCurrentUser] = useState<UserSession | null>(DEMO_ACCOUNTS.RELATIONSHIP_MANAGER);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
+  const [portalMode, setPortalMode] = useState<PortalMode>('CONTROL_TOWER');
   const [activeWorkflow, setActiveWorkflow] = useState<
+    | 'overview'
     | 'journeys'
     | 'property-master'
     | 'feedback'
@@ -449,16 +414,18 @@ export default function OperationsControlTower() {
     | 'travel-desk'
     | 'channel-partners'
     | 'payments'
+    | 'finance-engine'
     | 'sla-incidents'
+    | 'trust-safety'
     | 'api-docs'
     | 'employees'
     | 'emails'
-  >('journeys');
+    | 'offer-management'
+  >('overview');
 
   // Workflows Datasets
   const [hotels, setHotels] = useState<HotelPartnerRecord[]>(INITIAL_HOTELS);
   const [frontdeskGuests, setFrontdeskGuests] = useState<FrontdeskGuestRecord[]>(INITIAL_FRONTDESK_GUESTS);
-  const [payments, setPayments] = useState<PaymentReceiptRecord[]>(INITIAL_PAYMENTS);
   const [collaborativeTickets, setCollaborativeTickets] = useState<CollaborativeTicket[]>(INITIAL_COLLAB_TICKETS);
 
   // Modals State
@@ -480,14 +447,19 @@ export default function OperationsControlTower() {
     setCurrentUser(account);
     setIsAuthModalOpen(false);
 
-    // Automatically navigate to appropriate primary tab
-    if (role === 'PROPERTY_PARTNER') setActiveWorkflow('partners');
-    else if (role === 'RELATIONSHIP_MANAGER') setActiveWorkflow('journeys');
-    else if (role === 'FRONTDESK') setActiveWorkflow('frontdesk');
-    else if (role === 'TRAVEL_DESK_LEAD') setActiveWorkflow('travel-desk');
-    else if (role === 'CHANNEL_PARTNER_LEAD') setActiveWorkflow('channel-partners');
-    else if (role === 'FINANCE_PAYMENTS') setActiveWorkflow('payments');
-    else setActiveWorkflow('journeys');
+    // Automatically route to dedicated partner portal or Control Tower tab
+    if (role === 'PROPERTY_PARTNER') {
+      setPortalMode('PROPERTY_PORTAL');
+    } else if (role === 'TRAVEL_DESK_LEAD') {
+      setPortalMode('TRANSPORT_PORTAL');
+    } else {
+      setPortalMode('CONTROL_TOWER');
+      if (role === 'RELATIONSHIP_MANAGER') setActiveWorkflow('journeys');
+      else if (role === 'FRONTDESK') setActiveWorkflow('frontdesk');
+      else if (role === 'CHANNEL_PARTNER_LEAD') setActiveWorkflow('channel-partners');
+      else if (role === 'FINANCE_PAYMENTS') setActiveWorkflow('finance-engine');
+      else setActiveWorkflow('overview');
+    }
 
     showToast(`Logged in as ${account.name} (${account.role})`);
   };
@@ -512,17 +484,6 @@ export default function OperationsControlTower() {
     showToast('Guest Checked-in: AES-256 Digital Keycard armed & VIP Welcome Cocktail dispatched.');
   };
 
-  // Finance Action: Release Escrow to Host
-  const handleReleaseEscrow = (paymentId: string) => {
-    setPayments((prev) =>
-      prev.map((p) =>
-        p.id === paymentId
-          ? { ...p, escrowStatus: 'RELEASED_TO_HOST', releaseETA: 'Settled to Partner Account via IMPS/RTGS' }
-          : p
-      )
-    );
-    showToast('Escrow released: ₹126,000 net host earnings dispatched to partner bank account.');
-  };
 
   // Collaborative Ticket Update
   const handleUpdateTicket = (updated: CollaborativeTicket) => {
@@ -561,6 +522,43 @@ export default function OperationsControlTower() {
           <span>StaySphere Sovereign Control Tower: <strong className="text-white font-medium">Orchestrated Multi-Stakeholder Matrix</strong></span>
         </div>
         <div className="flex items-center gap-3">
+          {/* Platform Portal Selector */}
+          <div className="flex items-center gap-1 p-1 rounded-xl bg-black/40 border border-white/10 shadow-inner">
+            <button
+              onClick={() => setPortalMode('CONTROL_TOWER')}
+              className={`px-3 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                portalMode === 'CONTROL_TOWER'
+                  ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow'
+                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <Compass className="w-3.5 h-3.5 text-[#00D2C4]" />
+              <span>Control Tower</span>
+            </button>
+            <button
+              onClick={() => setPortalMode('PROPERTY_PORTAL')}
+              className={`px-3 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                portalMode === 'PROPERTY_PORTAL'
+                  ? 'bg-gradient-to-r from-[#0B3D91] to-[#3CCF91] text-white shadow'
+                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <Hotel className="w-3.5 h-3.5 text-[#FFC857]" />
+              <span>Property Partner Portal</span>
+            </button>
+            <button
+              onClick={() => setPortalMode('TRANSPORT_PORTAL')}
+              className={`px-3 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                portalMode === 'TRANSPORT_PORTAL'
+                  ? 'bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] text-[#001428] font-black shadow'
+                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <Car className="w-3.5 h-3.5 text-[#001428]" />
+              <span>Transport Partner Portal</span>
+            </button>
+          </div>
+
           <button
             onClick={() => setIsCollabTicketsModalOpen(true)}
             className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#002B4D]/80 border border-[#10B981]/40 text-[#10B981] font-bold hover:brightness-110 text-xs cursor-pointer shadow-sm"
@@ -598,17 +596,41 @@ export default function OperationsControlTower() {
         </div>
       </div>
 
-      {/* Operations Master Header */}
-      <header className="h-auto min-h-[5rem] py-3 border-b border-white/10 bg-[#030D1A]/95 backdrop-blur-xl px-4 sm:px-6 flex items-center justify-between sticky top-0 z-40 shadow-xl gap-3">
-        <div className="flex items-center gap-3 shrink-0">
-          <HorizontalLogo size="md" variant="dark" />
-          <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#00A9A5]/15 text-[#00D2C4] border border-[#00A9A5]/40 font-mono-telemetry font-bold uppercase tracking-wider hidden sm:inline-block whitespace-nowrap shrink-0">
-            ENTERPRISE CONTROL MATRIX v3.5
-          </span>
-        </div>
+      {/* Conditionally render Dedicated Partner Portals or Operations Control Tower */}
+      {portalMode === 'PROPERTY_PORTAL' ? (
+        <PropertyPartnerPortal
+          onSwitchToControlTower={() => setPortalMode('CONTROL_TOWER')}
+          onOpenTickets={() => setIsCollabTicketsModalOpen(true)}
+        />
+      ) : portalMode === 'TRANSPORT_PORTAL' ? (
+        <TransportPartnerPortal
+          onSwitchToControlTower={() => setPortalMode('CONTROL_TOWER')}
+          onOpenTickets={() => setIsCollabTicketsModalOpen(true)}
+        />
+      ) : (
+        <>
+          {/* Operations Master Header */}
+          <header className="h-auto min-h-[5rem] py-3 border-b border-white/10 bg-[#030D1A]/95 backdrop-blur-xl px-4 sm:px-6 flex items-center justify-between sticky top-0 z-40 shadow-xl gap-3">
+            <div className="flex items-center gap-3 shrink-0">
+              <HorizontalLogo size="md" variant="dark" />
+              <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#00A9A5]/15 text-[#00D2C4] border border-[#00A9A5]/40 font-mono-telemetry font-bold uppercase tracking-wider hidden sm:inline-block whitespace-nowrap shrink-0">
+                ENTERPRISE CONTROL MATRIX v3.5
+              </span>
+            </div>
 
         {/* Global Navigation Bar */}
         <nav className="flex items-center gap-1 p-1 rounded-2xl bg-[#020B18] border border-white/10 text-xs font-bold min-w-0 flex-1 max-w-full overflow-x-auto no-scrollbar shadow-inner mx-2 sm:mx-4">
+          <button
+            onClick={() => setActiveWorkflow('overview')}
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
+              activeWorkflow === 'overview'
+                ? 'bg-gradient-to-r from-[#D4AF37]/40 to-[#FFC857]/20 text-[#FFC857] shadow-md border border-[#D4AF37]/40'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
+            }`}
+          >
+            <LayoutDashboard className="w-3.5 h-3.5 text-[#D4AF37] shrink-0" /> 0. Overview
+          </button>
+
           <button
             onClick={() => setActiveWorkflow('journeys')}
             className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
@@ -632,17 +654,6 @@ export default function OperationsControlTower() {
           </button>
 
           <button
-            onClick={() => setActiveWorkflow('feedback')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-              activeWorkflow === 'feedback'
-                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400 shrink-0" /> 3. Feedback (360°)
-          </button>
-
-          <button
             onClick={() => setActiveWorkflow('frontdesk')}
             className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
               activeWorkflow === 'frontdesk'
@@ -650,7 +661,7 @@ export default function OperationsControlTower() {
                 : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <KeyRound className="w-3.5 h-3.5 text-[#FFC857] shrink-0" /> 4. Stay Bookings
+            <KeyRound className="w-3.5 h-3.5 text-[#FFC857] shrink-0" /> 2. Stay Bookings
           </button>
 
           <button
@@ -661,7 +672,7 @@ export default function OperationsControlTower() {
                 : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Car className="w-3.5 h-3.5 text-amber-400 shrink-0" /> 5. Travel Desk
+            <Car className="w-3.5 h-3.5 text-amber-400 shrink-0" /> 3. Mobility Desk
           </button>
 
           <button
@@ -672,7 +683,29 @@ export default function OperationsControlTower() {
                 : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <ShieldAlert className="w-3.5 h-3.5 text-rose-400 shrink-0" /> 6. SLA & Incidents
+            <ShieldAlert className="w-3.5 h-3.5 text-rose-400 shrink-0" /> 4. SLA Sentinel
+          </button>
+
+          <button
+            onClick={() => setActiveWorkflow('finance-engine')}
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
+              activeWorkflow === 'finance-engine' || activeWorkflow === 'payments'
+                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
+            }`}
+          >
+            <Receipt className="w-3.5 h-3.5 text-[#3CCF91] shrink-0" /> 5. Finance Hub
+          </button>
+
+          <button
+            onClick={() => setActiveWorkflow('trust-safety')}
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
+              activeWorkflow === 'trust-safety'
+                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
+            }`}
+          >
+            <ShieldCheck className="w-3.5 h-3.5 text-[#3CCF91] shrink-0" /> 6. Trust & Safety
           </button>
 
           <button
@@ -698,14 +731,25 @@ export default function OperationsControlTower() {
           </button>
 
           <button
-            onClick={() => setActiveWorkflow('payments')}
+            onClick={() => setActiveWorkflow('feedback')}
             className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-              activeWorkflow === 'payments'
+              activeWorkflow === 'feedback'
                 ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
                 : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Receipt className="w-3.5 h-3.5 text-[#3CCF91] shrink-0" /> 9. Escrow Vault
+            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400 shrink-0" /> 9. Feedback (360°)
+          </button>
+
+          <button
+            onClick={() => setActiveWorkflow('offer-management')}
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
+              activeWorkflow === 'offer-management'
+                ? 'bg-gradient-to-r from-[#D4AF37]/40 to-[#FFC857]/30 text-[#FFC857] shadow-md border border-[#D4AF37]/40'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
+            }`}
+          >
+            <Tag className="w-3.5 h-3.5 text-[#FFC857] shrink-0" /> 10. Offer Mgmt
           </button>
 
           <button
@@ -716,7 +760,7 @@ export default function OperationsControlTower() {
                 : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <ShieldCheck className="w-3.5 h-3.5 text-cyan-400 shrink-0" /> 10. RM Governance
+            <ShieldCheck className="w-3.5 h-3.5 text-cyan-400 shrink-0" /> 11. RM Governance
           </button>
 
           <button
@@ -727,7 +771,7 @@ export default function OperationsControlTower() {
                 : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Code className="w-3.5 h-3.5 text-cyan-300 shrink-0" /> 11. Partner APIs
+            <Code className="w-3.5 h-3.5 text-cyan-300 shrink-0" /> 12. Partner APIs
           </button>
 
           <button
@@ -738,7 +782,7 @@ export default function OperationsControlTower() {
                 : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <UserPlus className="w-3.5 h-3.5 text-[#3CCF91] shrink-0" /> 12. Employees
+            <UserPlus className="w-3.5 h-3.5 text-[#3CCF91] shrink-0" /> 13. Employees
           </button>
 
           <button
@@ -749,7 +793,7 @@ export default function OperationsControlTower() {
                 : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Mail className="w-3.5 h-3.5 text-[#FFC857] shrink-0" /> 13. Email Hub
+            <Mail className="w-3.5 h-3.5 text-[#FFC857] shrink-0" /> 14. Email Hub
           </button>
         </nav>
 
@@ -826,6 +870,11 @@ export default function OperationsControlTower() {
               <span>Open Support Desk ({collaborativeTickets.length} Tickets)</span>
             </button>
           </div>
+        )}
+
+        {/* WORKSPACE 0: PLATFORM OVERVIEW DASHBOARD */}
+        {activeWorkflow === 'overview' && (
+          <OverviewDashboard onNavigate={(wf) => setActiveWorkflow(wf as typeof activeWorkflow)} />
         )}
 
         {/* WORKSPACE 1: ACTIVE JOURNEYS */}
@@ -964,80 +1013,13 @@ export default function OperationsControlTower() {
           </div>
         )}
 
-        {/* WORKSPACE 5: PAYMENTS & ESCROW RECEIPTS */}
-        {activeWorkflow === 'payments' && (
-          <div className="space-y-6">
-            <div className="bg-[#001E36] border border-white/10 rounded-3xl p-6 shadow-xl flex flex-wrap items-center justify-between gap-4">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <h1 className="text-xl font-bold text-white tracking-wide">Smart Escrow Vault & Tax Receipts</h1>
-                  <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                    ₹14.82M Escrow Pool
-                  </span>
-                </div>
-                <p className="text-xs text-slate-300">
-                  Real-time escrow release triggers (2-hr post check-in), split payments, and itemized PDF tax receipts.
-                </p>
-              </div>
-            </div>
-
-            {/* Payments Table */}
-            <div className="bg-[#001E36] border border-white/10 rounded-3xl p-6 shadow-xl space-y-4">
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <Receipt className="w-4 h-4 text-[#3CCF91]" />
-                <span>Recent Escrow Transactions & VIP Invoices</span>
-              </h3>
-
-              <div className="space-y-4">
-                {payments.map((p) => (
-                  <div
-                    key={p.id}
-                    className="p-5 rounded-2xl bg-[#001428] border border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4"
-                  >
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-mono font-bold text-[#00A9A5]">{p.receiptNumber}</span>
-                        <h4 className="text-sm font-bold text-white">{p.guestName}</h4>
-                      </div>
-                      <div className="text-xs text-slate-400 mt-1">
-                        {p.propertyName} • <span className="text-slate-300">{p.date}</span>
-                      </div>
-                      <div className="text-xs text-slate-300 mt-1">
-                        Total Amount: <strong className="text-white">₹{p.totalAmount.toLocaleString('en-IN')}</strong> ({p.paymentMethod})
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <button
-                        onClick={() => setViewingReceipt(p)}
-                        className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition flex items-center gap-1.5"
-                      >
-                        <Eye className="w-3.5 h-3.5" />
-                        <span>View Tax Invoice</span>
-                      </button>
-
-                      {p.escrowStatus === 'ESCROW_LOCKED' && (
-                        <button
-                          onClick={() => handleReleaseEscrow(p.id)}
-                          className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-white text-xs font-bold shadow hover:brightness-110 flex items-center gap-1.5"
-                        >
-                          <Check className="w-3.5 h-3.5" />
-                          <span>Release to Host</span>
-                        </button>
-                      )}
-
-                      {p.escrowStatus === 'RELEASED_TO_HOST' && (
-                        <span className="px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold flex items-center gap-1">
-                          <CheckCircle2 className="w-3.5 h-3.5" /> Settled
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+        {/* WORKSPACE 5: FINANCE & SETTLEMENTS ENGINE */}
+        {(activeWorkflow === 'payments' || activeWorkflow === 'finance-engine') && (
+          <FinanceEngineWorkspace onOpenReceipt={setViewingReceipt} />
         )}
+
+        {/* WORKSPACE: TRUST & SAFETY */}
+        {activeWorkflow === 'trust-safety' && <TrustSafetyWorkspace />}
 
         {/* WORKSPACE 6: RELATIONSHIP MANAGER GOVERNANCE */}
         {activeWorkflow === 'rm' && (
@@ -1057,7 +1039,7 @@ export default function OperationsControlTower() {
 
               <button
                 onClick={() => setIsCollabTicketsModalOpen(true)}
-                className="px-4 py-2.5 rounded-2xl bg-[#002B4D] hover:bg-[#003866] border border-cyan-500/40 text-white text-xs font-bold transition shadow flex items-center gap-2"
+                className="px-4 py-2.5 rounded-2xl bg-[#002B4D] hover:bg-[#003866] border border-cyan-500/40 text-white text-xs font-bold transition shadow flex items-center gap-2 cursor-pointer"
               >
                 <MessageSquare className="w-4 h-4 text-cyan-400" />
                 <span>RM Support Desk</span>
@@ -1095,7 +1077,7 @@ export default function OperationsControlTower() {
                       {h.rateParityStatus === 'DISCREPANCY' ? (
                         <button
                           onClick={() => handleFixRateParity(h.id)}
-                          className="px-3.5 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 text-xs font-bold transition flex items-center gap-1.5"
+                          className="px-3.5 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"
                         >
                           <AlertTriangle className="w-3.5 h-3.5" />
                           <span>Fix Rate Parity Sync</span>
@@ -1121,7 +1103,14 @@ export default function OperationsControlTower() {
 
         {/* WORKSPACE 9: EMAIL COMMUNICATIONS CENTER */}
         {activeWorkflow === 'emails' && <EmailCommunicationsCenter showToast={showToast} />}
+
+        {/* WORKSPACE 14: OFFER MANAGEMENT CONSOLE */}
+        {activeWorkflow === 'offer-management' && (
+          <OfferManagementConsole showToast={showToast} />
+        )}
       </main>
+    </>
+  )}
 
       {/* PLATFORM SINGLE SIGN-ON / ROLE SWITCHER MODAL */}
       {isAuthModalOpen && (
