@@ -11,6 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@staysphere/database": "workspace:*",
     "@staysphere/domain-types": "workspace:*",
     "@staysphere/ui-kit": "workspace:*",
     "@staysphere/validation-schemas": "workspace:*",
