@@ -1225,34 +1225,54 @@ export default function GuestApp() {
               {/* Subtle ambient gold radial background */}
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(229,184,105,0.15),transparent_60%)] pointer-events-none" />
               
-              <div className="relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#002B4D]/90 border border-[#E5B869]/40 text-[#F3CA7E] text-xs font-bold uppercase tracking-widest shadow-lg">
+              <div
+                className={`relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg border ${
+                  isPearl
+                    ? 'bg-amber-50 text-amber-900 border-[#D4AF37]/50'
+                    : 'bg-[#002B4D]/90 text-[#F3CA7E] border-[#E5B869]/40'
+                }`}
+              >
                 <Sparkles className="w-3.5 h-3.5 text-[#FFC857]" />
                 <span>All-Class Journey Platform — Smart, Premium & Luxe</span>
               </div>
 
-              <h1 className="relative z-10 text-3xl sm:text-5xl lg:text-6xl font-serif-luxury font-bold tracking-tight text-white max-w-5xl mx-auto leading-[1.15]">
+              <h1
+                className={`relative z-10 text-3xl sm:text-5xl lg:text-6xl font-serif-luxury font-bold tracking-tight max-w-5xl mx-auto leading-[1.15] ${
+                  isPearl ? 'text-[#001E3D]' : 'text-white'
+                }`}
+              >
                 Curated Stays, Connected Transit & Custody Protection. <br />
                 <span className="gold-text-gradient italic font-normal">
                   For Every Traveler, Across Every Budget.
                 </span>
               </h1>
 
-              <p className="relative z-10 text-sm sm:text-base text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
+              <p
+                className={`relative z-10 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed font-light ${
+                  isPearl ? 'text-slate-600' : 'text-slate-300'
+                }`}
+              >
                 From verified budget homestays and serviced smart studios to boutique 4-star hotels, heritage palaces, and cliffside pool villas—seamlessly bundled with flight-synced cabs, local day tours, and proactive 15-minute Sentinel AI protection.
               </p>
 
               {/* Special Seasonal Promo Banner */}
-              <div className="relative z-10 max-w-3xl mx-auto p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-[#002B4D] via-[#001E38] to-[#001428] border border-[#E5B869]/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-left shadow-xl">
+              <div
+                className={`relative z-10 max-w-3xl mx-auto p-3.5 sm:p-4 rounded-2xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-left shadow-xl ${
+                  isPearl
+                    ? 'bg-gradient-to-r from-amber-50 via-white to-amber-50/50 border-[#D4AF37]/50 text-[#001E3D]'
+                    : 'bg-gradient-to-r from-[#002B4D] via-[#001E38] to-[#001428] border-[#E5B869]/40 text-white'
+                }`}
+              >
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#FFC857] to-[#FF8A3D] text-[#001428] font-black flex items-center justify-center shadow-md shrink-0">
                     <Tag className="w-4 h-4 shrink-0" />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-xs font-black text-white flex flex-wrap items-center gap-1.5">
-                      <span>Welcome Launch Offer: Code "WELCOME10" or "MONSOON20"</span>
+                    <div className="text-xs font-black flex flex-wrap items-center gap-1.5">
+                      <span className={isPearl ? 'text-[#001E3D]' : 'text-white'}>Welcome Launch Offer: Code "WELCOME10" or "MONSOON20"</span>
                       <span className="px-2 py-0.5 rounded-full bg-[#FFC857]/20 text-[#FFC857] text-[10px] font-bold border border-[#FFC857]/30 whitespace-nowrap shrink-0">ALL TIERS</span>
                     </div>
-                    <span className="text-[11px] text-slate-300 block mt-0.5">Enjoy up to 20% Off Stays + Guaranteed Airport Cab Synchronization</span>
+                    <span className={`text-[11px] block mt-0.5 ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>Enjoy up to 20% Off Stays + Guaranteed Airport Cab Synchronization</span>
                   </div>
                 </div>
                 <button
@@ -1269,15 +1289,25 @@ export default function GuestApp() {
               </div>
 
               {/* Quick Search & Filter Bar */}
-              <div className="relative z-10 max-w-4xl mx-auto p-4 sm:p-5 rounded-2xl bg-[#030D1A]/95 border border-[#E5B869]/30 backdrop-blur-2xl shadow-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 text-left">
+              <div
+                className={`relative z-10 max-w-4xl mx-auto p-4 sm:p-5 rounded-2xl border backdrop-blur-2xl shadow-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 text-left ${
+                  isPearl
+                    ? 'bg-white/95 border-[#D4AF37]/40 shadow-[0_15px_35px_-5px_rgba(11,61,145,0.08)]'
+                    : 'bg-[#030D1A]/95 border-[#E5B869]/30'
+                }`}
+              >
                 <div>
-                  <label className="text-[11px] font-bold text-[#F3CA7E] uppercase tracking-wider block mb-1">
+                  <label className={`text-[11px] font-bold uppercase tracking-wider block mb-1 ${isPearl ? 'text-[#001E3D]' : 'text-[#F3CA7E]'}`}>
                     Destination
                   </label>
                   <select
                     value={searchDestination}
                     onChange={(e) => setSearchDestination(e.target.value)}
-                    className="w-full p-2.5 rounded-xl bg-[#06182F] border border-white/10 text-white font-bold text-xs outline-none focus:border-[#E5B869] cursor-pointer"
+                    className={`w-full p-2.5 rounded-xl font-bold text-xs outline-none cursor-pointer border ${
+                      isPearl
+                        ? 'bg-slate-50 border-slate-300 text-[#001E3D] focus:border-[#0B3D91]'
+                        : 'bg-[#06182F] border-white/10 text-white focus:border-[#E5B869]'
+                    }`}
                   >
                     <option value="all">All 6 Destinations</option>
                     <option value="Goa">Goa (Beach Homestays & Resorts)</option>
@@ -1290,13 +1320,17 @@ export default function GuestApp() {
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-bold text-[#F3CA7E] uppercase tracking-wider block mb-1">
+                  <label className={`text-[11px] font-bold uppercase tracking-wider block mb-1 ${isPearl ? 'text-[#001E3D]' : 'text-[#F3CA7E]'}`}>
                     Travel Class / Tier
                   </label>
                   <select
                     value={searchTier}
                     onChange={(e) => setSearchTier(e.target.value)}
-                    className="w-full p-2.5 rounded-xl bg-[#06182F] border border-white/10 text-white font-bold text-xs outline-none focus:border-[#E5B869] cursor-pointer"
+                    className={`w-full p-2.5 rounded-xl font-bold text-xs outline-none cursor-pointer border ${
+                      isPearl
+                        ? 'bg-slate-50 border-slate-300 text-[#001E3D] focus:border-[#0B3D91]'
+                        : 'bg-[#06182F] border-white/10 text-white focus:border-[#E5B869]'
+                    }`}
                   >
                     <option value="all">All Classes & Budgets</option>
                     <option value="comfort">🟢 Smart & Comfort (₹1.8k–₹3.8k)</option>
@@ -1306,11 +1340,17 @@ export default function GuestApp() {
                 </div>
 
                 <div>
-                  <label className="text-[11px] font-bold text-[#F3CA7E] uppercase tracking-wider block mb-1">
+                  <label className={`text-[11px] font-bold uppercase tracking-wider block mb-1 ${isPearl ? 'text-[#001E3D]' : 'text-[#F3CA7E]'}`}>
                     Dates & Duration
                   </label>
-                  <div className="flex items-center gap-1.5 p-2.5 rounded-xl bg-[#06182F] border border-white/10 text-white text-xs font-bold">
-                    <Calendar className="w-3.5 h-3.5 text-[#00D2C4] shrink-0" />
+                  <div
+                    className={`flex items-center gap-1.5 p-2.5 rounded-xl text-xs font-bold border ${
+                      isPearl
+                        ? 'bg-slate-50 border-slate-300 text-[#001E3D]'
+                        : 'bg-[#06182F] border-white/10 text-white'
+                    }`}
+                  >
+                    <Calendar className="w-3.5 h-3.5 text-[#00A9A5] shrink-0" />
                     <span className="whitespace-nowrap">Sep 12 – 15 (3 Nights)</span>
                   </div>
                 </div>
@@ -1338,7 +1378,7 @@ export default function GuestApp() {
               </div>
 
               {/* Trust Badges */}
-              <div className="relative z-10 flex flex-wrap items-center justify-center gap-4 sm:gap-6 pt-2 text-xs text-slate-300">
+              <div className={`relative z-10 flex flex-wrap items-center justify-center gap-4 sm:gap-6 pt-2 text-xs ${isPearl ? 'text-slate-700' : 'text-slate-300'}`}>
                 <span className="flex items-center gap-1.5 font-medium whitespace-nowrap shrink-0">
                   <ShieldCheck className="w-4 h-4 text-[#10B981] shrink-0" /> Milestone Custody Protection
                 </span>
