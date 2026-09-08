@@ -17,6 +17,7 @@ import {
   Car,
   MessageSquare,
   LifeBuoy,
+  Code,
 } from 'lucide-react';
 import { HorizontalLogo } from '@staysphere/ui-kit';
 import { PropertyPartnersWorkflow } from './components/PropertyPartnersWorkflow';
@@ -26,6 +27,8 @@ import {
   CollaborativeTicketsModal,
   CollaborativeTicket,
 } from './components/CollaborativeTicketsModal';
+
+import { PartnerApiConsole } from './components/PartnerApiConsole';
 
 // Persona / Role Types
 export type PlatformRole =
@@ -428,7 +431,7 @@ export default function OperationsControlTower() {
   const [currentUser, setCurrentUser] = useState<UserSession | null>(DEMO_ACCOUNTS.RELATIONSHIP_MANAGER);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
   const [activeWorkflow, setActiveWorkflow] = useState<
-    'partners' | 'rm' | 'frontdesk' | 'travel-desk' | 'channel-partners' | 'payments' | 'resolution'
+    'partners' | 'rm' | 'frontdesk' | 'travel-desk' | 'channel-partners' | 'payments' | 'resolution' | 'api-docs'
   >('partners');
 
   // Workflows Datasets
@@ -630,6 +633,17 @@ export default function OperationsControlTower() {
             }`}
           >
             <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" /> 6. RM Governance
+          </button>
+
+          <button
+            onClick={() => setActiveWorkflow('api-docs')}
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              activeWorkflow === 'api-docs'
+                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Code className="w-3.5 h-3.5 text-cyan-300" /> 7. Partner APIs
           </button>
         </nav>
 
@@ -932,6 +946,9 @@ export default function OperationsControlTower() {
             </div>
           </div>
         )}
+
+        {/* WORKSPACE 7: PARTNER APIS & DOCS */}
+        {activeWorkflow === 'api-docs' && <PartnerApiConsole />}
       </main>
 
       {/* PLATFORM SINGLE SIGN-ON / ROLE SWITCHER MODAL */}
