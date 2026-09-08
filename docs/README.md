@@ -41,8 +41,14 @@ STAYSPHERE DOCUMENTATION LIBRARY
 ├── 11. Trust / Verification Policy
 │   └── 11_TRUST_VERIFICATION_POLICY.md
 │
-└── 12. SLA / Resolution Policy
-    └── 12_SLA_RESOLUTION_POLICY.md
+├── 12. SLA / Resolution Policy
+│   └── 12_SLA_RESOLUTION_POLICY.md
+│
+├── 13. Offer Management Policy
+│   └── 13_OFFER_MANAGEMENT_POLICY.md
+│
+└── 14. Technical Requirements Specification
+    └── 14_TECHNICAL_REQUIREMENTS_SPECIFICATION.md
 ```
 
 ---
@@ -63,6 +69,8 @@ STAYSPHERE DOCUMENTATION LIBRARY
 | **10** | [Commercial & Commission Policy](file:///d:/Training/working/Cognivectra/Staysphere/docs/10_COMMERCIAL_COMMISSION_POLICY.md) | Finance, Legal & Commercial Partners | Commission fee schedules (10%–15%), milestone payout timelines, cancellation/refund tiers, rate parity rules. |
 | **11** | [Trust / Verification Policy](file:///d:/Training/working/Cognivectra/Staysphere/docs/11_TRUST_VERIFICATION_POLICY.md) | Quality Assurance & Compliance | 84-point property audit rubric, chauffeur police vetting, vehicle age/spec criteria, 100% segregated escrow custody. |
 | **12** | [SLA / Resolution Policy](file:///d:/Training/working/Cognivectra/Staysphere/docs/12_SLA_RESOLUTION_POLICY.md) | Customer Success & Legal Desk | 15-Minute Guaranteed SLA standard, P0/P1/P2 severity definitions, ₹3,000 automated breach credit, arbitration protocol. |
+| **13** | [Offer Management Policy](file:///d:/Training/working/Cognivectra/Staysphere/docs/13_OFFER_MANAGEMENT_POLICY.md) | Commercial Leads & Operations | Season-based offer governance, rate parity compliance, approval queues, and auto-archiving. |
+| **14** | [Technical Requirements Specification](file:///d:/Training/working/Cognivectra/Staysphere/docs/14_TECHNICAL_REQUIREMENTS_SPECIFICATION.md) | Engineering, Architects & QA | System topology, entity models, FSM state matrices, telemetry ingestion, Sentinel rules, and NFRs. |
 
 ---
 

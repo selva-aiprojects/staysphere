@@ -8,7 +8,8 @@ import {
   Plus,
   Search,
   ThumbsUp,
-  X
+  X,
+  RefreshCw,
 } from 'lucide-react';
 import {
   StakeholderFeedbackRecord,
@@ -264,35 +265,72 @@ export const StakeholderFeedbackConsole: React.FC<StakeholderFeedbackConsoleProp
 
           <div className="flex items-center gap-3 shrink-0">
             <button
+              onClick={() => {
+                showToast('Dynamic Trust Algorithm executed: Recalculated 360° indices across all active partners.');
+              }}
+              className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-bold border border-white/10 transition flex items-center gap-2 cursor-pointer shadow-md"
+            >
+              <RefreshCw className="w-4 h-4 text-[#00A9A5]" />
+              <span>Recalculate Trust Index</span>
+            </button>
+            <button
               onClick={() => setShowSubmitModal(true)}
               className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] hover:brightness-110 text-[#001428] font-black text-xs shadow-lg shadow-[#00A9A5]/25 flex items-center gap-2 transition cursor-pointer"
             >
               <Plus className="w-4 h-4" />
-              <span>Record Stakeholder Feedback</span>
+              <span>Record 360° Feedback</span>
             </button>
           </div>
         </div>
 
-        {/* 360° Reputation KPI Metric Badges */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-white/10 mt-6">
-          <div className="p-3 rounded-xl bg-black/40 border border-white/10">
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block whitespace-nowrap">Guest CSAT Score</span>
-            <div className="flex items-baseline gap-1.5 mt-0.5">
-              <strong className="text-xl font-black text-white whitespace-nowrap">4.85 / 5.0</strong>
-              <Star className="w-3.5 h-3.5 fill-amber-300 text-amber-300 inline shrink-0" />
+        {/* 360° Multi-Directional Trust Engine Breakdown */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-6 border-t border-white/10 mt-6">
+          <div className="p-3.5 rounded-2xl bg-black/40 border border-white/10 space-y-1">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">1. Hotel Trust Score</span>
+              <span className="px-1.5 py-0.5 rounded text-[9px] font-black bg-emerald-500/20 text-emerald-400 uppercase">PREMIER</span>
             </div>
+            <div className="flex items-baseline gap-1.5 mt-0.5">
+              <strong className="text-xl font-black text-white">98.4%</strong>
+              <span className="text-[10px] text-emerald-400 font-mono font-bold">+0.4% this month</span>
+            </div>
+            <p className="text-[10px] text-slate-400">Enables: 2-Hour Escrow Payouts & Top Search Placement</p>
           </div>
-          <div className="p-3 rounded-xl bg-black/40 border border-white/10">
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block whitespace-nowrap">Hotel Partner Trust</span>
-            <strong className="text-xl font-black text-[#3CCF91] whitespace-nowrap">98.2%</strong>
+
+          <div className="p-3.5 rounded-2xl bg-black/40 border border-white/10 space-y-1">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">2. Fleet Reliability</span>
+              <span className="px-1.5 py-0.5 rounded text-[9px] font-black bg-cyan-500/20 text-cyan-300 uppercase">TIER 1</span>
+            </div>
+            <div className="flex items-baseline gap-1.5 mt-0.5">
+              <strong className="text-xl font-black text-[#00D2C4]">99.2%</strong>
+              <span className="text-[10px] text-slate-400 font-mono">0 No-shows</span>
+            </div>
+            <p className="text-[10px] text-slate-400">Enables: Flight Delay Priority Auto-Dispatches</p>
           </div>
-          <div className="p-3 rounded-xl bg-black/40 border border-white/10">
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block whitespace-nowrap">Channel Partner NPS</span>
-            <strong className="text-xl font-black text-[#00D2C4] whitespace-nowrap">+64 NPS</strong>
+
+          <div className="p-3.5 rounded-2xl bg-black/40 border border-white/10 space-y-1">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">3. Guest Conduct Index</span>
+              <span className="px-1.5 py-0.5 rounded text-[9px] font-black bg-amber-500/20 text-amber-300 uppercase">SOVEREIGN</span>
+            </div>
+            <div className="flex items-baseline gap-1.5 mt-0.5">
+              <strong className="text-xl font-black text-[#FFC857]">99.8%</strong>
+              <span className="text-[10px] text-amber-300 font-mono font-bold">5.0★ Behavior</span>
+            </div>
+            <p className="text-[10px] text-slate-400">Reviewed by Hotels & Drivers • Zero Deposit Waiver</p>
           </div>
-          <div className="p-3 rounded-xl bg-black/40 border border-white/10">
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block whitespace-nowrap">Fleet Punctuality</span>
-            <strong className="text-xl font-black text-[#FFC857] whitespace-nowrap">4.92 / 5.0</strong>
+
+          <div className="p-3.5 rounded-2xl bg-black/40 border border-white/10 space-y-1">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">4. Channel Partner NPS</span>
+              <span className="px-1.5 py-0.5 rounded text-[9px] font-black bg-emerald-500/20 text-emerald-400 uppercase">B2B TOP</span>
+            </div>
+            <div className="flex items-baseline gap-1.5 mt-0.5">
+              <strong className="text-xl font-black text-[#3CCF91]">+64 NPS</strong>
+              <span className="text-[10px] text-slate-400 font-mono">Amex Centurion</span>
+            </div>
+            <p className="text-[10px] text-slate-400">Atomic 3-in-1 API satisfaction & settlement speed</p>
           </div>
         </div>
       </div>
@@ -555,8 +593,9 @@ export const StakeholderFeedbackConsole: React.FC<StakeholderFeedbackConsoleProp
                     onChange={(e) => setNewFeedback({ ...newFeedback, category: e.target.value as FeedbackCategory })}
                     className="w-full p-2.5 rounded-xl bg-black/40 border border-white/15 text-white outline-none focus:border-[#00A9A5]"
                   >
-                    <option value="STAY_QUALITY">Stay & Room Quality</option>
-                    <option value="TRANSIT_PUNCTUALITY">Transit Punctuality & Driver</option>
+                    <option value="STAY_QUALITY">Stay & Room Quality (Guest Review)</option>
+                    <option value="TRANSIT_PUNCTUALITY">Transit Punctuality & Driver (Guest Review)</option>
+                    <option value="GUEST_CONDUCT_CARE">Guest Conduct & Property Care (Partner Review of Guest)</option>
                     <option value="EXCURSION_EXPERIENCE">Local Excursion & Sightseeing</option>
                     <option value="RESOLVE_SLA">Resolve Desk SLA & Support</option>
                     <option value="COMMISSION_SETTLEMENT">Commission & Payout Settlement</option>

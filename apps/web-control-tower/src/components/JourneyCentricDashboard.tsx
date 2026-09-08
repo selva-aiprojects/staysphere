@@ -16,7 +16,10 @@ import {
   DollarSign,
   Radio,
   X,
-  AlertCircle
+  AlertCircle,
+  ArrowRight,
+  RotateCcw,
+  Plus,
 } from 'lucide-react';
 import { JourneyEntity } from '@staysphere/domain-types';
 
@@ -262,12 +265,173 @@ export const JourneyCentricDashboard: React.FC<JourneyCentricDashboardProps> = (
   onSelectJourney,
   onOpenResolveDesk,
 }) => {
+  const [journeys, setJourneys] = useState<JourneyEntity[]>(MOCK_JOURNEYS);
   const [filterStage, setFilterStage] = useState<string>('ALL');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedDrilldown, setSelectedDrilldown] = useState<JourneyEntity | null>(null);
+  const [cascadeModalJourney, setCascadeModalJourney] = useState<JourneyEntity | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const filteredJourneys = MOCK_JOURNEYS.filter((jrn) => {
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3500);
+  };
+
+  const handleAdvanceStage = (journeyId: string) => {
+    const stageFlow = [
+      { status: 'ACTIVE_PRE_ARRIVAL', stage: 'PRE_ARRIVAL_FLIGHT', title: 'Pre-Arrival & Flight Tracking' },
+      { status: 'IN_TRANSIT_PICKUP', stage: 'AIRPORT_PICKUP_TRANSIT', title: 'Airport Chauffeur Transit' },
+      { status: 'CHECKED_IN', stage: 'SUITE_CHECK_IN', title: 'Suite Check-In & Handshake' },
+      { status: 'IN_STAY', stage: 'IN_STAY_EXPERIENCE', title: 'In-Stay Services & Sightseeing' },
+      { status: 'IN_TRANSIT_DROP', stage: 'DEPARTURE_DROP', title: 'Departure Chauffeur Transit' },
+      { status: 'COMPLETED', stage: 'ESCROW_SETTLEMENT', title: 'Escrow Settlement & 360 Feedback' },
+    ];
+
+    setJourneys((prev) =>
+      prev.map((j) => {
+        if (j.id !== journeyId) return j;
+        const currentIdx = stageFlow.findIndex((s) => s.status === j.status);
+        const nextIdx = currentIdx < stageFlow.length - 1 ? currentIdx + 1 : currentIdx;
+        const next = stageFlow[nextIdx];
+
+        return {
+          ...j,
+          status: next.status as any,
+          currentStage: next.stage as any,
+          timeline: j.timeline.map((t, tIdx) => {
+            if (tIdx < nextIdx) return { ...t, status: 'COMPLETED' as const };
+            if (tIdx === nextIdx) return { ...t, status: 'IN_PROGRESS' as const };
+            return { ...t, status: 'UPCOMING' as const };
+          }),
+        };
+      })
+    );
+
+    showToast(`Journey ${journeyId} advanced to next lifecycle stage.`);
+  };
+
+  const handleCreateAtomicJourney = () => {
+    const newJrn: JourneyEntity = {
+      id: `jrn-${Date.now().toString().slice(-4)}`,
+      journeyReference: `JN-SS-2026-${Math.floor(1000 + Math.random() * 9000)}`,
+      guestId: 'gst-9912',
+      guestName: 'Devika & Aditya Singhania',
+      guestEmail: 'aditya.singhania@centurion.in',
+      guestPhone: '+91 98330 22114',
+      vipTier: 'SOVEREIGN_PLATINUM',
+      status: 'ACTIVE_PRE_ARRIVAL',
+      currentStage: 'PRE_ARRIVAL_FLIGHT',
+      binding: {
+        stayBookingId: 'BK-STAY-9901',
+        bookingReference: 'STAY-PICHOLA-ROYAL',
+        propertyName: 'Maharaja Pichola Heritage Palace, Udaipur',
+        roomType: 'Maharani Lakeview Royal Pavilion',
+        checkInDate: '2026-09-10',
+        checkOutDate: '2026-09-14',
+        nights: 4,
+        stayAmount: 240000,
+        transitBookingId: 'BK-MOVE-4410',
+        transitReference: 'TRANS-SOLAR-BOAT-01',
+        pickupLocation: 'Udaipur Maharana Pratap Airport (UDR)',
+        dropLocation: 'Pichola Palace Lake Jetty',
+        transitVehicle: 'BMW i7 Electric Sedan & Solar Royal Boat',
+        transitAmount: 18500,
+        totalJourneyAmount: 285000,
+        escrowLockedAmount: 285000,
+        escrowReleaseScheduledAt: '2026-09-15T10:00:00Z',
+      },
+      timeline: [
+        {
+          id: 'ev-1',
+          stage: 'PRE_ARRIVAL_FLIGHT',
+          title: 'Aviation Radar Synchronization',
+          subtitle: 'Flight 6E-651 (BOM → UDR) telemetry linked. Chauffeur staged.',
+          timestamp: '15:10',
+          status: 'IN_PROGRESS',
+        },
+        {
+          id: 'ev-2',
+          stage: 'AIRPORT_PICKUP_TRANSIT',
+          title: 'Executive Chauffeur Transit',
+          subtitle: 'VIP BMW i7 transfer to Lake Jetty.',
+          timestamp: '15:40',
+          status: 'UPCOMING',
+        },
+        {
+          id: 'ev-3',
+          stage: 'SUITE_CHECK_IN',
+          title: 'Palace Solar Boat Arrival & Check-In',
+          subtitle: 'Regal water arrival and royal suite check-in.',
+          timestamp: '16:15',
+          status: 'UPCOMING',
+        },
+        {
+          id: 'ev-4',
+          stage: 'IN_STAY_EXPERIENCE',
+          title: 'Bespoke Lake Excursion',
+          subtitle: 'Private Heritage Sunset Cruise booked.',
+          timestamp: 'Sep 11',
+          status: 'UPCOMING',
+        },
+        {
+          id: 'ev-5',
+          stage: 'ESCROW_SETTLEMENT',
+          title: 'Departure Drop & Final Settlement',
+          subtitle: 'Return airport transit & dual-party escrow release.',
+          timestamp: 'Sep 14',
+          status: 'UPCOMING',
+        },
+      ],
+      openTickets: [],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    setJourneys([newJrn, ...journeys]);
+    showToast(`Atomic 3-in-1 Journey created! Room + Flight Transfer + Solar Boat locked in escrow.`);
+  };
+
+  const handleCascadeCancel = (journeyId: string, cascadeAll: boolean) => {
+    setJourneys((prev) =>
+      prev.map((j) => {
+        if (j.id !== journeyId) return j;
+        return {
+          ...j,
+          status: 'CANCELLED' as any,
+          binding: {
+            ...j.binding,
+            escrowLockedAmount: 0,
+          },
+          timeline: j.timeline.map((t) => ({ ...t, status: 'ALERT' as const })),
+        };
+      })
+    );
+
+    setCascadeModalJourney(null);
+    if (cascadeAll) {
+      showToast(`Journey ${journeyId} & all linked components (Stay + Chauffeur + Tour) cancelled atomically with 100% refund from Escrow.`);
+    } else {
+      showToast(`Stay cancelled for ${journeyId}. Airport Chauffeur transfer retained for alternate accommodation.`);
+    }
+  };
+
+  const handleSovereignReDispatch = (journeyId: string) => {
+    setJourneys((prev) =>
+      prev.map((j) => {
+        if (j.id !== journeyId) return j;
+        return {
+          ...j,
+          binding: {
+            ...j.binding,
+            transitVehicle: 'Standby Sovereign Fleet (Maybach S680 Replacement)',
+          },
+        };
+      })
+    );
+    showToast(`Sovereign standby backup vehicle auto-dispatched for ${journeyId} (<8 mins dispatch guarantee, zero guest fee).`);
+  };
+
+  const filteredJourneys = journeys.filter((jrn) => {
     if (filterStage !== 'ALL') {
       if (filterStage === 'SLA_ALERT' && jrn.openTickets.length === 0) return false;
       if (filterStage === 'IN_TRANSIT' && jrn.status !== 'IN_TRANSIT_PICKUP') return false;
@@ -284,11 +448,6 @@ export const JourneyCentricDashboard: React.FC<JourneyCentricDashboardProps> = (
     }
     return true;
   });
-
-  const showToast = (msg: string) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 3500);
-  };
 
   return (
     <div className="space-y-6">
@@ -315,13 +474,22 @@ export const JourneyCentricDashboard: React.FC<JourneyCentricDashboardProps> = (
             <p className="text-sm text-slate-300 max-w-2xl">
               Real-time synchronization of Stay Bookings, Luxury Chauffeurs, Curated Excursions, and Dual-Party Escrow Ledger under unified Journey entities.
             </p>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={handleCreateAtomicJourney}
+                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-black font-black text-xs shadow-lg hover:brightness-110 flex items-center gap-2 cursor-pointer transition"
+              >
+                <Plus className="w-4 h-4" />
+                <span>+ Atomic 3-in-1 Journey Booking</span>
+              </button>
+            </div>
           </div>
 
           {/* Quick Metrics Bar with Successful Journey Rate */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 shrink-0">
             <div className="p-3 rounded-xl bg-white/5 border border-white/10">
               <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block whitespace-nowrap">Active Journeys</span>
-              <strong className="text-xl font-black text-white whitespace-nowrap">12 Live</strong>
+              <strong className="text-xl font-black text-white whitespace-nowrap">{journeys.length} Live</strong>
             </div>
             <div className="p-3 rounded-xl bg-[#00A9A5]/10 border border-[#00A9A5]/30">
               <span className="text-[10px] text-[#00A9A5] font-bold uppercase tracking-wider block whitespace-nowrap">Move / Telematics</span>
@@ -420,15 +588,43 @@ export const JourneyCentricDashboard: React.FC<JourneyCentricDashboardProps> = (
 
                 {/* Right Action buttons */}
                 <div className="flex items-center gap-2 flex-wrap shrink-0">
+                  <button
+                    onClick={() => handleAdvanceStage(journey.id)}
+                    className="px-3 py-2 rounded-xl bg-[#3CCF91]/20 hover:bg-[#3CCF91]/30 text-[#3CCF91] border border-[#3CCF91]/40 text-xs font-bold flex items-center gap-1.5 transition-all whitespace-nowrap cursor-pointer"
+                    title="Advance to next lifecycle stage"
+                  >
+                    <span>Advance Stage</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+
+                  <button
+                    onClick={() => setCascadeModalJourney(journey)}
+                    className="px-3 py-2 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 text-xs font-bold flex items-center gap-1.5 transition-all whitespace-nowrap cursor-pointer"
+                    title="Test cascading cancellation"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    <span>Cascade Cancel</span>
+                  </button>
+
+                  <button
+                    onClick={() => handleSovereignReDispatch(journey.id)}
+                    className="px-3 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 text-xs font-bold flex items-center gap-1.5 transition-all whitespace-nowrap cursor-pointer"
+                    title="Dispatch emergency standby fleet"
+                  >
+                    <Zap className="w-3.5 h-3.5" />
+                    <span>Sovereign Standby</span>
+                  </button>
+
                   {hasSlaAlert && (
                     <button
                       onClick={() => onOpenResolveDesk?.(journey.openTickets[0]?.id)}
                       className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-black text-xs shadow-lg shadow-rose-900/40 flex items-center gap-1.5 transition-all whitespace-nowrap shrink-0 cursor-pointer"
                     >
                       <AlertCircle className="w-4 h-4 shrink-0" />
-                      <span>Resolve Sentinel Desk ({journey.openTickets[0]?.elapsedMinutes}m elapsed)</span>
+                      <span>Resolve Sentinel ({journey.openTickets[0]?.elapsedMinutes}m)</span>
                     </button>
                   )}
+
                   <button
                     onClick={() => {
                       setSelectedDrilldown(journey);
@@ -437,7 +633,7 @@ export const JourneyCentricDashboard: React.FC<JourneyCentricDashboardProps> = (
                     className="px-4 py-2 rounded-xl bg-[#002B4D] hover:bg-[#003B6D] text-white border border-[#00A9A5]/40 text-xs font-bold flex items-center gap-2 transition-all whitespace-nowrap shrink-0 cursor-pointer"
                   >
                     <Eye className="w-4 h-4 text-[#00A9A5] shrink-0" />
-                    <span>360° Journey Drilldown</span>
+                    <span>Drilldown</span>
                   </button>
                 </div>
               </div>
@@ -688,6 +884,73 @@ export const JourneyCentricDashboard: React.FC<JourneyCentricDashboardProps> = (
                 className="px-6 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs"
               >
                 Close Drilldown
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Cascading Cancellation Policy Dialog (Gap 5) */}
+      {cascadeModalJourney && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-[#001830] border border-rose-500/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl relative animate-scale-up">
+            <div className="flex items-start justify-between">
+              <div className="space-y-1">
+                <span className="px-3 py-0.5 rounded-full text-[10px] font-black uppercase bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                  Cascading Cancellation Engine
+                </span>
+                <h3 className="text-xl font-black text-white mt-2">
+                  Cancel Stay Reservation for {cascadeModalJourney.guestName}?
+                </h3>
+              </div>
+              <button
+                onClick={() => setCascadeModalJourney(null)}
+                className="p-1 rounded-full bg-white/10 hover:bg-white/20 text-slate-300"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <p className="text-xs text-slate-300 leading-relaxed">
+              This Journey contains coupled multi-party bookings held in Escrow (
+              <strong className="text-white">₹{cascadeModalJourney.binding.totalJourneyAmount.toLocaleString('en-IN')}</strong>).
+              Choose how you want to handle linked components per StaySphere policy:
+            </p>
+
+            <div className="space-y-3">
+              <button
+                onClick={() => handleCascadeCancel(cascadeModalJourney.id, true)}
+                className="w-full p-4 rounded-2xl bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-left transition cursor-pointer space-y-1 group"
+              >
+                <div className="text-xs font-black text-rose-300 group-hover:text-rose-200 flex items-center justify-between">
+                  <span>Option A: Cancel Entire Coupled Journey (Recommended)</span>
+                  <RotateCcw className="w-4 h-4" />
+                </div>
+                <p className="text-[11px] text-slate-300">
+                  Cancels Hotel + Airport Chauffeur ({cascadeModalJourney.binding.transitVehicle}) + Excursion. 100% of escrow funds released back to customer card with zero partner penalty.
+                </p>
+              </button>
+
+              <button
+                onClick={() => handleCascadeCancel(cascadeModalJourney.id, false)}
+                className="w-full p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-left transition cursor-pointer space-y-1 group"
+              >
+                <div className="text-xs font-black text-white group-hover:text-cyan-300 flex items-center justify-between">
+                  <span>Option B: Cancel Stay Only (Retain Chauffeur Transfer)</span>
+                  <Car className="w-4 h-4 text-[#FF8A3D]" />
+                </div>
+                <p className="text-[11px] text-slate-400">
+                  Cancels Room reservation only. Keeps the airport transfer active so guest can still be chauffeured to alternate accommodation.
+                </p>
+              </button>
+            </div>
+
+            <div className="flex justify-end pt-2">
+              <button
+                onClick={() => setCascadeModalJourney(null)}
+                className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-slate-300 text-xs font-bold cursor-pointer"
+              >
+                Dismiss
               </button>
             </div>
           </div>

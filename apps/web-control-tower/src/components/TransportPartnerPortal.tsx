@@ -162,24 +162,63 @@ export const TransportPartnerPortal: React.FC<TransportPartnerPortalProps> = ({
         return { ...t, status: nextStatus };
       })
     );
-    showToast('Trip lifecycle status advanced.');
+    const updated = trips.find((t) => t.id === tripId);
+    if (updated?.status === 'ARRIVED_PICKUP') {
+      showToast('Guest onboard! 4-Digit OTP Verified. Live GPS streaming to Hotel Arrival Radar.');
+    } else if (updated?.status === 'IN_TRANSIT') {
+      showToast('Trip Completed! OTP Handshake closed. Milestone 1 Escrow payout unlocked for 2h disbursement.');
+    } else {
+      showToast(`Trip ${tripId} advanced to next lifecycle stage.`);
+    }
   };
 
   // Simulate Move + Stay Flight Delay Coupling
   const [flightDelaySimulation, setFlightDelaySimulation] = useState({
     simulated: false,
-    delayMinutes: 35,
+    delayMinutes: 0,
     originalTime: '15:15',
-    adjustedTime: '15:50',
+    adjustedTime: '15:15',
+    reason: 'On Schedule',
     propertyNotified: false,
   });
 
-  const handleTriggerFlightDelay = () => {
+  const handleTriggerFlightDelay = (delayMins: number, reason: string) => {
+    if (delayMins === 0) {
+      setFlightDelaySimulation({
+        simulated: false,
+        delayMinutes: 0,
+        originalTime: '15:15',
+        adjustedTime: '15:15',
+        reason: 'On Schedule',
+        propertyNotified: false,
+      });
+      setTrips((prev) =>
+        prev.map((t) =>
+          t.id === 'trp-02'
+            ? {
+                ...t,
+                flightStatus: 'En Route (BOM → GOX) ETA 15:15',
+                syncNote: 'Vehicle parked at VIP Bay. Chauffeur awaiting flight touchdown.',
+              }
+            : t
+        )
+      );
+      showToast('Flight telematics reset to scheduled baseline.');
+      return;
+    }
+
+    const [h, m] = [15, 15];
+    const totalMinutes = h * 60 + m + delayMins;
+    const newH = Math.floor(totalMinutes / 60) % 24;
+    const newM = totalMinutes % 60;
+    const adjustedTime = `${String(newH).padStart(2, '0')}:${String(newM).padStart(2, '0')}`;
+
     setFlightDelaySimulation({
       simulated: true,
-      delayMinutes: 35,
+      delayMinutes: delayMins,
       originalTime: '15:15',
-      adjustedTime: '15:50',
+      adjustedTime,
+      reason,
       propertyNotified: true,
     });
 
@@ -188,14 +227,14 @@ export const TransportPartnerPortal: React.FC<TransportPartnerPortalProps> = ({
         t.id === 'trp-02'
           ? {
               ...t,
-              flightStatus: 'DELAYED: Air Traffic Holding (+35m)',
-              syncNote: 'Chauffeur pickup rescheduled to 15:50. The Vana Azure Frontdesk notified to delay check-in welcome.',
+              flightStatus: `DELAYED: ${reason} (+${delayMins}m)`,
+              syncNote: `Pickup dynamically shifted to ${adjustedTime}. The Vana Azure front desk Arrival Radar updated. Zero guest penalty.`,
             }
           : t
       )
     );
 
-    showToast('Move + Stay Delay Sentinel: Chauffeur & Hotel frontdesk auto-synchronized!');
+    showToast(`Flight delay cascade triggered (+${delayMins}m): Chauffeur & Hotel Arrival Radar auto-synchronized!`);
   };
 
   return (
@@ -564,45 +603,66 @@ export const TransportPartnerPortal: React.FC<TransportPartnerPortalProps> = ({
                 <div>
                   <h3 className="text-sm font-bold text-white flex items-center gap-2">
                     <Zap className="w-4 h-4 text-[#FF8A3D]" />
-                    <span>Flight Delay Trigger Simulation (Flight AI-802)</span>
+                    <span>Flight Delay Trigger Simulation (Flight AI-802 BOM → GOX)</span>
                   </h3>
                   <p className="text-xs text-slate-400 mt-1">
-                    Simulate an airline air traffic control delay of 35 minutes on Air India 802 (Mumbai → Goa).
+                    Simulate real-world flight delays to demonstrate StaySphere's signature 4-way automated cascade.
                   </p>
                 </div>
 
-                <button
-                  onClick={handleTriggerFlightDelay}
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] text-[#001428] text-xs font-black shadow hover:brightness-110 flex items-center gap-2 cursor-pointer"
-                >
-                  <Plane className="w-4 h-4" />
-                  <span>Simulate +35m Flight Delay</span>
-                </button>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <button
+                    onClick={() => handleTriggerFlightDelay(25, 'Monsoon Holding Pattern')}
+                    className="px-3 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-xs font-bold border border-amber-500/40 transition cursor-pointer"
+                  >
+                    <span>+25m Holding</span>
+                  </button>
+                  <button
+                    onClick={() => handleTriggerFlightDelay(60, 'Mumbai Runway Congestion')}
+                    className="px-3 py-2 rounded-xl bg-orange-500/20 hover:bg-orange-500/30 text-orange-300 text-xs font-bold border border-orange-500/40 transition cursor-pointer"
+                  >
+                    <span>+60m Late Departure</span>
+                  </button>
+                  <button
+                    onClick={() => handleTriggerFlightDelay(120, 'Technical Aircraft Swap')}
+                    className="px-3 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs font-bold border border-rose-500/40 transition cursor-pointer"
+                  >
+                    <span>+120m Severe Delay</span>
+                  </button>
+                  {flightDelaySimulation.simulated && (
+                    <button
+                      onClick={() => handleTriggerFlightDelay(0, 'On Schedule')}
+                      className="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-bold transition cursor-pointer"
+                    >
+                      <span>Reset</span>
+                    </button>
+                  )}
+                </div>
               </div>
 
               {/* Coupling Cascade Flow */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className={`p-4 rounded-2xl border ${flightDelaySimulation.simulated ? 'bg-amber-500/10 border-amber-500/30 text-amber-300' : 'bg-[#001428] border-white/10 text-slate-400'}`}>
                   <div className="text-[10px] uppercase font-bold tracking-wider">1. Airline Telematics</div>
-                  <div className="text-sm font-bold text-white mt-1">AI-802 Holding Pattern</div>
+                  <div className="text-sm font-bold text-white mt-1">AI-802 Telematics Feed</div>
                   <div className="text-xs mt-1">
-                    {flightDelaySimulation.simulated ? '+35 Mins ATC Delay detected' : 'On Schedule (15:15)'}
+                    {flightDelaySimulation.simulated ? `+${flightDelaySimulation.delayMinutes}m (${flightDelaySimulation.reason})` : 'On Schedule (15:15)'}
                   </div>
                 </div>
 
                 <div className={`p-4 rounded-2xl border ${flightDelaySimulation.simulated ? 'bg-cyan-500/10 border-cyan-500/30 text-cyan-300' : 'bg-[#001428] border-white/10 text-slate-400'}`}>
                   <div className="text-[10px] uppercase font-bold tracking-wider">2. Chauffeur Dispatch</div>
-                  <div className="text-sm font-bold text-white mt-1">Pickup Time Adjusted</div>
+                  <div className="text-sm font-bold text-white mt-1">Pickup Rescheduled</div>
                   <div className="text-xs mt-1">
-                    {flightDelaySimulation.simulated ? 'Rescheduled: 15:50 (Bay VIP 2)' : 'Scheduled: 15:15'}
+                    {flightDelaySimulation.simulated ? `Dynamic Pickup: ${flightDelaySimulation.adjustedTime} (VIP Bay)` : 'Scheduled: 15:15'}
                   </div>
                 </div>
 
                 <div className={`p-4 rounded-2xl border ${flightDelaySimulation.simulated ? 'bg-indigo-500/10 border-indigo-500/30 text-indigo-300' : 'bg-[#001428] border-white/10 text-slate-400'}`}>
-                  <div className="text-[10px] uppercase font-bold tracking-wider">3. Hotel Frontdesk</div>
+                  <div className="text-[10px] uppercase font-bold tracking-wider">3. Hotel Arrival Radar</div>
                   <div className="text-sm font-bold text-white mt-1">The Vana Azure Ocean Estate</div>
                   <div className="text-xs mt-1">
-                    {flightDelaySimulation.simulated ? 'Key arming held until 16:45' : 'Key armed for 16:00'}
+                    {flightDelaySimulation.simulated ? `Radar ETA pushed to ${flightDelaySimulation.adjustedTime} + 40m` : 'Key armed for 16:00'}
                   </div>
                 </div>
 
@@ -610,7 +670,7 @@ export const TransportPartnerPortal: React.FC<TransportPartnerPortalProps> = ({
                   <div className="text-[10px] uppercase font-bold tracking-wider">4. Guest Timeline</div>
                   <div className="text-sm font-bold text-white mt-1">Zero Anxiety Push</div>
                   <div className="text-xs mt-1">
-                    {flightDelaySimulation.simulated ? 'Push sent: "Driver aware, waiting"' : 'Standing by'}
+                    {flightDelaySimulation.simulated ? 'Push sent: "Driver aware, waiting without extra charge"' : 'Standing by'}
                   </div>
                 </div>
               </div>

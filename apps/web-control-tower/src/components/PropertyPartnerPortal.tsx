@@ -20,6 +20,10 @@ import {
   Coffee,
   Utensils,
   Wine,
+  Radio,
+  Car,
+  Navigation,
+  Zap,
 } from 'lucide-react';
 
 interface PropertyPartnerPortalProps {
@@ -54,7 +58,7 @@ export const PropertyPartnerPortal: React.FC<PropertyPartnerPortalProps> = ({
     }, 1200);
   };
 
-  // State for Arrivals & Keycards
+  // State for Arrivals & Keycards with Live Arrival Radar Telemetry
   const [arrivals, setArrivals] = useState([
     {
       id: 'arr-1',
@@ -63,10 +67,20 @@ export const PropertyPartnerPortal: React.FC<PropertyPartnerPortalProps> = ({
       room: 'Villa 101 — Grand Infinity Pool Villa',
       checkInTime: '14:00 (Today)',
       flightStatus: '6E-204 Touched Down (GOX Airport)',
-      transitSync: 'Maybach S680 Chauffeur Dispatched (ETA 28m)',
+      transitSync: 'Maybach S680 Chauffeur Dispatched (ETA 12m)',
       keycardStatus: 'ISSUED',
       status: 'CHECKED_IN',
       specialRequests: 'Kashmir Lavender Pillow Mist, Chilled Dom Pérignon 2012',
+      liveRadar: {
+        stage: 'AT_PORTE_COCHERE' as 'FLIGHT_AIRBORNE' | 'CHAUFFEUR_EN_ROUTE' | 'AT_PORTE_COCHERE' | 'CHECKED_IN',
+        distanceKm: 0.2,
+        etaMinutes: 1,
+        vehicleModel: 'Mercedes-Maybach S680 (GA-03-X-0001)',
+        chauffeurName: 'Gurpreet Singh',
+        chauffeurPhone: '+91 98201 44892',
+        roomReadiness: 'KEY_ASSIGNED' as 'CLEANING' | 'INSPECTED' | 'KEY_ASSIGNED',
+        telemetryPing: 'Passing estate entry gates. Bellhop alerted.',
+      },
     },
     {
       id: 'arr-2',
@@ -79,6 +93,16 @@ export const PropertyPartnerPortal: React.FC<PropertyPartnerPortalProps> = ({
       keycardStatus: 'PENDING',
       status: 'EXPECTED',
       specialRequests: 'Gluten-free high tea, Late check-out requested',
+      liveRadar: {
+        stage: 'CHAUFFEUR_EN_ROUTE' as 'FLIGHT_AIRBORNE' | 'CHAUFFEUR_EN_ROUTE' | 'AT_PORTE_COCHERE' | 'CHECKED_IN',
+        distanceKm: 24.8,
+        etaMinutes: 28,
+        vehicleModel: 'Land Rover Defender 110 (GA-03-Z-9999)',
+        chauffeurName: 'Manpreet Rathore',
+        chauffeurPhone: '+91 98112 55301',
+        roomReadiness: 'INSPECTED' as 'CLEANING' | 'INSPECTED' | 'KEY_ASSIGNED',
+        telemetryPing: 'Departed airport VIP bay via NH-66 highway.',
+      },
     },
     {
       id: 'arr-3',
@@ -91,6 +115,16 @@ export const PropertyPartnerPortal: React.FC<PropertyPartnerPortalProps> = ({
       keycardStatus: 'PENDING',
       status: 'EXPECTED',
       specialRequests: 'High-speed ethernet hub for virtual board meeting',
+      liveRadar: {
+        stage: 'FLIGHT_AIRBORNE' as 'FLIGHT_AIRBORNE' | 'CHAUFFEUR_EN_ROUTE' | 'AT_PORTE_COCHERE' | 'CHECKED_IN',
+        distanceKm: 142.0,
+        etaMinutes: 110,
+        vehicleModel: 'BMW i7 Electric Sedan (GA-01-E-7777)',
+        chauffeurName: 'Tariq Mansoor',
+        chauffeurPhone: '+91 97664 12890',
+        roomReadiness: 'CLEANING' as 'CLEANING' | 'INSPECTED' | 'KEY_ASSIGNED',
+        telemetryPing: 'Flight airborne over Bhopal corridor. Chauffeur staging at GOX.',
+      },
     },
     {
       id: 'arr-4',
@@ -103,6 +137,16 @@ export const PropertyPartnerPortal: React.FC<PropertyPartnerPortalProps> = ({
       keycardStatus: 'ACTIVE',
       status: 'IN_STAY',
       specialRequests: 'Private beach BBQ arranged for 20:00 tonight',
+      liveRadar: {
+        stage: 'CHECKED_IN' as 'FLIGHT_AIRBORNE' | 'CHAUFFEUR_EN_ROUTE' | 'AT_PORTE_COCHERE' | 'CHECKED_IN',
+        distanceKm: 0,
+        etaMinutes: 0,
+        vehicleModel: 'Mercedes-Maybach S-Class (GA-07-EA-9901)',
+        chauffeurName: 'Devendra Singh',
+        chauffeurPhone: '+91 98200 44321',
+        roomReadiness: 'KEY_ASSIGNED' as 'CLEANING' | 'INSPECTED' | 'KEY_ASSIGNED',
+        telemetryPing: 'Guest in-stay. Milestone 1 released; milestone 2 active.',
+      },
     },
   ]);
 
@@ -191,11 +235,52 @@ export const PropertyPartnerPortal: React.FC<PropertyPartnerPortalProps> = ({
     setArrivals((prev) =>
       prev.map((a) =>
         a.id === id
-          ? { ...a, keycardStatus: 'ISSUED', status: 'CHECKED_IN' }
+          ? {
+              ...a,
+              keycardStatus: 'ISSUED',
+              status: 'CHECKED_IN',
+              liveRadar: {
+                ...a.liveRadar,
+                stage: 'CHECKED_IN',
+                roomReadiness: 'KEY_ASSIGNED',
+                telemetryPing: 'Digital AES-256 NFC Key issued to guest. 70% Base Escrow payout unlocked for HDFC settlement.',
+              },
+            }
           : a
       )
     );
     showToast('Digital AES-256 Keycard armed and delivered to guest smartphone.');
+  };
+
+  const handleUpdateReadiness = (id: string, readiness: 'CLEANING' | 'INSPECTED' | 'KEY_ASSIGNED') => {
+    setArrivals((prev) =>
+      prev.map((a) =>
+        a.id === id
+          ? { ...a, liveRadar: { ...a.liveRadar, roomReadiness: readiness } }
+          : a
+      )
+    );
+    showToast(`Room readiness updated to ${readiness.replace(/_/g, ' ')}`);
+  };
+
+  const handleAcknowledgeCurbArrival = (id: string) => {
+    setArrivals((prev) =>
+      prev.map((a) =>
+        a.id === id
+          ? {
+              ...a,
+              liveRadar: {
+                ...a.liveRadar,
+                stage: 'AT_PORTE_COCHERE',
+                distanceKm: 0.0,
+                etaMinutes: 0,
+                telemetryPing: 'Chauffeur pulled into porte-cochère. Front desk bellhop dispatched with welcome drinks.',
+              },
+            }
+          : a
+      )
+    );
+    showToast('Porte-cochère arrival acknowledged! Front desk welcome team alerted.');
   };
 
   const handleUpdateServiceStatus = (id: string, newStatus: string) => {
@@ -623,74 +708,181 @@ export const PropertyPartnerPortal: React.FC<PropertyPartnerPortalProps> = ({
         )}
 
         {/* ========================================================================= */}
-        {/* TAB 4: ARRIVALS & KEYCARDS                                                */}
+        {/* TAB 4: ARRIVALS & KEYCARDS (ARRIVAL RADAR COCKPIT)                        */}
         {/* ========================================================================= */}
         {activeTab === 'arrivals' && (
           <div className="space-y-6">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <div>
-                <h2 className="text-xl font-bold text-white">Arrivals Queue & Flight Delay Sync</h2>
-                <p className="text-xs text-slate-400 mt-1">
-                  Synchronized with airport flight telematics and assigned chauffeur transit. Issue digital keys seamlessly.
+            {/* Arrival Radar Live Banner */}
+            <div className="p-6 rounded-3xl bg-gradient-to-r from-[#001830] via-[#002B4D] to-[#0A4D68] border border-cyan-500/30 shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
+              <div className="space-y-2 relative z-10">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00A9A5]/20 border border-[#00A9A5]/40 text-[#00A9A5] text-xs font-bold uppercase tracking-wider">
+                  <Radio className="w-3.5 h-3.5 animate-pulse text-[#3CCF91]" />
+                  <span>Real-Time Property Arrival Radar (SSE Stream Active)</span>
+                </div>
+                <h2 className="text-xl sm:text-2xl font-black text-white">
+                  Guest Arrival Radar & Chauffeur Handshake Cockpit
+                </h2>
+                <p className="text-xs text-slate-300 max-w-2xl leading-relaxed">
+                  Eliminates blind lobby check-ins. Tracks approaching chauffeur telemetry, syncs flight landings, and enables proactive room readiness before the guest steps out of the vehicle.
                 </p>
               </div>
-              <button
-                onClick={() => showToast('Flight telematics radar refreshed with Mopa GOX & Dabolim GOI')}
-                className="px-4 py-2 rounded-xl bg-[#002B4D] border border-white/10 text-slate-200 text-xs font-bold transition flex items-center gap-2 cursor-pointer"
-              >
-                <RefreshCw className="w-4 h-4 text-cyan-400" />
-                <span>Refresh Radar</span>
-              </button>
+
+              <div className="flex items-center gap-3 shrink-0 relative z-10">
+                <button
+                  onClick={() => showToast('Aviation ADS-B & Chauffeur Telematics SSE stream synchronized with front desk.')}
+                  className="px-4 py-2 rounded-xl bg-[#002B4D] border border-cyan-500/40 text-cyan-300 hover:text-white text-xs font-bold transition flex items-center gap-2 cursor-pointer shadow-lg"
+                >
+                  <RefreshCw className="w-4 h-4 text-cyan-400" />
+                  <span>Refresh Radar Feed</span>
+                </button>
+              </div>
             </div>
 
+            {/* Arrival Radar Feed Grid */}
             <div className="space-y-4">
-              {arrivals.map((arr) => (
-                <div
-                  key={arr.id}
-                  className="p-6 rounded-3xl bg-[#001A33] border border-white/10 shadow-xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6"
-                >
-                  <div className="space-y-1.5 flex-1">
-                    <div className="flex items-center gap-3">
-                      <span className="text-base font-bold text-white">{arr.guestName}</span>
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#FF8A3D]/20 text-[#FF8A3D]">
-                        {arr.vipTier}
-                      </span>
-                    </div>
-                    <div className="text-xs text-slate-300 font-medium">{arr.room}</div>
-                    <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400 pt-1">
-                      <span className="flex items-center gap-1 text-cyan-300 font-mono">
-                        <Clock className="w-3.5 h-3.5" /> Check-in: {arr.checkInTime}
-                      </span>
-                      <span className="text-emerald-400 font-mono">● {arr.flightStatus}</span>
-                    </div>
-                    <div className="text-[11px] text-slate-400 bg-[#001428] p-2 rounded-xl border border-white/5 inline-block mt-2">
-                      <strong className="text-slate-300">Transit:</strong> {arr.transitSync}
-                    </div>
-                    {arr.specialRequests && (
-                      <div className="text-[11px] text-amber-300 mt-1">
-                        ★ Special Request: {arr.specialRequests}
+              {arrivals.map((arr) => {
+                const isAtCurb = arr.liveRadar.stage === 'AT_PORTE_COCHERE';
+                const isCheckedIn = arr.status === 'CHECKED_IN' || arr.liveRadar.stage === 'CHECKED_IN';
+                return (
+                  <div
+                    key={arr.id}
+                    className={`p-6 rounded-3xl border transition-all shadow-xl space-y-4 ${
+                      isAtCurb
+                        ? 'bg-[#00223A] border-[#3CCF91] shadow-[#3CCF91]/20'
+                        : isCheckedIn
+                        ? 'bg-[#00172C] border-white/10 opacity-90'
+                        : 'bg-[#001A33] border-white/15'
+                    }`}
+                  >
+                    {/* Top Row: Guest & Live Stage Badge */}
+                    <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 pb-3 border-b border-white/10">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-3 flex-wrap">
+                          <span className="text-lg font-bold text-white">{arr.guestName}</span>
+                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#FF8A3D]/20 text-[#FF8A3D] border border-[#FF8A3D]/30">
+                            {arr.vipTier}
+                          </span>
+                          <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase flex items-center gap-1.5 ${
+                            isAtCurb
+                              ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 animate-pulse'
+                              : isCheckedIn
+                              ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                              : 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'
+                          }`}>
+                            <Navigation className="w-3 h-3" />
+                            {arr.liveRadar.stage.replace(/_/g, ' ')}
+                          </span>
+                        </div>
+                        <div className="text-xs text-slate-300 font-medium">{arr.room}</div>
                       </div>
-                    )}
-                  </div>
 
-                  <div className="flex items-center gap-3 shrink-0">
-                    {arr.keycardStatus === 'ISSUED' ? (
-                      <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold">
-                        <CheckCircle2 className="w-4 h-4" />
-                        <span>AES-256 Key Active</span>
+                      {/* Radar Live Distance & ETA Counter */}
+                      <div className="flex items-center gap-4 bg-black/40 px-4 py-2 rounded-2xl border border-white/10">
+                        <div className="text-center">
+                          <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider block">Remaining Dist</span>
+                          <strong className="text-sm font-mono font-black text-cyan-300">{arr.liveRadar.distanceKm} km</strong>
+                        </div>
+                        <div className="h-6 w-px bg-white/10" />
+                        <div className="text-center">
+                          <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider block">Arrival ETA</span>
+                          <strong className="text-sm font-mono font-black text-[#FFC857]">
+                            {arr.liveRadar.etaMinutes > 0 ? `${arr.liveRadar.etaMinutes} mins` : 'At Curb'}
+                          </strong>
+                        </div>
                       </div>
-                    ) : (
-                      <button
-                        onClick={() => handleIssueKey(arr.id)}
-                        className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-white text-xs font-bold shadow hover:brightness-110 flex items-center gap-2 cursor-pointer"
-                      >
-                        <KeyRound className="w-4 h-4" />
-                        <span>Pre-Arm Digital Key</span>
-                      </button>
-                    )}
+                    </div>
+
+                    {/* Middle Grid: Telemetry, Chauffeur & Room Readiness */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                      {/* Chauffeur Telemetry */}
+                      <div className="p-3.5 rounded-2xl bg-black/30 border border-white/5 space-y-1.5">
+                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1 text-cyan-400">
+                          <Car className="w-3 h-3" /> Chauffeur & Vehicle
+                        </div>
+                        <div className="font-bold text-white">{arr.liveRadar.vehicleModel}</div>
+                        <div className="text-slate-400 text-[11px]">
+                          Driver: <strong className="text-slate-200">{arr.liveRadar.chauffeurName}</strong> ({arr.liveRadar.chauffeurPhone})
+                        </div>
+                        <div className="text-[10px] text-emerald-400 font-mono">
+                          ● Telemetry: {arr.liveRadar.telemetryPing}
+                        </div>
+                      </div>
+
+                      {/* Flight Status */}
+                      <div className="p-3.5 rounded-2xl bg-black/30 border border-white/5 space-y-1.5">
+                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1 text-[#FF8A3D]">
+                          <Clock className="w-3 h-3" /> Inbound Flight Radar
+                        </div>
+                        <div className="text-slate-200 font-mono">{arr.flightStatus}</div>
+                        <div className="text-[11px] text-slate-400">Scheduled Check-in: <span className="text-white font-mono">{arr.checkInTime}</span></div>
+                        {arr.specialRequests && (
+                          <div className="text-[10px] text-amber-300 line-clamp-1">
+                            ★ {arr.specialRequests}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Room Readiness Toggle */}
+                      <div className="p-3.5 rounded-2xl bg-black/30 border border-white/5 space-y-2">
+                        <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center justify-between">
+                          <span className="text-[#3CCF91]">Suite Readiness Handshake</span>
+                          <span className="font-mono text-white text-[11px] uppercase">{arr.liveRadar.roomReadiness.replace(/_/g, ' ')}</span>
+                        </div>
+                        <div className="grid grid-cols-3 gap-1">
+                          {(['CLEANING', 'INSPECTED', 'KEY_ASSIGNED'] as const).map((rd) => (
+                            <button
+                              key={rd}
+                              onClick={() => handleUpdateReadiness(arr.id, rd)}
+                              className={`py-1 px-1 rounded-lg text-[10px] font-bold transition cursor-pointer ${
+                                arr.liveRadar.roomReadiness === rd
+                                  ? 'bg-[#3CCF91] text-black shadow'
+                                  : 'bg-white/5 text-slate-400 hover:text-white'
+                              }`}
+                            >
+                              {rd === 'KEY_ASSIGNED' ? 'Ready/Key' : rd}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Bottom Action Bar: Curb Handshake & Digital Key */}
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+                      <div className="text-[11px] text-slate-400 flex items-center gap-1.5">
+                        <Zap className="w-3.5 h-3.5 text-[#FFC857]" />
+                        <span>Handshake Protocol: Live ETA triggers room lighting, welcome beverages, and front desk greeting.</span>
+                      </div>
+
+                      <div className="flex items-center gap-2.5 shrink-0">
+                        {!isCheckedIn && !isAtCurb && (
+                          <button
+                            onClick={() => handleAcknowledgeCurbArrival(arr.id)}
+                            className="px-3.5 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"
+                          >
+                            <Car className="w-3.5 h-3.5" />
+                            <span>Simulate Curb Arrival</span>
+                          </button>
+                        )}
+
+                        {arr.keycardStatus === 'ISSUED' ? (
+                          <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold">
+                            <CheckCircle2 className="w-4 h-4" />
+                            <span>AES-256 Keycard Issued (Milestone 1 Cleared)</span>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => handleIssueKey(arr.id)}
+                            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-black font-black text-xs shadow hover:brightness-110 flex items-center gap-2 cursor-pointer transition"
+                          >
+                            <KeyRound className="w-4 h-4" />
+                            <span>Acknowledge Handshake & Release Key</span>
+                          </button>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}

@@ -6,7 +6,10 @@ import {
   DollarSign,
   UserCheck,
   Zap,
-  Car
+  Car,
+  Radio,
+  Navigation,
+  Activity,
 } from 'lucide-react';
 import { ProactiveResolutionTicket } from '@staysphere/domain-types';
 
@@ -122,6 +125,54 @@ export const SlaResolutionMonitoring: React.FC = () => {
     showToast(`Ticket ${id} marked as RESOLVED within Sovereign 15m SLA guarantee`);
   };
 
+  const handleSimulateSentinelAlert = (type: 'CHAUFFEUR_STATIONARY' | 'CHECKIN_TIMEOUT') => {
+    const newIncident: IncidentItem = type === 'CHAUFFEUR_STATIONARY' ? {
+      id: `SNT-${Date.now().toString().slice(-4)}`,
+      ticketNumber: `SNT-R01-${Date.now().toString().slice(-4)}`,
+      journeyReference: 'JN-SS-2026-8812',
+      category: 'TRANSIT_DELAY',
+      subject: 'PROACTIVE SENTINEL: Chauffeur stationary <5km/h for >12m before airport pickup',
+      description: 'Automated telemetry watchdog detected Maybach vehicle (GA-03-X-0001) stopped on NH-66 corridor 28 mins before flight touch-down. Guest unaware; proactive standby vehicle triggered.',
+      severity: 'P0_CRITICAL',
+      status: 'OPEN',
+      slaTargetMinutes: 15,
+      elapsedMinutes: 2,
+      assignedAgent: 'Sovereign Dispatch AI & RM Lead',
+      slaBreachDeadline: new Date(Date.now() + 13 * 60000).toISOString(),
+      isBreached: false,
+      compensationCredited: 0,
+      guestName: 'Arjun & Neha Kapoor',
+      guestPhone: '+91 98110 99881',
+      property: 'The Vana Azure Ocean Estate',
+      vehicle: 'Mercedes-Maybach S680',
+      escrowHold: 145000,
+    } : {
+      id: `SNT-${Date.now().toString().slice(-4)}`,
+      ticketNumber: `SNT-R02-${Date.now().toString().slice(-4)}`,
+      journeyReference: 'JN-SS-2026-7734',
+      category: 'ROOM_PREPARATION',
+      subject: 'PROACTIVE SENTINEL: Guest arrived at porte-cochère 48m ago, check-in unconfirmed',
+      description: 'Chauffeur trip completed 48 mins ago at property lobby, but front desk PMS keycard status is still unconfirmed. Proactive alert sent to hotel GM before guest calls.',
+      severity: 'P1_HIGH',
+      status: 'OPEN',
+      slaTargetMinutes: 15,
+      elapsedMinutes: 3,
+      assignedAgent: 'Estate Liaison Desk',
+      slaBreachDeadline: new Date(Date.now() + 12 * 60000).toISOString(),
+      isBreached: false,
+      compensationCredited: 0,
+      guestName: 'Sunita Mehra',
+      guestPhone: '+91 98220 77112',
+      property: 'Maharaja Pichola Palace, Udaipur',
+      vehicle: 'BMW 7-Series',
+      escrowHold: 88000,
+    };
+
+    setIncidents([newIncident, ...incidents]);
+    setSelectedIncident(newIncident);
+    showToast(`Proactive Sentinel Alert ${newIncident.ticketNumber} auto-triggered before guest reported!`);
+  };
+
   const handleApplyCompensation = (id: string, amount: number) => {
     setIncidents((prev) =>
       prev.map((item) =>
@@ -153,37 +204,64 @@ export const SlaResolutionMonitoring: React.FC = () => {
         </div>
       )}
 
-      {/* Header Banner */}
-      <div className="p-6 rounded-2xl bg-gradient-to-r from-[#200A10] via-[#002B4D] to-[#0A4D68] border border-rose-500/20 shadow-2xl relative overflow-hidden">
+      {/* Header Banner with Proactive Sentinel Radar */}
+      <div className="p-6 rounded-2xl bg-gradient-to-r from-[#200A10] via-[#002B4D] to-[#0A4D68] border border-rose-500/20 shadow-2xl relative overflow-hidden space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-bold uppercase tracking-wider">
-              <ShieldAlert className="w-3.5 h-3.5 text-rose-400 animate-pulse" />
-              Proactive Resolution Sentinel & SLA Guard
+              <Radio className="w-3.5 h-3.5 text-rose-400 animate-pulse" />
+              Proactive Sentinel Radar (Zero Guest Friction Architecture)
             </div>
             <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-              15-Minute Guaranteed SLA & Escrow Protection Desk
+              15-Minute Guaranteed SLA & Proactive Sentinel Command
             </h1>
             <p className="text-sm text-slate-300 max-w-2xl">
-              Real-time issue triage before the guest experiences friction. Automatic compensatory escrow payouts upon milestone delay.
+              We resolve travel anomalies <strong>before</strong> the guest feels the need to open a ticket. Background watchers detect telemetry delays, driver stalls, and check-in lag in real time.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 shrink-0">
-            <div className="p-3 rounded-xl bg-black/40 border border-white/10">
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block whitespace-nowrap">Average Resolution</span>
-              <strong className="text-xl font-black text-[#3CCF91] whitespace-nowrap">4.8 Mins</strong>
+          <div className="flex items-center gap-2 flex-wrap shrink-0">
+            <button
+              onClick={() => handleSimulateSentinelAlert('CHAUFFEUR_STATIONARY')}
+              className="px-3.5 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-lg"
+              title="Simulate driver stationary alert"
+            >
+              <Zap className="w-3.5 h-3.5 text-rose-400" />
+              <span>Simulate Driver Stall Alert</span>
+            </button>
+            <button
+              onClick={() => handleSimulateSentinelAlert('CHECKIN_TIMEOUT')}
+              className="px-3.5 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-lg"
+              title="Simulate check-in lag alert"
+            >
+              <Clock className="w-3.5 h-3.5 text-amber-400" />
+              <span>Simulate Check-in Lag Alert</span>
+            </button>
+          </div>
+        </div>
+
+        {/* 3 Sentinel Health Check Badges */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 border-t border-white/10">
+          <div className="p-3 rounded-xl bg-black/40 border border-white/10 flex items-center justify-between">
+            <div>
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Rule SNT-R01 (Chauffeur Watch)</span>
+              <strong className="text-xs font-bold text-emerald-400">Monitoring 14 Vehicles (OK)</strong>
             </div>
-            <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30">
-              <span className="text-[10px] text-rose-300 font-bold uppercase tracking-wider block whitespace-nowrap">Active Incidents</span>
-              <strong className="text-xl font-black text-rose-300 whitespace-nowrap">
-                {incidents.filter((i) => i.status !== 'RESOLVED').length} Open
-              </strong>
+            <Activity className="w-4 h-4 text-emerald-400 shrink-0" />
+          </div>
+          <div className="p-3 rounded-xl bg-black/40 border border-white/10 flex items-center justify-between">
+            <div>
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Rule SNT-R02 (Arrival Watch)</span>
+              <strong className="text-xs font-bold text-cyan-300">Front Desk Handshake (Active)</strong>
             </div>
-            <div className="p-3 rounded-xl bg-[#00A9A5]/10 border border-[#00A9A5]/30">
-              <span className="text-[10px] text-[#00A9A5] font-bold uppercase tracking-wider block whitespace-nowrap">Auto-Compensations</span>
-              <strong className="text-xl font-black text-[#00A9A5] whitespace-nowrap">₹9,000 Today</strong>
+            <Navigation className="w-4 h-4 text-cyan-400 shrink-0" />
+          </div>
+          <div className="p-3 rounded-xl bg-black/40 border border-white/10 flex items-center justify-between">
+            <div>
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Rule SNT-R04 (15-Min Breach Auto-Pay)</span>
+              <strong className="text-xs font-bold text-[#FFC857]">₹3,000 Auto-Credit Ready</strong>
             </div>
+            <DollarSign className="w-4 h-4 text-[#FFC857] shrink-0" />
           </div>
         </div>
       </div>
