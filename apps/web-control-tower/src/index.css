@@ -159,28 +159,52 @@ body {
   color: #0F172A !important;
 }
 
+/* Primary surface porcelain overrides */
 .theme-pearl .bg-\[\#020B18\],
 .theme-pearl .bg-\[\#030D1A\],
 .theme-pearl .bg-\[\#001428\],
 .theme-pearl .bg-\[\#000E1C\],
+.theme-pearl .bg-\[\#000B17\],
 .theme-pearl .bg-\[\#020B14\],
 .theme-pearl .bg-\[\#001c38\],
-.theme-pearl .bg-\[\#001020\] {
+.theme-pearl .bg-\[\#001C38\],
+.theme-pearl .bg-\[\#001020\],
+.theme-pearl .bg-\[\#001326\],
+.theme-pearl .bg-\[\#00172C\],
+.theme-pearl .bg-\[\#001830\],
+.theme-pearl .bg-\[\#001A33\],
+.theme-pearl .bg-\[\#001D33\],
+.theme-pearl .bg-\[\#001E36\],
+.theme-pearl .bg-\[\#00223A\] {
   background-color: #FFFFFF !important;
   border-color: #E2E8F0 !important;
   color: #0F172A !important;
 }
 
+/* Semi-transparent surface porcelain overrides */
 .theme-pearl .bg-\[\#030D1A\]\/95,
-.theme-pearl .bg-\[\#001c38\]\/80 {
+.theme-pearl .bg-\[\#001c38\]\/80,
+.theme-pearl .bg-\[\#001428\]\/95,
+.theme-pearl .bg-\[\#001428\]\/90,
+.theme-pearl .bg-\[\#001428\]\/80,
+.theme-pearl .bg-\[\#001428\]\/60,
+.theme-pearl .bg-\[\#001830\]\/95,
+.theme-pearl .bg-\[\#002444\]\/90,
+.theme-pearl .bg-\[\#002B4D\]\/80 {
   background-color: rgba(255, 255, 255, 0.95) !important;
   border-color: #E2E8F0 !important;
   color: #0F172A !important;
 }
 
+/* Secondary & inner panel soft slate backgrounds */
 .theme-pearl .bg-\[\#002B4D\],
 .theme-pearl .bg-\[\#06182F\],
 .theme-pearl .bg-\[\#002444\],
+.theme-pearl .bg-\[\#00243D\],
+.theme-pearl .bg-\[\#002544\],
+.theme-pearl .bg-\[\#002844\],
+.theme-pearl .bg-\[\#003866\],
+.theme-pearl .bg-\[\#003B6D\],
 .theme-pearl .bg-slate-900,
 .theme-pearl .bg-slate-950 {
   background-color: #F8FAFC !important;
@@ -188,14 +212,66 @@ body {
   color: #0F172A !important;
 }
 
+/* Red alerts & incident banners */
+.theme-pearl .bg-\[\#2A0E14\],
+.theme-pearl .bg-\[\#2A0E14\]\/70 {
+  background-color: #FFF1F2 !important;
+  border-color: #FECDD3 !important;
+  color: #9F1239 !important;
+}
+
+.theme-pearl .bg-\[\#00261E\] {
+  background-color: #F0FDF4 !important;
+  border-color: #BBF7D0 !important;
+  color: #166534 !important;
+}
+
+/* Badges, pill counters and small chips */
+.theme-pearl .bg-white\/5,
+.theme-pearl .bg-white\/10 {
+  background-color: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
+  color: #334155 !important;
+}
+
+.theme-pearl .bg-black\/30,
+.theme-pearl .bg-black\/40,
+.theme-pearl .bg-black\/50,
+.theme-pearl .bg-black\/60 {
+  background-color: #E2E8F0 !important;
+  border-color: #CBD5E1 !important;
+}
+
+/* Table headers */
+.theme-pearl thead,
+.theme-pearl thead th,
+.theme-pearl thead.bg-\[\#001428\],
+.theme-pearl thead.bg-\[\#001830\] {
+  background-color: #F1F5F9 !important;
+  color: #475569 !important;
+  border-color: #E2E8F0 !important;
+}
+
+/* Hover transitions on light surface */
+.theme-pearl .hover\:bg-white\/5:hover,
+.theme-pearl .hover\:bg-white\/10:hover,
+.theme-pearl .hover\:bg-white\/15:hover {
+  background-color: #E2E8F0 !important;
+}
+
+.theme-pearl .hover\:text-white:hover {
+  color: #0F172A !important;
+}
+
 /* Border overrides */
+.theme-pearl .border-white\/5,
 .theme-pearl .border-white\/10,
 .theme-pearl .border-white\/15,
 .theme-pearl .border-white\/20,
 .theme-pearl .border-white\/30,
-.theme-pearl .border-white\/5,
 .theme-pearl .border-slate-800,
-.theme-pearl .border-slate-700 {
+.theme-pearl .border-slate-700,
+.theme-pearl .border-slate-900 {
   border-color: #E2E8F0 !important;
 }
 
@@ -211,6 +287,11 @@ body {
   background-color: #FFFFFF !important;
   color: #0F172A !important;
   border-color: #CBD5E1 !important;
+}
+
+.theme-pearl select option {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
 }
 
 .theme-pearl input::placeholder,
@@ -230,4 +311,5 @@ body {
 .theme-pearl ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
+
 

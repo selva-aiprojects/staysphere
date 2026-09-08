@@ -44,9 +44,28 @@ import { DriverMobilePwa } from './components/DriverMobilePwa';
 import { FinanceEngineWorkspace } from './components/FinanceEngineWorkspace';
 import { TrustSafetyWorkspace } from './components/TrustSafetyWorkspace';
 import { apiClient, BackendStatus } from './services/apiClient';
-import { Mail, UserPlus, Compass, ShieldAlert, Star, Bot, LogOut, LayoutDashboard, Sun, Moon } from 'lucide-react';
+import { Mail, UserPlus, Compass, ShieldAlert, Star, Bot, LogOut, LayoutDashboard, Sun, Moon, ExternalLink, TrendingUp } from 'lucide-react';
 
 export type PortalMode = 'CONTROL_TOWER' | 'PROPERTY_PORTAL' | 'TRANSPORT_PORTAL' | 'DRIVER_MOBILE';
+
+export const WORKFLOW_TABS = [
+  { id: 'overview', label: 'Overview', icon: LayoutDashboard, iconColor: 'text-[#D4AF37]' },
+  { id: 'journeys', label: 'Journeys', icon: Compass, iconColor: 'text-[#00D2C4]' },
+  { id: 'property-master', label: 'Properties', icon: Hotel, iconColor: 'text-[#FFC857]' },
+  { id: 'frontdesk', label: 'Bookings', icon: KeyRound, iconColor: 'text-[#FFC857]' },
+  { id: 'travel-desk', label: 'Mobility', icon: Car, iconColor: 'text-amber-400' },
+  { id: 'sla-incidents', label: 'SLA Sentinel', icon: ShieldAlert, iconColor: 'text-rose-400' },
+  { id: 'finance-engine', label: 'Finance', icon: Receipt, iconColor: 'text-[#3CCF91]' },
+  { id: 'trust-safety', label: 'Trust & Safety', icon: ShieldCheck, iconColor: 'text-[#3CCF91]' },
+  { id: 'partners', label: 'Partners', icon: Building2, iconColor: 'text-[#00D2C4]' },
+  { id: 'channel-partners', label: 'Channels', icon: Users, iconColor: 'text-[#3CCF91]' },
+  { id: 'feedback', label: 'Feedback', icon: Star, iconColor: 'text-amber-400 fill-amber-400' },
+  { id: 'offer-management', label: 'Offers', icon: Tag, iconColor: 'text-[#FFC857]' },
+  { id: 'rm', label: 'RM Desk', icon: TrendingUp, iconColor: 'text-cyan-400' },
+  { id: 'api-docs', label: 'APIs', icon: Code, iconColor: 'text-cyan-300' },
+  { id: 'employees', label: 'Team', icon: UserPlus, iconColor: 'text-[#3CCF91]' },
+  { id: 'emails', label: 'Emails', icon: Mail, iconColor: 'text-[#FFC857]' },
+] as const;
 
 
 // Persona / Role Types
@@ -528,67 +547,81 @@ export default function OperationsControlTower() {
       )}
 
       {/* Top Application Switcher Bar */}
-      <div className={`border-b px-6 py-2.5 text-xs flex flex-wrap items-center justify-between gap-3 shadow-sm transition-colors ${theme === 'pearl' ? 'bg-[#EEF2F6] border-slate-200 text-slate-700' : 'bg-[#020B18] border-white/10 text-slate-300'}`}>
-        <div className="flex items-center gap-2.5">
-          <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
-          <span className="font-mono-telemetry text-[11px] text-[#10B981] font-bold">● 99.98% UPTIME</span>
-          <span className="text-slate-500">•</span>
-          <span>StaySphere Sovereign Control Tower: <strong className={theme === 'pearl' ? 'text-[#0F172A] font-semibold' : 'text-white font-medium'}>Orchestrated Multi-Stakeholder Matrix</strong></span>
+      <div className={`border-b px-4 sm:px-6 py-2 text-xs flex items-center justify-between gap-3 shadow-sm transition-colors overflow-x-auto no-scrollbar ${theme === 'pearl' ? 'bg-[#EEF2F6] border-slate-200 text-slate-700' : 'bg-[#020B18] border-white/10 text-slate-300'}`}>
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse shrink-0" />
+          <span className="font-mono-telemetry text-[11px] text-[#10B981] font-bold shrink-0">99.98%</span>
+          <span className="text-slate-400 shrink-0">•</span>
+          <span className="hidden md:inline font-semibold text-slate-500 whitespace-nowrap">Sovereign Matrix</span>
         </div>
-        <div className="flex items-center gap-3">
-          {/* Platform Portal Selector */}
-          <div className={`flex items-center gap-1 p-1 rounded-xl shadow-inner transition-colors ${theme === 'pearl' ? 'bg-slate-200/80 border border-slate-300' : 'bg-black/40 border border-white/10'}`}>
-            <button
-              onClick={() => setPortalMode('CONTROL_TOWER')}
-              className={`px-3 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
-                portalMode === 'CONTROL_TOWER'
-                  ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              <Compass className="w-3.5 h-3.5 text-[#00D2C4]" />
-              <span>Control Tower</span>
-            </button>
-            <button
-              onClick={() => setPortalMode('PROPERTY_PORTAL')}
-              className={`px-3 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
-                portalMode === 'PROPERTY_PORTAL'
-                  ? 'bg-gradient-to-r from-[#0B3D91] to-[#3CCF91] text-white shadow'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              <Hotel className="w-3.5 h-3.5 text-[#FFC857]" />
-              <span>Property Partner Portal</span>
-            </button>
-            <button
-              onClick={() => setPortalMode('TRANSPORT_PORTAL')}
-              className={`px-3 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
-                portalMode === 'TRANSPORT_PORTAL'
-                  ? 'bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] text-[#001428] font-black shadow'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              <Car className="w-3.5 h-3.5 text-[#001428]" />
-              <span>Transport Partner Portal</span>
-            </button>
-            <button
-              onClick={() => setPortalMode('DRIVER_MOBILE')}
-              className={`px-3 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
-                portalMode === 'DRIVER_MOBILE'
-                  ? 'bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-black shadow'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              <Car className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Chauffeur PWA</span>
-            </button>
-          </div>
 
+        {/* Platform Portal Selector */}
+        <div className={`flex items-center gap-1 p-1 rounded-xl shadow-inner transition-colors shrink-0 ${theme === 'pearl' ? 'bg-slate-200/90 border border-slate-300' : 'bg-black/40 border border-white/10'}`}>
+          <button
+            onClick={() => setPortalMode('CONTROL_TOWER')}
+            className={`px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap shrink-0 ${
+              portalMode === 'CONTROL_TOWER'
+                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow'
+                : theme === 'pearl'
+                  ? 'text-slate-600 hover:text-slate-900 hover:bg-white/80'
+                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+            }`}
+            title="Enterprise Operations Control Tower"
+          >
+            <Compass className="w-3.5 h-3.5 text-[#00D2C4]" />
+            <span>Tower</span>
+          </button>
+          <button
+            onClick={() => setPortalMode('PROPERTY_PORTAL')}
+            className={`px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap shrink-0 ${
+              portalMode === 'PROPERTY_PORTAL'
+                ? 'bg-gradient-to-r from-[#0B3D91] to-[#3CCF91] text-white shadow'
+                : theme === 'pearl'
+                  ? 'text-slate-600 hover:text-slate-900 hover:bg-white/80'
+                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+            }`}
+            title="Property Partner & Frontdesk Portal"
+          >
+            <Hotel className="w-3.5 h-3.5 text-[#FFC857]" />
+            <span>Property</span>
+          </button>
+          <button
+            onClick={() => setPortalMode('TRANSPORT_PORTAL')}
+            className={`px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap shrink-0 ${
+              portalMode === 'TRANSPORT_PORTAL'
+                ? 'bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] text-[#001428] font-black shadow'
+                : theme === 'pearl'
+                  ? 'text-slate-600 hover:text-slate-900 hover:bg-white/80'
+                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+            }`}
+            title="Transport & Fleet Logistics Portal"
+          >
+            <Car className="w-3.5 h-3.5 text-amber-500" />
+            <span>Mobility</span>
+          </button>
+          <button
+            onClick={() => setPortalMode('DRIVER_MOBILE')}
+            className={`px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer whitespace-nowrap shrink-0 ${
+              portalMode === 'DRIVER_MOBILE'
+                ? 'bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-black shadow'
+                : theme === 'pearl'
+                  ? 'text-slate-600 hover:text-slate-900 hover:bg-white/80'
+                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+            }`}
+            title="Chauffeur Mobile PWA"
+          >
+            <Car className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Chauffeur</span>
+          </button>
+        </div>
+
+        {/* Right side utility icons / buttons */}
+        <div className="flex items-center gap-2 shrink-0">
           {/* Backend Status Indicator */}
-          <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs shadow-sm transition-colors ${theme === 'pearl' ? 'bg-white border-slate-300' : 'bg-slate-900/90 border-slate-700/60'}`}>
+          <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs shadow-sm transition-colors shrink-0 ${theme === 'pearl' ? 'bg-white border-slate-300' : 'bg-slate-900/90 border-slate-700/60'}`} title={backendStatus.isLive ? 'Backend API Connected (Port 4000)' : 'Running in Offline Mock Demo Mode'}>
             <div className={`w-2 h-2 rounded-full ${backendStatus.isLive ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
-            <span className={backendStatus.isLive ? 'text-emerald-600 font-mono text-[11px] font-bold' : 'text-amber-600 font-mono text-[11px] font-bold'}>
-              {backendStatus.isLive ? 'LIVE API (Port 4000)' : 'DEMO MODE'}
+            <span className={`font-mono text-[11px] font-bold ${backendStatus.isLive ? 'text-emerald-600' : 'text-amber-600'}`}>
+              {backendStatus.isLive ? 'LIVE API' : 'DEMO'}
             </span>
           </div>
 
@@ -599,59 +632,69 @@ export default function OperationsControlTower() {
               setTheme(next);
               showToast(`Theme switched to ${next === 'pearl' ? 'Soothing Warm Pearl' : 'Soft Slate'}`);
             }}
-            className={`flex items-center gap-1.5 px-3 py-1 rounded-lg border text-xs font-bold transition shadow-sm cursor-pointer ${
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-bold transition shadow-sm cursor-pointer shrink-0 ${
               theme === 'pearl'
                 ? 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
-                : 'bg-[#002B4D]/80 border-slate-700 text-slate-200 hover:brightness-110'
+                : 'bg-slate-900 border-slate-700 text-slate-200 hover:brightness-110'
             }`}
             title="Toggle Eye-Care Theme (Warm Pearl / Soft Slate)"
           >
             {theme === 'pearl' ? (
               <>
                 <Moon className="w-3.5 h-3.5 text-indigo-600" />
-                <span>Soft Slate</span>
+                <span className="hidden sm:inline">Slate</span>
               </>
             ) : (
               <>
                 <Sun className="w-3.5 h-3.5 text-amber-400" />
-                <span>Warm Pearl</span>
+                <span className="hidden sm:inline">Pearl</span>
               </>
             )}
           </button>
 
+          {/* Support & Triage Pill */}
           <button
             onClick={() => setIsCollabTicketsModalOpen(true)}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#002B4D]/80 border border-[#10B981]/40 text-[#10B981] font-bold hover:brightness-110 text-xs cursor-pointer shadow-sm"
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-bold text-xs cursor-pointer shadow-sm shrink-0 transition ${
+              theme === 'pearl'
+                ? 'bg-white border-slate-300 text-emerald-700 hover:bg-emerald-50'
+                : 'bg-[#002B4D]/80 border-[#10B981]/40 text-[#10B981] hover:brightness-110'
+            }`}
+            title="Open Collaborative Support & Triage Desk"
           >
-            <MessageSquare className="w-3.5 h-3.5" />
-            <span>Support & Triage ({collaborativeTickets.filter(t => t.status !== 'RESOLVED').length} Active)</span>
+            <LifeBuoy className="w-3.5 h-3.5 text-emerald-500" />
+            <span className="hidden md:inline">Triage</span>
+            <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono font-bold ${
+              theme === 'pearl' ? 'bg-emerald-100 text-emerald-800' : 'bg-emerald-500/20 text-emerald-300'
+            }`}>
+              {collaborativeTickets.filter(t => t.status !== 'RESOLVED').length}
+            </span>
           </button>
+
+          {/* Switch Persona Pill */}
           <button
             onClick={() => setIsAuthModalOpen(true)}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#002B4D]/80 border border-[#00D2C4]/40 text-[#00D2C4] font-bold hover:brightness-110 text-xs cursor-pointer shadow-sm"
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-bold text-xs cursor-pointer shadow-sm shrink-0 transition ${
+              theme === 'pearl'
+                ? 'bg-white border-slate-300 text-[#0B3D91] hover:bg-slate-50'
+                : 'bg-[#002B4D]/80 border-[#00D2C4]/40 text-[#00D2C4] hover:brightness-110'
+            }`}
+            title="Switch Operational Stakeholder Persona"
           >
-            <UserCheck className="w-3.5 h-3.5" />
-            <span>Switch Persona</span>
+            <UserCheck className="w-3.5 h-3.5 text-[#00A9A5]" />
+            <span className="hidden lg:inline">Persona</span>
           </button>
-          <button
-            onClick={() => {
-              setCurrentUser(null);
-              showToast('Logged out of platform session.');
-            }}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/15 text-slate-300 hover:text-rose-300 hover:border-rose-500/30 font-bold hover:brightness-110 text-xs cursor-pointer shadow-sm"
-            title="Log Out to Enterprise Platform Gateway"
-          >
-            <LogOut className="w-3.5 h-3.5 text-rose-400" />
-            <span>Log Out</span>
-          </button>
+
+          {/* Guest Experience Portal link */}
           <a
             href={typeof window !== 'undefined' ? (window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://staysphere-guest.vercel.app') : 'https://staysphere-guest.vercel.app'}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-1.5 px-3.5 py-1 rounded-lg bg-gradient-to-r from-[#FF8A3D] via-[#FFC857] to-[#E5B869] text-[#001428] font-black text-xs hover:brightness-110 shadow-md transition"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-gradient-to-r from-[#FF8A3D] via-[#FFC857] to-[#E5B869] text-[#001428] font-bold text-xs hover:brightness-105 shadow-sm transition shrink-0"
+            title="Open Guest Experience Portal in new tab"
           >
-            <Hotel className="w-3.5 h-3.5" />
-            <span>Guest Experience Portal ↗</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Guest App</span>
           </a>
         </div>
       </div>
@@ -685,261 +728,134 @@ export default function OperationsControlTower() {
       ) : (
         <>
           {/* Operations Master Header */}
-          <header className="h-auto min-h-[5rem] py-3 border-b border-white/10 bg-[#030D1A]/95 backdrop-blur-xl px-4 sm:px-6 flex items-center justify-between sticky top-0 z-40 shadow-xl gap-3">
-            <div className="flex items-center gap-3 shrink-0">
-              <HorizontalLogo size="md" variant="dark" />
-              <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#00A9A5]/15 text-[#00D2C4] border border-[#00A9A5]/40 font-mono-telemetry font-bold uppercase tracking-wider hidden sm:inline-block whitespace-nowrap shrink-0">
-                ENTERPRISE CONTROL MATRIX v3.5
+          <header className={`sticky top-0 z-40 backdrop-blur-xl border-b transition-colors shadow-sm px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3 ${
+            theme === 'pearl'
+              ? 'bg-white/95 border-slate-200 text-slate-900'
+              : 'bg-[#030D1A]/95 border-white/10 text-white'
+          }`}>
+            <div className="flex items-center gap-2.5 shrink-0">
+              <HorizontalLogo size="sm" variant={theme === 'pearl' ? 'light' : 'dark'} />
+              <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono-telemetry font-bold tracking-wider hidden 2xl:inline-block whitespace-nowrap shrink-0 ${
+                theme === 'pearl'
+                  ? 'bg-slate-100 text-[#0B3D91] border border-slate-200'
+                  : 'bg-[#00A9A5]/15 text-[#00D2C4] border border-[#00A9A5]/40'
+              }`}>
+                v3.5
               </span>
             </div>
 
-        {/* Global Navigation Bar */}
-        <nav className="flex items-center gap-1 p-1 rounded-2xl bg-[#020B18] border border-white/10 text-xs font-bold min-w-0 flex-1 max-w-full overflow-x-auto no-scrollbar shadow-inner mx-2 sm:mx-4">
-          <button
-            onClick={() => setActiveWorkflow('overview')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-              activeWorkflow === 'overview'
-                ? 'bg-gradient-to-r from-[#D4AF37]/40 to-[#FFC857]/20 text-[#FFC857] shadow-md border border-[#D4AF37]/40'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <LayoutDashboard className="w-3.5 h-3.5 text-[#D4AF37] shrink-0" /> 0. Overview
-          </button>
+            {/* Global Navigation Bar */}
+            <nav className={`flex items-center gap-1 p-1 rounded-xl text-xs font-semibold min-w-0 flex-1 overflow-x-auto no-scrollbar shadow-inner mx-1 sm:mx-3 ${
+              theme === 'pearl'
+                ? 'bg-slate-100/90 border border-slate-200 text-slate-600'
+                : 'bg-[#020B18] border border-white/10 text-slate-400'
+            }`}>
+              {WORKFLOW_TABS.map((tab) => {
+                const Icon = tab.icon;
+                const isActive = activeWorkflow === tab.id || (tab.id === 'finance-engine' && activeWorkflow === 'payments');
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveWorkflow(tab.id as typeof activeWorkflow)}
+                    className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer text-xs ${
+                      isActive
+                        ? theme === 'pearl'
+                          ? 'bg-white text-[#0B3D91] shadow-sm font-bold border border-slate-200'
+                          : 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md border border-[#00D2C4]/40 font-bold'
+                        : theme === 'pearl'
+                          ? 'text-slate-600 hover:text-slate-900 hover:bg-white/70 font-medium'
+                          : 'text-slate-400 hover:text-white hover:bg-white/5 font-medium'
+                    }`}
+                  >
+                    <Icon className={`w-3.5 h-3.5 shrink-0 ${isActive && theme === 'pearl' ? 'text-[#0B3D91]' : tab.iconColor}`} />
+                    <span>{tab.label}</span>
+                  </button>
+                );
+              })}
+            </nav>
 
-          <button
-            onClick={() => setActiveWorkflow('journeys')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-              activeWorkflow === 'journeys'
-                ? 'bg-gradient-to-r from-[#0B3D91] via-[#002B4D] to-[#00A9A5] text-white shadow-lg border border-[#00D2C4]/40'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <Compass className="w-3.5 h-3.5 text-[#00D2C4] shrink-0" /> 1. Live Journeys
-          </button>
+            {/* Header Right Actions */}
+            <div className="flex items-center gap-2 shrink-0">
+              {/* Executive Command AI Trigger */}
+              <button
+                type="button"
+                onClick={() => setShowLeaderChatbot(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#00A9A5] via-[#0B3D91] to-[#D4AF37] text-white font-bold text-xs shadow hover:brightness-110 transition-all border border-white/20 cursor-pointer shrink-0"
+                title="Open Platform Leaders Executive Command AI"
+              >
+                <div className="relative">
+                  <Bot className="w-3.5 h-3.5 text-[#FFC857]" />
+                  <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                </div>
+                <span className="hidden sm:inline font-bold">Command AI</span>
+              </button>
 
-          <button
-            onClick={() => setActiveWorkflow('property-master')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-              activeWorkflow === 'property-master'
-                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <Hotel className="w-3.5 h-3.5 text-[#FFC857] shrink-0" /> 2. Properties Master
-          </button>
+              {/* User Persona Profile Pill */}
+              {currentUser && (
+                <div
+                  onClick={() => setIsAuthModalOpen(true)}
+                  className={`flex items-center gap-2 p-1 pr-3 rounded-xl border transition-all cursor-pointer shrink-0 hidden lg:flex ${
+                    theme === 'pearl'
+                      ? 'bg-slate-100 hover:bg-slate-200/80 border-slate-200 text-slate-800'
+                      : 'bg-[#001830] hover:border-[#00A9A5]/60 border-white/10 text-white'
+                  }`}
+                  title={`Signed in as ${currentUser.name} (${currentUser.role}). Click to switch persona.`}
+                >
+                  <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#0B3D91] to-[#00A9A5] flex items-center justify-center text-xs font-black text-white shrink-0">
+                    {currentUser.avatar}
+                  </div>
+                  <div className="text-left leading-tight">
+                    <span className={`text-xs font-bold block whitespace-nowrap ${theme === 'pearl' ? 'text-slate-800' : 'text-white'}`}>{currentUser.name.split(' ')[0]}</span>
+                    <span className="text-[10px] text-[#00A9A5] font-medium block whitespace-nowrap">{currentUser.role.replace(/_/g, ' ')}</span>
+                  </div>
+                </div>
+              )}
 
-          <button
-            onClick={() => setActiveWorkflow('frontdesk')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-              activeWorkflow === 'frontdesk'
-                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <KeyRound className="w-3.5 h-3.5 text-[#FFC857] shrink-0" /> 2. Stay Bookings
-          </button>
-
-          <button
-            onClick={() => setActiveWorkflow('travel-desk')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-              activeWorkflow === 'travel-desk'
-                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <Car className="w-3.5 h-3.5 text-amber-400 shrink-0" /> 3. Mobility Desk
-          </button>
-
-          <button
-            onClick={() => setActiveWorkflow('sla-incidents')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-              activeWorkflow === 'sla-incidents'
-                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <ShieldAlert className="w-3.5 h-3.5 text-rose-400 shrink-0" /> 4. SLA Sentinel
-          </button>
-
-          <button
-            onClick={() => setActiveWorkflow('finance-engine')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-              activeWorkflow === 'finance-engine' || activeWorkflow === 'payments'
-                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <Receipt className="w-3.5 h-3.5 text-[#3CCF91] shrink-0" /> 5. Finance Hub
-          </button>
-
-          <button
-            onClick={() => setActiveWorkflow('trust-safety')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-              activeWorkflow === 'trust-safety'
-                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <ShieldCheck className="w-3.5 h-3.5 text-[#3CCF91] shrink-0" /> 6. Trust & Safety
-          </button>
-
-          <button
-            onClick={() => setActiveWorkflow('partners')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-              activeWorkflow === 'partners'
-                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <Building2 className="w-3.5 h-3.5 text-[#00D2C4] shrink-0" /> 7. Partner Health
-          </button>
-
-          <button
-            onClick={() => setActiveWorkflow('channel-partners')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-              activeWorkflow === 'channel-partners'
-                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <Users className="w-3.5 h-3.5 text-[#3CCF91] shrink-0" /> 8. Channel Partners
-          </button>
-
-          <button
-            onClick={() => setActiveWorkflow('feedback')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-              activeWorkflow === 'feedback'
-                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400 shrink-0" /> 9. Feedback (360°)
-          </button>
-
-          <button
-            onClick={() => setActiveWorkflow('offer-management')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-              activeWorkflow === 'offer-management'
-                ? 'bg-gradient-to-r from-[#D4AF37]/40 to-[#FFC857]/30 text-[#FFC857] shadow-md border border-[#D4AF37]/40'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <Tag className="w-3.5 h-3.5 text-[#FFC857] shrink-0" /> 10. Offer Mgmt
-          </button>
-
-          <button
-            onClick={() => setActiveWorkflow('rm')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-              activeWorkflow === 'rm'
-                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <ShieldCheck className="w-3.5 h-3.5 text-cyan-400 shrink-0" /> 11. RM Governance
-          </button>
-
-          <button
-            onClick={() => setActiveWorkflow('api-docs')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-              activeWorkflow === 'api-docs'
-                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <Code className="w-3.5 h-3.5 text-cyan-300 shrink-0" /> 12. Partner APIs
-          </button>
-
-          <button
-            onClick={() => setActiveWorkflow('employees')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-              activeWorkflow === 'employees'
-                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <UserPlus className="w-3.5 h-3.5 text-[#3CCF91] shrink-0" /> 13. Employees
-          </button>
-
-          <button
-            onClick={() => setActiveWorkflow('emails')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
-              activeWorkflow === 'emails'
-                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <Mail className="w-3.5 h-3.5 text-[#FFC857] shrink-0" /> 14. Email Hub
-          </button>
-        </nav>
-
-        {/* Header Right Actions */}
-        <div className="flex items-center gap-2 shrink-0">
-          {/* Executive Command AI Trigger */}
-          <button
-            type="button"
-            onClick={() => setShowLeaderChatbot(true)}
-            className="flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-gradient-to-r from-[#00A9A5] via-[#0B3D91] to-[#D4AF37] text-white font-black text-xs shadow-lg shadow-cyan-950/50 hover:brightness-110 transition-all border border-white/20 cursor-pointer shrink-0"
-            title="Open Platform Leaders Executive Command AI"
-          >
-            <div className="relative">
-              <Bot className="w-4 h-4 text-[#FFC857]" />
-              <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+              {/* Log Out Button */}
+              <button
+                type="button"
+                onClick={() => {
+                  setCurrentUser(null);
+                  showToast('Logged out of platform session.');
+                }}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer shrink-0 ${
+                  theme === 'pearl'
+                    ? 'bg-slate-100 hover:bg-rose-50 border-slate-200 text-slate-600 hover:text-rose-600'
+                    : 'bg-white/5 hover:bg-rose-500/15 border-white/10 hover:border-rose-500/30 text-slate-300 hover:text-rose-300'
+                }`}
+                title="Log Out to Enterprise Gateway"
+              >
+                <LogOut className="w-3.5 h-3.5 text-rose-500" />
+                <span className="hidden xl:inline">Log Out</span>
+              </button>
             </div>
-            <span className="hidden sm:inline">Command AI</span>
-            <span className="px-1.5 py-0.5 rounded bg-black/50 text-[10px] text-[#FFC857] font-mono hidden md:inline">
-              ESCROW & SLA
-            </span>
-          </button>
-
-          {/* User Persona Profile Pill */}
-          {currentUser && (
-            <div
-              onClick={() => setIsAuthModalOpen(true)}
-              className="flex items-center gap-3 p-1.5 pr-3.5 rounded-2xl bg-[#001830] border border-white/10 hover:border-[#00A9A5]/60 transition-all cursor-pointer shrink-0 hidden xl:flex"
-            >
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#0B3D91] to-[#00A9A5] flex items-center justify-center text-xs font-black text-white shrink-0">
-                {currentUser.avatar}
-              </div>
-              <div className="text-left leading-none">
-                <span className="text-xs font-bold text-white block whitespace-nowrap">{currentUser.name}</span>
-                <span className="text-[10px] text-[#00D2C4] font-medium block mt-0.5 whitespace-nowrap">{currentUser.role.replace(/_/g, ' ')}</span>
-              </div>
-            </div>
-          )}
-
-          {/* Log Out Button */}
-          <button
-            type="button"
-            onClick={() => {
-              setCurrentUser(null);
-              showToast('Logged out of platform session.');
-            }}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/5 hover:bg-rose-500/15 border border-white/10 hover:border-rose-500/30 text-xs font-bold text-slate-300 hover:text-rose-300 transition-all cursor-pointer shrink-0"
-            title="Log Out to Enterprise Gateway"
-          >
-            <LogOut className="w-3.5 h-3.5 text-rose-400" />
-            <span className="hidden sm:inline">Log Out</span>
-          </button>
-        </div>
-      </header>
+          </header>
 
       {/* Main Workspaces Area */}
       <main className="flex-1 max-w-7xl mx-auto px-6 py-8 w-full space-y-8">
         {/* Role Context Notification Bar */}
         {currentUser && (
-          <div className="p-4 rounded-2xl bg-[#001E36] border border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs shadow-md">
+          <div className={`p-3.5 sm:p-4 rounded-2xl border flex flex-wrap items-center justify-between gap-3 text-xs shadow-sm transition-colors ${
+            theme === 'pearl'
+              ? 'bg-white border-slate-200 text-slate-800'
+              : 'bg-[#001E36] border-white/10 text-white'
+          }`}>
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#00A9A5] to-[#3CCF91] flex items-center justify-center text-xs font-black text-white">
                 {currentUser.avatar}
               </div>
               <div>
-                <span className="text-slate-400">Authenticated Session: </span>
-                <strong className="text-white">{currentUser.name}</strong> • <span className="text-[#3CCF91] font-semibold">{currentUser.title}</span>
+                <span className={theme === 'pearl' ? 'text-slate-500' : 'text-slate-400'}>Authenticated Session: </span>
+                <strong className={theme === 'pearl' ? 'text-slate-900 font-bold' : 'text-white'}>{currentUser.name}</strong> • <span className="text-[#00A9A5] font-semibold">{currentUser.title}</span>
               </div>
             </div>
             <button
               onClick={() => setIsCollabTicketsModalOpen(true)}
-              className="px-3.5 py-1.5 rounded-xl bg-[#00A9A5]/20 hover:bg-[#00A9A5]/30 text-[#00D2C4] border border-[#00A9A5]/40 font-bold transition flex items-center gap-1.5"
+              className={`px-3.5 py-1.5 rounded-xl font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                theme === 'pearl'
+                  ? 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200'
+                  : 'bg-[#00A9A5]/20 hover:bg-[#00A9A5]/30 text-[#00D2C4] border border-[#00A9A5]/40'
+              }`}
             >
               <LifeBuoy className="w-3.5 h-3.5" />
               <span>Open Support Desk ({collaborativeTickets.length} Tickets)</span>
