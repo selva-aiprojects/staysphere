@@ -1,5 +1,5 @@
-# StaySphere Internal Operations & Control Tower Manual
-**Document Version:** 3.5 | **Classification:** Internal Operations Strictly Confidential  
+# 07. Internal Operations Manual
+**StaySphere Sovereign Journey Network** | **Classification:** Internal Operations Strictly Confidential  
 **Target Audience:** Relationship Managers (RMs), Fleet Dispatchers, Front Desk Concierges, Escrow Finance Custodians, Central Operations Incident Commanders  
 **Operational Platform:** StaySphere Control Tower (`apps/web-control-tower`)
 
@@ -85,12 +85,10 @@ StaySphere enforces direct pricing consistency:
 ## 5. Resend Email Communication Infrastructure
 
 Internal teams use the **Resend Email Communications Center** (`8. Resend Email Hub`) to send automated and manual communications:
-
-- **Template Categories**:
-  - `JOURNEY_CONFIRMATION`: Sent immediately upon booking with full 5-stage timeline.
-  - `PARTNER_ONBOARDING_INVITE`: Sent to newly registered hotel owners and fleet desks.
-  - `ESCROW_DISBURSEMENT_ADVICE`: Automated settlement confirmation sent to property finance teams.
-  - `SLA_INCIDENT_RESOLUTION`: Notification to guests detailing compensation credits and revised timings.
+- `JOURNEY_CONFIRMATION`: Sent immediately upon booking with full 5-stage timeline.
+- `PARTNER_ONBOARDING_INVITE`: Sent to newly registered hotel owners and fleet desks.
+- `ESCROW_DISBURSEMENT_ADVICE`: Automated settlement confirmation sent to property finance teams.
+- `SLA_INCIDENT_RESOLUTION`: Notification to guests detailing compensation credits and revised timings.
 
 ---
 

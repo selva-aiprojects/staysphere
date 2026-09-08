@@ -1,5 +1,5 @@
-# StaySphere Travel & Mobility Partners Operations Manual
-**Document Version:** 3.5 | **Classification:** Mobility & Fleet Partner Confidential  
+# 04. Travel & Mobility Partner Manual
+**StaySphere Sovereign Mobility Network** | **Classification:** Mobility & Fleet Partner Confidential  
 **Target Audience:** Fleet Operators, Chauffeur Leads, Airport Transfer Coordinators, Yacht Charter Captains, Sightseeing Tour Operators  
 **Fleet Categories:** Executive Sedans (Mercedes-Maybach / S-Class), Luxury 4x4 SUVs (Land Rover Defender), Zero-Emission VIP EVs, Private Solar Boats & 32ft Twin-Engine Speedboats
 
@@ -99,7 +99,7 @@ When assigned to a Sightseeing or Day Tour (e.g., *Private Sunset Speedboat Tour
 ### 6.1 Mechanical Breakdown or Traffic Gridlock
 If an en-route delay exceeds 10 minutes:
 1. **Trigger Incident**: Tap `Report Delay` on the Fleet Console.
-2. **Backup Vehicle Dispatch**: StaySphere Central Ops will immediately authorize a backup vehicle from the nearest standby hub.
+2. **Backup Vehicle Dispatch**: StaySphere Central Ops will immediately authorize a backup vehicle from the nearest standby hub within 8 minutes.
 3. **SLA Compensation**: StaySphere’s Sentinel Engine will automatically credit the guest with an SLA compensation voucher, protecting the fleet operator’s partnership standing if delay was reported proactively.
 
 ---

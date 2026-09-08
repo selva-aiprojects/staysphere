@@ -1,5 +1,5 @@
-# StaySphere Property Partners Operations & User Manual
-**Document Version:** 3.5 | **Classification:** External Partner Confidential  
+# 03. Property Partner Manual
+**StaySphere Sovereign Journey Network** | **Classification:** External Partner Confidential  
 **Target Audience:** General Managers, Revenue Directors, Front Office Leads, Villa Estate Hosts  
 **Properties Covered:** Luxury Boutique Hotels, Beachfront Resorts, Heritage Palaces, Clifftop Private Villas, Serviced Apartments, Alpine Chalets
 

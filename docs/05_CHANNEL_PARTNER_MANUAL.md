@@ -1,5 +1,5 @@
-# StaySphere Channel Partners (B2B) Integration & User Manual
-**Document Version:** 3.5 | **Classification:** B2B Commercial & Technical Confidential  
+# 05. Channel Partner Manual
+**StaySphere Sovereign B2B Network** | **Classification:** B2B Commercial & Technical Confidential  
 **Target Audience:** Corporate Travel Managers, Luxury Concierge Desks, B2B Travel Agencies, Platinum/Black Card Services (e.g., Amex Centurion)  
 **Access Modalities:** Partner Web Console, REST API Endpoints, Webhook Telemetry, White-Label Itinerary Bridges
 
