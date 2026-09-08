@@ -4,10 +4,8 @@ import {
   CheckCircle2,
   Clock,
   Hotel,
-  Plus,
   Users,
   Building2,
-  CreditCard,
   Receipt,
   ShieldCheck,
   KeyRound,
@@ -16,14 +14,28 @@ import {
   Check,
   Download,
   Eye,
-  ChevronRight,
-  X,
-  Package,
+  Car,
+  MessageSquare,
+  LifeBuoy,
 } from 'lucide-react';
 import { HorizontalLogo } from '@staysphere/ui-kit';
+import { PropertyPartnersWorkflow } from './components/PropertyPartnersWorkflow';
+import { TravelDeskWorkflow } from './components/TravelDeskWorkflow';
+import { ChannelPartnersWorkflow } from './components/ChannelPartnersWorkflow';
+import {
+  CollaborativeTicketsModal,
+  CollaborativeTicket,
+} from './components/CollaborativeTicketsModal';
 
 // Persona / Role Types
-export type PlatformRole = 'RELATIONSHIP_MANAGER' | 'FRONTDESK' | 'FINANCE_PAYMENTS' | 'PROPERTY_SUBSCRIPTIONS' | 'OPS_ADMIN';
+export type PlatformRole =
+  | 'RELATIONSHIP_MANAGER'
+  | 'PROPERTY_PARTNER'
+  | 'FRONTDESK'
+  | 'TRAVEL_DESK_LEAD'
+  | 'CHANNEL_PARTNER_LEAD'
+  | 'FINANCE_PAYMENTS'
+  | 'OPS_ADMIN';
 
 interface UserSession {
   id: string;
@@ -44,14 +56,39 @@ const DEMO_ACCOUNTS: Record<PlatformRole, UserSession> = {
     title: 'Senior Relationship Manager (West & North India Estates)',
     avatar: 'VS',
   },
+  PROPERTY_PARTNER: {
+    id: 'usr-prop-1',
+    name: 'Anil Deshmukh',
+    email: 'anil.owner@vanaazure.com',
+    role: 'PROPERTY_PARTNER',
+    title: 'Managing Partner & Owner (The Vana Azure Ocean Estate)',
+    avatar: 'AD',
+    assignedProperty: 'The Vana Azure Private Ocean Villa & Estate',
+  },
   FRONTDESK: {
     id: 'usr-fd-1',
     name: 'Ananya Deshmukh',
     email: 'ananya.frontdesk@vanaazure.com',
     role: 'FRONTDESK',
     title: 'Head of Frontdesk & Concierge (The Vana Azure Ocean Estate)',
-    avatar: 'AD',
+    avatar: 'AN',
     assignedProperty: 'The Vana Azure Private Ocean Villa & Estate',
+  },
+  TRAVEL_DESK_LEAD: {
+    id: 'usr-trv-1',
+    name: 'Vikas Rathore',
+    email: 'vikas.traveldesk@staysphere.io',
+    role: 'TRAVEL_DESK_LEAD',
+    title: 'Fleet Telematics Director & Chauffeur Transit Coordinator',
+    avatar: 'VR',
+  },
+  CHANNEL_PARTNER_LEAD: {
+    id: 'usr-chan-1',
+    name: 'Priya Nambiar',
+    email: 'priya.concierge@centurion.amex.com',
+    role: 'CHANNEL_PARTNER_LEAD',
+    title: 'Head of Luxury Concierge (American Express Centurion B2B)',
+    avatar: 'PN',
   },
   FINANCE_PAYMENTS: {
     id: 'usr-fin-1',
@@ -60,14 +97,6 @@ const DEMO_ACCOUNTS: Record<PlatformRole, UserSession> = {
     role: 'FINANCE_PAYMENTS',
     title: 'Chief Financial Officer & Escrow Vault Custodian',
     avatar: 'RK',
-  },
-  PROPERTY_SUBSCRIPTIONS: {
-    id: 'usr-sub-1',
-    name: 'Sarah Al Mansoor',
-    email: 'sarah.partnerships@staysphere.io',
-    role: 'PROPERTY_SUBSCRIPTIONS',
-    title: 'Head of Hotel, Resort & Apartment Partner Subscriptions',
-    avatar: 'SM',
   },
   OPS_ADMIN: {
     id: 'usr-adm-1',
@@ -129,25 +158,6 @@ interface PaymentReceiptRecord {
   releaseETA: string;
 }
 
-// Hotel / Resort / Apartment Partnership Plan Record (Like OYO / Luxury Network)
-interface PropertySubscriptionRecord {
-  id: string;
-  propertyName: string;
-  location: string;
-  propertyType: '5-Star Resort' | 'Heritage Palace' | 'Alpine Chalet' | 'Luxury Serviced Penthouse' | 'Boutique Hotel';
-  partnershipPlan: 'VERIFIED_BOUTIQUE' | 'PREMIER_RESORT' | 'SOVEREIGN_FLAGSHIP';
-  monthlyBaseFee: number;
-  commissionPct: number;
-  totalKeys: number;
-  allottedKeysToStaySphere: number;
-  monthlyGMVGenerated: number;
-  escrowPayoutCycle: string;
-  qualityAuditScore: number;
-  onboardingDate: string;
-  status: 'ACTIVE' | 'AUDIT_PENDING' | 'EXPIRING_SOON';
-}
-
-// Mock Data Sets
 const INITIAL_HOTELS: HotelPartnerRecord[] = [
   {
     id: 'hp-1',
@@ -305,70 +315,111 @@ const INITIAL_PAYMENTS: PaymentReceiptRecord[] = [
   },
 ];
 
-const INITIAL_PROPERTY_SUBSCRIPTIONS: PropertySubscriptionRecord[] = [
+const INITIAL_COLLAB_TICKETS: CollaborativeTicket[] = [
   {
-    id: 'psub-1',
-    propertyName: 'The Vana Azure Private Ocean Villa & Estate',
-    location: 'Sinquerim Cliffs, North Goa',
-    propertyType: '5-Star Resort',
-    partnershipPlan: 'SOVEREIGN_FLAGSHIP',
-    monthlyBaseFee: 59999,
-    commissionPct: 12,
-    totalKeys: 12,
-    allottedKeysToStaySphere: 12,
-    monthlyGMVGenerated: 14200000,
-    escrowPayoutCycle: '2-Hr Post Check-In (Automated)',
-    qualityAuditScore: 99.8,
-    onboardingDate: '15 Jan 2025',
-    status: 'ACTIVE',
+    id: 'tkt-1',
+    ticketNumber: 'SS-OPS-4091',
+    title: 'VIP Early Check-in & Helipad Request for Malhotra Family',
+    category: 'PROPERTY_HOST',
+    partnerName: 'Anil Deshmukh (GM, The Vana Azure)',
+    partnerRole: 'Hotel Property Partner',
+    assignedStaff: 'Vikramaditya Singh',
+    assignedRole: 'Senior Relationship Manager',
+    priority: 'P0_CRITICAL',
+    status: 'IN_PROGRESS',
+    slaMinutesRemaining: 8,
+    createdAt: '12 mins ago',
+    messages: [
+      {
+        id: 'm-1',
+        sender: 'Anil Deshmukh',
+        role: 'Hotel Property Partner',
+        avatar: 'AD',
+        isStaff: false,
+        timestamp: '12 mins ago',
+        text: 'Malhotra VIP family is landing early at Mopa GOX on 6E-204. Can we authorize Maybach priority pickup and arm Villa 101 digital key 2 hours early?',
+      },
+      {
+        id: 'm-2',
+        sender: 'Vikramaditya Singh',
+        role: 'Senior Relationship Manager',
+        avatar: 'VS',
+        isStaff: true,
+        timestamp: '5 mins ago',
+        text: 'Approved! I have coordinated with Travel Desk chauffeur Gurpreet (Maybach S680) and pre-armed the AES-256 digital lock for Villa 101.',
+        actionBadge: 'Villa 101 Armed & Chauffeur Dispatched',
+      },
+    ],
   },
   {
-    id: 'psub-2',
-    propertyName: 'The Maharaja Pichola Royal Palace',
-    location: 'Lake Pichola, Udaipur, Rajasthan',
-    propertyType: 'Heritage Palace',
-    partnershipPlan: 'SOVEREIGN_FLAGSHIP',
-    monthlyBaseFee: 59999,
-    commissionPct: 15,
-    totalKeys: 24,
-    allottedKeysToStaySphere: 20,
-    monthlyGMVGenerated: 28500000,
-    escrowPayoutCycle: '2-Hr Post Check-In (Automated)',
-    qualityAuditScore: 100.0,
-    onboardingDate: '10 Aug 2024',
-    status: 'ACTIVE',
+    id: 'tkt-2',
+    ticketNumber: 'SS-OPS-4092',
+    title: 'Airport Security Pass & Flight Delay Sync (6E-204)',
+    category: 'TRAVEL_FLEET',
+    partnerName: 'Gurpreet Singh',
+    partnerRole: 'First-Class Chauffeur Lead',
+    assignedStaff: 'Vikas Rathore',
+    assignedRole: 'Fleet Telematics Director',
+    priority: 'P1_HIGH',
+    status: 'RESOLVED',
+    slaMinutesRemaining: 45,
+    createdAt: '30 mins ago',
+    messages: [
+      {
+        id: 'm-3',
+        sender: 'Gurpreet Singh',
+        role: 'First-Class Chauffeur Lead',
+        avatar: 'GS',
+        isStaff: false,
+        timestamp: '30 mins ago',
+        text: 'Mopa VIP parking bay 4 reached. San Pellegrino bottles and chilled eucalyptus towels pre-arranged in vehicle.',
+      },
+      {
+        id: 'm-4',
+        sender: 'Vikas Rathore',
+        role: 'Fleet Telematics Director',
+        avatar: 'VR',
+        isStaff: true,
+        timestamp: '20 mins ago',
+        text: 'Radar confirmed flight touched down on runway 09. Transit escrow ₹8,500 armed for release upon estate arrival.',
+        actionBadge: 'Transit Escrow Armed',
+      },
+    ],
   },
   {
-    id: 'psub-3',
-    propertyName: 'The Celestial Alpine Glass Chalet & Spa',
-    location: 'Solang Heights, Manali',
-    propertyType: 'Alpine Chalet',
-    partnershipPlan: 'PREMIER_RESORT',
-    monthlyBaseFee: 29999,
-    commissionPct: 14,
-    totalKeys: 8,
-    allottedKeysToStaySphere: 8,
-    monthlyGMVGenerated: 6800000,
-    escrowPayoutCycle: '2-Hr Post Check-In (Automated)',
-    qualityAuditScore: 99.4,
-    onboardingDate: '01 Nov 2025',
-    status: 'EXPIRING_SOON',
-  },
-  {
-    id: 'psub-4',
-    propertyName: 'The Sovereign Horizon Sky Penthouse',
-    location: 'Bandra West, Mumbai',
-    propertyType: 'Luxury Serviced Penthouse',
-    partnershipPlan: 'PREMIER_RESORT',
-    monthlyBaseFee: 29999,
-    commissionPct: 12,
-    totalKeys: 4,
-    allottedKeysToStaySphere: 4,
-    monthlyGMVGenerated: 5400000,
-    escrowPayoutCycle: '2-Hr Post Check-In (Automated)',
-    qualityAuditScore: 99.7,
-    onboardingDate: '05 Mar 2025',
-    status: 'ACTIVE',
+    id: 'tkt-3',
+    ticketNumber: 'SS-OPS-4093',
+    title: 'Centurion Black 15% Commission & Multi-Suite Buyout for Mittal Retinue',
+    category: 'CHANNEL_PARTNER',
+    partnerName: 'Priya Nambiar',
+    partnerRole: 'Head of Luxury Concierge (Amex Centurion)',
+    assignedStaff: 'Vikramaditya Singh',
+    assignedRole: 'Senior Relationship Manager',
+    priority: 'P1_HIGH',
+    status: 'IN_PROGRESS',
+    slaMinutesRemaining: 75,
+    createdAt: '1 hr ago',
+    messages: [
+      {
+        id: 'm-5',
+        sender: 'Priya Nambiar',
+        role: 'Head of Luxury Concierge (Amex Centurion)',
+        avatar: 'PN',
+        isStaff: false,
+        timestamp: '1 hr ago',
+        text: 'Sunil Mittal executive team is booking 4 Royal Suites at Maharaja Pichola Palace (₹4.8L booking). Requesting customized Rajasthani royal dinner and 1-click B2B commission settlement.',
+      },
+      {
+        id: 'm-6',
+        sender: 'Vikramaditya Singh',
+        role: 'Senior Relationship Manager',
+        avatar: 'VS',
+        isStaff: true,
+        timestamp: '25 mins ago',
+        text: 'Palace GM has assigned Master Chef & Sommelier. B2B Commission ₹72,000 (15%) marked for instant settlement.',
+        actionBadge: 'Royal Chef Assigned & 15% Commission Logged',
+      },
+    ],
   },
 ];
 
@@ -376,30 +427,19 @@ export default function OperationsControlTower() {
   // Session / Authentication State
   const [currentUser, setCurrentUser] = useState<UserSession | null>(DEMO_ACCOUNTS.RELATIONSHIP_MANAGER);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
-  const [activeWorkflow, setActiveWorkflow] = useState<'rm' | 'frontdesk' | 'payments' | 'subscriptions' | 'resolution'>('rm');
+  const [activeWorkflow, setActiveWorkflow] = useState<
+    'partners' | 'rm' | 'frontdesk' | 'travel-desk' | 'channel-partners' | 'payments' | 'resolution'
+  >('partners');
 
   // Workflows Datasets
   const [hotels, setHotels] = useState<HotelPartnerRecord[]>(INITIAL_HOTELS);
   const [frontdeskGuests, setFrontdeskGuests] = useState<FrontdeskGuestRecord[]>(INITIAL_FRONTDESK_GUESTS);
   const [payments, setPayments] = useState<PaymentReceiptRecord[]>(INITIAL_PAYMENTS);
-  const [propertySubscriptions, setPropertySubscriptions] = useState<PropertySubscriptionRecord[]>(INITIAL_PROPERTY_SUBSCRIPTIONS);
+  const [collaborativeTickets, setCollaborativeTickets] = useState<CollaborativeTicket[]>(INITIAL_COLLAB_TICKETS);
 
   // Modals State
   const [viewingReceipt, setViewingReceipt] = useState<PaymentReceiptRecord | null>(null);
-  const [isOnboardingModalOpen, setIsOnboardingModalOpen] = useState<boolean>(false);
-  const [newPropertyForm, setNewPropertyForm] = useState<{
-    name: string;
-    location: string;
-    propertyType: '5-Star Resort' | 'Heritage Palace' | 'Alpine Chalet' | 'Luxury Serviced Penthouse' | 'Boutique Hotel';
-    partnershipPlan: 'VERIFIED_BOUTIQUE' | 'PREMIER_RESORT' | 'SOVEREIGN_FLAGSHIP';
-    keysCount: number;
-  }>({
-    name: '',
-    location: 'Goa',
-    propertyType: '5-Star Resort',
-    partnershipPlan: 'PREMIER_RESORT',
-    keysCount: 15,
-  });
+  const [isCollabTicketsModalOpen, setIsCollabTicketsModalOpen] = useState<boolean>(false);
 
   // Success Notification banner
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -416,11 +456,13 @@ export default function OperationsControlTower() {
     setIsAuthModalOpen(false);
 
     // Automatically navigate to appropriate primary tab
-    if (role === 'RELATIONSHIP_MANAGER') setActiveWorkflow('rm');
+    if (role === 'PROPERTY_PARTNER') setActiveWorkflow('partners');
+    else if (role === 'RELATIONSHIP_MANAGER') setActiveWorkflow('rm');
     else if (role === 'FRONTDESK') setActiveWorkflow('frontdesk');
+    else if (role === 'TRAVEL_DESK_LEAD') setActiveWorkflow('travel-desk');
+    else if (role === 'CHANNEL_PARTNER_LEAD') setActiveWorkflow('channel-partners');
     else if (role === 'FINANCE_PAYMENTS') setActiveWorkflow('payments');
-    else if (role === 'PROPERTY_SUBSCRIPTIONS') setActiveWorkflow('subscriptions');
-    else setActiveWorkflow('rm');
+    else setActiveWorkflow('resolution');
 
     showToast(`Logged in as ${account.name} (${account.role})`);
   };
@@ -434,76 +476,40 @@ export default function OperationsControlTower() {
   };
 
   // Frontdesk Action: Issue Keycard & Check-in
-  const handleCheckInGuest = (id: string) => {
+  const handleCheckInGuest = (guestId: string) => {
     setFrontdeskGuests((prev) =>
       prev.map((g) =>
-        g.id === id
-          ? { ...g, status: 'CHECKED_IN', keycardActive: true }
+        g.id === guestId
+          ? { ...g, status: 'CHECKED_IN', keycardActive: true, transitStatus: 'ON_TIME' }
           : g
       )
     );
-    showToast('VIP Check-In Completed! NFC Keycard Activated for Villa 101.');
+    showToast('Guest Checked-in: AES-256 Digital Keycard armed & VIP Welcome Cocktail dispatched.');
   };
 
-  // Finance Action: Release Escrow
-  const handleReleaseEscrow = (id: string) => {
+  // Finance Action: Release Escrow to Host
+  const handleReleaseEscrow = (paymentId: string) => {
     setPayments((prev) =>
       prev.map((p) =>
-        p.id === id
-          ? { ...p, escrowStatus: 'RELEASED_TO_HOST', releaseETA: 'Settled to Partner Bank Account' }
+        p.id === paymentId
+          ? { ...p, escrowStatus: 'RELEASED_TO_HOST', releaseETA: 'Settled to Partner Account via IMPS/RTGS' }
           : p
       )
     );
-    showToast('Smart Escrow Disbursed! Funds released to Property Operator.');
+    showToast('Escrow released: ₹126,000 net host earnings dispatched to partner bank account.');
   };
 
-  // Property Subscription Action: Upgrade Tier
-  const handleUpgradePropertyPlan = (subId: string) => {
-    setPropertySubscriptions((prev) =>
-      prev.map((s) =>
-        s.id === subId
-          ? {
-              ...s,
-              partnershipPlan: 'SOVEREIGN_FLAGSHIP',
-              monthlyBaseFee: 59999,
-              commissionPct: 15,
-              status: 'ACTIVE',
-            }
-          : s
-      )
+  // Collaborative Ticket Update
+  const handleUpdateTicket = (updated: CollaborativeTicket) => {
+    setCollaborativeTickets((prev) =>
+      prev.map((t) => (t.id === updated.id ? updated : t))
     );
-    showToast('Property partnership upgraded to Sovereign Flagship Franchise!');
+    showToast(`Ticket #${updated.ticketNumber} updated successfully.`);
   };
 
-  // Onboard New Property Partner Form Submit
-  const handleOnboardPropertySubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newPropertyForm.name.trim()) return;
-
-    const baseFee = newPropertyForm.partnershipPlan === 'SOVEREIGN_FLAGSHIP' ? 59999 : newPropertyForm.partnershipPlan === 'PREMIER_RESORT' ? 29999 : 14999;
-    const commPct = newPropertyForm.partnershipPlan === 'SOVEREIGN_FLAGSHIP' ? 15 : newPropertyForm.partnershipPlan === 'PREMIER_RESORT' ? 12 : 8;
-
-    const newRecord: PropertySubscriptionRecord = {
-      id: `psub-${Date.now()}`,
-      propertyName: newPropertyForm.name,
-      location: newPropertyForm.location,
-      propertyType: newPropertyForm.propertyType,
-      partnershipPlan: newPropertyForm.partnershipPlan,
-      monthlyBaseFee: baseFee,
-      commissionPct: commPct,
-      totalKeys: newPropertyForm.keysCount,
-      allottedKeysToStaySphere: Math.round(newPropertyForm.keysCount * 0.85),
-      monthlyGMVGenerated: 0,
-      escrowPayoutCycle: '2-Hr Post Check-In (Automated)',
-      qualityAuditScore: 100.0,
-      onboardingDate: 'Just Now',
-      status: 'ACTIVE',
-    };
-
-    setPropertySubscriptions([newRecord, ...propertySubscriptions]);
-    setIsOnboardingModalOpen(false);
-    setNewPropertyForm({ name: '', location: 'Goa', propertyType: '5-Star Resort', partnershipPlan: 'PREMIER_RESORT', keysCount: 15 });
-    showToast(`Property "${newRecord.propertyName}" partnered successfully!`);
+  const handleCreateTicket = (newTicket: CollaborativeTicket) => {
+    setCollaborativeTickets([newTicket, ...collaborativeTickets]);
+    showToast(`Ticket #${newTicket.ticketNumber} created and assigned to Central Ops.`);
   };
 
   return (
@@ -520,9 +526,16 @@ export default function OperationsControlTower() {
       <div className="bg-[#000B17] border-b border-white/10 px-6 py-2 text-xs flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2 text-slate-300">
           <span className="w-2 h-2 rounded-full bg-[#00A9A5] animate-pulse" />
-          <span>StaySphere Operational Control: <strong className="text-white">Hotel & Property Network Hub (Port 3002)</strong></span>
+          <span>StaySphere Operational Control: <strong className="text-white">Unified Partner & Operations Network (Port 3002)</strong></span>
         </div>
         <div className="flex items-center gap-3">
+          <button
+            onClick={() => setIsCollabTicketsModalOpen(true)}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#002B4D] border border-[#3CCF91]/40 text-[#3CCF91] font-bold hover:brightness-110 text-xs"
+          >
+            <MessageSquare className="w-3.5 h-3.5" />
+            <span>Partner Support & Growth Tickets ({collaborativeTickets.filter(t => t.status !== 'RESOLVED').length} Active)</span>
+          </button>
           <button
             onClick={() => setIsAuthModalOpen(true)}
             className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#002B4D] border border-[#00A9A5]/40 text-[#00D2C4] font-bold hover:brightness-110 text-xs"
@@ -547,54 +560,76 @@ export default function OperationsControlTower() {
         <div className="flex items-center gap-4">
           <HorizontalLogo size="md" variant="dark" />
           <span className="text-[11px] px-3 py-1 rounded-full bg-[#00A9A5]/10 text-[#00D2C4] border border-[#00A9A5]/30 font-bold uppercase tracking-wider hidden sm:inline-block">
-            Hotel & Franchise Operations v3.3
+            Collaborative Ecosystem v3.4
           </span>
         </div>
 
         {/* Global Navigation Bar */}
         <nav className="flex items-center gap-1 p-1 rounded-2xl bg-[#000E1C] border border-white/10 text-xs font-bold overflow-x-auto no-scrollbar">
           <button
-            onClick={() => setActiveWorkflow('rm')}
-            className={`px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
-              activeWorkflow === 'rm'
+            onClick={() => setActiveWorkflow('partners')}
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              activeWorkflow === 'partners'
                 ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <Building2 className="w-3.5 h-3.5 text-[#00D2C4]" /> 1. Relationship Manager (RM)
+            <Building2 className="w-3.5 h-3.5 text-[#00D2C4]" /> 1. Property Partners
+          </button>
+
+          <button
+            onClick={() => setActiveWorkflow('travel-desk')}
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              activeWorkflow === 'travel-desk'
+                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Car className="w-3.5 h-3.5 text-amber-400" /> 2. Travel Desk
+          </button>
+
+          <button
+            onClick={() => setActiveWorkflow('channel-partners')}
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              activeWorkflow === 'channel-partners'
+                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Users className="w-3.5 h-3.5 text-[#3CCF91]" /> 3. Channel Partners
           </button>
 
           <button
             onClick={() => setActiveWorkflow('frontdesk')}
-            className={`px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
               activeWorkflow === 'frontdesk'
                 ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <KeyRound className="w-3.5 h-3.5 text-[#FFC857]" /> 2. Frontdesk & Butler
+            <KeyRound className="w-3.5 h-3.5 text-[#FFC857]" /> 4. Frontdesk
           </button>
 
           <button
             onClick={() => setActiveWorkflow('payments')}
-            className={`px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
               activeWorkflow === 'payments'
                 ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <Receipt className="w-3.5 h-3.5 text-[#3CCF91]" /> 3. Payments & Receipts
+            <Receipt className="w-3.5 h-3.5 text-[#3CCF91]" /> 5. Escrow & Receipts
           </button>
 
           <button
-            onClick={() => setActiveWorkflow('subscriptions')}
-            className={`px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
-              activeWorkflow === 'subscriptions'
+            onClick={() => setActiveWorkflow('rm')}
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              activeWorkflow === 'rm'
                 ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <Package className="w-3.5 h-3.5 text-[#FF8A3D]" /> 4. Property Partner Subscriptions
+            <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" /> 6. RM Governance
           </button>
         </nav>
 
@@ -609,7 +644,7 @@ export default function OperationsControlTower() {
             </div>
             <div className="text-left leading-none">
               <span className="text-xs font-bold text-white block">{currentUser.name}</span>
-              <span className="text-[10px] text-[#00D2C4] font-medium block mt-0.5">{currentUser.role.replace('_', ' ')}</span>
+              <span className="text-[10px] text-[#00D2C4] font-medium block mt-0.5">{currentUser.role.replace(/_/g, ' ')}</span>
             </div>
           </div>
         )}
@@ -619,241 +654,127 @@ export default function OperationsControlTower() {
       <main className="flex-1 max-w-7xl mx-auto px-6 py-8 w-full space-y-8">
         {/* Role Context Notification Bar */}
         {currentUser && (
-          <div className="p-4 rounded-2xl bg-[#001A33] border border-[#00A9A5]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs">
+          <div className="p-4 rounded-2xl bg-[#001E36] border border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs shadow-md">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-xl bg-[#002B4D] border border-[#00A9A5]/40 flex items-center justify-center text-[#00A9A5]">
-                <ShieldCheck className="w-4 h-4" />
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#00A9A5] to-[#3CCF91] flex items-center justify-center text-xs font-black text-white">
+                {currentUser.avatar}
               </div>
               <div>
-                <strong className="text-white block font-bold">{currentUser.title}</strong>
-                <span className="text-slate-400">Authenticated as <code className="text-[#00D2C4]">{currentUser.email}</code></span>
+                <span className="text-slate-400">Authenticated Session: </span>
+                <strong className="text-white">{currentUser.name}</strong> • <span className="text-[#3CCF91] font-semibold">{currentUser.title}</span>
               </div>
             </div>
-
             <button
-              onClick={() => setIsAuthModalOpen(true)}
-              className="px-3.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 font-bold self-start sm:self-auto"
+              onClick={() => setIsCollabTicketsModalOpen(true)}
+              className="px-3.5 py-1.5 rounded-xl bg-[#00A9A5]/20 hover:bg-[#00A9A5]/30 text-[#00D2C4] border border-[#00A9A5]/40 font-bold transition flex items-center gap-1.5"
             >
-              Switch Role Workspace ↗
+              <LifeBuoy className="w-3.5 h-3.5" />
+              <span>Open Support Desk ({collaborativeTickets.length} Tickets)</span>
             </button>
           </div>
         )}
 
-        {/* ========================================================================= */}
-        {/* WORKFLOW 1: RELATIONSHIP MANAGER (RM) WORKSPACE                           */}
-        {/* ========================================================================= */}
-        {activeWorkflow === 'rm' && (
-          <div className="space-y-6">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-white/10">
-              <div>
-                <span className="text-xs font-bold text-[#00D2C4] uppercase tracking-widest flex items-center gap-1.5">
-                  <Building2 className="w-3.5 h-3.5" /> Luxury Portfolio Governance
-                </span>
-                <h1 className="text-3xl font-black text-white mt-1">Relationship Manager Workspace</h1>
-                <p className="text-xs text-slate-300 mt-1">
-                  Manage hotel and villa partner accounts, contract renewals, rate parity, and trust audit scores.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <span className="text-xs px-3 py-1.5 rounded-xl bg-[#3CCF91]/20 text-[#3CCF91] font-bold border border-[#3CCF91]/40 flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> 4 Active Partner Contracts
-                </span>
-              </div>
-            </div>
-
-            {/* RM Quick Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="p-5 rounded-2xl glass-panel border border-white/10 space-y-1">
-                <span className="text-[11px] text-slate-400 uppercase font-bold block">Portfolio Revenue (MTD)</span>
-                <span className="text-2xl font-black text-white">₹54.90M</span>
-                <span className="text-[11px] text-[#3CCF91] block font-bold">+18.4% vs last month</span>
-              </div>
-
-              <div className="p-5 rounded-2xl glass-panel border border-white/10 space-y-1">
-                <span className="text-[11px] text-slate-400 uppercase font-bold block">Average Portfolio Trust</span>
-                <span className="text-2xl font-black text-[#00D2C4]">99.72%</span>
-                <span className="text-[11px] text-slate-400 block">84-point audit certified</span>
-              </div>
-
-              <div className="p-5 rounded-2xl glass-panel border border-white/10 space-y-1">
-                <span className="text-[11px] text-slate-400 uppercase font-bold block">Rate Parity Sync</span>
-                <span className="text-2xl font-black text-[#FFC857]">75% Synced</span>
-                <span className="text-[11px] text-[#FF8A3D] block font-bold">1 Discrepancy Flagged</span>
-              </div>
-
-              <div className="p-5 rounded-2xl glass-panel border border-white/10 space-y-1">
-                <span className="text-[11px] text-slate-400 uppercase font-bold block">Contracts Due Renewal</span>
-                <span className="text-2xl font-black text-[#FF8A3D]">1 Estate</span>
-                <span className="text-[11px] text-slate-400 block">Solang Alpine (30 Sep)</span>
-              </div>
-            </div>
-
-            {/* Hotel & Resort Partner Table */}
-            <div className="glass-panel rounded-3xl border border-white/10 overflow-hidden shadow-xl">
-              <div className="p-6 border-b border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <h3 className="text-base font-black text-white flex items-center gap-2">
-                  <Hotel className="w-4 h-4 text-[#00A9A5]" />
-                  <span>Assigned Hotel & Resort Portfolio</span>
-                </h3>
-                <span className="text-xs text-slate-400">All partner payouts secured in escrow</span>
-              </div>
-
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs border-collapse">
-                  <thead>
-                    <tr className="bg-[#000E1C] border-b border-white/10 text-slate-400 uppercase font-mono text-[11px]">
-                      <th className="p-4">Property & Location</th>
-                      <th className="p-4">Partnership Tier</th>
-                      <th className="p-4">Base Rate / Night</th>
-                      <th className="p-4">Trust Audit</th>
-                      <th className="p-4">Rate Parity</th>
-                      <th className="p-4">Contract Status</th>
-                      <th className="p-4 text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/5">
-                    {hotels.map((hotel) => (
-                      <tr key={hotel.id} className="hover:bg-white/[0.02] transition-colors">
-                        <td className="p-4">
-                          <strong className="text-white text-sm block font-bold">{hotel.name}</strong>
-                          <span className="text-slate-400">{hotel.location} • {hotel.totalSuites} Suites</span>
-                        </td>
-                        <td className="p-4">
-                          <span className="px-2.5 py-1 rounded-full bg-[#FFC857]/20 text-[#FFC857] text-[10px] font-black border border-[#FFC857]/40">
-                            {hotel.tier.replace('_', ' ')}
-                          </span>
-                        </td>
-                        <td className="p-4">
-                          <span className="font-bold text-white text-sm">₹{hotel.baseRate.toLocaleString()}</span>
-                          <span className="text-slate-400 block text-[10px]">{hotel.commissionPct}% RM Commission</span>
-                        </td>
-                        <td className="p-4">
-                          <span className="font-bold text-[#3CCF91] text-sm">{hotel.trustAuditScore}%</span>
-                          <span className="text-slate-400 block text-[10px]">Verified Audit</span>
-                        </td>
-                        <td className="p-4">
-                          {hotel.rateParityStatus === 'IN_SYNC' ? (
-                            <span className="text-[#3CCF91] font-bold flex items-center gap-1">
-                              <CheckCircle2 className="w-3.5 h-3.5" /> In Sync
-                            </span>
-                          ) : (
-                            <span className="text-[#FF8A3D] font-bold flex items-center gap-1">
-                              <AlertTriangle className="w-3.5 h-3.5" /> Price Mismatch
-                            </span>
-                          )}
-                        </td>
-                        <td className="p-4">
-                          <span className={`text-xs font-bold block ${hotel.contractStatus === 'ACTIVE' ? 'text-[#3CCF91]' : 'text-[#FF8A3D]'}`}>
-                            {hotel.contractStatus}
-                          </span>
-                          <span className="text-[10px] text-slate-400">Exp: {hotel.contractExpires}</span>
-                        </td>
-                        <td className="p-4 text-right">
-                          {hotel.rateParityStatus === 'DISCREPANCY' ? (
-                            <button
-                              onClick={() => handleFixRateParity(hotel.id)}
-                              className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] text-[#001428] font-bold text-xs hover:brightness-110 shadow-sm"
-                            >
-                              Fix Parity Sync
-                            </button>
-                          ) : (
-                            <button
-                              onClick={() => showToast(`Audit details for ${hotel.name} opened.`)}
-                              className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-bold border border-white/10"
-                            >
-                              View Contract
-                            </button>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+        {/* WORKSPACE 1: PROPERTY PARTNERS */}
+        {activeWorkflow === 'partners' && (
+          <PropertyPartnersWorkflow
+            onOpenTicketsModal={() => setIsCollabTicketsModalOpen(true)}
+            showToast={showToast}
+          />
         )}
 
-        {/* ========================================================================= */}
-        {/* WORKFLOW 2: FRONTDESK & IN-STAY BUTLER WORKSPACE                          */}
-        {/* ========================================================================= */}
+        {/* WORKSPACE 2: TRAVEL DESK */}
+        {activeWorkflow === 'travel-desk' && (
+          <TravelDeskWorkflow
+            onOpenTicketsModal={() => setIsCollabTicketsModalOpen(true)}
+            showToast={showToast}
+          />
+        )}
+
+        {/* WORKSPACE 3: CHANNEL PARTNERS */}
+        {activeWorkflow === 'channel-partners' && (
+          <ChannelPartnersWorkflow
+            onOpenTicketsModal={() => setIsCollabTicketsModalOpen(true)}
+            showToast={showToast}
+          />
+        )}
+
+        {/* WORKSPACE 4: FRONTDESK */}
         {activeWorkflow === 'frontdesk' && (
           <div className="space-y-6">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-white/10">
+            <div className="bg-[#001E36] border border-white/10 rounded-3xl p-6 shadow-xl flex flex-wrap items-center justify-between gap-4">
               <div>
-                <span className="text-xs font-bold text-[#FFC857] uppercase tracking-widest flex items-center gap-1.5">
-                  <KeyRound className="w-3.5 h-3.5" /> Property Operations & Butler Desk
-                </span>
-                <h1 className="text-3xl font-black text-white mt-1">Frontdesk & Concierge Workspace</h1>
-                <p className="text-xs text-slate-300 mt-1">
-                  Assigned Property: <strong>The Vana Azure Private Ocean Villa & Estate</strong> • Live Maybach flight sync active.
+                <div className="flex items-center gap-2 mb-1">
+                  <h1 className="text-xl font-bold text-white tracking-wide">Frontdesk & Concierge Operations</h1>
+                  <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-[#FFC857]/20 text-[#FFC857] border border-[#FFC857]/30">
+                    Villa & Suite Radar
+                  </span>
+                </div>
+                <p className="text-xs text-slate-300">
+                  Guest arrivals queue, flight sync, 1-click check-in, and in-suite butler service tickets.
                 </p>
               </div>
 
               <div className="flex items-center gap-3">
-                <span className="text-xs px-3 py-1.5 rounded-xl bg-[#00A9A5]/20 text-[#00D2C4] font-bold border border-[#00A9A5]/40 flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5" /> 10-Minute Butler SLA Active
-                </span>
+                <button
+                  onClick={() => setIsCollabTicketsModalOpen(true)}
+                  className="px-4 py-2.5 rounded-2xl bg-[#002B4D] hover:bg-[#003866] border border-[#FFC857]/40 text-white text-xs font-bold transition shadow flex items-center gap-2"
+                >
+                  <MessageSquare className="w-4 h-4 text-[#FFC857]" />
+                  <span>Frontdesk Support Tickets</span>
+                </button>
               </div>
             </div>
 
-            {/* Frontdesk Guest Queue */}
-            <div className="glass-panel rounded-3xl border border-white/10 overflow-hidden shadow-xl space-y-4">
-              <div className="p-6 border-b border-white/10 flex items-center justify-between">
-                <h3 className="text-base font-black text-white flex items-center gap-2">
-                  <Users className="w-4 h-4 text-[#FFC857]" />
-                  <span>Today's Guest Arrivals & Active In-Suite Retinue</span>
-                </h3>
-              </div>
+            {/* Arrivals Table */}
+            <div className="bg-[#001E36] border border-white/10 rounded-3xl p-6 shadow-xl space-y-4">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <Clock className="w-4 h-4 text-[#FFC857]" />
+                <span>Today's VIP Arrival & In-Stay Queue (The Vana Azure Ocean Estate)</span>
+              </h3>
 
-              <div className="p-6 space-y-4">
+              <div className="space-y-4">
                 {frontdeskGuests.map((guest) => (
                   <div
                     key={guest.id}
-                    className="p-5 rounded-2xl bg-[#001020] border border-white/10 flex flex-col lg:flex-row lg:items-center justify-between gap-6"
+                    className="p-5 rounded-2xl bg-[#001428] border border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4"
                   >
-                    <div className="space-y-1">
+                    <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-base font-bold text-white">{guest.guestName}</span>
-                        <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#FFC857]/20 text-[#FFC857] font-bold">
+                        <h4 className="text-sm font-bold text-white">{guest.guestName}</h4>
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#FF8A3D]/20 text-[#FF8A3D] font-bold">
                           {guest.vipTier}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-300">{guest.roomNumber}</p>
-                      <span className="text-[11px] text-[#00D2C4] font-medium block">{guest.flightTransitCode}</span>
+                      <div className="text-xs text-slate-400 mt-1">
+                        {guest.roomNumber} • <span className="text-slate-300 font-medium">{guest.roomType}</span>
+                      </div>
+                      <div className="text-[11px] text-cyan-300 font-mono mt-1">
+                        Transit: {guest.flightTransitCode} ({guest.transitStatus.replace(/_/g, ' ')})
+                      </div>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-4 text-xs">
-                      <div>
-                        <span className="text-slate-400 block text-[10px] uppercase">Status</span>
-                        <span className="font-bold text-white">{guest.status.replace('_', ' ')}</span>
-                      </div>
-
-                      <div>
-                        <span className="text-slate-400 block text-[10px] uppercase">Digital Key</span>
-                        <span className={`font-bold ${guest.keycardActive ? 'text-[#3CCF91]' : 'text-slate-500'}`}>
-                          {guest.keycardActive ? '● Active & Armed' : '○ Pending Check-In'}
-                        </span>
-                      </div>
-
+                    <div className="flex items-center gap-3">
                       {guest.status === 'EXPECTED_TODAY' && (
                         <button
                           onClick={() => handleCheckInGuest(guest.id)}
-                          className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] hover:brightness-110 text-white font-black text-xs shadow-lg flex items-center gap-1.5"
+                          className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-white text-xs font-bold shadow hover:brightness-110 flex items-center gap-1.5"
                         >
                           <KeyRound className="w-3.5 h-3.5" />
-                          <span>Check-In & Issue Key</span>
+                          <span>1-Click Check-In & Issue Key</span>
                         </button>
                       )}
 
                       {guest.status === 'CHECKED_IN' && (
-                        <button
-                          onClick={() => showToast(`Butler dispatched to ${guest.roomNumber}`)}
-                          className="px-4 py-2 rounded-xl bg-[#002B4D] hover:bg-[#003A66] text-[#00D2C4] font-bold text-xs border border-[#00A9A5]/40"
-                        >
-                          Dispatch Butler Request ({guest.activeRequests})
-                        </button>
+                        <span className="px-3.5 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold flex items-center gap-1.5">
+                          <CheckCircle2 className="w-3.5 h-3.5" />
+                          <span>In-Stay (Key Active)</span>
+                        </span>
+                      )}
+
+                      {guest.status === 'CHECKED_OUT' && (
+                        <span className="px-3.5 py-1.5 rounded-xl bg-slate-500/20 text-slate-400 text-xs font-bold">
+                          Checked Out
+                        </span>
                       )}
                     </div>
                   </div>
@@ -863,436 +784,248 @@ export default function OperationsControlTower() {
           </div>
         )}
 
-        {/* ========================================================================= */}
-        {/* WORKFLOW 3: PAYMENTS, ESCROW & RECEIPTS WORKSPACE                         */}
-        {/* ========================================================================= */}
+        {/* WORKSPACE 5: PAYMENTS & ESCROW RECEIPTS */}
         {activeWorkflow === 'payments' && (
           <div className="space-y-6">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-white/10">
+            <div className="bg-[#001E36] border border-white/10 rounded-3xl p-6 shadow-xl flex flex-wrap items-center justify-between gap-4">
               <div>
-                <span className="text-xs font-bold text-[#3CCF91] uppercase tracking-widest flex items-center gap-1.5">
-                  <Receipt className="w-3.5 h-3.5" /> Institutional Smart Escrow Vault
-                </span>
-                <h1 className="text-3xl font-black text-white mt-1">Payments & Receipts Ledger</h1>
-                <p className="text-xs text-slate-300 mt-1">
-                  Immutable smart escrow tracking, guest receipts, tax invoices, and verified host disbursements.
+                <div className="flex items-center gap-2 mb-1">
+                  <h1 className="text-xl font-bold text-white tracking-wide">Smart Escrow Vault & Tax Receipts</h1>
+                  <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    ₹14.82M Escrow Pool
+                  </span>
+                </div>
+                <p className="text-xs text-slate-300">
+                  Real-time escrow release triggers (2-hr post check-in), split payments, and itemized PDF tax receipts.
                 </p>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <span className="text-xs px-3 py-1.5 rounded-xl bg-[#3CCF91]/20 text-[#3CCF91] font-bold border border-[#3CCF91]/40 flex items-center gap-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5" /> ₹14,820,000.00 Escrow Vault Active
-                </span>
               </div>
             </div>
 
             {/* Payments Table */}
-            <div className="glass-panel rounded-3xl border border-white/10 overflow-hidden shadow-xl">
-              <div className="p-6 border-b border-white/10 flex items-center justify-between">
-                <h3 className="text-base font-black text-white flex items-center gap-2">
-                  <CreditCard className="w-4 h-4 text-[#3CCF91]" />
-                  <span>Escrow Transactions & VIP Receipt Repository</span>
-                </h3>
-              </div>
+            <div className="bg-[#001E36] border border-white/10 rounded-3xl p-6 shadow-xl space-y-4">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <Receipt className="w-4 h-4 text-[#3CCF91]" />
+                <span>Recent Escrow Transactions & VIP Invoices</span>
+              </h3>
 
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs border-collapse">
-                  <thead>
-                    <tr className="bg-[#000E1C] border-b border-white/10 text-slate-400 uppercase font-mono text-[11px]">
-                      <th className="p-4">Receipt #</th>
-                      <th className="p-4">Guest & Property</th>
-                      <th className="p-4">Payment Method</th>
-                      <th className="p-4">Escrow Status</th>
-                      <th className="p-4">Total Amount</th>
-                      <th className="p-4 text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/5">
-                    {payments.map((p) => (
-                      <tr key={p.id} className="hover:bg-white/[0.02] transition-colors">
-                        <td className="p-4 font-mono font-bold text-white">{p.receiptNumber}</td>
-                        <td className="p-4">
-                          <strong className="text-white block font-bold">{p.guestName}</strong>
-                          <span className="text-slate-400">{p.propertyName}</span>
-                        </td>
-                        <td className="p-4 text-slate-300">{p.paymentMethod}</td>
-                        <td className="p-4">
-                          <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold border ${
-                            p.escrowStatus === 'ESCROW_LOCKED'
-                              ? 'bg-[#FF8A3D]/20 text-[#FF8A3D] border-[#FF8A3D]/40'
-                              : 'bg-[#3CCF91]/20 text-[#3CCF91] border-[#3CCF91]/40'
-                          }`}>
-                            {p.escrowStatus.replace('_', ' ')}
-                          </span>
-                          <span className="text-[10px] text-slate-400 block mt-1">{p.releaseETA}</span>
-                        </td>
-                        <td className="p-4">
-                          <span className="font-black text-white text-sm">₹{p.totalAmount.toLocaleString()}</span>
-                          <span className="text-slate-400 block text-[10px]">Incl. 12% GST</span>
-                        </td>
-                        <td className="p-4 text-right space-x-2">
-                          <button
-                            onClick={() => setViewingReceipt(p)}
-                            className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 text-xs font-bold border border-white/10 inline-flex items-center gap-1"
-                          >
-                            <Eye className="w-3 h-3" />
-                            <span>Receipt</span>
-                          </button>
+              <div className="space-y-4">
+                {payments.map((p) => (
+                  <div
+                    key={p.id}
+                    className="p-5 rounded-2xl bg-[#001428] border border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4"
+                  >
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-mono font-bold text-[#00A9A5]">{p.receiptNumber}</span>
+                        <h4 className="text-sm font-bold text-white">{p.guestName}</h4>
+                      </div>
+                      <div className="text-xs text-slate-400 mt-1">
+                        {p.propertyName} • <span className="text-slate-300">{p.date}</span>
+                      </div>
+                      <div className="text-xs text-slate-300 mt-1">
+                        Total Amount: <strong className="text-white">₹{p.totalAmount.toLocaleString('en-IN')}</strong> ({p.paymentMethod})
+                      </div>
+                    </div>
 
-                          {p.escrowStatus === 'ESCROW_LOCKED' && (
-                            <button
-                              onClick={() => handleReleaseEscrow(p.id)}
-                              className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#3CCF91] to-[#00A9A5] text-[#001428] font-bold text-xs hover:brightness-110 shadow-sm inline-flex items-center gap-1"
-                            >
-                              <Check className="w-3 h-3" />
-                              <span>Release Escrow</span>
-                            </button>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => setViewingReceipt(p)}
+                        className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition flex items-center gap-1.5"
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                        <span>View Tax Invoice</span>
+                      </button>
+
+                      {p.escrowStatus === 'ESCROW_LOCKED' && (
+                        <button
+                          onClick={() => handleReleaseEscrow(p.id)}
+                          className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-white text-xs font-bold shadow hover:brightness-110 flex items-center gap-1.5"
+                        >
+                          <Check className="w-3.5 h-3.5" />
+                          <span>Release to Host</span>
+                        </button>
+                      )}
+
+                      {p.escrowStatus === 'RELEASED_TO_HOST' && (
+                        <span className="px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold flex items-center gap-1">
+                          <CheckCircle2 className="w-3.5 h-3.5" /> Settled
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         )}
 
-        {/* ========================================================================= */}
-        {/* WORKFLOW 4: PROPERTY PARTNERSHIP SUBSCRIPTIONS & NETWORK FRANCHISE        */}
-        {/* (Hotels, Resorts & Serviced Apartments partnering like OYO / Luxury Net)  */}
-        {/* ========================================================================= */}
-        {activeWorkflow === 'subscriptions' && (
+        {/* WORKSPACE 6: RELATIONSHIP MANAGER GOVERNANCE */}
+        {activeWorkflow === 'rm' && (
           <div className="space-y-6">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-white/10">
+            <div className="bg-[#001E36] border border-white/10 rounded-3xl p-6 shadow-xl flex flex-wrap items-center justify-between gap-4">
               <div>
-                <span className="text-xs font-bold text-[#FF8A3D] uppercase tracking-widest flex items-center gap-1.5">
-                  <Hotel className="w-3.5 h-3.5" /> Property Franchise & Network Plans
-                </span>
-                <h1 className="text-3xl font-black text-white mt-1">Property Partner Subscriptions</h1>
-                <p className="text-xs text-slate-300 mt-1">
-                  Manage hotel, resort, and apartment network partnership plans, room key allocations, revenue shares, and quality compliance.
+                <div className="flex items-center gap-2 mb-1">
+                  <h1 className="text-xl font-bold text-white tracking-wide">Relationship Manager (RM) Governance</h1>
+                  <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
+                    Estate Portfolio & Rate Parity
+                  </span>
+                </div>
+                <p className="text-xs text-slate-300">
+                  Estate performance oversight, 84-point luxury trust audits, contract renewals, and OTA rate parity enforcement.
                 </p>
               </div>
 
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => setIsOnboardingModalOpen(true)}
-                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] text-[#001428] font-black text-xs hover:brightness-110 shadow-lg flex items-center gap-1.5"
-                >
-                  <Plus className="w-4 h-4" />
-                  <span>Onboard New Hotel Partner</span>
-                </button>
-              </div>
+              <button
+                onClick={() => setIsCollabTicketsModalOpen(true)}
+                className="px-4 py-2.5 rounded-2xl bg-[#002B4D] hover:bg-[#003866] border border-cyan-500/40 text-white text-xs font-bold transition shadow flex items-center gap-2"
+              >
+                <MessageSquare className="w-4 h-4 text-cyan-400" />
+                <span>RM Support Desk</span>
+              </button>
             </div>
 
-            {/* Quick Network KPIs */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="p-5 rounded-2xl glass-panel border border-white/10 space-y-1">
-                <span className="text-[11px] text-slate-400 uppercase font-bold block">Active Partner Properties</span>
-                <span className="text-2xl font-black text-white">4 Estates</span>
-                <span className="text-[11px] text-[#3CCF91] block font-bold">52 Committed Keys Total</span>
-              </div>
+            <div className="bg-[#001E36] border border-white/10 rounded-3xl p-6 shadow-xl space-y-4">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <Building2 className="w-4 h-4 text-cyan-400" />
+                <span>Managed Estate Portfolio (Vikramaditya Singh - RM)</span>
+              </h3>
 
-              <div className="p-5 rounded-2xl glass-panel border border-white/10 space-y-1">
-                <span className="text-[11px] text-slate-400 uppercase font-bold block">Network Subscription ARR</span>
-                <span className="text-2xl font-black text-[#00D2C4]">₹2.22M</span>
-                <span className="text-[11px] text-slate-400 block">Monthly Base Membership</span>
-              </div>
+              <div className="space-y-4">
+                {hotels.map((h) => (
+                  <div
+                    key={h.id}
+                    className="p-5 rounded-2xl bg-[#001428] border border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4"
+                  >
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h4 className="text-sm font-bold text-white">{h.name}</h4>
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#00A9A5]/20 text-[#00A9A5] font-bold">
+                          {h.tier.replace(/_/g, ' ')}
+                        </span>
+                      </div>
+                      <div className="text-xs text-slate-400 mt-1">
+                        {h.location} • <strong className="text-white">{h.totalSuites} Suites</strong> • Occupancy: <strong className="text-[#3CCF91]">{h.occupancyPct}%</strong>
+                      </div>
+                      <div className="text-xs text-slate-300 mt-1">
+                        Monthly Revenue: ₹{(h.monthlyRevenue / 100000).toFixed(1)} Lakhs • Audit Score: <strong className="text-[#3CCF91]">{h.trustAuditScore}%</strong>
+                      </div>
+                    </div>
 
-              <div className="p-5 rounded-2xl glass-panel border border-white/10 space-y-1">
-                <span className="text-[11px] text-slate-400 uppercase font-bold block">Gross GMV Delivered</span>
-                <span className="text-2xl font-black text-[#FFC857]">₹54.90M</span>
-                <span className="text-[11px] text-[#3CCF91] block font-bold">100% Escrow Protected</span>
-              </div>
-
-              <div className="p-5 rounded-2xl glass-panel border border-white/10 space-y-1">
-                <span className="text-[11px] text-slate-400 uppercase font-bold block">Average Quality Score</span>
-                <span className="text-2xl font-black text-[#3CCF91]">99.7%</span>
-                <span className="text-[11px] text-slate-400 block">Zero compliance violations</span>
-              </div>
-            </div>
-
-            {/* 3 Property Partnership Subscription Tiers */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Plan 1 */}
-              <div className="p-6 rounded-3xl glass-panel border border-white/10 flex flex-col justify-between space-y-6">
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest">TIER 01</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-slate-300 font-bold">5–20 Keys</span>
+                    <div className="flex items-center gap-3">
+                      {h.rateParityStatus === 'DISCREPANCY' ? (
+                        <button
+                          onClick={() => handleFixRateParity(h.id)}
+                          className="px-3.5 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 text-xs font-bold transition flex items-center gap-1.5"
+                        >
+                          <AlertTriangle className="w-3.5 h-3.5" />
+                          <span>Fix Rate Parity Sync</span>
+                        </button>
+                      ) : (
+                        <span className="px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold flex items-center gap-1">
+                          <CheckCircle2 className="w-3.5 h-3.5" /> Rate Parity Synced
+                        </span>
+                      )}
+                    </div>
                   </div>
-                  <h3 className="text-xl font-black text-white mt-1">Verified Boutique Partner</h3>
-                  <p className="text-xs text-slate-300 mt-1">For independent boutique hotels, luxury serviced apartments & homestays.</p>
-                  
-                  <div className="mt-4 pt-3 border-t border-white/10">
-                    <span className="text-3xl font-black text-white">₹14,999</span>
-                    <span className="text-xs text-slate-400"> / month</span>
-                    <span className="block text-xs text-[#00D2C4] font-bold mt-1">+ 8% Booking Revenue Share</span>
-                  </div>
-
-                  <ul className="mt-6 space-y-2.5 text-xs text-slate-300">
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#3CCF91]" /> StaySphere Co-Branding & Quality Seal</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#3CCF91]" /> Guaranteed Escrow Payouts (2h post check-in)</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#3CCF91]" /> Channel Manager Sync (OTAs + Direct Engine)</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#3CCF91]" /> Standard Airport Cab Fleet Integration</li>
-                  </ul>
-                </div>
-
-                <button
-                  onClick={() => showToast('Verified Boutique Tier selected')}
-                  className="w-full py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-bold border border-white/10"
-                >
-                  View Boutique Contract
-                </button>
-              </div>
-
-              {/* Plan 2 */}
-              <div className="p-6 rounded-3xl bg-gradient-to-b from-[#002244] to-[#001428] border border-[#00A9A5] shadow-2xl flex flex-col justify-between space-y-6 relative">
-                <span className="absolute -top-3 right-6 px-3 py-0.5 rounded-full bg-[#00A9A5] text-white text-[10px] font-black uppercase tracking-wider shadow-md">
-                  Most Popular
-                </span>
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono font-bold text-[#00D2C4] uppercase tracking-widest">TIER 02</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#00A9A5]/20 text-[#00D2C4] font-bold">20–60 Keys</span>
-                  </div>
-                  <h3 className="text-xl font-black text-white mt-1">Premier Resort & Villa Partner</h3>
-                  <p className="text-xs text-slate-200 mt-1">For luxury 4/5-star beachfront resorts, heritage estates & private pool villas.</p>
-                  
-                  <div className="mt-4 pt-3 border-t border-white/10">
-                    <span className="text-3xl font-black text-white">₹29,999</span>
-                    <span className="text-xs text-slate-400"> / month</span>
-                    <span className="block text-xs text-[#00D2C4] font-bold mt-1">+ 12% Booking Revenue Share</span>
-                  </div>
-
-                  <ul className="mt-6 space-y-2.5 text-xs text-slate-200">
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#3CCF91]" /> Verified Luxury Audit Badge & Staging</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#3CCF91]" /> Dedicated Relationship Manager (RM)</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#3CCF91]" /> Mercedes-Maybach & Defender Chauffeur Sync</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#3CCF91]" /> In-Suite Butler & Sommelier Concierge Desk</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#3CCF91]" /> Guaranteed 90%+ Targeted High-Spend Occupancy</li>
-                  </ul>
-                </div>
-
-                <button
-                  onClick={() => showToast('Premier Resort Tier selected')}
-                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white text-xs font-black shadow-lg hover:brightness-110"
-                >
-                  Premier Resort Terms
-                </button>
-              </div>
-
-              {/* Plan 3 */}
-              <div className="p-6 rounded-3xl glass-panel border border-[#FFC857]/40 flex flex-col justify-between space-y-6">
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono font-bold text-[#FFC857] uppercase tracking-widest">TIER 03</span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#FFC857]/20 text-[#FFC857] font-bold">50+ Keys / Chains</span>
-                  </div>
-                  <h3 className="text-xl font-black text-white mt-1">Sovereign Flagship Palace Franchise</h3>
-                  <p className="text-xs text-slate-300 mt-1">For world-renowned heritage palaces, ultra-luxury chains & private islands.</p>
-                  
-                  <div className="mt-4 pt-3 border-t border-white/10">
-                    <span className="text-3xl font-black text-white">₹59,999</span>
-                    <span className="text-xs text-slate-400"> / month</span>
-                    <span className="block text-xs text-[#FFC857] font-bold mt-1">+ 15% Booking Revenue Share</span>
-                  </div>
-
-                  <ul className="mt-6 space-y-2.5 text-xs text-slate-300">
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#3CCF91]" /> Full Brand Onboarding & St. Regis Staff Certification</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#3CCF91]" /> Black Tier VIP Concierge (Private Jet & Yacht Berths)</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#3CCF91]" /> Zero Chargeback Escrow Guarantee</li>
-                    <li className="flex items-center gap-2"><CheckCircle2 className="w-3.5 h-3.5 text-[#3CCF91]" /> Executive 5-Minute Escalation Hotline</li>
-                  </ul>
-                </div>
-
-                <button
-                  onClick={() => showToast('Sovereign Flagship Tier selected')}
-                  className="w-full py-2.5 rounded-xl bg-[#FFC857]/20 hover:bg-[#FFC857]/30 text-[#FFC857] text-xs font-bold border border-[#FFC857]/40"
-                >
-                  Flagship Franchise Terms
-                </button>
-              </div>
-            </div>
-
-            {/* Active Property Partner Subscriptions Table */}
-            <div className="glass-panel rounded-3xl border border-white/10 overflow-hidden shadow-xl">
-              <div className="p-6 border-b border-white/10 flex items-center justify-between">
-                <div>
-                  <h3 className="text-base font-black text-white flex items-center gap-2">
-                    <Building2 className="w-4 h-4 text-[#FF8A3D]" />
-                    <span>Partnered Properties Network & Key Allocation</span>
-                  </h3>
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    Hotels, Resorts & Luxury Serviced Apartments enrolled under StaySphere partnership plans.
-                  </p>
-                </div>
-              </div>
-
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs border-collapse">
-                  <thead>
-                    <tr className="bg-[#000E1C] border-b border-white/10 text-slate-400 uppercase font-mono text-[11px]">
-                      <th className="p-4">Property & Type</th>
-                      <th className="p-4">Partnership Plan</th>
-                      <th className="p-4">Base Membership</th>
-                      <th className="p-4">Committed Keys</th>
-                      <th className="p-4">Monthly GMV Delivered</th>
-                      <th className="p-4">Quality Score</th>
-                      <th className="p-4 text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/5">
-                    {propertySubscriptions.map((ps) => (
-                      <tr key={ps.id} className="hover:bg-white/[0.02] transition-colors">
-                        <td className="p-4">
-                          <strong className="text-white font-bold text-sm block">{ps.propertyName}</strong>
-                          <span className="text-slate-400">{ps.location} • <em className="text-[#00D2C4] not-italic">{ps.propertyType}</em></span>
-                        </td>
-                        <td className="p-4">
-                          <span className={`px-2.5 py-1 rounded-full text-[10px] font-black border ${
-                            ps.partnershipPlan === 'SOVEREIGN_FLAGSHIP'
-                              ? 'bg-[#FFC857]/20 text-[#FFC857] border-[#FFC857]/40'
-                              : 'bg-[#00A9A5]/20 text-[#00D2C4] border-[#00A9A5]/40'
-                          }`}>
-                            {ps.partnershipPlan.replace('_', ' ')}
-                          </span>
-                        </td>
-                        <td className="p-4">
-                          <span className="font-bold text-white">₹{ps.monthlyBaseFee.toLocaleString()} / mo</span>
-                          <span className="text-[10px] text-slate-400 block">{ps.commissionPct}% Revenue Share</span>
-                        </td>
-                        <td className="p-4">
-                          <span className="font-bold text-white">{ps.allottedKeysToStaySphere} / {ps.totalKeys} Keys</span>
-                          <span className="text-[10px] text-[#3CCF91] block">100% Network Allotted</span>
-                        </td>
-                        <td className="p-4 font-mono font-bold text-[#3CCF91] text-sm">
-                          ₹{(ps.monthlyGMVGenerated / 1000000).toFixed(2)}M
-                        </td>
-                        <td className="p-4">
-                          <span className="font-bold text-[#3CCF91] text-sm">{ps.qualityAuditScore}%</span>
-                          <span className="text-[10px] text-slate-400 block">Quality Verified</span>
-                        </td>
-                        <td className="p-4 text-right">
-                          {ps.partnershipPlan !== 'SOVEREIGN_FLAGSHIP' ? (
-                            <button
-                              onClick={() => handleUpgradePropertyPlan(ps.id)}
-                              className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] text-[#001428] font-bold text-xs hover:brightness-110 shadow-sm"
-                            >
-                              Upgrade to Flagship
-                            </button>
-                          ) : (
-                            <span className="text-xs text-[#FFC857] font-bold">Flagship MOU Active</span>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                ))}
               </div>
             </div>
           </div>
         )}
       </main>
 
-      {/* ========================================================================= */}
-      {/* MODAL 1: PLATFORM AUTHENTICATION & ROLE SWITCHER                          */}
-      {/* ========================================================================= */}
+      {/* PLATFORM SINGLE SIGN-ON / ROLE SWITCHER MODAL */}
       {isAuthModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="glass-panel-elevated w-full max-w-xl rounded-3xl border border-white/20 p-6 sm:p-8 shadow-2xl space-y-6">
-            <div className="flex items-start justify-between gap-4">
+          <div className="bg-[#001E36] border border-[#00A9A5]/50 rounded-3xl w-full max-w-2xl p-6 shadow-2xl animate-scale-up">
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
               <div>
-                <span className="text-xs font-bold text-[#00A9A5] uppercase tracking-wider flex items-center gap-1.5">
-                  <UserCheck className="w-4 h-4" /> Single Sign-On & Role Switcher
-                </span>
-                <h2 className="text-2xl font-black text-white mt-1">Select Operations Persona</h2>
-                <p className="text-xs text-slate-300 mt-1">
-                  Instantly switch between governance workflows to test specific permissions and operational desks.
-                </p>
+                <h3 className="text-base font-bold text-white">Switch Role / Platform Login</h3>
+                <p className="text-xs text-slate-400">Experience StaySphere through different stakeholder perspectives</p>
               </div>
               <button
                 onClick={() => setIsAuthModalOpen(false)}
-                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-slate-300 hover:text-white"
+                className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white"
               >
-                <X className="w-4 h-4" />
+                ✕
               </button>
             </div>
 
             <div className="space-y-3">
               {(Object.keys(DEMO_ACCOUNTS) as PlatformRole[]).map((roleKey) => {
-                const acc = DEMO_ACCOUNTS[roleKey];
-                const isActive = currentUser?.role === roleKey;
+                const account = DEMO_ACCOUNTS[roleKey];
+                const isCurrent = currentUser?.role === roleKey;
                 return (
-                  <div
+                  <button
                     key={roleKey}
                     onClick={() => handleSwitchRole(roleKey)}
-                    className={`p-4 rounded-2xl border cursor-pointer transition-all flex items-center justify-between gap-4 ${
-                      isActive
-                        ? 'bg-[#002B4D] border-[#00A9A5] shadow-lg shadow-[#00A9A5]/25'
-                        : 'bg-[#001020] border-white/10 hover:border-white/25 hover:bg-[#001830]'
+                    className={`w-full p-4 rounded-2xl border text-left transition-all flex items-center justify-between gap-4 ${
+                      isCurrent
+                        ? 'bg-[#002B4D] border-[#00A9A5] shadow-lg'
+                        : 'bg-[#001428] border-white/10 hover:bg-white/5'
                     }`}
                   >
                     <div className="flex items-center gap-3.5">
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0B3D91] to-[#00A9A5] flex items-center justify-center text-sm font-black text-white shrink-0">
-                        {acc.avatar}
+                      <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#0B3D91] to-[#00A9A5] flex items-center justify-center text-xs font-black text-white shrink-0">
+                        {account.avatar}
                       </div>
                       <div>
-                        <div className="flex items-center gap-2">
-                          <strong className="text-sm font-bold text-white">{acc.name}</strong>
-                          {isActive && (
-                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#3CCF91]/20 text-[#3CCF91] font-bold">
-                              ACTIVE
-                            </span>
-                          )}
+                        <div className="text-xs font-bold text-white flex items-center gap-2">
+                          <span>{account.name}</span>
+                          <span className="text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#00A9A5]/20 text-[#00A9A5] font-bold">
+                            {account.role.replace(/_/g, ' ')}
+                          </span>
                         </div>
-                        <span className="text-xs text-slate-400 block">{acc.title}</span>
+                        <div className="text-[11px] text-slate-400 mt-0.5">{account.title}</div>
                       </div>
                     </div>
 
-                    <ChevronRight className="w-4 h-4 text-slate-400" />
-                  </div>
+                    <div className="flex items-center gap-2">
+                      {isCurrent ? (
+                        <span className="text-xs text-[#3CCF91] font-bold flex items-center gap-1">
+                          <CheckCircle2 className="w-4 h-4" /> Active
+                        </span>
+                      ) : (
+                        <span className="text-xs text-slate-400 font-bold hover:text-white">Switch →</span>
+                      )}
+                    </div>
+                  </button>
                 );
               })}
-            </div>
-
-            <div className="pt-2 border-t border-white/10 flex justify-end">
-              <button
-                onClick={() => setIsAuthModalOpen(false)}
-                className="px-6 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-bold"
-              >
-                Cancel
-              </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* ========================================================================= */}
-      {/* MODAL 2: INTERACTIVE VIP TAX INVOICE & RECEIPT PREVIEW                    */}
-      {/* ========================================================================= */}
+      {/* COLLABORATIVE TICKETS MODAL */}
+      <CollaborativeTicketsModal
+        isOpen={isCollabTicketsModalOpen}
+        onClose={() => setIsCollabTicketsModalOpen(false)}
+        tickets={collaborativeTickets}
+        onUpdateTicket={handleUpdateTicket}
+        onCreateTicket={handleCreateTicket}
+        currentUserRole={currentUser?.title || 'Senior Relationship Manager'}
+        currentUserName={currentUser?.name || 'Vikramaditya Singh'}
+      />
+
+      {/* RECEIPT VIEW MODAL */}
       {viewingReceipt && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="glass-panel-elevated w-full max-w-lg rounded-3xl border border-white/20 p-6 sm:p-8 shadow-2xl space-y-6">
-            <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-4">
+          <div className="bg-[#001E36] border border-[#00A9A5]/50 rounded-3xl w-full max-w-lg p-6 shadow-2xl animate-scale-up space-y-4">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
               <div>
-                <HorizontalLogo size="sm" variant="dark" />
-                <span className="text-[10px] text-slate-400 font-mono block mt-1">OFFICIAL TAX INVOICE & ESCROW RECEIPT</span>
+                <h3 className="text-base font-bold text-white">VIP Tax Invoice & Escrow Receipt</h3>
+                <span className="text-xs font-mono text-[#00A9A5]">{viewingReceipt.receiptNumber}</span>
               </div>
               <button
                 onClick={() => setViewingReceipt(null)}
-                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-slate-300 hover:text-white"
+                className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white"
               >
-                <X className="w-4 h-4" />
+                ✕
               </button>
             </div>
 
-            <div className="space-y-4 text-xs">
-              <div className="flex justify-between">
-                <span className="text-slate-400">Receipt Number:</span>
-                <strong className="text-white font-mono">{viewingReceipt.receiptNumber}</strong>
-              </div>
+            <div className="space-y-3 text-xs bg-[#001428] p-4 rounded-2xl border border-white/10">
               <div className="flex justify-between">
                 <span className="text-slate-400">Guest Name:</span>
                 <strong className="text-white">{viewingReceipt.guestName}</strong>
@@ -1302,176 +1035,35 @@ export default function OperationsControlTower() {
                 <strong className="text-white">{viewingReceipt.propertyName}</strong>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400">Payment Channel:</span>
-                <span className="text-[#00D2C4] font-bold">{viewingReceipt.paymentMethod}</span>
+                <span className="text-slate-400">Accommodation:</span>
+                <strong className="text-white">₹{viewingReceipt.stayAmount.toLocaleString('en-IN')}</strong>
               </div>
-
-              <div className="p-4 rounded-2xl bg-[#001020] border border-white/10 space-y-2 mt-4">
-                <div className="flex justify-between text-slate-300">
-                  <span>Sanctuary Accommodation</span>
-                  <span className="font-bold text-white">₹{viewingReceipt.stayAmount.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between text-slate-300">
-                  <span>Chauffeur Transit & Airport Sync</span>
-                  <span className="font-bold text-white">₹{viewingReceipt.transitAmount.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between text-slate-300">
-                  <span>GST & Hospitality Taxes (12%)</span>
-                  <span className="font-bold text-white">₹{viewingReceipt.taxesAmount.toLocaleString()}</span>
-                </div>
-                <div className="pt-2 border-t border-white/10 flex justify-between font-black text-sm text-white">
-                  <span>Total Escrow Amount</span>
-                  <span className="text-[#3CCF91] text-base">₹{viewingReceipt.totalAmount.toLocaleString()}</span>
-                </div>
+              <div className="flex justify-between">
+                <span className="text-slate-400">Chauffeur Transit:</span>
+                <strong className="text-white">₹{viewingReceipt.transitAmount.toLocaleString('en-IN')}</strong>
               </div>
-
-              <div className="p-3.5 rounded-xl bg-[#002244]/60 border border-[#00A9A5]/40 text-[11px] text-slate-300 flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-[#3CCF91] shrink-0" />
-                <span>Protected by StaySphere Smart Escrow Protocol • Status: <strong className="text-white">{viewingReceipt.escrowStatus}</strong></span>
+              <div className="flex justify-between">
+                <span className="text-slate-400">GST (12%):</span>
+                <strong className="text-white">₹{viewingReceipt.taxesAmount.toLocaleString('en-IN')}</strong>
+              </div>
+              <div className="flex justify-between pt-2 border-t border-white/10 text-sm">
+                <span className="font-bold text-slate-300">Total Settled:</span>
+                <strong className="text-[#3CCF91]">₹{viewingReceipt.totalAmount.toLocaleString('en-IN')}</strong>
               </div>
             </div>
 
-            <div className="flex justify-between gap-3 pt-2">
+            <div className="flex items-center justify-end gap-3 pt-2">
               <button
                 onClick={() => {
-                  showToast(`Invoice ${viewingReceipt.receiptNumber} downloaded successfully.`);
+                  showToast('Tax invoice PDF receipt downloaded.');
                   setViewingReceipt(null);
                 }}
-                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] hover:brightness-110 text-white font-bold text-xs flex items-center gap-1.5 shadow-md"
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-white text-xs font-bold shadow flex items-center gap-1.5"
               >
-                <Download className="w-3.5 h-3.5" />
+                <Download className="w-4 h-4" />
                 <span>Download PDF Receipt</span>
               </button>
-
-              <button
-                onClick={() => setViewingReceipt(null)}
-                className="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-bold"
-              >
-                Close
-              </button>
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* ========================================================================= */}
-      {/* MODAL 3: ONBOARD NEW PROPERTY PARTNER (HOTEL/RESORT/APARTMENT FRANCHISE) */}
-      {/* ========================================================================= */}
-      {isOnboardingModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="glass-panel-elevated w-full max-w-xl rounded-3xl border border-white/20 p-6 sm:p-8 shadow-2xl space-y-6">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <span className="text-xs font-bold text-[#FF8A3D] uppercase tracking-wider flex items-center gap-1.5">
-                  <Hotel className="w-4 h-4" /> Hotel & Property Onboarding
-                </span>
-                <h2 className="text-2xl font-black text-white mt-1">Enroll New Property Partner</h2>
-                <p className="text-xs text-slate-300 mt-1">
-                  Partner hotels, resorts, and luxury apartments under StaySphere franchise subscription plans.
-                </p>
-              </div>
-              <button
-                onClick={() => setIsOnboardingModalOpen(false)}
-                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-slate-300 hover:text-white"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <form onSubmit={handleOnboardPropertySubmit} className="space-y-4 text-xs">
-              <div>
-                <label className="text-slate-300 font-bold uppercase block mb-1">Property Name</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Royal Palms Beach Resort & Villas"
-                  value={newPropertyForm.name}
-                  onChange={(e) => setNewPropertyForm({ ...newPropertyForm, name: e.target.value })}
-                  className="w-full p-3 rounded-xl bg-[#001020] border border-white/10 text-white font-bold outline-none focus:border-[#00A9A5]"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-slate-300 font-bold uppercase block mb-1">Location / Destination</label>
-                  <select
-                    value={newPropertyForm.location}
-                    onChange={(e) => setNewPropertyForm({ ...newPropertyForm, location: e.target.value })}
-                    className="w-full p-3 rounded-xl bg-[#001020] border border-white/10 text-white font-bold outline-none cursor-pointer"
-                  >
-                    <option value="North Goa">North Goa (Coastal)</option>
-                    <option value="Lake Pichola, Udaipur">Lake Pichola, Udaipur</option>
-                    <option value="Solang Heights, Manali">Solang Heights, Manali</option>
-                    <option value="Bandra West, Mumbai">Bandra West, Mumbai</option>
-                    <option value="Jaipur, Rajasthan">Jaipur, Rajasthan</option>
-                    <option value="Munnar, Kerala">Munnar, Kerala</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="text-slate-300 font-bold uppercase block mb-1">Property Category</label>
-                  <select
-                    value={newPropertyForm.propertyType}
-                    onChange={(e) => setNewPropertyForm({ ...newPropertyForm, propertyType: e.target.value as any })}
-                    className="w-full p-3 rounded-xl bg-[#001020] border border-white/10 text-white font-bold outline-none cursor-pointer"
-                  >
-                    <option value="5-Star Resort">5-Star Luxury Resort</option>
-                    <option value="Heritage Palace">Heritage Palace</option>
-                    <option value="Alpine Chalet">Alpine Chalet</option>
-                    <option value="Luxury Serviced Penthouse">Luxury Serviced Penthouse</option>
-                    <option value="Boutique Hotel">Boutique Hotel</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-slate-300 font-bold uppercase block mb-1">Partnership Plan</label>
-                  <select
-                    value={newPropertyForm.partnershipPlan}
-                    onChange={(e) => setNewPropertyForm({ ...newPropertyForm, partnershipPlan: e.target.value as any })}
-                    className="w-full p-3 rounded-xl bg-[#001020] border border-white/10 text-white font-bold outline-none cursor-pointer"
-                  >
-                    <option value="VERIFIED_BOUTIQUE">Verified Boutique (₹14,999/mo + 8%)</option>
-                    <option value="PREMIER_RESORT">Premier Resort & Villa (₹29,999/mo + 12%)</option>
-                    <option value="SOVEREIGN_FLAGSHIP">Sovereign Flagship (₹59,999/mo + 15%)</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="text-slate-300 font-bold uppercase block mb-1">Total Keys / Inventory</label>
-                  <input
-                    type="number"
-                    min={2}
-                    max={200}
-                    value={newPropertyForm.keysCount}
-                    onChange={(e) => setNewPropertyForm({ ...newPropertyForm, keysCount: Number(e.target.value) })}
-                    className="w-full p-3 rounded-xl bg-[#001020] border border-white/10 text-white font-bold outline-none"
-                  />
-                </div>
-              </div>
-
-              <div className="p-3.5 rounded-xl bg-[#002244]/60 border border-[#00A9A5]/30 text-slate-300 flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-[#3CCF91] shrink-0" />
-                <span>Includes Escrow Payment Guarantee, Chauffeur API sync & Quality Audit badge.</span>
-              </div>
-
-              <div className="flex justify-end gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setIsOnboardingModalOpen(false)}
-                  className="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-bold"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] hover:brightness-110 text-[#001428] font-black text-xs shadow-lg"
-                >
-                  Execute Partnership MOU
-                </button>
-              </div>
-            </form>
           </div>
         </div>
       )}
