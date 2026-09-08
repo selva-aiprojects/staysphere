@@ -53,19 +53,23 @@ import { PartnerRegistrationModal } from '../components/PartnerRegistrationModal
 import { MyJourneyView } from '../components/MyJourneyView';
 import { ProactiveResolveSentinel } from '../components/ProactiveResolveSentinel';
 
-interface VillaCategory {
+export type StayTier = 'comfort' | 'premium' | 'luxe';
+
+export interface VillaCategory {
   name: string;
   price: number;
   description: string;
   curatedPerks: string[];
 }
 
-interface LuxuryEstate {
+export interface StayEstate {
   id: string;
   name: string;
   location: string;
   destinationCity: string;
-  category: 'coastal' | 'palace' | 'chalet' | 'apartment';
+  tier: StayTier;
+  tierLabel: string;
+  category: 'homestay' | 'hotel' | 'resort' | 'chalet' | 'apartment' | 'palace' | 'coastal';
   propertyTypeLabel: string;
   rating: number;
   reviewCount: number;
@@ -79,7 +83,9 @@ interface LuxuryEstate {
   defaultAirport: string;
 }
 
-interface SightseeingPackage {
+export type LuxuryEstate = StayEstate;
+
+export interface SightseeingPackage {
   id: string;
   name: string;
   destinationCity: string;
@@ -107,39 +113,107 @@ const SIGHTSEEING_CATALOG: SightseeingPackage[] = [
       'Chauffeured pickup from hotel lobby',
     ],
     includedVehicle: 'Mercedes-Maybach Transfer + Luxury Speedboat',
-    badge: 'Most Popular in Goa',
+    badge: 'Signature Pick',
   },
   {
     id: 'goa-heritage',
     name: 'Old Goa UNESCO Heritage & Spice Farm Safari',
     destinationCity: 'Goa',
-    duration: '6 Hours (9:30 AM – 3:30 PM)',
-    price: 3500,
+    duration: '5 Hours (9:30 AM – 2:30 PM)',
+    price: 1600,
     tagline: 'Centuries-old cathedrals, authentic Goan spice plantation walk, and organic buffet lunch.',
     highlights: [
       'Basilica of Bom Jesus & Se Cathedral guided tour',
       'Sahakari Spice Farm traditional buffet lunch',
       'Botanical plantation walk with expert naturalist',
-      'Private air-conditioned luxury ride throughout',
+      'Clean air-conditioned cab transfer included',
     ],
-    includedVehicle: 'Mercedes-Benz Luxury Chauffeur',
-    badge: 'Cultural Pick',
+    includedVehicle: 'Comfort AC Sedan / MPV',
+    badge: 'Best Value',
   },
   {
-    id: 'goa-nightlife',
-    name: 'North Goa Beach Club & Sunset Lounge Tour',
+    id: 'goa-flea-beach',
+    name: 'North Goa Coastal Explorer & Anjuna Trail',
     destinationCity: 'Goa',
-    duration: '5 Hours (5:30 PM – 10:30 PM)',
-    price: 3200,
-    tagline: 'VIP table reservations at Vagator & Anjuna beachfront lounges with dedicated standby cab.',
+    duration: '4 Hours (2:00 PM – 6:00 PM)',
+    price: 950,
+    tagline: 'Scenic coastal drive covering Vagator cliff view, Chapora fort, and local market.',
     highlights: [
-      'VIP table reservations at top cliffside sunset lounges',
-      'Dedicated standby chauffeur for zero-wait transit',
-      'Scenic coastal evening drive',
-      'On-call concierge assistance for night access',
+      'Iconic Chapora Fort viewpoint & photo stop',
+      'Vagator sunset viewpoint with coconut refreshments',
+      'Local flea market and handicraft trail',
+      'Door-to-door cab pickup and drop',
     ],
-    includedVehicle: 'Maybach S680 Standby Chauffeur',
-    badge: 'Nightlife & Dining',
+    includedVehicle: 'City AC Sedan Cab',
+    badge: 'Budget Friendly',
+  },
+
+  // BENGALURU
+  {
+    id: 'blr-tech',
+    name: 'Silicon City Tech & Craft Brewery Discovery',
+    destinationCity: 'Bengaluru',
+    duration: '4 Hours (4:30 PM – 8:30 PM)',
+    price: 1200,
+    tagline: 'Explore Indiranagar & Koramangala vibrant food, craft beer, and coffee culture.',
+    highlights: [
+      'Guided craft brewery and artisan coffee tasting',
+      'Church Street & MG Road walking experience',
+      'Curated dining table reservation included',
+      'Seamless City EV Cab pickup and drop',
+    ],
+    includedVehicle: 'City EV Sedan Cab',
+    badge: 'City Life',
+  },
+  {
+    id: 'blr-nandi',
+    name: 'Nandi Hills Sunrise & Heritage Vineyard Tour',
+    destinationCity: 'Bengaluru',
+    duration: '6 Hours (5:00 AM – 11:00 AM)',
+    price: 2400,
+    tagline: 'Early morning cloud-top sunrise at Nandi Hills followed by Grover Zampa vineyard tour.',
+    highlights: [
+      'Scenic early morning sunrise above the clouds',
+      'Grover Zampa vineyard walk & wine tasting',
+      'Traditional South Indian breakfast at foothill',
+      'Comfortable highway MPV with experienced driver',
+    ],
+    includedVehicle: 'Comfort MPV / Family SUV',
+    badge: 'Popular Weekend Trip',
+  },
+
+  // JAIPUR
+  {
+    id: 'jpr-amber',
+    name: 'Amber Fort, Hawa Mahal & Artisan Bazaar Trail',
+    destinationCity: 'Jaipur',
+    duration: '5 Hours (9:00 AM – 2:00 PM)',
+    price: 1600,
+    tagline: 'Explore the majestic Amber Fort with skip-the-line guide and traditional bazaar walk.',
+    highlights: [
+      'Amber Fort guided palace courtyard walk',
+      'Hawa Mahal photo stop & Jal Mahal viewpoint',
+      'Johari Bazaar authentic gemstone & textile trail',
+      'Air-conditioned private city transfer',
+    ],
+    includedVehicle: 'AC City Sedan',
+    badge: 'Cultural Highlight',
+  },
+  {
+    id: 'jpr-nahargarh',
+    name: 'Nahargarh Fort Sunset & Royal Dinner Drive',
+    destinationCity: 'Jaipur',
+    duration: '4 Hours (4:30 PM – 8:30 PM)',
+    price: 2200,
+    tagline: 'Breathtaking sunset panoramic view over the Pink City with rooftop royal dining.',
+    highlights: [
+      'Nahargarh Fort hilltop sunset panorama',
+      'Padao open-air rooftop dinner reservation',
+      'Illuminated night drive of Albert Hall Museum',
+      'Chauffeured pickup and hotel drop',
+    ],
+    includedVehicle: 'Comfort AC Sedan / Chauffeur',
+    badge: 'Romantic Sunset',
   },
 
   // UDAIPUR
@@ -148,65 +222,49 @@ const SIGHTSEEING_CATALOG: SightseeingPackage[] = [
     name: 'Lake Pichola Solar Boat & City Palace Royal Tour',
     destinationCity: 'Udaipur',
     duration: '4.5 Hours (10:00 AM – 2:30 PM)',
-    price: 5200,
-    tagline: 'Private solar boat to Jagmandir Island with skip-the-line royal City Palace historian guide.',
+    price: 3800,
+    tagline: 'Chartered boat to Jagmandir Island with skip-the-line royal City Palace historian guide.',
     highlights: [
-      'Private chartered royal solar boat across Lake Pichola',
+      'Chartered solar boat across Lake Pichola',
       'Skip-the-line City Palace royal historian guide',
-      'Mewari royal high tea at sunset terrace',
+      'Mewari high tea at sunset terrace',
       'Handcrafted souvenir & heritage artisan walk',
     ],
     includedVehicle: 'Private Solar Boat + Heritage Chauffeur',
     badge: 'Royal Signature',
   },
   {
-    id: 'udr-fort',
-    name: 'Kumbhalgarh Fortress & Sunset 4x4 Safari',
-    destinationCity: 'Udaipur',
-    duration: '7 Hours (1:00 PM – 8:00 PM)',
-    price: 4200,
-    tagline: 'Explore the 36km Great Wall of India fortress with a scenic Aravalli mountain safari.',
-    highlights: [
-      'UNESCO World Heritage Kumbhalgarh 36km wall tour',
-      'Panoramic Aravalli Mountain 4x4 chauffeur drive',
-      'Royal sunset picnic lunch prepared by palace chef',
-      'Scenic viewpoint champagne stop',
-    ],
-    includedVehicle: 'Land Rover Defender 4x4',
-    badge: 'Adventure Safari',
-  },
-  {
     id: 'udr-cultural',
     name: 'Bagore Ki Haveli Folk Show & Old Bazaar Trail',
     destinationCity: 'Udaipur',
     duration: '3.5 Hours (6:00 PM – 9:30 PM)',
-    price: 2900,
-    tagline: 'Reserved front-row Rajasthani folk dance at historic haveli followed by old silver bazaar trail.',
+    price: 1400,
+    tagline: 'Reserved front-row Rajasthani folk dance at historic haveli followed by old bazaar trail.',
     highlights: [
       'Reserved VIP front-row Dharohar folk dance show',
       'Jagdish Temple & Old City silver artisan trail',
       'Traditional sweet tasting & puppet art demo',
-      'Chauffeured pickup and return to palace hotel',
+      'City cab pickup and return to hotel',
     ],
-    includedVehicle: 'Luxury Electric Sedan',
+    includedVehicle: 'City AC Sedan',
     badge: 'Heritage & Art',
   },
 
   // MANALI
   {
     id: 'manali-snow',
-    name: 'Solang Valley & Atal Tunnel 4x4 Snow Adventure',
+    name: 'Solang Valley & Atal Tunnel Snow Adventure',
     destinationCity: 'Manali',
     duration: '6 Hours (9:00 AM – 3:00 PM)',
-    price: 4500,
-    tagline: 'High-altitude snow adventure at 10,000 ft with snow scooter pass and heated 4x4 Defender.',
+    price: 3200,
+    tagline: 'High-altitude snow adventure with snow activities and heated mountain vehicle.',
     highlights: [
       'Atal Tunnel North Portal high-altitude snow drive',
-      'Snow scooter & private cable car adventure pass',
-      'Fireside mountain lunch & hot saffron kahwa',
-      'All thermal gear, boots & snow jackets included',
+      'Snow scooter & cable car adventure viewpoint',
+      'Hot mountain lunch & fresh saffron kahwa',
+      'All thermal gear assistance included',
     ],
-    includedVehicle: 'Heated Land Rover Defender 4x4',
+    includedVehicle: 'Heated 4x4 Mountain SUV',
     badge: 'Top Winter Pick',
   },
   {
@@ -214,32 +272,16 @@ const SIGHTSEEING_CATALOG: SightseeingPackage[] = [
     name: 'Naggar Castle & Organic Apple Orchard Trail',
     destinationCity: 'Manali',
     duration: '4.5 Hours (10:30 AM – 3:00 PM)',
-    price: 2800,
-    tagline: '15th-century timber castle, Roerich Himalayan art gallery, and organic apple orchard lunch.',
+    price: 1500,
+    tagline: '15th-century timber castle, Roerich Himalayan art gallery, and organic orchard walk.',
     highlights: [
       '15th-century medieval wooden Naggar Castle tour',
       'Nicholas Roerich Himalayan Art Gallery exploration',
-      'Organic apple orchard walk with fresh pressed cider',
+      'Organic apple orchard walk with fresh cider',
       'Authentic Himachali Siddu & local cuisine tasting',
     ],
-    includedVehicle: 'Mercedes Luxury Mountain SUV',
-    badge: 'Scenic Mountain Trail',
-  },
-  {
-    id: 'manali-glacier',
-    name: 'Rohtang Pass High-Altitude Glacier Expedition',
-    destinationCity: 'Manali',
-    duration: '8 Hours (7:00 AM – 3:00 PM)',
-    price: 5500,
-    tagline: 'Climb to 13,058 ft Rohtang glacier with a certified high-altitude mountain guide.',
-    highlights: [
-      'Climb to 13,058 ft panoramic glacier peak',
-      'Certified high-altitude mountain guide & safety kit',
-      'Hot thermos herbal tea & fresh packed chef lunch',
-      'Zero-delay national park permit pre-approved',
-    ],
-    includedVehicle: '4x4 Expedition Defender',
-    badge: 'Epic Expedition',
+    includedVehicle: 'Comfort Mountain Cab',
+    badge: 'Scenic Trail',
   },
 
   // MUMBAI
@@ -248,15 +290,15 @@ const SIGHTSEEING_CATALOG: SightseeingPackage[] = [
     name: 'South Bombay Heritage Drive & Marine Drive Tour',
     destinationCity: 'Mumbai',
     duration: '4 Hours (4:00 PM – 8:00 PM)',
-    price: 3200,
-    tagline: 'Gateway of India, Victoria Terminus, Colaba art quarter, and Queen’s Necklace sunset cruise.',
+    price: 2100,
+    tagline: 'Gateway of India, Victoria Terminus, Colaba art quarter, and Queen’s Necklace sunset drive.',
     highlights: [
       'Gateway of India & Taj Mahal Palace photo stop',
       'Victoria Terminus & Kala Ghoda art quarter tour',
-      'Queen’s Necklace sunset drive in Maybach S680',
+      'Queen’s Necklace sunset drive',
       'Chauffeured drop at Sea Lounge for heritage high tea',
     ],
-    includedVehicle: 'Mercedes-Maybach S680',
+    includedVehicle: 'Comfort AC Chauffeur Cab',
     badge: 'Iconic City Drive',
   },
   {
@@ -264,41 +306,302 @@ const SIGHTSEEING_CATALOG: SightseeingPackage[] = [
     name: 'Elephanta Island UNESCO Caves Speedboat Safari',
     destinationCity: 'Mumbai',
     duration: '5 Hours (9:00 AM – 2:00 PM)',
-    price: 4000,
-    tagline: 'Private chartered speedboat from Gateway with an archaeological guide for 6th-century caves.',
+    price: 3200,
+    tagline: 'Chartered speedboat from Gateway with an archaeological guide for 6th-century caves.',
     highlights: [
-      'Private chartered catamaran/speedboat from Gateway',
+      'Chartered catamaran/speedboat from Gateway',
       'Archaeological guide for 6th-century rock-cut caves',
       'Fresh coconut refreshments on return cruise',
-      'Seamless chauffeur pickup and drop at penthouse',
+      'Seamless chauffeur pickup and drop',
     ],
-    includedVehicle: 'Private Speedboat + Luxury Cab',
+    includedVehicle: 'Speedboat + AC Chauffeur Cab',
     badge: 'UNESCO Safari',
-  },
-  {
-    id: 'bom-culinary',
-    name: 'Bespoke Designer Boutiques & Fine Dining Trail',
-    destinationCity: 'Mumbai',
-    duration: '5 Hours (2:00 PM – 7:00 PM)',
-    price: 4500,
-    tagline: 'VIP shopping trail through Bandra & Kala Ghoda designer ateliers with reserved fine dining.',
-    highlights: [
-      'Private VIP preview at top Indian designer ateliers',
-      'Artisan coffee & gourmet tasting pitstops',
-      'Priority table reservation at Mumbai top restaurant',
-      'Standby chauffeur with in-car concierge assistance',
-    ],
-    includedVehicle: 'Maybach S680 Luxury Chauffeur',
-    badge: 'Luxury Lifestyle',
   },
 ];
 
-const PROPERTIES: LuxuryEstate[] = [
+const PROPERTIES: StayEstate[] = [
+  // ==========================================
+  // SMART & COMFORT (Budget Friendly: ₹1.8k – ₹3.5k)
+  // ==========================================
+  {
+    id: 'estate-comfort-1',
+    name: 'The Palm Grove Eco-Homestay & Garden Cottages',
+    location: 'Anjuna Beach Road, North Goa',
+    destinationCity: 'Goa',
+    tier: 'comfort',
+    tierLabel: 'Smart & Comfort',
+    category: 'homestay',
+    propertyTypeLabel: 'Verified Eco-Homestay & Cottages',
+    rating: 4.89,
+    reviewCount: 94,
+    trustScore: 98.6,
+    pricePerNight: 2400,
+    image: '/brand/ocean_villa.jpg',
+    tagline: 'Charming Garden Cottages near Anjuna Beach with Free Breakfast & AC Cabs',
+    description: 'A lush, serene eco-homestay nestled amidst tropical coconut groves 5 minutes from Anjuna Beach. Features clean, air-conditioned cottages, high-speed fiber Wi-Fi, home-cooked Goan breakfasts, and guaranteed on-time airport cab sync.',
+    defaultAirport: 'MOPA International Airport / Dabolim (GOX/GOI)',
+    exclusiveInclusions: [
+      'Complimentary Farm-Fresh Organic Breakfast',
+      'High-Speed 200 Mbps Fiber Wi-Fi for Remote Work',
+      'On-Time Flight-Tracked Airport Cab Sync',
+      'Host-Assisted Scooter / Car Rental Coordination',
+    ],
+    villas: [
+      {
+        name: 'Deluxe Garden Cottage (350 sq.ft)',
+        price: 2400,
+        description: 'Cozy private cottage with queen bed, ensuite modern bathroom, porch patio, and garden views.',
+        curatedPerks: ['Free Homemade Breakfast', 'Dedicated Wi-Fi Router', 'Airport Cab Discount'],
+      },
+      {
+        name: 'Cozy Studio Room (280 sq.ft)',
+        price: 1800,
+        description: 'Clean air-conditioned studio with workstation desk, hot shower, and daily housekeeping.',
+        curatedPerks: ['Free Breakfast', 'Smart TV with OTT', 'Host Guidance 24/7'],
+      },
+      {
+        name: 'Family Garden Duplex (650 sq.ft)',
+        price: 3800,
+        description: 'Two interconnected rooms with twin bathrooms and private sit-out deck, ideal for families.',
+        curatedPerks: ['Full Family Breakfast Included', 'Airport Pick & Drop Bundle', 'Complimentary Laundry'],
+      },
+    ],
+  },
+  {
+    id: 'estate-comfort-2',
+    name: 'Urban Hub Serviced Studio & Coworking Suites',
+    location: '100ft Road, Indiranagar, Bengaluru',
+    destinationCity: 'Bengaluru',
+    tier: 'comfort',
+    tierLabel: 'Smart & Comfort',
+    category: 'apartment',
+    propertyTypeLabel: 'Smart Serviced Studios & Suites',
+    rating: 4.91,
+    reviewCount: 168,
+    trustScore: 99.1,
+    pricePerNight: 3200,
+    image: '/brand/chauffeur_transit.jpg',
+    tagline: 'Modern Serviced Studios in the Heart of Indiranagar with Airport EV Pickup',
+    description: 'Designed for agile professionals, remote founders, and city explorers. Features ergonomic work desks, 300 Mbps Wi-Fi, fully equipped kitchenette, fitness studio access, and seamless airport EV taxi integration.',
+    defaultAirport: 'Kempegowda International Airport Bengaluru (BLR T1/T2)',
+    exclusiveInclusions: [
+      '300 Mbps Dedicated Fiber Wi-Fi & Workstation',
+      'Kitchenette with Espresso Machine & Microwave',
+      'Live Flight-Synced Airport EV Cab Pickup',
+      'Keyless Smart Lock 24/7 Self Check-in',
+    ],
+    villas: [
+      {
+        name: 'Executive Smart Studio (420 sq.ft)',
+        price: 3200,
+        description: 'King bed, Herman Miller style ergonomic chair, standing desk, and smart kitchenette.',
+        curatedPerks: ['Artisan Coffee & Snacks', 'Airport EV Transfer Sync', 'Daily Housekeeping'],
+      },
+      {
+        name: 'Co-Living Studio Room (320 sq.ft)',
+        price: 2500,
+        description: 'Compact, ultra-functional studio with high-speed internet and soundproof double glass windows.',
+        curatedPerks: ['Complimentary High-Speed Wi-Fi', 'Laundry Access', '24/7 Sentinel Support'],
+      },
+      {
+        name: 'One-Bedroom Serviced Apartment (750 sq.ft)',
+        price: 4600,
+        description: 'Spacious living room, modular kitchen, dining space, and private city-view balcony.',
+        curatedPerks: ['Free Airport Transfer', 'Gourmet Breakfast Box', 'Weekly Deep Clean'],
+      },
+    ],
+  },
+  {
+    id: 'estate-comfort-3',
+    name: 'Pink City Heritage Courtyard Homestay',
+    location: 'Bani Park, Jaipur, Rajasthan',
+    destinationCity: 'Jaipur',
+    tier: 'comfort',
+    tierLabel: 'Smart & Comfort',
+    category: 'homestay',
+    propertyTypeLabel: 'Verified Heritage Homestay',
+    rating: 4.93,
+    reviewCount: 112,
+    trustScore: 98.9,
+    pricePerNight: 2800,
+    image: '/brand/royal_palace.jpg',
+    tagline: 'Authentic Rajasthani Haveli Homestay with Rooftop Fort Views & Local Guides',
+    description: 'Experience genuine Rajput hospitality in a lovingly restored 70-year-old family haveli. Enjoy traditional Mewari breakfasts in the central sunlit courtyard, evening folk music on the rooftop, and curated city auto/cab tours.',
+    defaultAirport: 'Jaipur International Airport (JAI) / Railway Station',
+    exclusiveInclusions: [
+      'Traditional Rajasthani Breakfast in Courtyard',
+      'Station / Airport Cab Pickup Coordination',
+      'Rooftop Sunset Lounge with Nahargarh Views',
+      'Host-Guided Old City Heritage Walk Advice',
+    ],
+    villas: [
+      {
+        name: 'Traditional Jharokha Room (360 sq.ft)',
+        price: 2800,
+        description: 'Hand-painted floral motifs, antique carved wooden bed, and authentic bay window seating.',
+        curatedPerks: ['Complimentary Breakfast', 'Evening Masala Chai & Snacks', 'Station Pickup'],
+      },
+      {
+        name: 'Courtyard Heritage Deluxe (300 sq.ft)',
+        price: 2200,
+        description: 'Facing the open central courtyard with cool marble floors, brass accents, and hot shower.',
+        curatedPerks: ['Authentic Breakfast', 'Free High-Speed Wi-Fi', 'Local Tour Map'],
+      },
+      {
+        name: 'Royal Heritage Family Suite (700 sq.ft)',
+        price: 4200,
+        description: 'Two large bedrooms with connected private balcony overlooking the city skyline.',
+        curatedPerks: ['Family Breakfast Included', 'Airport Transfer Included', 'Complimentary Tea Service'],
+      },
+    ],
+  },
+
+  // ==========================================
+  // PREMIUM SELECT (Mid to High: ₹7.5k – ₹10.5k)
+  // ==========================================
+  {
+    id: 'estate-premium-1',
+    name: 'The Coastal Courtyard Boutique Hotel & Pool Suites',
+    location: 'Candolim Coast, North Goa',
+    destinationCity: 'Goa',
+    tier: 'premium',
+    tierLabel: 'Premium Select',
+    category: 'hotel',
+    propertyTypeLabel: '4-Star Boutique Hotel & Pool Suites',
+    rating: 4.94,
+    reviewCount: 185,
+    trustScore: 99.3,
+    pricePerNight: 7800,
+    image: '/brand/ocean_villa.jpg',
+    tagline: 'Modern 4-Star Coastal Boutique Hotel with Lagoon Pool & Chauffeur Fleet',
+    description: 'A stylish boutique property situated 300m from Candolim Beach. Offers designer balcony suites, lagoon swimming pool with sunken bar, multi-cuisine restaurant, and dedicated Innova Crysta airport transfer service.',
+    defaultAirport: 'MOPA International Airport / Dabolim (GOX/GOI)',
+    exclusiveInclusions: [
+      'Innova Crysta Flight-Tracked Airport Pickup',
+      'Daily Multi-Cuisine Hot Buffet Breakfast',
+      'Lagoon Pool Access with Sunken Bar & Towels',
+      'Complimentary Sunset Cocktail & Snacks',
+    ],
+    villas: [
+      {
+        name: 'Pool-Facing Balcony Suite (550 sq.ft)',
+        price: 7800,
+        description: 'Private balcony overlooking the lagoon pool, king bed, rainfall shower, and espresso station.',
+        curatedPerks: ['Buffet Breakfast', 'Airport Chauffeur Transfer', 'Cocktail Hour Pass'],
+      },
+      {
+        name: 'Executive Club Room (420 sq.ft)',
+        price: 5800,
+        description: 'Contemporary minimalist interiors, smart entertainment system, and plush orthopaedic king bed.',
+        curatedPerks: ['Daily Breakfast', 'Pool Access', 'Late Checkout Assistance'],
+      },
+      {
+        name: 'The Coastal Presidential Duplex (1,100 sq.ft)',
+        price: 14500,
+        description: 'Double-height ceiling, private rooftop jacuzzi deck, and master bedroom with panoramic views.',
+        curatedPerks: ['Roundtrip Chauffeur Fleet', 'Sunset Cruise Voucher', 'Daily In-Suite Dining'],
+      },
+    ],
+  },
+  {
+    id: 'estate-premium-2',
+    name: 'The Pine Ridge Valley View Resort & Suites',
+    location: 'Old Manali Hills, Himachal Pradesh',
+    destinationCity: 'Manali',
+    tier: 'premium',
+    tierLabel: 'Premium Select',
+    category: 'resort',
+    propertyTypeLabel: '4-Star Mountain Resort & Chalet Suites',
+    rating: 4.95,
+    reviewCount: 130,
+    trustScore: 99.2,
+    pricePerNight: 8500,
+    image: '/brand/alpine_chalet.jpg',
+    tagline: 'Heated Himalayan Valley Suites with Cedar Balconies & 4x4 Mountain Rides',
+    description: 'Perched high above Old Manali with panoramic views of snow-capped peaks and cedar forests. Features central heating, outdoor bonfire deck, apple orchard walks, and chauffeured 4x4 transfers to Solang & Rohtang.',
+    defaultAirport: 'Bhuntar / Kullu-Manali Airport (KUU) / Chandigarh (IXC)',
+    exclusiveInclusions: [
+      'Chauffeured 4x4 Mountain SUV Transfer Sync',
+      'Heated Rooms with Hardwood Cedar Floors',
+      'Nightly Fireside Bonfire & Warm Kahwa Service',
+      'Local Mountain Trek & Snow Activities Guide',
+    ],
+    villas: [
+      {
+        name: 'Valley View Cedar Suite (600 sq.ft)',
+        price: 8500,
+        description: 'Private glass balcony with 180° Himalayan valley views, fireplace, and goose-down duvets.',
+        curatedPerks: ['Hot Buffet Breakfast', 'Heated Bedding', '4x4 Mountain Ride Included'],
+      },
+      {
+        name: 'Pine Deluxe Room (450 sq.ft)',
+        price: 6200,
+        description: 'Warm timber interior, modern heated bathroom, tea & coffee bar, and forest views.',
+        curatedPerks: ['Daily Mountain Breakfast', 'Bonfire Night Pass', 'High-Speed Wi-Fi'],
+      },
+      {
+        name: 'Family Alpine Chalet Suite (1,200 sq.ft)',
+        price: 15800,
+        description: 'Two-bedroom wooden loft with living room, kitchenette, and private panoramic terrace.',
+        curatedPerks: ['Full Breakfast & Dinner Included', 'Roundtrip Chauffeur', 'Solang Adventure Pass'],
+      },
+    ],
+  },
+  {
+    id: 'estate-premium-3',
+    name: 'The Royal Mewar Boutique Haveli & Lake Suites',
+    location: 'Hanuman Ghat, Lake Pichola, Udaipur',
+    destinationCity: 'Udaipur',
+    tier: 'premium',
+    tierLabel: 'Premium Select',
+    category: 'palace',
+    propertyTypeLabel: 'Boutique Heritage Haveli & Suites',
+    rating: 4.96,
+    reviewCount: 174,
+    trustScore: 99.5,
+    pricePerNight: 9800,
+    image: '/brand/royal_palace.jpg',
+    tagline: 'Lakefront Heritage Haveli with Rooftop Dining & Pichola Boat Rides',
+    description: 'A 200-year-old heritage haveli right on the waters of Lake Pichola. Features ornately carved stone balconies, rooftop restaurant with direct views of the City Palace, and chauffeured airport transfers.',
+    defaultAirport: 'Maharana Pratap Airport Udaipur (UDR)',
+    exclusiveInclusions: [
+      'Chauffeured Airport / Station Transfer',
+      'Rooftop Multi-Cuisine Breakfast with Lake Views',
+      'Sunset Boat Ride across Lake Pichola',
+      'Traditional Royal Mewari Welcome Drink',
+    ],
+    villas: [
+      {
+        name: 'Heritage Lake View Suite (580 sq.ft)',
+        price: 9800,
+        description: 'Direct lake-facing marble jharokha window, king four-poster bed, and handcrafted Mewari artwork.',
+        curatedPerks: ['Rooftop Breakfast', 'Sunset Boat Cruise', 'Airport Chauffeur Transfer'],
+      },
+      {
+        name: 'Courtyard Deluxe Room (420 sq.ft)',
+        price: 6800,
+        description: 'Carved stone arches, antique brass lanterns, modern rain shower, and heritage furnishings.',
+        curatedPerks: ['Complimentary Breakfast', 'Heritage City Walking Map', 'High-Speed Wi-Fi'],
+      },
+      {
+        name: 'The Maharani Grand Suite (950 sq.ft)',
+        price: 16500,
+        description: 'Corner lake suite with private terrace, antique marble soaking tub, and personal host.',
+        curatedPerks: ['Private Candlelight Dinner', 'Roundtrip Chauffeur', 'Complimentary High Tea'],
+      },
+    ],
+  },
+
+  // ==========================================
+  // SIGNATURE & LUXE (Ultra Luxury: ₹36k – ₹65k)
+  // ==========================================
   {
     id: 'estate-1',
     name: 'The Grand Vagator Bay Resort & Oceanfront Villas',
     location: 'Vagator Cliff, North Goa',
     destinationCity: 'Goa',
+    tier: 'luxe',
+    tierLabel: 'Signature Luxe',
     category: 'coastal',
     propertyTypeLabel: 'Luxury Beach Resort & Private Villas',
     rating: 4.98,
@@ -341,6 +644,8 @@ const PROPERTIES: LuxuryEstate[] = [
     name: 'The Royal Lake Pichola Heritage Palace Hotel',
     location: 'Lake Pichola, Udaipur, Rajasthan',
     destinationCity: 'Udaipur',
+    tier: 'luxe',
+    tierLabel: 'Signature Luxe',
     category: 'palace',
     propertyTypeLabel: '5-Star Heritage Palace Hotel',
     rating: 4.99,
@@ -383,6 +688,8 @@ const PROPERTIES: LuxuryEstate[] = [
     name: 'The Alpine Snow Peak Resort & Glass Chalets',
     location: 'Solang Heights, Manali, Himachal Pradesh',
     destinationCity: 'Manali',
+    tier: 'luxe',
+    tierLabel: 'Signature Luxe',
     category: 'chalet',
     propertyTypeLabel: 'Luxury Mountain Resort & Chalets',
     rating: 4.97,
@@ -425,6 +732,8 @@ const PROPERTIES: LuxuryEstate[] = [
     name: 'The Horizon Sea-View Luxury Penthouse & Serviced Suites',
     location: 'Bandra West, Mumbai',
     destinationCity: 'Mumbai',
+    tier: 'luxe',
+    tierLabel: 'Signature Luxe',
     category: 'apartment',
     propertyTypeLabel: 'Luxury Serviced Apartments & Penthouse',
     rating: 4.98,
@@ -469,10 +778,12 @@ export default function GuestApp() {
   const [showResolveModal, setShowResolveModal] = useState<boolean>(false);
   const [resolveCategory, setResolveCategory] = useState<string>('GENERAL_INQUIRY');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [searchDestination, setSearchDestination] = useState<string>('Goa');
+  const [selectedTier, setSelectedTier] = useState<string>('all');
+  const [searchDestination, setSearchDestination] = useState<string>('all');
   const [searchPropertyType, setSearchPropertyType] = useState<string>('all');
+  const [searchTier, setSearchTier] = useState<string>('all');
 
-  const [selectedEstate, setSelectedEstate] = useState<LuxuryEstate>(PROPERTIES[0]);
+  const [selectedEstate, setSelectedEstate] = useState<StayEstate>(PROPERTIES[0]);
   const [selectedVilla, setSelectedVilla] = useState<string>(PROPERTIES[0].villas[0].name);
   const [nights, setNights] = useState<number>(3);
   const [guestsCount, setGuestsCount] = useState<number>(2);
@@ -480,10 +791,10 @@ export default function GuestApp() {
   
   // Transit & Sightseeing Selection
   const [transitMode, setTransitMode] = useState<'roundtrip' | 'pickup_only' | 'drop_only' | 'none'>('roundtrip');
-  const [transferVehicle, setTransferVehicle] = useState<'maybach' | 'defender' | 'electric'>('maybach');
+  const [transferVehicle, setTransferVehicle] = useState<'sedan' | 'comfort_mpv' | 'electric' | 'defender' | 'maybach'>('sedan');
   const [arrivalFlightNumber, setArrivalFlightNumber] = useState<string>('6E-204');
   const [departureFlightNumber, setDepartureFlightNumber] = useState<string>('AI-678');
-  const [selectedSightseeingIds, setSelectedSightseeingIds] = useState<string[]>(['goa-boat']);
+  const [selectedSightseeingIds, setSelectedSightseeingIds] = useState<string[]>(['goa-heritage']);
 
   // Offers & Promo Codes
   const [promoCodeInput, setPromoCodeInput] = useState<string>('');
@@ -502,7 +813,7 @@ export default function GuestApp() {
 
   // Butler & Food Ordering Mock States
   const [butlerMessages, setButlerMessages] = useState<Array<{ sender: 'user' | 'butler'; text: string; time: string }>>([
-    { sender: 'butler', text: 'Namaste & Welcome! I am Chef Raghav, your dedicated 24/7 Butler. Your welcome champagne is chilled and ready. How may I assist you today?', time: '14:02' },
+    { sender: 'butler', text: 'Namaste & Welcome! I am your dedicated StaySphere Concierge. How may I assist your upcoming trip today?', time: '14:02' },
   ]);
   const [chatInput, setChatInput] = useState('');
   const [orderedItems, setOrderedItems] = useState<string[]>([]);
@@ -521,12 +832,17 @@ export default function GuestApp() {
   // Pricing calculations
   const currentVillaPrice = selectedEstate
     ? (selectedEstate.villas.find((v) => v.name === selectedVilla)?.price || selectedEstate.pricePerNight)
-    : 42000;
+    : 2400;
   
   const staySubtotal = currentVillaPrice * nights;
 
-  // Vehicle pricing per leg
-  const vehiclePricePerLeg = transferVehicle === 'maybach' ? 4500 : transferVehicle === 'defender' ? 3800 : 2800;
+  // Vehicle pricing per leg (Sedan: ₹900, MPV: ₹1,600, EV: ₹2,400, Defender: ₹3,800, Maybach: ₹4,500)
+  const vehiclePricePerLeg = 
+    transferVehicle === 'maybach' ? 4500 : 
+    transferVehicle === 'defender' ? 3800 : 
+    transferVehicle === 'electric' ? 2400 : 
+    transferVehicle === 'comfort_mpv' ? 1600 : 
+    900;
   
   const pickupCost = transitMode === 'roundtrip' || transitMode === 'pickup_only' ? vehiclePricePerLeg : 0;
   const dropCost = transitMode === 'roundtrip' || transitMode === 'drop_only' ? vehiclePricePerLeg : 0;
@@ -538,24 +854,31 @@ export default function GuestApp() {
   }, 0);
 
   // Roundtrip & Bundle discount
-  const bundleDiscount = transitMode === 'roundtrip' && selectedSightseeingIds.length > 0 ? 1500 : 0;
+  const bundleDiscount = transitMode === 'roundtrip' && selectedSightseeingIds.length > 0 ? (selectedEstate?.tier === 'comfort' ? 400 : 1500) : 0;
   const travelSubtotal = pickupCost + dropCost + sightseeingCost - bundleDiscount;
 
   const rawTotal = staySubtotal + travelSubtotal;
   const promoDiscountAmount = appliedPromo ? Math.round((rawTotal * appliedPromo.discountPercent) / 100) : 0;
   const subtotalAfterDiscount = rawTotal - promoDiscountAmount;
 
-  const luxuryTaxes = Math.round(subtotalAfterDiscount * 0.12);
-  const totalBill = subtotalAfterDiscount + luxuryTaxes;
+  const hospitalityTaxes = Math.round(subtotalAfterDiscount * 0.12);
+  const totalBill = subtotalAfterDiscount + hospitalityTaxes;
 
   const navigateToTab = (
     tab: 'landing' | 'explore' | 'booking' | 'myjourney' | 'resolve',
     step: 1 | 2 | 3 = 1,
-    estate?: LuxuryEstate
+    estate?: StayEstate
   ) => {
     if (estate) {
       setSelectedEstate(estate);
       setSelectedVilla(estate.villas[0]?.name || '');
+      if (estate.tier === 'comfort') {
+        setTransferVehicle('sedan');
+      } else if (estate.tier === 'premium') {
+        setTransferVehicle('comfort_mpv');
+      } else {
+        setTransferVehicle('maybach');
+      }
       const cityTours = SIGHTSEEING_CATALOG.filter((t) => t.destinationCity.toLowerCase() === estate.destinationCity.toLowerCase());
       if (cityTours.length > 0) {
         setSelectedSightseeingIds([cityTours[0].id]);
@@ -571,7 +894,7 @@ export default function GuestApp() {
     }
   };
 
-  const handleStartBooking = (estate: LuxuryEstate) => {
+  const handleStartBooking = (estate: StayEstate) => {
     navigateToTab('booking', 1, estate);
   };
 
@@ -774,19 +1097,19 @@ export default function GuestApp() {
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(229,184,105,0.15),transparent_60%)] pointer-events-none" />
               
               <div className="relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#002B4D]/90 border border-[#E5B869]/40 text-[#F3CA7E] text-xs font-bold uppercase tracking-widest shadow-lg">
-                <Crown className="w-3.5 h-3.5 text-[#FFC857]" />
-                <span>The Sovereign Journey Platform</span>
+                <Sparkles className="w-3.5 h-3.5 text-[#FFC857]" />
+                <span>All-Class Journey Platform — Smart, Premium & Luxe</span>
               </div>
 
               <h1 className="relative z-10 text-3xl sm:text-5xl lg:text-6xl font-serif-luxury font-bold tracking-tight text-white max-w-5xl mx-auto leading-[1.15]">
-                Curated Luxury Stays, Executive Transit & Local Excursions. <br />
+                Curated Stays, Connected Transit & Custody Protection. <br />
                 <span className="gold-text-gradient italic font-normal">
-                  Synchronized End-to-End with Custody Protection.
+                  For Every Traveler, Across Every Budget.
                 </span>
               </h1>
 
               <p className="relative z-10 text-sm sm:text-base text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
-                Discover bespoke clifftop villas, heritage island palaces, alpine glass chalets, and sea-view penthouses across Goa, Udaipur, Manali, and Mumbai—seamlessly linked with verified chauffeur transfers, private charters, and proactive 15-minute SLA resolution.
+                From verified budget homestays and serviced smart studios to boutique 4-star hotels, heritage palaces, and cliffside pool villas—seamlessly bundled with flight-synced cabs, local day tours, and proactive 15-minute Sentinel AI protection.
               </p>
 
               {/* Special Seasonal Promo Banner */}
@@ -797,10 +1120,10 @@ export default function GuestApp() {
                   </div>
                   <div className="min-w-0">
                     <div className="text-xs font-black text-white flex flex-wrap items-center gap-1.5">
-                      <span>Monsoon Privilege Offer: Code "MONSOON20"</span>
-                      <span className="px-2 py-0.5 rounded-full bg-[#FFC857]/20 text-[#FFC857] text-[10px] font-bold border border-[#FFC857]/30 whitespace-nowrap shrink-0">VIP EXCLUSIVE</span>
+                      <span>Welcome Launch Offer: Code "WELCOME10" or "MONSOON20"</span>
+                      <span className="px-2 py-0.5 rounded-full bg-[#FFC857]/20 text-[#FFC857] text-[10px] font-bold border border-[#FFC857]/30 whitespace-nowrap shrink-0">ALL TIERS</span>
                     </div>
-                    <span className="text-[11px] text-slate-300 block mt-0.5">Enjoy 20% Off Stays + Complimentary Airport Chauffeur Upgrade</span>
+                    <span className="text-[11px] text-slate-300 block mt-0.5">Enjoy up to 20% Off Stays + Guaranteed Airport Cab Synchronization</span>
                   </div>
                 </div>
                 <button
@@ -827,33 +1150,35 @@ export default function GuestApp() {
                     onChange={(e) => setSearchDestination(e.target.value)}
                     className="w-full p-2.5 rounded-xl bg-[#06182F] border border-white/10 text-white font-bold text-xs outline-none focus:border-[#E5B869] cursor-pointer"
                   >
-                    <option value="Goa">Goa (Beach Resorts & Villas)</option>
-                    <option value="Udaipur">Udaipur (Palace Hotels)</option>
-                    <option value="Manali">Manali (Snow Chalets)</option>
-                    <option value="Mumbai">Mumbai (Serviced Penthouses)</option>
+                    <option value="all">All 6 Destinations</option>
+                    <option value="Goa">Goa (Beach Homestays & Resorts)</option>
+                    <option value="Bengaluru">Bengaluru (Smart Tech Studios)</option>
+                    <option value="Jaipur">Jaipur (Heritage Havelis)</option>
+                    <option value="Udaipur">Udaipur (Palace & Lake Stays)</option>
+                    <option value="Manali">Manali (Valley & Snow Chalets)</option>
+                    <option value="Mumbai">Mumbai (City & Sea Penthouses)</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="text-[11px] font-bold text-[#F3CA7E] uppercase tracking-wider block mb-1">
-                    Stay Category
+                    Travel Class / Tier
                   </label>
                   <select
-                    value={searchPropertyType}
-                    onChange={(e) => setSearchPropertyType(e.target.value)}
+                    value={searchTier}
+                    onChange={(e) => setSearchTier(e.target.value)}
                     className="w-full p-2.5 rounded-xl bg-[#06182F] border border-white/10 text-white font-bold text-xs outline-none focus:border-[#E5B869] cursor-pointer"
                   >
-                    <option value="all">All Stays (Hotels & Villas)</option>
-                    <option value="hotel">5-Star Luxury Hotels</option>
-                    <option value="resort">Beachfront & Mountain Resorts</option>
-                    <option value="apartment">Serviced Luxury Suites</option>
-                    <option value="villa">Private Pool Villas</option>
+                    <option value="all">All Classes & Budgets</option>
+                    <option value="comfort">🟢 Smart & Comfort (₹1.8k–₹3.8k)</option>
+                    <option value="premium">🔵 Premium Select (₹5.5k–₹10.5k)</option>
+                    <option value="luxe">🟡 Signature Luxe (₹28k–₹65k)</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="text-[11px] font-bold text-[#F3CA7E] uppercase tracking-wider block mb-1">
-                    Dates & Nights
+                    Dates & Duration
                   </label>
                   <div className="flex items-center gap-1.5 p-2.5 rounded-xl bg-[#06182F] border border-white/10 text-white text-xs font-bold">
                     <Calendar className="w-3.5 h-3.5 text-[#00D2C4] shrink-0" />
@@ -865,12 +1190,19 @@ export default function GuestApp() {
                   <button
                     type="button"
                     onClick={() => {
-                      const matched = PROPERTIES.find((p) => p.destinationCity.toLowerCase() === searchDestination.toLowerCase()) || PROPERTIES[0];
-                      navigateToTab('booking', 1, matched);
+                      let matched = PROPERTIES.find((p) => {
+                        const matchCity = searchDestination === 'all' || p.destinationCity.toLowerCase() === searchDestination.toLowerCase();
+                        const matchTier = searchTier === 'all' || p.tier === searchTier;
+                        return matchCity && matchTier;
+                      });
+                      if (!matched) {
+                        matched = PROPERTIES.find((p) => searchDestination === 'all' || p.destinationCity.toLowerCase() === searchDestination.toLowerCase()) || PROPERTIES[0];
+                      }
+                      navigateToTab('explore');
                     }}
                     className="w-full p-2.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] via-[#FFC857] to-[#E5B869] hover:brightness-110 text-[#001428] font-black text-xs shadow-lg shadow-[#FF8A3D]/25 transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
                   >
-                    <span>Search & Book Trip</span>
+                    <span>Search All Classes</span>
                     <ArrowRight className="w-4 h-4 shrink-0" />
                   </button>
                 </div>
@@ -882,10 +1214,10 @@ export default function GuestApp() {
                   <ShieldCheck className="w-4 h-4 text-[#10B981] shrink-0" /> Milestone Custody Protection
                 </span>
                 <span className="flex items-center gap-1.5 font-medium whitespace-nowrap shrink-0">
-                  <Plane className="w-4 h-4 text-[#00D2C4] shrink-0" /> Flight-Synced Airport Chauffeurs
+                  <Car className="w-4 h-4 text-[#00D2C4] shrink-0" /> Flight-Synced Cabs (Sedan to Maybach)
                 </span>
                 <span className="flex items-center gap-1.5 font-medium whitespace-nowrap shrink-0">
-                  <Compass className="w-4 h-4 text-[#FF8A3D] shrink-0" /> Curated Excursions & Private Yachts
+                  <Compass className="w-4 h-4 text-[#FF8A3D] shrink-0" /> Curated Hosts & 5-Star Resorts
                 </span>
                 <span className="flex items-center gap-1.5 font-medium whitespace-nowrap shrink-0">
                   <Clock className="w-4 h-4 text-[#FFC857] shrink-0" /> 15-Minute Guaranteed SLA Sentinel
@@ -990,29 +1322,79 @@ export default function GuestApp() {
               </div>
             </section>
 
-            {/* Featured Destinations & Stays */}
+            {/* Featured Destinations & Stays across All Classes */}
             <section className="space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                 <div>
                   <span className="text-xs font-bold text-[#FF8A3D] uppercase tracking-widest">
-                    Featured Destinations
+                    Explore By Class & Budget
                   </span>
                   <h2 className="text-2xl sm:text-3xl font-black text-white">
-                    Verified Luxury Stays & Experiential Tours
+                    Verified Stays Across All Categories & Tiers
                   </h2>
+                  <p className="text-xs text-slate-300 mt-0.5">
+                    From budget-friendly verified homestays to 5-star island palace resorts—all backed by safe escrow and connected transit.
+                  </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => navigateToTab('explore')}
-                  className="text-xs font-bold text-[#00D2C4] hover:underline flex items-center gap-1 cursor-pointer"
+                  className="text-xs font-bold text-[#00D2C4] hover:underline flex items-center gap-1 cursor-pointer shrink-0"
                 >
-                  <span>View All 4 Destinations & Properties</span>
+                  <span>View All 10 Properties in Catalog</span>
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
 
+              {/* Tier Filter Pills on Landing */}
+              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+                <button
+                  onClick={() => setSelectedTier('all')}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap shrink-0 cursor-pointer transition-all ${
+                    selectedTier === 'all'
+                      ? 'bg-gradient-to-r from-[#00A9A5] to-[#00D2C4] text-[#001428] font-black shadow-lg'
+                      : 'bg-[#001E38] text-slate-300 hover:text-white border border-white/10'
+                  }`}
+                >
+                  All Classes ({PROPERTIES.length})
+                </button>
+                <button
+                  onClick={() => setSelectedTier('comfort')}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap shrink-0 cursor-pointer transition-all flex items-center gap-1.5 ${
+                    selectedTier === 'comfort'
+                      ? 'bg-emerald-500 text-slate-950 font-black shadow-lg shadow-emerald-500/20'
+                      : 'bg-[#001E38] text-slate-300 hover:text-white border border-white/10'
+                  }`}
+                >
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+                  <span>Smart & Comfort (₹1.8k–₹3.8k)</span>
+                </button>
+                <button
+                  onClick={() => setSelectedTier('premium')}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap shrink-0 cursor-pointer transition-all flex items-center gap-1.5 ${
+                    selectedTier === 'premium'
+                      ? 'bg-sky-500 text-slate-950 font-black shadow-lg shadow-sky-500/20'
+                      : 'bg-[#001E38] text-slate-300 hover:text-white border border-white/10'
+                  }`}
+                >
+                  <span className="w-2 h-2 rounded-full bg-sky-400 shrink-0" />
+                  <span>Premium Select (₹5.5k–₹10.5k)</span>
+                </button>
+                <button
+                  onClick={() => setSelectedTier('luxe')}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap shrink-0 cursor-pointer transition-all flex items-center gap-1.5 ${
+                    selectedTier === 'luxe'
+                      ? 'bg-[#FFC857] text-slate-950 font-black shadow-lg shadow-[#FFC857]/20'
+                      : 'bg-[#001E38] text-slate-300 hover:text-white border border-white/10'
+                  }`}
+                >
+                  <span className="w-2 h-2 rounded-full bg-[#FFC857] shrink-0" />
+                  <span>Signature Luxe (₹28k–₹65k)</span>
+                </button>
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
-                {PROPERTIES.map((property) => (
+                {PROPERTIES.filter((p) => selectedTier === 'all' || p.tier === selectedTier).map((property) => (
                   <div
                     key={property.id}
                     className="glass-panel-luxury rounded-3xl border border-white/10 overflow-hidden hover:border-[#E5B869]/60 transition-all duration-500 flex flex-col group shadow-xl"
@@ -1026,29 +1408,35 @@ export default function GuestApp() {
                       <div className="absolute inset-0 bg-gradient-to-t from-[#020B18] via-transparent to-black/40" />
                       
                       <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-                        <span className="px-3 py-1 rounded-full bg-[#002B4D]/90 backdrop-blur-md border border-[#E5B869]/40 text-[#F3CA7E] text-[11px] font-black tracking-wide">
+                        <span className={`px-3 py-1 rounded-full backdrop-blur-md text-[11px] font-black tracking-wide border whitespace-nowrap shrink-0 ${
+                          property.tier === 'comfort'
+                            ? 'bg-emerald-950/90 text-emerald-300 border-emerald-500/40'
+                            : property.tier === 'premium'
+                            ? 'bg-sky-950/90 text-sky-300 border-sky-500/40'
+                            : 'bg-[#002B4D]/90 text-[#F3CA7E] border-[#E5B869]/40'
+                        }`}>
+                          {property.tierLabel}
+                        </span>
+                        <span className="px-3 py-1 rounded-full bg-[#002B4D]/90 backdrop-blur-md border border-white/15 text-slate-200 text-[11px] font-medium whitespace-nowrap shrink-0">
                           {property.propertyTypeLabel}
                         </span>
-                        <span className="px-3 py-1 rounded-full bg-[#020B18]/90 backdrop-blur-md border border-[#10B981]/40 text-[#10B981] text-[11px] font-bold flex items-center gap-1">
+                        <span className="px-3 py-1 rounded-full bg-[#020B18]/90 backdrop-blur-md border border-[#10B981]/40 text-[#10B981] text-[11px] font-bold flex items-center gap-1 whitespace-nowrap shrink-0">
                           <ShieldCheck className="w-3.5 h-3.5" /> {property.trustScore}% Verified
-                        </span>
-                        <span className="px-3 py-1 rounded-full bg-[#001E38]/90 backdrop-blur-md border border-[#00D2C4]/30 text-[#00D2C4] text-[10px] font-bold flex items-center gap-1">
-                          <CheckCircle2 className="w-3 h-3" /> Direct PMS Sync
                         </span>
                       </div>
 
                       <div className="absolute top-4 right-4">
-                        <span className="px-3 py-1 rounded-full bg-[#020B18]/90 backdrop-blur-md border border-[#FFC857]/40 text-[#FFC857] text-xs font-black flex items-center gap-1 shadow-lg">
+                        <span className="px-3 py-1 rounded-full bg-[#020B18]/90 backdrop-blur-md border border-[#FFC857]/40 text-[#FFC857] text-xs font-black flex items-center gap-1 shadow-lg whitespace-nowrap shrink-0">
                           <Star className="w-3.5 h-3.5 fill-[#FFC857]" /> {property.rating} ({property.reviewCount})
                         </span>
                       </div>
 
                       <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
-                        <div>
-                          <span className="text-xs text-[#F3CA7E] flex items-center gap-1 font-medium">
-                            <MapPin className="w-3.5 h-3.5 text-[#FF8A3D]" /> {property.location}
+                        <div className="min-w-0 pr-3">
+                          <span className="text-xs text-[#F3CA7E] flex items-center gap-1 font-medium truncate">
+                            <MapPin className="w-3.5 h-3.5 text-[#FF8A3D] shrink-0" /> {property.location}
                           </span>
-                          <h3 className="text-xl font-serif-luxury font-bold text-white mt-0.5">{property.name}</h3>
+                          <h3 className="text-xl font-serif-luxury font-bold text-white mt-0.5 truncate">{property.name}</h3>
                         </div>
                         <div className="text-right shrink-0">
                           <span className="text-2xl font-serif-luxury font-bold text-[#F3CA7E]">₹{property.pricePerNight.toLocaleString()}</span>
@@ -1065,30 +1453,30 @@ export default function GuestApp() {
                       {/* Inclusions */}
                       <div className="space-y-2 pt-2 border-t border-white/10">
                         <span className="text-[11px] font-bold text-[#F3CA7E] uppercase tracking-wider block">
-                          Sovereign Experience Inclusions:
+                          Curated Stay Inclusions:
                         </span>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                           {property.exclusiveInclusions.map((inclusion, idx) => (
-                            <span key={idx} className="text-xs text-slate-200 flex items-center gap-1.5">
+                            <span key={idx} className="text-xs text-slate-200 flex items-center gap-1.5 min-w-0">
                               <CheckCircle className="w-3.5 h-3.5 text-[#10B981] shrink-0" />
-                              <span>{inclusion}</span>
+                              <span className="truncate">{inclusion}</span>
                             </span>
                           ))}
                         </div>
                       </div>
 
-                      <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-4">
-                        <span className="text-xs text-[#00D2C4] font-bold flex items-center gap-1">
-                          <Car className="w-4 h-4" /> Airport Chauffeur + Sightseeing Ready
+                      <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <span className="text-xs text-[#00D2C4] font-bold flex items-center gap-1 whitespace-nowrap shrink-0">
+                          <Car className="w-4 h-4" /> Airport Cab + Local Sightseeing Ready
                         </span>
 
                         <button
                           type="button"
                           onClick={() => navigateToTab('booking', 1, property)}
-                          className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] via-[#FFC857] to-[#E5B869] hover:brightness-110 text-[#001428] font-black text-xs shadow-lg shadow-[#FF8A3D]/20 transition-all flex items-center gap-1.5 cursor-pointer"
+                          className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] via-[#FFC857] to-[#E5B869] hover:brightness-110 text-[#001428] font-black text-xs shadow-lg shadow-[#FF8A3D]/20 transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
                         >
-                          <span>Book Stay & Travel</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
+                          <span>Book Stay & Transit</span>
+                          <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                         </button>
                       </div>
                     </div>
@@ -1102,23 +1490,23 @@ export default function GuestApp() {
               <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="space-y-2 max-w-2xl">
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFC857]/20 border border-[#FFC857]/40 text-[#FFC857] text-xs font-black">
-                    <Building2 className="w-3.5 h-3.5" />
-                    <span>For Hotel Owners, Resort Managers & Villa Hosts</span>
+                    <Building2 className="w-3.5 h-3.5 shrink-0" />
+                    <span>For Homestay Hosts, Boutique Hotels & Luxury Resorts</span>
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-black text-white">
-                    Partner With StaySphere — List Your Property
+                    Partner With StaySphere — List Any Accommodation Class
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                    Join India's premier high-spending guest network. Enjoy guaranteed escrow payouts, integrated chauffeur logistics, and zero booking friction.
+                    Join India's unified travel marketplace. Enjoy automated escrow payouts, integrated airport taxi logistics, and zero booking friction across budget, premium, and luxury properties.
                   </p>
                 </div>
 
                 <button
                   type="button"
                   onClick={() => setShowPartnerModal(true)}
-                  className="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#FFC857] to-[#FF8A3D] hover:brightness-110 text-[#001428] font-black text-xs shadow-xl shadow-[#FF8A3D]/30 transition-all flex items-center gap-2 shrink-0 cursor-pointer"
+                  className="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#FFC857] to-[#FF8A3D] hover:brightness-110 text-[#001428] font-black text-xs shadow-xl shadow-[#FF8A3D]/30 transition-all flex items-center gap-2 shrink-0 cursor-pointer whitespace-nowrap"
                 >
-                  <Building2 className="w-4 h-4" />
+                  <Building2 className="w-4 h-4 shrink-0" />
                   <span>Register Your Property Now</span>
                 </button>
               </div>
@@ -1127,67 +1515,74 @@ export default function GuestApp() {
         )}
 
         {/* ========================================================================= */}
-        {/* TAB 2: EXPLORE HOTELS, RESORTS & VILLAS                                   */}
+        {/* TAB 2: EXPLORE ALL-CLASS HOTELS, HOMESTAYS, RESORTS & SUITES              */}
         {/* ========================================================================= */}
         {activeTab === 'explore' && (
           <div className="space-y-8">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
-              <div>
-                <span className="text-xs font-bold text-[#00D2C4] uppercase tracking-widest flex items-center gap-1">
-                  <Hotel className="w-3.5 h-3.5" /> Verified Catalog
-                </span>
-                <h1 className="text-3xl font-black text-white mt-1">Luxury Hotels, Resorts & Villas</h1>
-                <p className="text-xs text-slate-300 mt-1">
-                  Every reservation includes safe escrow guarantee, flight-tracked airport cabs, and local sightseeing excursions.
-                </p>
+            <div className="flex flex-col gap-4 pb-4 border-b border-white/10">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <span className="text-xs font-bold text-[#00D2C4] uppercase tracking-widest flex items-center gap-1">
+                    <Hotel className="w-3.5 h-3.5" /> All-Class Verified Catalog
+                  </span>
+                  <h1 className="text-3xl font-black text-white mt-1">Homestays, Hotels, Resorts & Suites</h1>
+                  <p className="text-xs text-slate-300 mt-1">
+                    Every reservation includes safe milestone escrow custody, flight-synced airport cabs, and verified host support.
+                  </p>
+                </div>
               </div>
 
-              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
-                <button
-                  onClick={() => setSelectedCategory('all')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap shrink-0 cursor-pointer ${
-                    selectedCategory === 'all' ? 'bg-[#00A9A5] text-white shadow-md' : 'bg-white/5 text-slate-400 hover:text-white'
-                  }`}
-                >
-                  All (4)
-                </button>
-                <button
-                  onClick={() => setSelectedCategory('coastal')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap shrink-0 cursor-pointer ${
-                    selectedCategory === 'coastal' ? 'bg-[#00A9A5] text-white shadow-md' : 'bg-white/5 text-slate-400 hover:text-white'
-                  }`}
-                >
-                  Goa Beach
-                </button>
-                <button
-                  onClick={() => setSelectedCategory('palace')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap shrink-0 cursor-pointer ${
-                    selectedCategory === 'palace' ? 'bg-[#00A9A5] text-white shadow-md' : 'bg-white/5 text-slate-400 hover:text-white'
-                  }`}
-                >
-                  Udaipur Palace
-                </button>
-                <button
-                  onClick={() => setSelectedCategory('chalet')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap shrink-0 cursor-pointer ${
-                    selectedCategory === 'chalet' ? 'bg-[#00A9A5] text-white shadow-md' : 'bg-white/5 text-slate-400 hover:text-white'
-                  }`}
-                >
-                  Manali Snow
-                </button>
-                <button
-                  onClick={() => setSelectedCategory('apartment')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap shrink-0 cursor-pointer ${
-                    selectedCategory === 'apartment' ? 'bg-[#00A9A5] text-white shadow-md' : 'bg-white/5 text-slate-400 hover:text-white'
-                  }`}
-                >
-                  Mumbai Penthouse
-                </button>
+              {/* Dual Filter Controls: City & Tier */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+                {/* City Filter */}
+                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+                  <span className="text-[11px] font-bold text-slate-400 uppercase mr-1 whitespace-nowrap shrink-0">City:</span>
+                  {['all', 'Goa', 'Bengaluru', 'Jaipur', 'Udaipur', 'Manali', 'Mumbai'].map((city) => (
+                    <button
+                      key={city}
+                      onClick={() => setSelectedCategory(city.toLowerCase())}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap shrink-0 cursor-pointer transition-all ${
+                        selectedCategory === city.toLowerCase()
+                          ? 'bg-[#00A9A5] text-white shadow-md'
+                          : 'bg-white/5 text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      {city === 'all' ? `All Cities (${PROPERTIES.length})` : city}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Tier Filter */}
+                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+                  <span className="text-[11px] font-bold text-slate-400 uppercase mr-1 whitespace-nowrap shrink-0">Tier:</span>
+                  {[
+                    { key: 'all', label: 'All Classes' },
+                    { key: 'comfort', label: '🟢 Smart Comfort' },
+                    { key: 'premium', label: '🔵 Premium Select' },
+                    { key: 'luxe', label: '🟡 Signature Luxe' },
+                  ].map((t) => (
+                    <button
+                      key={t.key}
+                      onClick={() => setSelectedTier(t.key)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap shrink-0 cursor-pointer transition-all ${
+                        selectedTier === t.key
+                          ? 'bg-[#E5B869] text-slate-950 font-black shadow-md'
+                          : 'bg-white/5 text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      {t.label}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {PROPERTIES.filter((p) => selectedCategory === 'all' || p.category === selectedCategory).map((property) => (
+              {PROPERTIES.filter((p) => {
+                const matchCity = selectedCategory === 'all' || p.destinationCity.toLowerCase() === selectedCategory.toLowerCase();
+                const matchTier = selectedTier === 'all' || p.tier === selectedTier;
+                return matchCity && matchTier;
+              }).map((property) => (
                 <div
                   key={property.id}
                   className="glass-panel rounded-3xl border border-white/10 overflow-hidden hover:border-[#00A9A5]/50 transition-all duration-300 flex flex-col"
@@ -1201,17 +1596,32 @@ export default function GuestApp() {
                     <div className="absolute inset-0 bg-gradient-to-t from-[#001428] via-transparent to-black/30" />
                     
                     <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-                      <span className="px-3 py-1 rounded-full bg-[#002B4D]/90 backdrop-blur-md border border-[#00A9A5]/40 text-[#00D2C4] text-[11px] font-black">
+                      <span className={`px-3 py-1 rounded-full backdrop-blur-md text-[11px] font-black border whitespace-nowrap shrink-0 ${
+                        property.tier === 'comfort'
+                          ? 'bg-emerald-950/90 text-emerald-300 border-emerald-500/40'
+                          : property.tier === 'premium'
+                          ? 'bg-sky-950/90 text-sky-300 border-sky-500/40'
+                          : 'bg-[#002B4D]/90 text-[#F3CA7E] border-[#E5B869]/40'
+                      }`}>
+                        {property.tierLabel}
+                      </span>
+                      <span className="px-3 py-1 rounded-full bg-[#002B4D]/90 backdrop-blur-md border border-white/15 text-slate-200 text-[11px] font-bold whitespace-nowrap shrink-0">
                         {property.propertyTypeLabel}
                       </span>
                     </div>
 
+                    <div className="absolute top-4 right-4">
+                      <span className="px-3 py-1 rounded-full bg-[#020B18]/90 backdrop-blur-md border border-[#FFC857]/40 text-[#FFC857] text-xs font-black flex items-center gap-1 shadow-lg whitespace-nowrap shrink-0">
+                        <Star className="w-3.5 h-3.5 fill-[#FFC857]" /> {property.rating} ({property.reviewCount})
+                      </span>
+                    </div>
+
                     <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
-                      <div>
-                        <span className="text-xs text-slate-300 flex items-center gap-1">
-                          <MapPin className="w-3.5 h-3.5 text-[#FF8A3D]" /> {property.location}
+                      <div className="min-w-0 pr-3">
+                        <span className="text-xs text-slate-300 flex items-center gap-1 truncate">
+                          <MapPin className="w-3.5 h-3.5 text-[#FF8A3D] shrink-0" /> {property.location}
                         </span>
-                        <h3 className="text-xl font-black text-white mt-0.5">{property.name}</h3>
+                        <h3 className="text-xl font-black text-white mt-0.5 truncate">{property.name}</h3>
                       </div>
                       <div className="text-right shrink-0">
                         <span className="text-xl font-black text-white">₹{property.pricePerNight.toLocaleString()}</span>
@@ -1228,29 +1638,29 @@ export default function GuestApp() {
                     {/* Room Types */}
                     <div className="space-y-2 pt-2 border-t border-white/10">
                       <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                        Available Suite & Villa Categories:
+                        Available Room / Suite Categories:
                       </span>
                       <div className="space-y-1.5">
                         {property.villas.map((villa, idx) => (
                           <div key={idx} className="p-2.5 rounded-xl bg-[#001020] border border-white/5 flex items-center justify-between text-xs">
-                            <span className="font-bold text-white">{villa.name}</span>
-                            <span className="text-[#00D2C4] font-black">₹{villa.price.toLocaleString()} / night</span>
+                            <span className="font-bold text-white truncate pr-2">{villa.name}</span>
+                            <span className="text-[#00D2C4] font-black whitespace-nowrap shrink-0">₹{villa.price.toLocaleString()} / night</span>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-4">
+                    <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                       <div className="text-xs text-slate-400">
-                        Airport: <strong className="text-slate-200">{property.destinationCity} VIP Gate</strong>
+                        Airport / Hub: <strong className="text-slate-200">{property.destinationCity} Gate</strong>
                       </div>
 
                       <button
                         onClick={() => handleStartBooking(property)}
-                        className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] hover:brightness-110 text-[#001428] font-black text-xs shadow-md transition-all flex items-center gap-1.5"
+                        className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] hover:brightness-110 text-[#001428] font-black text-xs shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap shrink-0"
                       >
                         <span>Book Stay, Cab & Tours</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
+                        <ArrowRight className="w-3.5 h-3.5 shrink-0" />
                       </button>
                     </div>
                   </div>
@@ -1492,54 +1902,91 @@ export default function GuestApp() {
                   {/* Vehicle Fleet Selection */}
                   {transitMode !== 'none' && (
                     <div className="space-y-3 pt-2">
-                      <label className="text-xs font-bold text-slate-400 uppercase">Select Luxury Chauffeur Fleet</label>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div className="flex items-center justify-between">
+                        <label className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+                          Select Transit & Chauffeur Fleet (All Classes)
+                        </label>
+                        <span className="text-[11px] text-slate-400">Flight arrival tracking included</span>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
                         <div
-                          onClick={() => setTransferVehicle('maybach')}
+                          onClick={() => setTransferVehicle('sedan')}
                           className={`p-3.5 rounded-2xl border cursor-pointer transition-all space-y-1 ${
-                            transferVehicle === 'maybach'
-                              ? 'bg-[#002B4D] border-[#FFC857] shadow-md'
+                            transferVehicle === 'sedan'
+                              ? 'bg-[#002B4D] border-emerald-400 shadow-md ring-1 ring-emerald-400'
                               : 'bg-[#001020] border-white/10 hover:border-white/20'
                           }`}
                         >
                           <div className="flex items-center justify-between">
-                            <span className="font-bold text-xs text-white">Mercedes-Maybach S680</span>
-                            <Crown className="w-3.5 h-3.5 text-[#FFC857]" />
+                            <span className="font-bold text-xs text-white">City AC Sedan</span>
+                            <Car className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                           </div>
-                          <p className="text-[10px] text-slate-400">VIP tarmac meet, chilled bottled water, Wi-Fi hotspot</p>
-                          <span className="text-xs font-bold text-[#FFC857] block">₹4,500 / leg</span>
+                          <p className="text-[10px] text-slate-400">Dzire / Etios / Tigor EV, clean AC cab</p>
+                          <span className="text-xs font-bold text-emerald-400 block">₹900 / leg</span>
                         </div>
 
                         <div
-                          onClick={() => setTransferVehicle('defender')}
+                          onClick={() => setTransferVehicle('comfort_mpv')}
                           className={`p-3.5 rounded-2xl border cursor-pointer transition-all space-y-1 ${
-                            transferVehicle === 'defender'
-                              ? 'bg-[#002B4D] border-[#00A9A5] shadow-md'
+                            transferVehicle === 'comfort_mpv'
+                              ? 'bg-[#002B4D] border-sky-400 shadow-md ring-1 ring-sky-400'
                               : 'bg-[#001020] border-white/10 hover:border-white/20'
                           }`}
                         >
                           <div className="flex items-center justify-between">
-                            <span className="font-bold text-xs text-white">Land Rover Defender</span>
-                            <Mountain className="w-3.5 h-3.5 text-[#00D2C4]" />
+                            <span className="font-bold text-xs text-white">Comfort MPV</span>
+                            <Users className="w-3.5 h-3.5 text-sky-400 shrink-0" />
                           </div>
-                          <p className="text-[10px] text-slate-400">All-terrain luxury, high luggage capacity, panoramic glass</p>
-                          <span className="text-xs font-bold text-[#00D2C4] block">₹3,800 / leg</span>
+                          <p className="text-[10px] text-slate-400">Innova Crysta / Ertiga, 6-seat family comfort</p>
+                          <span className="text-xs font-bold text-sky-400 block">₹1,600 / leg</span>
                         </div>
 
                         <div
                           onClick={() => setTransferVehicle('electric')}
                           className={`p-3.5 rounded-2xl border cursor-pointer transition-all space-y-1 ${
                             transferVehicle === 'electric'
-                              ? 'bg-[#002B4D] border-[#3CCF91] shadow-md'
+                              ? 'bg-[#002B4D] border-[#3CCF91] shadow-md ring-1 ring-[#3CCF91]'
                               : 'bg-[#001020] border-white/10 hover:border-white/20'
                           }`}
                         >
                           <div className="flex items-center justify-between">
-                            <span className="font-bold text-xs text-white">BMW i7 Luxury EV Sedan</span>
-                            <Zap className="w-3.5 h-3.5 text-[#3CCF91]" />
+                            <span className="font-bold text-xs text-white">Executive EV Sedan</span>
+                            <Zap className="w-3.5 h-3.5 text-[#3CCF91] shrink-0" />
                           </div>
-                          <p className="text-[10px] text-slate-400">Zero-emission whisper quiet ride, executive rear lounge</p>
-                          <span className="text-xs font-bold text-[#3CCF91] block">₹2,800 / leg</span>
+                          <p className="text-[10px] text-slate-400">Whisper quiet luxury EV, executive lounge</p>
+                          <span className="text-xs font-bold text-[#3CCF91] block">₹2,400 / leg</span>
+                        </div>
+
+                        <div
+                          onClick={() => setTransferVehicle('defender')}
+                          className={`p-3.5 rounded-2xl border cursor-pointer transition-all space-y-1 ${
+                            transferVehicle === 'defender'
+                              ? 'bg-[#002B4D] border-[#00A9A5] shadow-md ring-1 ring-[#00A9A5]'
+                              : 'bg-[#001020] border-white/10 hover:border-white/20'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className="font-bold text-xs text-white">4x4 Mountain SUV</span>
+                            <Mountain className="w-3.5 h-3.5 text-[#00D2C4] shrink-0" />
+                          </div>
+                          <p className="text-[10px] text-slate-400">Land Rover Defender / 4x4 all-terrain</p>
+                          <span className="text-xs font-bold text-[#00D2C4] block">₹3,800 / leg</span>
+                        </div>
+
+                        <div
+                          onClick={() => setTransferVehicle('maybach')}
+                          className={`p-3.5 rounded-2xl border cursor-pointer transition-all space-y-1 ${
+                            transferVehicle === 'maybach'
+                              ? 'bg-[#002B4D] border-[#FFC857] shadow-md ring-1 ring-[#FFC857]'
+                              : 'bg-[#001020] border-white/10 hover:border-white/20'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className="font-bold text-xs text-white">Maybach S680</span>
+                            <Crown className="w-3.5 h-3.5 text-[#FFC857] shrink-0" />
+                          </div>
+                          <p className="text-[10px] text-slate-400">VIP tarmac meet, bottled water, champagne</p>
+                          <span className="text-xs font-bold text-[#FFC857] block">₹4,500 / leg</span>
                         </div>
                       </div>
 
@@ -1781,8 +2228,8 @@ export default function GuestApp() {
                       )}
 
                       <div className="flex justify-between text-slate-300 pt-2 border-t border-white/10">
-                        <span>🛡️ Hospitality Taxes & Payment Protection Fee (12%)</span>
-                        <span className="font-bold text-white">₹{luxuryTaxes.toLocaleString()}</span>
+                        <span>🛡️ Hospitality GST & Escrow Fee (12%)</span>
+                        <span className="font-bold text-white">₹{hospitalityTaxes.toLocaleString()}</span>
                       </div>
 
                       <div className="pt-3 border-t border-white/15 flex justify-between text-sm font-black text-white">

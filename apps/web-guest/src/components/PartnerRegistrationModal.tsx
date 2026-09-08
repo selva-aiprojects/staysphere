@@ -103,8 +103,8 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
                   }`}
                 >
                   <Building2 className="w-4 h-4 text-[#00A9A5] shrink-0" />
-                  <span className="text-xs font-bold">Hotel / Resort / Villa</span>
-                  <span className="text-[10px] text-slate-400">List Suites & Estates</span>
+                  <span className="text-xs font-bold">Stays & Hospitality</span>
+                  <span className="text-[10px] text-slate-400">Homestay / Hotel / Villa</span>
                 </button>
 
                 <button
@@ -117,8 +117,8 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
                   }`}
                 >
                   <Car className="w-4 h-4 text-amber-400 shrink-0" />
-                  <span className="text-xs font-bold">Travel & Fleet Desk</span>
-                  <span className="text-[10px] text-slate-400">Maybach / Helicopters</span>
+                  <span className="text-xs font-bold">Transit & Fleet Desk</span>
+                  <span className="text-[10px] text-slate-400">City Cabs / EVs / Chauffeur</span>
                 </button>
 
                 <button
@@ -132,7 +132,7 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
                 >
                   <Users className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span className="text-xs font-bold">Channel Partner B2B</span>
-                  <span className="text-[10px] text-slate-400">Corporate & Concierge</span>
+                  <span className="text-[10px] text-slate-400">Corporate & Travel Desk</span>
                 </button>
               </div>
             </div>
@@ -142,7 +142,7 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-1">
                   {partnerType === 'HOTEL_RESORT'
-                    ? 'Hotel / Property Entity Name'
+                    ? 'Accommodation / Business Name'
                     : partnerType === 'CHAUFFEUR_FLEET'
                     ? 'Fleet / Mobility Operator Name'
                     : 'Agency / Corporate Desk Name'}
@@ -151,7 +151,7 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
                   type="text"
                   value={formData.businessName}
                   onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
-                  placeholder="e.g. The Imperial Palms Resort"
+                  placeholder="e.g. Palm Grove Stays / Imperial Resort"
                   className="w-full bg-[#002B4D] border border-white/15 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-[#00A9A5]"
                   required
                 />
@@ -163,7 +163,7 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
                   type="text"
                   value={formData.contactName}
                   onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
-                  placeholder="e.g. Vikramaditya Rathore"
+                  placeholder="e.g. Anand Sharma"
                   className="w-full bg-[#002B4D] border border-white/15 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-[#00A9A5]"
                   required
                 />
@@ -172,7 +172,7 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-bold text-slate-300 mb-1">Corporate Email Address</label>
+                <label className="block text-xs font-bold text-slate-300 mb-1">Business Email Address</label>
                 <input
                   type="email"
                   value={formData.email}
@@ -203,6 +203,7 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
                   type="text"
                   value={formData.city}
                   onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                  placeholder="e.g. Goa / Bengaluru"
                   className="w-full bg-[#002B4D] border border-white/15 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00A9A5]"
                   required
                 />
@@ -210,7 +211,7 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
 
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-1">
-                  {partnerType === 'HOTEL_RESORT' ? 'Total Keys / Suites' : partnerType === 'CHAUFFEUR_FLEET' ? 'Fleet Vehicles' : 'Monthly VIP Stays'}
+                  {partnerType === 'HOTEL_RESORT' ? 'Total Rooms / Keys' : partnerType === 'CHAUFFEUR_FLEET' ? 'Fleet Vehicles' : 'Monthly Bookings'}
                 </label>
                 <input
                   type="number"
@@ -228,9 +229,9 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
                   onChange={(e) => setFormData({ ...formData, partnershipPlan: e.target.value })}
                   className="w-full bg-[#002B4D] border border-white/15 rounded-xl px-2.5 py-2 text-xs text-white focus:outline-none focus:border-[#00A9A5] cursor-pointer"
                 >
-                  <option value="VERIFIED_BOUTIQUE">Verified Boutique (8% rev share)</option>
-                  <option value="PREMIER_RESORT">Premier Resort (12% rev share)</option>
-                  <option value="SOVEREIGN_FLAGSHIP">Sovereign Flagship (15% franchise)</option>
+                  <option value="SMART_HOST">🟢 Smart Homestay & Studio (6%)</option>
+                  <option value="PREMIUM_HOTEL">🔵 Premium Boutique / 4-Star (10%)</option>
+                  <option value="LUXURY_ESTATE">🟡 Luxury Resort & Palace (12%)</option>
                 </select>
               </div>
             </div>
