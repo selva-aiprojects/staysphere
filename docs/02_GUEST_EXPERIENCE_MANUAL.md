@@ -1,4 +1,4 @@
-# 02. Guest Experience Manual
+# 02. Guest Experience
 **StaySphere Sovereign Journey Platform** | **Audience:** Guests, Travellers & Concierge VIPs  
 **Application:** StaySphere Guest Web Portal (`apps/web-guest`)
 

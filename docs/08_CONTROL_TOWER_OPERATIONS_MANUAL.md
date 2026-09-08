@@ -1,4 +1,4 @@
-# 08. Control Tower Operations Manual
+# 08. Control Tower Operations
 **StaySphere Sovereign Incident & Matrix Console** | **Classification:** Internal Operations & Dispatch  
 **Application:** StaySphere Control Tower Web Application (`apps/web-control-tower`)  
 **URL:** `https://staysphere-control-tower.vercel.app`

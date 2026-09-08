@@ -1,4 +1,4 @@
-# 11. Trust & Verification Policy
+# 11. Trust / Verification Policy
 **StaySphere Sovereign Quality Assurance** | **Classification:** Institutional Policy  
 **Effective Date:** 2026-09-08 | **Version:** v3.5  
 **Applicable Entities:** All Onboarded Properties, Chauffeurs, Experience Operators, Channel Partners, Guests

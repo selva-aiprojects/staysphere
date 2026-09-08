@@ -1,4 +1,4 @@
-# 12. SLA & Proactive Resolution Policy
+# 12. SLA / Resolution Policy
 **StaySphere Incident Command & Sentinel Guarantee** | **Classification:** Institutional Policy  
 **Effective Date:** 2026-09-08 | **Version:** v3.5  
 **Applicable Entities:** All Active Journeys, Guests, Hotels, Chauffeur Fleets, Central Operations Desk

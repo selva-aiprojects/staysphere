@@ -1,4 +1,4 @@
-# 09. API & Developer Integration Guide
+# 09. API & Developer Guide
 **StaySphere Sovereign REST API** | **Version:** v1.0 (Build 2026.09)  
 **Base URL:** `https://staysphere-api.vercel.app/api/v1` (Production) / `http://localhost:3002/api/v1` (Local Dev)  
 **Protocol:** HTTPS / JSON / Webhook Telemetry
