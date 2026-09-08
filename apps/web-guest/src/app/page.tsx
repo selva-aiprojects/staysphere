@@ -47,11 +47,16 @@ import {
   Mountain,
   Tag,
   Percent,
+  Sun,
+  Moon,
+  User,
+  UserCheck,
 } from 'lucide-react';
 import { HorizontalLogo, LogoOnDark, StackedLogo, AppIcon, EmblemImageLogo } from '@staysphere/ui-kit';
 import { PartnerRegistrationModal } from '../components/PartnerRegistrationModal';
 import { MyJourneyView } from '../components/MyJourneyView';
 import { ProactiveResolveSentinel } from '../components/ProactiveResolveSentinel';
+import { CustomerAuthModal, CustomerUser, FREQUENT_GUEST_PRESETS } from '../components/CustomerAuthModal';
 
 export type StayTier = 'comfort' | 'premium' | 'luxe';
 
@@ -774,6 +779,15 @@ const PROPERTIES: StayEstate[] = [
 ];
 
 export default function GuestApp() {
+  // Light Pearl & Midnight Dark Theme State (Default to Light Pearl)
+  const [theme, setTheme] = useState<'pearl' | 'dark'>('pearl');
+  const isPearl = theme === 'pearl';
+
+  // Customer Portal & Authenticated Guest State
+  const [currentUser, setCurrentUser] = useState<CustomerUser | null>(FREQUENT_GUEST_PRESETS[0]);
+  const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
+  const [authModalMode, setAuthModalMode] = useState<'signin' | 'register' | 'profile'>('signin');
+
   const [activeTab, setActiveTab] = useState<'landing' | 'explore' | 'booking' | 'myjourney' | 'resolve'>('landing');
   const [showResolveModal, setShowResolveModal] = useState<boolean>(false);
   const [resolveCategory, setResolveCategory] = useState<string>('GENERAL_INQUIRY');
@@ -964,27 +978,94 @@ export default function GuestApp() {
 
 
   return (
-    <div className="min-h-screen bg-[#001428] text-slate-100 flex flex-col font-sans selection:bg-[#FF8A3D] selection:text-white">
+    <div
+      className={`min-h-screen flex flex-col font-sans transition-colors duration-300 ${
+        isPearl
+          ? 'theme-pearl bg-[#F8FAFD] text-[#001E3D] selection:bg-[#00A9A5] selection:text-white'
+          : 'bg-[#001428] text-slate-100 selection:bg-[#FF8A3D] selection:text-white'
+      }`}
+    >
       {/* Top Application Switcher Bar */}
-      <div className="bg-[#000B17] border-b border-white/10 px-4 sm:px-8 py-2 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-        <div className="flex items-center gap-2 text-slate-300 min-w-0">
-          <Compass className="w-3.5 h-3.5 text-[#00D2C4] shrink-0" />
-          <span className="truncate sm:whitespace-normal">StaySphere Journey Platform: <strong className="text-white">Coordinated Stays, Mobility & Proactive Resolution</strong></span>
+      <div
+        className={`border-b px-4 sm:px-8 py-2 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 transition-colors ${
+          isPearl
+            ? 'bg-[#EEF2F6] border-slate-200 text-slate-600'
+            : 'bg-[#000B17] border-white/10 text-slate-300'
+        }`}
+      >
+        <div className="flex items-center gap-2 min-w-0">
+          <Compass className="w-3.5 h-3.5 text-[#00A9A5] shrink-0" />
+          <span className="truncate sm:whitespace-normal">
+            StaySphere Journey Platform:{' '}
+            <strong className={isPearl ? 'text-[#001E3D]' : 'text-white'}>
+              Coordinated Stays, Mobility & Proactive Resolution
+            </strong>
+          </span>
         </div>
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
+          {/* Customer Portal Button in Top Bar */}
+          {currentUser ? (
+            <button
+              type="button"
+              onClick={() => {
+                setAuthModalMode('profile');
+                setShowAuthModal(true);
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-lg border text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                isPearl
+                  ? 'bg-white border-[#D4AF37]/60 text-[#001E3D] shadow-sm hover:border-[#0B3D91]'
+                  : 'bg-[#002B4D] border-[#FFC857]/40 text-[#FFC857] hover:brightness-110'
+              }`}
+            >
+              <Crown className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <span>
+                {currentUser.fullName}{' '}
+                <span className="opacity-75">
+                  ({currentUser.loyaltyTier.split(' ')[0]} • {currentUser.loyaltyPoints.toLocaleString()} pts)
+                </span>
+              </span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => {
+                setAuthModalMode('signin');
+                setShowAuthModal(true);
+              }}
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-lg border text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                isPearl
+                  ? 'bg-white border-slate-300 text-[#001E3D] hover:bg-slate-50'
+                  : 'bg-[#002B4D] border-white/20 text-white hover:bg-[#003A66]'
+              }`}
+            >
+              <User className="w-3.5 h-3.5" />
+              <span>Customer Sign-In / Sphere Club</span>
+            </button>
+          )}
+
           <button
             type="button"
             onClick={() => setShowPartnerModal(true)}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#002B4D] border border-[#00A9A5]/40 text-[#00D2C4] font-bold hover:brightness-110 text-xs shadow-sm cursor-pointer whitespace-nowrap"
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-lg border font-bold text-xs shadow-sm cursor-pointer whitespace-nowrap transition-all ${
+              isPearl
+                ? 'bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-700'
+                : 'bg-[#002B4D] border-[#00A9A5]/40 text-[#00D2C4] hover:brightness-110'
+            }`}
           >
             <Building2 className="w-3.5 h-3.5 shrink-0" />
-            <span>Partner & Operations Network ↗</span>
+            <span>Partner Network ↗</span>
           </button>
         </div>
       </div>
 
       {/* Top Header */}
-      <header className="sticky top-0 z-40 bg-[#001830]/95 backdrop-blur-md border-b border-white/10 px-4 sm:px-8 py-3.5 shadow-2xl">
+      <header
+        className={`sticky top-0 z-40 backdrop-blur-md border-b px-4 sm:px-8 py-3.5 transition-all shadow-md ${
+          isPearl
+            ? 'bg-white/95 border-slate-200/90 text-[#001E3D]'
+            : 'bg-[#001830]/95 border-white/10 text-slate-100 shadow-2xl'
+        }`}
+      >
         <div className="w-full flex items-center justify-between gap-3">
           {/* Logo & Main Navigation - Left Aligned */}
           <div className="flex items-center gap-4 lg:gap-6 min-w-0">
@@ -992,7 +1073,7 @@ export default function GuestApp() {
               onClick={() => navigateToTab('landing')}
               className="cursor-pointer shrink-0"
             >
-              <HorizontalLogo size="sm" variant="dark" />
+              <HorizontalLogo size="sm" variant={isPearl ? 'light' : 'dark'} />
             </div>
 
             <nav className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar py-0.5">
@@ -1002,6 +1083,8 @@ export default function GuestApp() {
                 className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                   activeTab === 'landing'
                     ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
+                    : isPearl
+                    ? 'text-slate-600 hover:text-[#001E3D] hover:bg-slate-100'
                     : 'text-slate-300 hover:text-white hover:bg-white/5'
                 }`}
               >
@@ -1014,10 +1097,12 @@ export default function GuestApp() {
                 className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
                   activeTab === 'explore'
                     ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
+                    : isPearl
+                    ? 'text-slate-600 hover:text-[#001E3D] hover:bg-slate-100'
                     : 'text-slate-300 hover:text-white hover:bg-white/5'
                 }`}
               >
-                <Hotel className="w-3.5 h-3.5 text-[#00D2C4] shrink-0" />
+                <Hotel className="w-3.5 h-3.5 text-[#00A9A5] shrink-0" />
                 <span>1. Stays & Itineraries</span>
               </button>
 
@@ -1027,6 +1112,8 @@ export default function GuestApp() {
                 className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
                   activeTab === 'booking'
                     ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
+                    : isPearl
+                    ? 'text-slate-600 hover:text-[#001E3D] hover:bg-slate-100'
                     : 'text-slate-300 hover:text-white hover:bg-white/5'
                 }`}
               >
@@ -1040,6 +1127,8 @@ export default function GuestApp() {
                 className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
                   activeTab === 'myjourney'
                     ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
+                    : isPearl
+                    ? 'text-slate-600 hover:text-[#001E3D] hover:bg-slate-100'
                     : 'text-slate-300 hover:text-white hover:bg-white/5'
                 }`}
               >
@@ -1053,7 +1142,11 @@ export default function GuestApp() {
                   setResolveCategory('GENERAL_INQUIRY');
                   setShowResolveModal(true);
                 }}
-                className="px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer bg-[#FF8A3D]/15 hover:bg-[#FF8A3D]/25 border border-[#FF8A3D]/40 text-[#FFC857]"
+                className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer border ${
+                  isPearl
+                    ? 'bg-amber-50 hover:bg-amber-100 border-amber-300 text-amber-900'
+                    : 'bg-[#FF8A3D]/15 hover:bg-[#FF8A3D]/25 border-[#FF8A3D]/40 text-[#FFC857]'
+                }`}
               >
                 <ShieldCheck className="w-3.5 h-3.5 text-[#FF8A3D] shrink-0" />
                 <span>4. Resolve (15-Min SLA)</span>
@@ -1063,13 +1156,49 @@ export default function GuestApp() {
 
           {/* Right Action Buttons */}
           <div className="flex items-center gap-2 shrink-0">
+            {/* Theme Toggle Button */}
             <button
               type="button"
-              onClick={() => setShowPartnerModal(true)}
-              className="hidden md:flex px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#FFC857]/20 to-[#FF8A3D]/20 hover:from-[#FFC857]/30 hover:to-[#FF8A3D]/30 border border-[#FFC857]/40 text-[#FFC857] text-xs font-black transition-all items-center gap-1.5 shadow-sm cursor-pointer whitespace-nowrap shrink-0"
+              onClick={() => setTheme(theme === 'pearl' ? 'dark' : 'pearl')}
+              className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm ${
+                isPearl
+                  ? 'bg-slate-100 hover:bg-slate-200 border-slate-300 text-[#001E3D]'
+                  : 'bg-white/10 hover:bg-white/20 border-white/20 text-white'
+              }`}
+              title={`Switch to ${theme === 'pearl' ? 'Midnight Dark' : 'Light Pearl'} Theme`}
             >
-              <Building2 className="w-3.5 h-3.5 shrink-0" />
-              <span>Partner With Us</span>
+              {isPearl ? (
+                <>
+                  <Sun className="w-3.5 h-3.5 text-amber-500" />
+                  <span className="hidden lg:inline">Light Pearl</span>
+                </>
+              ) : (
+                <>
+                  <Moon className="w-3.5 h-3.5 text-[#00D2C4]" />
+                  <span className="hidden lg:inline">Midnight Dark</span>
+                </>
+              )}
+            </button>
+
+            {/* Customer Portal Link Button */}
+            <button
+              type="button"
+              onClick={() => {
+                setAuthModalMode(currentUser ? 'profile' : 'signin');
+                setShowAuthModal(true);
+              }}
+              className={`hidden sm:flex px-3.5 py-1.5 rounded-xl border text-xs font-black transition-all items-center gap-1.5 shadow-sm cursor-pointer whitespace-nowrap shrink-0 ${
+                currentUser
+                  ? isPearl
+                    ? 'bg-amber-50/90 border-[#D4AF37]/50 text-amber-950 hover:bg-amber-100'
+                    : 'bg-[#002B4D] border-[#FFC857]/50 text-[#FFC857] hover:brightness-110'
+                  : isPearl
+                  ? 'bg-slate-100 hover:bg-slate-200 border-slate-300 text-[#001E3D]'
+                  : 'bg-white/10 hover:bg-white/20 border-white/20 text-white'
+              }`}
+            >
+              <User className="w-3.5 h-3.5 text-[#D4AF37] shrink-0" />
+              <span>{currentUser ? currentUser.fullName.split(' ')[0] : 'Customer Portal'}</span>
             </button>
 
             <button
@@ -2349,6 +2478,8 @@ export default function GuestApp() {
               setResolveCategory(cat || 'GENERAL_INQUIRY');
               setShowResolveModal(true);
             }}
+            theme={theme}
+            currentUser={currentUser}
           />
         )}
       </main>
@@ -2374,34 +2505,70 @@ export default function GuestApp() {
         </button>
       </div>
 
+      {/* Customer Authentication & Sovereign Member Portal Modal */}
+      <CustomerAuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        currentUser={currentUser}
+        onLogin={(user) => {
+          setCurrentUser(user);
+        }}
+        onLogout={() => {
+          setCurrentUser(null);
+        }}
+        theme={theme}
+        initialMode={authModalMode}
+      />
+
       {/* Proactive Resolution Sentinel Modal */}
       <ProactiveResolveSentinel
         isOpen={showResolveModal}
         onClose={() => setShowResolveModal(false)}
         defaultCategory={resolveCategory}
         journeyReference={confirmedBookingId ? `JN-SS-2026-${confirmedBookingId.replace(/\D/g, '') || '9041'}` : 'JN-SS-2026-9041'}
+        theme={theme}
       />
 
       {/* Partner Registration Multi-Stakeholder Modal */}
       <PartnerRegistrationModal
         isOpen={showPartnerModal}
         onClose={() => setShowPartnerModal(false)}
+        theme={theme}
       />
 
       {/* Footer */}
-      <footer className="border-t border-white/10 bg-[#001020] py-8 px-4 sm:px-8 text-xs text-slate-400 mt-16">
+      <footer
+        className={`border-t py-8 px-4 sm:px-8 text-xs mt-16 transition-colors ${
+          isPearl
+            ? 'bg-[#EEF2F6] border-slate-200 text-slate-600'
+            : 'bg-[#001020] border-white/10 text-slate-400'
+        }`}
+      >
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <HorizontalLogo size="sm" variant="dark" />
-            <span className="text-slate-500">|</span>
+            <HorizontalLogo size="sm" variant={isPearl ? 'light' : 'dark'} />
+            <span className="text-slate-400">|</span>
             <span>Coordinated Stays, Travel & Protected Payments</span>
           </div>
 
           <div className="flex items-center gap-6">
-            <span className="text-slate-400">© 2026 StaySphere Journey Platform Pvt. Ltd.</span>
+            <span className={isPearl ? 'text-slate-500' : 'text-slate-400'}>
+              © 2026 StaySphere Journey Platform Pvt. Ltd.
+            </span>
             <button
+              type="button"
+              onClick={() => {
+                setAuthModalMode(currentUser ? 'profile' : 'signin');
+                setShowAuthModal(true);
+              }}
+              className="text-[#00A9A5] font-bold hover:underline cursor-pointer"
+            >
+              {currentUser ? `Sphere Portal (${currentUser.fullName.split(' ')[0]})` : 'Customer Portal'}
+            </button>
+            <button
+              type="button"
               onClick={() => setShowPartnerModal(true)}
-              className="text-[#FFC857] font-bold hover:underline"
+              className="text-[#FF8A3D] font-bold hover:underline cursor-pointer"
             >
               Partner Network
             </button>

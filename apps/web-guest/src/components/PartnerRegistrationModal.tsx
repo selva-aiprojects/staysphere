@@ -16,9 +16,10 @@ import {
 interface PartnerRegistrationModalProps {
   isOpen: boolean;
   onClose: () => void;
+  theme?: 'dark' | 'pearl';
 }
 
-export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistrationModalProps) {
+export function PartnerRegistrationModal({ isOpen, onClose, theme = 'pearl' }: PartnerRegistrationModalProps) {
   const [partnerType, setPartnerType] = useState<'HOTEL_RESORT' | 'CHAUFFEUR_FLEET' | 'CHANNEL_B2B'>('HOTEL_RESORT');
   const [step, setStep] = useState<number>(1);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
@@ -42,225 +43,189 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
     setIsSubmitted(true);
   };
 
+  const isPearl = theme === 'pearl';
+
   return (
-    <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-      <div className="bg-[#001E36] border border-[#00A9A5]/50 rounded-3xl w-full max-w-2xl p-6 md:p-8 shadow-2xl animate-scale-up">
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+      <div
+        className={`w-full max-w-2xl rounded-3xl p-6 sm:p-8 shadow-2xl transition-all border my-8 animate-scale-up ${
+          isPearl
+            ? 'bg-white/95 text-[#001E3D] border-[#D4AF37]/35 shadow-[0_25px_60px_-15px_rgba(11,61,145,0.12)]'
+            : 'bg-[#001E36] text-slate-100 border-[#00A9A5]/50 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)]'
+        }`}
+      >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+        <div className="flex items-center justify-between border-b pb-4 mb-6 border-slate-200 dark:border-white/10">
           <div>
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-[#00A9A5] animate-pulse shrink-0" />
-              <h3 className="text-lg font-bold text-white tracking-wide">Partner with StaySphere</h3>
+              <h3 className={`text-lg font-bold tracking-wide ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>
+                Partner with StaySphere
+              </h3>
             </div>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className={`text-xs mt-0.5 ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>
               Join India's unified travel & hospitality network with automated milestone payouts and direct rate synchronization.
             </p>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white cursor-pointer shrink-0"
+            className={`w-8 h-8 rounded-full flex items-center justify-center transition-all cursor-pointer ${
+              isPearl ? 'bg-slate-100 hover:bg-slate-200 text-slate-600' : 'bg-white/10 hover:bg-white/20 text-slate-300'
+            }`}
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {isSubmitted ? (
-          <div className="p-8 text-center space-y-4 bg-[#001428] rounded-2xl border border-[#00A9A5]">
-            <div className="w-14 h-14 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
+          <div className="py-8 text-center space-y-4">
+            <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500 text-emerald-500 flex items-center justify-center mx-auto animate-bounce">
               <CheckCircle2 className="w-8 h-8" />
             </div>
-            <h4 className="text-lg font-bold text-white">Application Received & Registration Initiated!</h4>
-            <p className="text-xs text-slate-300 max-w-md mx-auto leading-relaxed">
-              Thank you, <strong>{formData.contactName}</strong>! Your application for <strong>{formData.businessName}</strong> has been received.
-              A confirmation email has been dispatched to <strong className="text-cyan-300">{formData.email}</strong>.
-            </p>
-            <div className="p-4 rounded-xl bg-[#002B4D] text-xs text-slate-300 max-w-md mx-auto text-left space-y-1">
-              <div className="text-cyan-300 font-bold">Next Steps:</div>
-              <p>1. Dedicated Relationship Manager assigned: <strong>Vikramaditya Singh</strong></p>
-              <p>2. Scheduling 84-Point Trust & Luxury Quality Inspection</p>
-              <p>3. Automatic PMS / Telematics API key provisioning</p>
-            </div>
-            <button
-              onClick={onClose}
-              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-white text-xs font-bold shadow hover:brightness-110 cursor-pointer whitespace-nowrap"
+            <h4 className={`text-xl font-black ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>
+              Partner Registration Received!
+            </h4>
+            <div
+              className={`p-4 rounded-2xl border max-w-md mx-auto text-xs text-left space-y-2 ${
+                isPearl ? 'bg-slate-50 border-slate-200 text-[#001E3D]' : 'bg-[#001020] border-white/15 text-slate-200'
+              }`}
             >
-              Done & Return to Marketplace
-            </button>
+              <div className="flex justify-between items-center gap-2">
+                <span className="text-slate-500 dark:text-slate-400">Partner Entity:</span>
+                <strong className="truncate">{formData.businessName || 'Elite Partner Properties'}</strong>
+              </div>
+              <div className="flex justify-between items-center gap-2">
+                <span className="text-slate-500 dark:text-slate-400">Category:</span>
+                <span className="font-bold text-[#00A9A5]">{partnerType.replace('_', ' ')}</span>
+              </div>
+              <div className="flex justify-between items-center gap-2">
+                <span className="text-slate-500 dark:text-slate-400">Onboarding SLA:</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold">24-Hour Review Window</span>
+              </div>
+            </div>
+            <p className={`text-xs max-w-sm mx-auto ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
+              Our Partner Operations Director will connect with you via {formData.email || 'your registered email'} to verify API sync & escrow keys.
+            </p>
+            <div className="pt-2">
+              <button
+                onClick={onClose}
+                className={`px-6 py-2.5 rounded-xl font-black text-xs shadow-lg cursor-pointer whitespace-nowrap ${
+                  isPearl
+                    ? 'bg-[#0B3D91] hover:bg-[#002B4D] text-white'
+                    : 'bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-[#001428]'
+                }`}
+              >
+                Return to Portal
+              </button>
+            </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Partner Category Selector */}
-            <div>
-              <label className="block text-xs font-bold text-slate-300 mb-2">Select Partnership Category</label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setPartnerType('HOTEL_RESORT')}
-                  className={`p-3 rounded-xl border text-left transition flex flex-col gap-1.5 cursor-pointer ${
-                    partnerType === 'HOTEL_RESORT'
-                      ? 'bg-[#002B4D] border-[#00A9A5] shadow-lg text-white'
-                      : 'bg-[#001428] border-white/10 text-slate-400 hover:text-white'
-                  }`}
-                >
-                  <Building2 className="w-4 h-4 text-[#00A9A5] shrink-0" />
-                  <span className="text-xs font-bold">Stays & Hospitality</span>
-                  <span className="text-[10px] text-slate-400">Homestay / Hotel / Villa</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setPartnerType('CHAUFFEUR_FLEET')}
-                  className={`p-3 rounded-xl border text-left transition flex flex-col gap-1.5 cursor-pointer ${
-                    partnerType === 'CHAUFFEUR_FLEET'
-                      ? 'bg-[#002B4D] border-amber-400 shadow-lg text-white'
-                      : 'bg-[#001428] border-white/10 text-slate-400 hover:text-white'
-                  }`}
-                >
-                  <Car className="w-4 h-4 text-amber-400 shrink-0" />
-                  <span className="text-xs font-bold">Transit & Fleet Desk</span>
-                  <span className="text-[10px] text-slate-400">City Cabs / EVs / Chauffeur</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setPartnerType('CHANNEL_B2B')}
-                  className={`p-3 rounded-xl border text-left transition flex flex-col gap-1.5 cursor-pointer ${
-                    partnerType === 'CHANNEL_B2B'
-                      ? 'bg-[#002B4D] border-emerald-400 shadow-lg text-white'
-                      : 'bg-[#001428] border-white/10 text-slate-400 hover:text-white'
-                  }`}
-                >
-                  <Users className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span className="text-xs font-bold">Channel Partner B2B</span>
-                  <span className="text-[10px] text-slate-400">Corporate & Travel Desk</span>
-                </button>
+            {/* Category Selector */}
+            <div className="space-y-2">
+              <label className={`block text-xs font-bold uppercase tracking-wider ${isPearl ? 'text-[#001E3D]' : 'text-slate-300'}`}>
+                1. Select Partner Vertical
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                {[
+                  { id: 'HOTEL_RESORT', label: 'Hotel & Luxury Resort', icon: Building2, desc: 'Hotels, homestays, private pool villas' },
+                  { id: 'CHAUFFEUR_FLEET', label: 'Mobility & Chauffeur Fleet', icon: Car, desc: 'Sedans, MPVs, Maybach & EV fleets' },
+                  { id: 'CHANNEL_B2B', label: 'Travel Designer / B2B Agent', icon: Users, desc: 'Corporate agents & tour operators' },
+                ].map((item) => {
+                  const Icon = item.icon;
+                  const isSelected = partnerType === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setPartnerType(item.id as any)}
+                      className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
+                        isSelected
+                          ? isPearl
+                            ? 'bg-blue-50/80 border-[#0B3D91] shadow-sm'
+                            : 'bg-[#002B4D] border-[#00D2C4] text-white shadow-md'
+                          : isPearl
+                          ? 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                          : 'bg-[#001428] border-white/10 text-slate-300 hover:bg-white/5'
+                      }`}
+                    >
+                      <Icon className={`w-4 h-4 mb-1.5 ${isSelected ? (isPearl ? 'text-[#0B3D91]' : 'text-[#00D2C4]') : 'text-slate-400'}`} />
+                      <div className="text-xs font-bold leading-tight">{item.label}</div>
+                      <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">{item.desc}</div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
-            {/* Input Fields */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label className="block text-xs font-bold text-slate-300 mb-1">
-                  {partnerType === 'HOTEL_RESORT'
-                    ? 'Accommodation / Business Name'
-                    : partnerType === 'CHAUFFEUR_FLEET'
-                    ? 'Fleet / Mobility Operator Name'
-                    : 'Agency / Corporate Desk Name'}
-                </label>
+            {/* Entity Details */}
+            <div className="space-y-3">
+              <label className={`block text-xs font-bold uppercase tracking-wider ${isPearl ? 'text-[#001E3D]' : 'text-slate-300'}`}>
+                2. Business & Contact Information
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <input
                   type="text"
+                  required
                   value={formData.businessName}
                   onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
-                  placeholder="e.g. Palm Grove Stays / Imperial Resort"
-                  className="w-full bg-[#002B4D] border border-white/15 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-[#00A9A5]"
-                  required
+                  placeholder="Business / Property / Fleet Name"
+                  className={`px-3.5 py-2.5 rounded-xl text-xs outline-none border ${
+                    isPearl
+                      ? 'bg-slate-50 border-slate-200 text-[#001E3D] focus:border-[#0B3D91]'
+                      : 'bg-[#001428] border-white/15 text-white focus:border-[#00D2C4]'
+                  }`}
                 />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-300 mb-1">Primary Contact Person</label>
                 <input
                   type="text"
+                  required
                   value={formData.contactName}
                   onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
-                  placeholder="e.g. Anand Sharma"
-                  className="w-full bg-[#002B4D] border border-white/15 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-[#00A9A5]"
-                  required
+                  placeholder="Director / Authorized Contact Person"
+                  className={`px-3.5 py-2.5 rounded-xl text-xs outline-none border ${
+                    isPearl
+                      ? 'bg-slate-50 border-slate-200 text-[#001E3D] focus:border-[#0B3D91]'
+                      : 'bg-[#001428] border-white/15 text-white focus:border-[#00D2C4]'
+                  }`}
                 />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label className="block text-xs font-bold text-slate-300 mb-1">Business Email Address</label>
                 <input
                   type="email"
+                  required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="partner@domain.com"
-                  className="w-full bg-[#002B4D] border border-white/15 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-[#00A9A5]"
-                  required
+                  placeholder="Official Email Address"
+                  className={`px-3.5 py-2.5 rounded-xl text-xs outline-none border ${
+                    isPearl
+                      ? 'bg-slate-50 border-slate-200 text-[#001E3D] focus:border-[#0B3D91]'
+                      : 'bg-[#001428] border-white/15 text-white focus:border-[#00D2C4]'
+                  }`}
                 />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-300 mb-1">Mobile / Direct Phone</label>
                 <input
                   type="tel"
+                  required
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  placeholder="+91 98XXX XXXXX"
-                  className="w-full bg-[#002B4D] border border-white/15 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-[#00A9A5]"
-                  required
+                  placeholder="Direct Phone / WhatsApp"
+                  className={`px-3.5 py-2.5 rounded-xl text-xs outline-none border ${
+                    isPearl
+                      ? 'bg-slate-50 border-slate-200 text-[#001E3D] focus:border-[#0B3D91]'
+                      : 'bg-[#001428] border-white/15 text-white focus:border-[#00D2C4]'
+                  }`}
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div>
-                <label className="block text-xs font-bold text-slate-300 mb-1">City / Region</label>
-                <input
-                  type="text"
-                  value={formData.city}
-                  onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                  placeholder="e.g. Goa / Bengaluru"
-                  className="w-full bg-[#002B4D] border border-white/15 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00A9A5]"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-300 mb-1">
-                  {partnerType === 'HOTEL_RESORT' ? 'Total Rooms / Keys' : partnerType === 'CHAUFFEUR_FLEET' ? 'Fleet Vehicles' : 'Monthly Bookings'}
-                </label>
-                <input
-                  type="number"
-                  value={formData.inventoryCount}
-                  onChange={(e) => setFormData({ ...formData, inventoryCount: Number(e.target.value) })}
-                  className="w-full bg-[#002B4D] border border-white/15 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#00A9A5]"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-300 mb-1">Plan Tier</label>
-                <select
-                  value={formData.partnershipPlan}
-                  onChange={(e) => setFormData({ ...formData, partnershipPlan: e.target.value })}
-                  className="w-full bg-[#002B4D] border border-white/15 rounded-xl px-2.5 py-2 text-xs text-white focus:outline-none focus:border-[#00A9A5] cursor-pointer"
-                >
-                  <option value="SMART_HOST">🟢 Smart Homestay & Studio (6%)</option>
-                  <option value="PREMIUM_HOTEL">🔵 Premium Boutique / 4-Star (10%)</option>
-                  <option value="LUXURY_ESTATE">🟡 Luxury Resort & Palace (12%)</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Guarantee Badge */}
-            <div className="p-3.5 rounded-2xl bg-[#001428] border border-white/10 flex items-center gap-3 text-xs text-slate-300">
-              <ShieldCheck className="w-5 h-5 text-[#3CCF91] shrink-0" />
-              <span className="leading-relaxed">
-                <strong>StaySphere Partner Standards:</strong> Prompt post-check-in milestone disbursements, Dedicated Relationship Manager & Direct Rate Sync.
-              </span>
-            </div>
-
-            {/* Buttons */}
-            <div className="flex items-center justify-end gap-3 pt-2">
-              <button
-                type="button"
-                onClick={onClose}
-                className="px-4 py-2 rounded-xl bg-white/5 text-slate-300 text-xs font-bold hover:bg-white/10 cursor-pointer whitespace-nowrap"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-white text-xs font-bold shadow-lg hover:brightness-110 flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
-              >
-                <span>Submit Partner Application</span>
-                <ArrowRight className="w-4 h-4 shrink-0" />
-              </button>
-            </div>
+            <button
+              type="submit"
+              className={`w-full py-3 rounded-xl font-bold text-xs shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer hover:brightness-110 ${
+                isPearl
+                  ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-blue-950/10'
+                  : 'bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-[#001428] shadow-teal-950/30'
+              }`}
+            >
+              <Building2 className="w-4 h-4" />
+              <span>Submit Partner Application</span>
+            </button>
           </form>
         )}
       </div>

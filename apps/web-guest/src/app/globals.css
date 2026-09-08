@@ -73,7 +73,7 @@ body {
   background: rgba(229, 184, 105, 0.5);
 }
 
-/* Luxury Frosted Glass Panels */
+/* Luxury Frosted Glass Panels (Dark Midnight Default) */
 .glass-panel {
   background: rgba(6, 21, 43, 0.75);
   backdrop-filter: blur(20px);
@@ -97,6 +97,50 @@ body {
   box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
+/* ========================================================================= */
+/* LIGHT PEARL THEME OVERRIDES                                               */
+/* ========================================================================= */
+.theme-pearl {
+  --background: #F8FAFD;
+  --foreground: #001E3D;
+}
+
+.theme-pearl .glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 10px 30px -5px rgba(11, 61, 145, 0.05), 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+}
+
+.theme-pearl .glass-panel-luxury {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.96) 0%, rgba(250, 248, 242, 0.94) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 20px 45px -12px rgba(11, 61, 145, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.theme-pearl .glass-panel-elevated {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 169, 165, 0.3);
+  box-shadow: 0 15px 35px -10px rgba(0, 169, 165, 0.12), inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.theme-pearl .gold-text-gradient {
+  background: linear-gradient(135deg, #B8860B 0%, #D4AF37 50%, #996515 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.theme-pearl .brand-title-gradient {
+  background: linear-gradient(135deg, #0B3D91 0%, #002B4D 50%, #00A9A5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* Ambient Radial Glows */
 .gradient-glow {
   background: radial-gradient(circle at 50% 25%, rgba(0, 210, 196, 0.16), rgba(11, 61, 145, 0.1) 45%, transparent 70%);
@@ -108,6 +152,15 @@ body {
 
 .gradient-glow-subtle {
   background: radial-gradient(circle at 50% 50%, rgba(255, 138, 61, 0.08), transparent 65%);
+}
+
+/* Light Pearl Ambient Glows */
+.theme-pearl .gradient-glow-gold {
+  background: radial-gradient(circle at 50% 50%, rgba(229, 184, 105, 0.2), transparent 65%);
+}
+
+.theme-pearl .gradient-glow {
+  background: radial-gradient(circle at 50% 25%, rgba(0, 169, 165, 0.12), rgba(11, 61, 145, 0.06) 45%, transparent 70%);
 }
 
 /* Gold Gradient Text */

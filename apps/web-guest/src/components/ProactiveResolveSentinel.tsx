@@ -18,6 +18,7 @@ interface ProactiveResolveSentinelProps {
   onClose: () => void;
   defaultCategory?: string;
   journeyReference?: string;
+  theme?: 'dark' | 'pearl';
 }
 
 export function ProactiveResolveSentinel({
@@ -25,6 +26,7 @@ export function ProactiveResolveSentinel({
   onClose,
   defaultCategory = 'TRANSIT_DELAY',
   journeyReference = 'JN-SS-2026-9041',
+  theme = 'pearl',
 }: ProactiveResolveSentinelProps) {
   const [category, setCategory] = useState<string>(defaultCategory);
   const [description, setDescription] = useState<string>('');
@@ -41,23 +43,35 @@ export function ProactiveResolveSentinel({
     setIsSubmitted(true);
   };
 
+  const isPearl = theme === 'pearl';
+
   return (
-    <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-      <div className="bg-[#001E36] border border-[#FF8A3D]/50 rounded-3xl w-full max-w-xl p-6 md:p-8 shadow-2xl animate-scale-up space-y-6">
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+      <div
+        className={`w-full max-w-xl rounded-3xl p-6 sm:p-8 shadow-2xl transition-all border my-8 animate-scale-up space-y-6 ${
+          isPearl
+            ? 'bg-white/95 text-[#001E3D] border-[#D4AF37]/35 shadow-[0_25px_60px_-15px_rgba(11,61,145,0.12)]'
+            : 'bg-[#001E36] text-slate-100 border-[#FF8A3D]/50 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)]'
+        }`}
+      >
         {/* Modal Header */}
-        <div className="flex items-start justify-between border-b border-white/10 pb-4">
+        <div className="flex items-start justify-between border-b pb-4 border-slate-200 dark:border-white/10">
           <div>
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-[#FF8A3D] animate-ping shrink-0" />
-              <h3 className="text-lg font-bold text-white tracking-wide">Proactive Resolution Sentinel</h3>
+              <h3 className={`text-lg font-bold tracking-wide ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>
+                Proactive Resolution Sentinel
+              </h3>
             </div>
-            <p className="text-xs text-slate-300 mt-1">
-              Journey Ref: <strong className="text-white font-mono">{journeyReference}</strong> • 15-Minute Guaranteed SLA Response
+            <p className={`text-xs mt-1 ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
+              Journey Ref: <strong className={isPearl ? 'text-[#001E3D]' : 'text-white font-mono'}>{journeyReference}</strong> • 15-Minute Guaranteed SLA Response
             </p>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-slate-300 hover:text-white shrink-0 cursor-pointer"
+            className={`w-8 h-8 rounded-full flex items-center justify-center transition-all cursor-pointer ${
+              isPearl ? 'bg-slate-100 hover:bg-slate-200 text-slate-600' : 'bg-white/10 hover:bg-white/20 text-slate-300'
+            }`}
           >
             <X className="w-4 h-4" />
           </button>
@@ -65,33 +79,43 @@ export function ProactiveResolveSentinel({
 
         {isSubmitted ? (
           <div className="py-8 text-center space-y-4">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500 text-emerald-400 flex items-center justify-center mx-auto animate-bounce">
+            <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500 text-emerald-500 flex items-center justify-center mx-auto animate-bounce">
               <CheckCircle2 className="w-8 h-8" />
             </div>
-            <h4 className="text-xl font-black text-white">Resolution Ticket Dispatched!</h4>
-            <div className="p-4 rounded-2xl bg-[#001020] border border-white/15 max-w-md mx-auto text-xs text-left space-y-2">
+            <h4 className={`text-xl font-black ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>
+              Resolution Ticket Dispatched!
+            </h4>
+            <div
+              className={`p-4 rounded-2xl border max-w-md mx-auto text-xs text-left space-y-2 ${
+                isPearl ? 'bg-slate-50 border-slate-200 text-[#001E3D]' : 'bg-[#001020] border-white/15 text-slate-200'
+              }`}
+            >
               <div className="flex justify-between items-center gap-2">
-                <span className="text-slate-400">Ticket Number:</span>
-                <span className="font-mono font-bold text-[#FFC857] shrink-0">{createdTicketId}</span>
+                <span className="text-slate-500 dark:text-slate-400">Ticket Number:</span>
+                <span className="font-mono font-bold text-[#FF8A3D] shrink-0">{createdTicketId}</span>
               </div>
               <div className="flex justify-between items-center gap-2">
-                <span className="text-slate-400">Assigned Sentinel:</span>
-                <strong className="text-white text-right">Priya Sharma (Senior Relationship Manager)</strong>
+                <span className="text-slate-500 dark:text-slate-400">Assigned Sentinel:</span>
+                <strong className="text-right">Priya Sharma (Senior Relationship Manager)</strong>
               </div>
               <div className="flex justify-between items-center gap-2">
-                <span className="text-slate-400">Guaranteed Response Clock:</span>
-                <span className="text-emerald-400 font-bold flex items-center gap-1 shrink-0 whitespace-nowrap">
+                <span className="text-slate-500 dark:text-slate-400">Guaranteed Response Clock:</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1 shrink-0 whitespace-nowrap">
                   <Clock className="w-3.5 h-3.5 shrink-0" /> 15:00 Mins (Ticking)
                 </span>
               </div>
             </div>
-            <p className="text-xs text-slate-300 max-w-sm mx-auto">
+            <p className={`text-xs max-w-sm mx-auto ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
               Our operations lead has received your telemetry and is coordinating directly with the property and chauffeur.
             </p>
             <div className="pt-2">
               <button
                 onClick={onClose}
-                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-[#001428] font-black text-xs shadow-lg cursor-pointer whitespace-nowrap"
+                className={`px-6 py-2.5 rounded-xl font-black text-xs shadow-lg cursor-pointer whitespace-nowrap ${
+                  isPearl
+                    ? 'bg-[#0B3D91] hover:bg-[#002B4D] text-white'
+                    : 'bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-[#001428]'
+                }`}
               >
                 Return to Live Journey
               </button>
@@ -101,7 +125,7 @@ export function ProactiveResolveSentinel({
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Quick Category Selector */}
             <div>
-              <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-2">
+              <label className={`text-xs font-bold uppercase tracking-wider block mb-2 ${isPearl ? 'text-[#001E3D]' : 'text-slate-300'}`}>
                 Select Concern Category
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
@@ -119,11 +143,15 @@ export function ProactiveResolveSentinel({
                       onClick={() => setCategory(cat.id)}
                       className={`p-3 rounded-xl border text-left flex items-center gap-2 transition cursor-pointer ${
                         category === cat.id
-                          ? 'bg-[#002B4D] border-[#FF8A3D] text-white font-bold shadow'
-                          : 'bg-[#001428] border-white/10 text-slate-300 hover:border-white/20'
+                          ? isPearl
+                            ? 'bg-amber-50 border-[#FF8A3D] text-[#001E3D] font-bold shadow-sm'
+                            : 'bg-[#FF8A3D]/20 border-[#FF8A3D] text-white font-bold'
+                          : isPearl
+                          ? 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100'
+                          : 'bg-[#001428] border-white/10 text-slate-400 hover:text-white'
                       }`}
                     >
-                      <Icon className="w-4 h-4 text-[#FF8A3D] shrink-0" />
+                      <Icon className={`w-4 h-4 shrink-0 ${category === cat.id ? 'text-[#FF8A3D]' : 'text-slate-400'}`} />
                       <span className="truncate">{cat.label}</span>
                     </button>
                   );
@@ -131,28 +159,32 @@ export function ProactiveResolveSentinel({
               </div>
             </div>
 
-            {/* Severity Picker */}
+            {/* Severity */}
             <div>
-              <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-1.5">
-                Urgency Level
+              <label className={`text-xs font-bold uppercase tracking-wider block mb-2 ${isPearl ? 'text-[#001E3D]' : 'text-slate-300'}`}>
+                Severity & Urgency
               </label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <div className="grid grid-cols-3 gap-2 text-xs">
                 {[
-                  { id: 'NORMAL', label: 'Standard (30 Min)' },
-                  { id: 'URGENT_P1', label: 'Urgent P1 (15 Min)' },
-                  { id: 'CRITICAL_P0', label: 'Critical P0 (Immediate)' },
-                ].map((lvl) => (
+                  { id: 'NORMAL', label: 'Standard Note', color: 'text-slate-500' },
+                  { id: 'URGENT_P1', label: 'Urgent (15-Min)', color: 'text-amber-600 dark:text-[#FFC857]' },
+                  { id: 'CRITICAL_P0', label: 'Critical Escrow P0', color: 'text-rose-600 dark:text-rose-400' },
+                ].map((sev) => (
                   <button
-                    key={lvl.id}
+                    key={sev.id}
                     type="button"
-                    onClick={() => setUrgency(lvl.id as any)}
-                    className={`py-2 px-2.5 rounded-xl text-xs font-bold border transition text-center whitespace-nowrap cursor-pointer ${
-                      urgency === lvl.id
-                        ? 'bg-[#FF8A3D] text-[#001428] border-[#FF8A3D]'
-                        : 'bg-[#001428] border-white/10 text-slate-400 hover:text-white'
+                    onClick={() => setUrgency(sev.id as any)}
+                    className={`p-2.5 rounded-xl border text-center font-bold transition cursor-pointer ${
+                      urgency === sev.id
+                        ? isPearl
+                          ? 'bg-amber-50 border-[#FF8A3D] text-[#001E3D]'
+                          : 'bg-[#FF8A3D]/20 border-[#FF8A3D] text-white'
+                        : isPearl
+                        ? 'bg-slate-50 border-slate-200 text-slate-600'
+                        : 'bg-[#001428] border-white/10 text-slate-400'
                     }`}
                   >
-                    {lvl.label}
+                    <span className={sev.color}>{sev.label}</span>
                   </button>
                 ))}
               </div>
@@ -160,44 +192,30 @@ export function ProactiveResolveSentinel({
 
             {/* Description Textarea */}
             <div>
-              <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-1.5">
-                Describe Adjustment or Issue
+              <label className={`text-xs font-bold uppercase tracking-wider block mb-2 ${isPearl ? 'text-[#001E3D]' : 'text-slate-300'}`}>
+                Describe Situation or Telemetry Update
               </label>
               <textarea
-                required
                 rows={3}
-                placeholder="e.g. Flight was rerouted to Gate 08 / Need luggage assistance at airport curb / Please set suite AC to 20°C prior to arrival."
+                required
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full p-3.5 rounded-xl bg-[#001020] border border-white/15 text-white text-xs outline-none focus:border-[#FF8A3D] resize-none"
+                placeholder="e.g. Flight landed 20 mins early at MOPA Gate 4, please inform chauffeur Gurpreet..."
+                className={`w-full p-3 rounded-xl text-xs outline-none resize-none border ${
+                  isPearl
+                    ? 'bg-slate-50 border-slate-200 text-[#001E3D] focus:border-[#0B3D91]'
+                    : 'bg-[#001428] border-white/15 text-white focus:border-[#00D2C4]'
+                }`}
               />
             </div>
 
-            {/* SLA Guarantee Banner */}
-            <div className="p-3.5 rounded-xl bg-[#001428] border border-white/10 text-xs text-slate-300 flex items-start gap-2.5">
-              <ShieldCheck className="w-4 h-4 text-[#3CCF91] shrink-0 mt-0.5" />
-              <p className="leading-relaxed">
-                <strong>15-Minute Guaranteed SLA:</strong> StaySphere Sentinel automatically escalates unacknowledged requests to the Managing Director and freezes escrow payouts if issues remain unresolved.
-              </p>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex items-center justify-end gap-3 pt-2">
-              <button
-                type="button"
-                onClick={onClose}
-                className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-300 font-bold text-xs cursor-pointer whitespace-nowrap"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] hover:brightness-110 text-[#001428] font-black text-xs shadow-lg shadow-[#FF8A3D]/20 flex items-center gap-2 cursor-pointer whitespace-nowrap"
-              >
-                <Send className="w-3.5 h-3.5 shrink-0" />
-                <span>Submit to Resolution Sentinel</span>
-              </button>
-            </div>
+            <button
+              type="submit"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-[#FF8A3D] via-[#FFC857] to-[#E5B869] text-[#001428] font-black text-xs shadow-lg shadow-[#FF8A3D]/20 hover:brightness-110 transition flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <Send className="w-4 h-4" />
+              <span>Dispatch Proactive SLA Ticket (15-Min Clock)</span>
+            </button>
           </form>
         )}
       </div>
