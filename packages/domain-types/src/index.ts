@@ -1,7 +1,8 @@
-export * from './auth.js';
-export * from './stay.js';
-export * from './move.js';
-export * from './my-stay.js';
-export * from './resolution.js';
-export * from './finance.js';
-export * from './partner.js';
+export * from './auth';
+export * from './stay';
+export * from './move';
+export * from './my-stay';
+export * from './resolution';
+export * from './finance';
+export * from './partner';
+

@@ -1,3 +1,4 @@
-export * from './colors.js';
-export * from './constants.js';
-export * from './logo.js';
+export * from './colors';
+export * from './constants';
+export * from './logo';
+
