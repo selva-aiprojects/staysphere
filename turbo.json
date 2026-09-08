@@ -1,6 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
+  "globalEnv": ["DATABASE_URL", "RESEND_API_KEY", "RESEND_FROM", "NODE_ENV"],
   "tasks": {
     "build": {
       "dependsOn": ["^build", "^db:generate"],

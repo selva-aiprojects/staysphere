@@ -1,5 +1,7 @@
 import { prisma } from './client.js';
 
+declare const process: any;
+
 async function verify() {
   console.log('🔍 Connecting to Aiven PostgreSQL and querying StaySphere tables...');
   

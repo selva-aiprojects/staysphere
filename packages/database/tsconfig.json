@@ -4,5 +4,6 @@
     "outDir": "./dist",
     "rootDir": "./src"
   },
-  "include": ["src/**/*"]
+  "include": ["src/index.ts", "src/client.ts"],
+  "exclude": ["src/seed.ts", "src/verify-db.ts", "node_modules", "dist"]
 }

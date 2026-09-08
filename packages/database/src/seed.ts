@@ -1,5 +1,7 @@
 import { prisma } from './client';
 
+declare const process: any;
+
 async function main() {
   console.log('🌱 Starting Comprehensive StaySphere Database Seeding (Aiven Cloud)...');
 
