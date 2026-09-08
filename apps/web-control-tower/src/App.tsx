@@ -33,7 +33,9 @@ import { EmployeeDirectory } from './components/EmployeeDirectory';
 import { EmailCommunicationsCenter } from './components/EmailCommunicationsCenter';
 import { JourneyCentricDashboard } from './components/JourneyCentricDashboard';
 import { SlaResolutionMonitoring } from './components/SlaResolutionMonitoring';
-import { Mail, UserPlus, Compass, ShieldAlert } from 'lucide-react';
+import { PropertyMasterDirectory } from './components/PropertyMasterDirectory';
+import { StakeholderFeedbackConsole } from './components/StakeholderFeedbackConsole';
+import { Mail, UserPlus, Compass, ShieldAlert, Star } from 'lucide-react';
 
 // Persona / Role Types
 export type PlatformRole =
@@ -437,6 +439,8 @@ export default function OperationsControlTower() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
   const [activeWorkflow, setActiveWorkflow] = useState<
     | 'journeys'
+    | 'property-master'
+    | 'feedback'
     | 'partners'
     | 'rm'
     | 'frontdesk'
@@ -596,6 +600,28 @@ export default function OperationsControlTower() {
           </button>
 
           <button
+            onClick={() => setActiveWorkflow('property-master')}
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              activeWorkflow === 'property-master'
+                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Hotel className="w-3.5 h-3.5 text-[#FFC857]" /> 2. Properties Master
+          </button>
+
+          <button
+            onClick={() => setActiveWorkflow('feedback')}
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              activeWorkflow === 'feedback'
+                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" /> 3. Multi-Party Feedback (360°)
+          </button>
+
+          <button
             onClick={() => setActiveWorkflow('frontdesk')}
             className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
               activeWorkflow === 'frontdesk'
@@ -603,7 +629,7 @@ export default function OperationsControlTower() {
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <KeyRound className="w-3.5 h-3.5 text-[#FFC857]" /> 2. Stay Bookings
+            <KeyRound className="w-3.5 h-3.5 text-[#FFC857]" /> 4. Stay Bookings
           </button>
 
           <button
@@ -751,6 +777,20 @@ export default function OperationsControlTower() {
         {activeWorkflow === 'journeys' && (
           <JourneyCentricDashboard
             onOpenResolveDesk={() => setActiveWorkflow('sla-incidents')}
+          />
+        )}
+
+        {/* WORKSPACE: PROPERTIES MASTER ENTRIES */}
+        {activeWorkflow === 'property-master' && (
+          <PropertyMasterDirectory
+            showToast={showToast}
+          />
+        )}
+
+        {/* WORKSPACE: 360 MULTI-PARTY FEEDBACK */}
+        {activeWorkflow === 'feedback' && (
+          <StakeholderFeedbackConsole
+            showToast={showToast}
           />
         )}
 

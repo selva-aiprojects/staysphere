@@ -23,6 +23,9 @@ interface MyJourneyViewProps {
 
 export function MyJourneyView({ onOpenResolve }: MyJourneyViewProps) {
   const [activeStageIndex, setActiveStageIndex] = useState<number>(1); // Step 2: In-Transit Chauffeur Pickup
+  const [guestRating, setGuestRating] = useState<number>(5);
+  const [selectedTags, setSelectedTags] = useState<string[]>(['Seamless Transit', 'Spotless Suite']);
+  const [submittedFeedback, setSubmittedFeedback] = useState<boolean>(false);
 
   const TIMELINE_STAGES = [
     {
@@ -446,14 +449,99 @@ export function MyJourneyView({ onOpenResolve }: MyJourneyViewProps) {
                 <span className="text-[10px] text-slate-400">Hold Payout / Refund</span>
               </button>
 
-              <button
-                onClick={() => onOpenResolve('GENERAL_INQUIRY')}
-                className="p-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-left text-xs text-slate-200 transition"
-              >
-                <MessageSquare className="w-3.5 h-3.5 text-[#FFC857] mb-1" />
-                <strong className="block text-white">Direct RM Line</strong>
-                <span className="text-[10px] text-slate-400">Priya Sharma (RM)</span>
-              </button>
+            </div>
+          </div>
+
+          {/* 360° Multi-Stakeholder Feedback & Quality Rating */}
+          <div className="bg-[#001E36] border border-white/10 rounded-3xl p-6 shadow-xl space-y-4">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-[#FFC857]" />
+                <h3 className="text-sm font-bold text-white">360° Journey Feedback</h3>
+              </div>
+              <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-[#3CCF91]/20 text-[#3CCF91] border border-[#3CCF91]/30">
+                Verified Stakeholder Hub
+              </span>
+            </div>
+
+            <p className="text-xs text-slate-300">
+              Your feedback is synchronized with Hotel Operations, Channel Partners, and Chauffeur Fleets to maintain high service standards.
+            </p>
+
+            {/* Quick Rating Selector */}
+            <div className="p-3.5 rounded-2xl bg-[#001428] border border-white/10 space-y-3">
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-slate-300 font-bold">Rate Your Active Journey:</span>
+                <div className="flex items-center gap-1 text-[#FFC857]">
+                  {'★★★★★'.split('').map((star, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setGuestRating(i + 1)}
+                      className={`text-base transition hover:scale-125 ${i < guestRating ? 'text-[#FFC857]' : 'text-slate-600'}`}
+                    >
+                      ★
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-1.5 text-[11px]">
+                {['Seamless Transit', 'Spotless Suite', 'Fast Resolve SLA', 'Polite Chauffeur', 'Flawless Check-in'].map((tag) => (
+                  <button
+                    key={tag}
+                    type="button"
+                    onClick={() => {
+                      setSelectedTags(prev => 
+                        prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+                      );
+                    }}
+                    className={`px-2.5 py-1 rounded-lg border text-[10px] font-bold transition ${
+                      selectedTags.includes(tag)
+                        ? 'bg-[#00A9A5]/30 text-[#00D2C4] border-[#00A9A5]'
+                        : 'bg-white/5 text-slate-400 border-white/10 hover:border-white/20'
+                    }`}
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
+
+              {submittedFeedback ? (
+                <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 shrink-0" />
+                  <span>Thank you! Your feedback is logged in the Control Tower 360° Reputation Engine.</span>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setSubmittedFeedback(true)}
+                  className="w-full py-2 rounded-xl bg-[#00A9A5] hover:bg-[#00C2BD] text-[#001428] text-xs font-black transition cursor-pointer shadow-md"
+                >
+                  Submit 360° Journey Review
+                </button>
+              )}
+            </div>
+
+            {/* Multi-Stakeholder Endorsements */}
+            <div className="space-y-2 pt-1 text-xs">
+              <span className="text-[11px] font-bold text-slate-400 block uppercase tracking-wider">Stakeholder Endorsements</span>
+              
+              <div className="p-2.5 rounded-xl bg-[#001428]/60 border border-white/5 flex items-start gap-2.5">
+                <Hotel className="w-3.5 h-3.5 text-[#00D2C4] mt-0.5 shrink-0" />
+                <div>
+                  <div className="text-[11px] text-white font-bold">The Grand Vagator Bay (Hotel GM)</div>
+                  <p className="text-[10px] text-slate-400">&ldquo;Villa 101 prepared with complimentary sunset high tea and pre-chilled plunge pool.&rdquo;</p>
+                </div>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-[#001428]/60 border border-white/5 flex items-start gap-2.5">
+                <Car className="w-3.5 h-3.5 text-[#FF8A3D] mt-0.5 shrink-0" />
+                <div>
+                  <div className="text-[11px] text-white font-bold">Goa Chauffeur Desk (Fleet Lead)</div>
+                  <p className="text-[10px] text-slate-400">&ldquo;Flight 6E-204 telemetry synced; Maybach S680 stationed at GOX VIP lane on time.&rdquo;</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

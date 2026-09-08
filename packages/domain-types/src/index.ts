@@ -6,4 +6,5 @@ export * from './resolution';
 export * from './finance';
 export * from './partner';
 export * from './journey';
-
+export * from './feedback';
+export * from './property-master';
