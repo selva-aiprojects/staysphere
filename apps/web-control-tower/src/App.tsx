@@ -544,31 +544,31 @@ export default function OperationsControlTower() {
       <div className="bg-[#000B17] border-b border-white/10 px-6 py-2 text-xs flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2 text-slate-300">
           <span className="w-2 h-2 rounded-full bg-[#00A9A5] animate-pulse" />
-          <span>StaySphere Operational Control: <strong className="text-white">Unified Partner & Operations Network (Port 3002)</strong></span>
+          <span>StaySphere Operational Control: <strong className="text-white">Unified Partner & Journey Operations Network</strong></span>
         </div>
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsCollabTicketsModalOpen(true)}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#002B4D] border border-[#3CCF91]/40 text-[#3CCF91] font-bold hover:brightness-110 text-xs"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#002B4D] border border-[#3CCF91]/40 text-[#3CCF91] font-bold hover:brightness-110 text-xs cursor-pointer"
           >
             <MessageSquare className="w-3.5 h-3.5" />
             <span>Partner Support & Growth Tickets ({collaborativeTickets.filter(t => t.status !== 'RESOLVED').length} Active)</span>
           </button>
           <button
             onClick={() => setIsAuthModalOpen(true)}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#002B4D] border border-[#00A9A5]/40 text-[#00D2C4] font-bold hover:brightness-110 text-xs"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#002B4D] border border-[#00A9A5]/40 text-[#00D2C4] font-bold hover:brightness-110 text-xs cursor-pointer"
           >
             <UserCheck className="w-3.5 h-3.5" />
             <span>Switch Role / Login</span>
           </button>
           <a
-            href="http://localhost:3000"
+            href={typeof window !== 'undefined' ? (window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://staysphere-guest.vercel.app') : 'https://staysphere-guest.vercel.app'}
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] text-[#001428] font-black text-xs hover:brightness-110 shadow-sm"
           >
             <Hotel className="w-3.5 h-3.5" />
-            <span>Guest Experience Portal (Port 3000) ↗</span>
+            <span>Guest Experience Portal ↗</span>
           </a>
         </div>
       </div>

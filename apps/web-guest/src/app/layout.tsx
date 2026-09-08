@@ -2,16 +2,16 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'StaySphere - Luxury Stays, Airport Chauffeur Rides & Personal Butler',
-  description: 'Your Journey. Our Priority. Book 100% verified luxury villas, royal palace suites, airport chauffeur cars, and 24/7 personal butler service with 100% safe payment protection across India.',
+  title: 'StaySphere - Unified Journey Platform: Handpicked Stays, Transit & Coordinated Travel',
+  description: 'Your Complete Journey Platform. Discover boutique hotels, private villas, resorts, and serviced apartments with coordinated airport transfers, local mobility, and 24/7 proactive resolution.',
   icons: {
     icon: '/favicon.svg',
     shortcut: '/favicon.svg',
     apple: '/favicon.svg',
   },
   openGraph: {
-    title: 'StaySphere - Luxury Stays, Airport Chauffeur Rides & Personal Butler',
-    description: 'Your Journey. Our Priority. Discover verified luxury villas and guaranteed airport chauffeur transfers with 100% safe payment protection.',
+    title: 'StaySphere - Unified Journey Platform: Stays, Mobility & Proactive Resolution',
+    description: 'The modern journey platform coupling curated stays with seamless airport mobility and proactive resolution support.',
   },
 };
 

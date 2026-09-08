@@ -140,7 +140,7 @@ export function MyJourneyView({ onOpenResolve }: MyJourneyViewProps) {
               <span className="text-slate-500">•</span>
               <span>12 Sep – 15 Sep 2026 (3 Nights)</span>
               <span className="text-slate-500">•</span>
-              <span className="text-[#3CCF91] font-bold">100% Escrow Protected (₹1,30,500)</span>
+              <span className="text-[#3CCF91] font-bold">Payment Custody Protected (₹1,30,500)</span>
             </p>
           </div>
 

@@ -53,7 +53,7 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
               <h3 className="text-lg font-bold text-white tracking-wide">Partner with StaySphere</h3>
             </div>
             <p className="text-xs text-slate-400 mt-0.5">
-              Join India's verified luxury hospitality network with 2-hr automated escrow payouts and 100% rate parity.
+              Join India's unified travel & hospitality network with automated milestone payouts and direct rate synchronization.
             </p>
           </div>
           <button
@@ -239,7 +239,7 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
             <div className="p-3.5 rounded-2xl bg-[#001428] border border-white/10 flex items-center gap-3 text-xs text-slate-300">
               <ShieldCheck className="w-5 h-5 text-[#3CCF91] shrink-0" />
               <span>
-                <strong>StaySphere Partner Guarantee:</strong> 2-Hour post-check-in Escrow Payouts, Dedicated Relationship Manager & 100% Rate Parity Sync.
+                <strong>StaySphere Partner Standards:</strong> Prompt post-check-in milestone disbursements, Dedicated Relationship Manager & Direct Rate Sync.
               </span>
             </div>
 

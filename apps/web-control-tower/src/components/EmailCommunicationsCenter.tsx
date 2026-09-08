@@ -43,24 +43,24 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
   // 1. GUEST BOOKING CONFIRMATION
   {
     id: 'tpl-guest-booking',
-    name: 'VIP Guest Booking & Escrow Protection Confirmation',
+    name: 'VIP Guest Booking & Payment Protection Confirmation',
     targetAudience: 'CUSTOMER_GUEST',
-    subject: 'StaySphere VIP Confirmation — Your Sovereign Journey is Confirmed (#BK-SS-2026-9041)',
-    previewText: 'Your clifftop oceanfront villa and Maybach transit are reserved under 100% Escrow Protection.',
-    senderName: 'StaySphere VIP Concierge',
+    subject: 'StaySphere Confirmation — Your Coordinated Journey is Confirmed (#BK-SS-2026-9041)',
+    previewText: 'Your villa accommodation and coordinated transfer are confirmed under StaySphere Payment Protection.',
+    senderName: 'StaySphere Journey Concierge',
     senderEmail: 'StaySphere <StaySphere@cybelinx.com>',
     contentHtml: {
-      heading: 'Welcome to Sovereign Luxury Hospitality',
+      heading: 'Welcome to Your StaySphere Journey',
       subheading: 'Booking Ref: BK-SS-2026-9041 • The Grand Vagator Bay Resort & Oceanfront Villas',
-      badgeText: '100% SMART ESCROW PROTECTED',
+      badgeText: 'MILESTONE PAYMENT PROTECTED',
       paragraphs: [
         'Dear Vikram Malhotra,',
         'We are honored to confirm your upcoming retreat at The Grand Vagator Bay Resort & Oceanfront Villas (Sinquerim Cliffs, Goa) from 12 Sep to 15 Sep 2026.',
-        'Your stay is protected by the StaySphere ₹14.82M Smart Escrow Vault. Your booking fee remains securely held in escrow until 2 hours after you arrive and verify your suite.',
-        'Your dedicated Mercedes-Maybach S680 chauffeur (Gurpreet Singh) has been paired with flight 6E-204 from Delhi.',
+        'Your payment is held in protected milestone custody. Partner payouts are disbursed following arrival verification.',
+        'Your dedicated chauffeur has been paired with flight 6E-204 from Delhi.',
       ],
       callToActionText: 'View Digital Suite Keycard & Flight Radar →',
-      callToActionUrl: 'http://localhost:3000',
+      callToActionUrl: 'https://staysphere-guest.vercel.app',
     },
   },
 
@@ -76,62 +76,62 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
     contentHtml: {
       heading: 'Your Digital Suite Keycard is Armed',
       subheading: 'Villa 101 (Horizon Oceanfront Private Villa)',
-      badgeText: 'AES-256 MILITARY-GRADE ENCRYPTION',
+      badgeText: 'AES-256 ENCRYPTED NFC PASS',
       paragraphs: [
         'Dear Vikram Malhotra,',
         'Your digital keycard for Villa 101 has been generated and pre-armed for your arrival.',
         'Simply tap your phone against the smart door sensor upon arrival, or share access with family members.',
       ],
       callToActionText: 'Open Digital Keycard in Apple Wallet / Web Pass →',
-      callToActionUrl: 'http://localhost:3000',
+      callToActionUrl: 'https://staysphere-guest.vercel.app',
     },
   },
 
   // 3. PARTNER ONBOARDING WELCOME
   {
     id: 'tpl-partner-welcome',
-    name: 'Partner Certification & 84-Point Audit Approved',
+    name: 'Partner Certification & Quality Audit Approved',
     targetAudience: 'PROPERTY_PARTNER',
-    subject: 'Welcome to the StaySphere Network — 84-Point Luxury Certification Passed (100%)',
-    previewText: 'Your property has been awarded the StaySphere Sovereign Verified Seal.',
+    subject: 'Welcome to the StaySphere Network — Quality Certification Verified',
+    previewText: 'Your property has been awarded the StaySphere Verified Partner Seal.',
     senderName: 'StaySphere Partnership Governance',
     senderEmail: 'StaySphere <StaySphere@cybelinx.com>',
     contentHtml: {
       heading: 'Congratulations! Your Property is Certified',
-      subheading: 'The Grand Vagator Bay Resort & Oceanfront Villas • Sovereign Flagship Partner',
-      badgeText: '84-POINT LUXURY TRUST AUDIT: 100.0%',
+      subheading: 'The Grand Vagator Bay Resort & Oceanfront Villas • Certified Flagship Partner',
+      badgeText: 'STAYSPHERE QUALITY AUDIT VERIFIED',
       paragraphs: [
         'Dear Anil Deshmukh,',
-        'We are pleased to inform you that your property has passed all 84 audit benchmarks with a flawless 100.0% score.',
-        'Your property is now listed across the StaySphere Global Luxury Marketplace. PMS sync is active via StaySphere Partner APIs.',
-        'Escrow term: 2-hour automated payout disbursement post-checkin directly to your HDFC Corporate Bank Account.',
+        'We are pleased to inform you that your property has passed all hospitality and service quality benchmarks.',
+        'Your property is now active across the StaySphere Journey Platform. Direct inventory sync is connected via StaySphere Partner APIs.',
+        'Disbursement term: Automated payout disbursement post-checkin milestone verification directly to your bank account.',
       ],
       callToActionText: 'Access StaySphere Partner Control Tower →',
-      callToActionUrl: 'http://localhost:3002',
+      callToActionUrl: 'https://staysphere-control-tower.vercel.app',
     },
   },
 
   // 4. PARTNER ESCROW PAYOUT REMITTANCE
   {
     id: 'tpl-partner-payout',
-    name: 'Escrow Payout Remittance Advice (2-Hr Post Check-in)',
+    name: 'Milestone Payout Remittance Advice',
     targetAudience: 'PROPERTY_PARTNER',
-    subject: 'Escrow Release Complete — ₹1,13,400 Disbursed for Booking #BK-SS-2026-9041',
-    previewText: 'Your automated payout has been processed via RTGS/NEFT.',
-    senderName: 'StaySphere Escrow Custody',
+    subject: 'Payout Complete — ₹1,13,400 Disbursed for Booking #BK-SS-2026-9041',
+    previewText: 'Your milestone payout has been processed via RTGS/NEFT.',
+    senderName: 'StaySphere Payment Custody',
     senderEmail: 'StaySphere <StaySphere@cybelinx.com>',
     contentHtml: {
-      heading: 'Escrow Payout Remittance Advice',
+      heading: 'Milestone Payout Remittance Advice',
       subheading: 'UTR / Ref: ESCROW-REL-2026-89412 • HDFC Bank A/c ending in *4892',
-      badgeText: 'ESCROW RELEASE: 100% AUTOMATED',
+      badgeText: 'PAYOUT DISBURSED: MILESTONE VERIFIED',
       paragraphs: [
         'Dear Anil Deshmukh,',
-        'Guest Vikram Malhotra has successfully checked into Villa 101. The 2-hour verification window has concluded with zero disputes.',
-        'Gross Booking Value: ₹1,26,000 | Platform Governance & Escrow Fee (10%): ₹12,600 | Net Disbursed: ₹1,13,400.',
+        'Guest Vikram Malhotra has successfully checked into Villa 101. The arrival milestone verification has concluded with zero disputes.',
+        'Gross Booking Value: ₹1,26,000 | Platform Governance Fee (10%): ₹12,600 | Net Disbursed: ₹1,13,400.',
         'Funds have been transferred to your designated verified account.',
       ],
       callToActionText: 'Download Official Payout Statement (PDF) →',
-      callToActionUrl: 'http://localhost:3002',
+      callToActionUrl: 'https://staysphere-control-tower.vercel.app',
     },
   },
 
@@ -140,22 +140,22 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
     id: 'tpl-chauffeur-flight',
     name: 'Airport Chauffeur Dispatch & Flight Delay Telemetry',
     targetAudience: 'TRAVEL_FLEET',
-    subject: 'VIP Chauffeur Dispatch — Guest Flight 6E-204 Landed at GOX (Maybach S680)',
+    subject: 'Chauffeur Dispatch — Guest Flight 6E-204 Landed at GOX (Executive Fleet)',
     previewText: 'Passenger Vikram Malhotra is at Terminal Gate 3. Vehicle standby active.',
     senderName: 'StaySphere Fleet Control',
     senderEmail: 'StaySphere <StaySphere@cybelinx.com>',
     contentHtml: {
-      heading: 'VIP Chauffeur Mission Briefing',
-      subheading: 'Vehicle: Mercedes-Maybach S680 (GA-03-XX-0001) • Chauffeur: Gurpreet Singh',
+      heading: 'Chauffeur Mission Briefing',
+      subheading: 'Vehicle: Executive Sedan (GA-03-XX-0001) • Chauffeur: Gurpreet Singh',
       badgeText: 'GPS TELEMATICS ACTIVE',
       paragraphs: [
         'Dear Gurpreet Singh,',
         'IndiGo flight 6E-204 from Delhi has touched down at Manohar International Airport MOPA (GOX).',
-        'VIP Passenger: Vikram Malhotra (2 Adults, 3 Executive Luggage Bags). Preferred beverage: Chilled Sparkling Mineral Water.',
+        'Passenger: Vikram Malhotra (2 Adults, 3 Executive Luggage Bags). Preferred beverage: Chilled Sparkling Mineral Water.',
         'Destination: The Grand Vagator Bay Resort & Oceanfront Villas (ETA: 42 minutes).',
       ],
       callToActionText: 'Open Live Chauffeur Radar →',
-      callToActionUrl: 'http://localhost:3002',
+      callToActionUrl: 'https://staysphere-control-tower.vercel.app',
     },
   },
 
@@ -164,22 +164,22 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
     id: 'tpl-channel-commission',
     name: 'Channel Partner B2B Commission Advice',
     targetAudience: 'CHANNEL_PARTNER',
-    subject: 'B2B Partner Commission Cleared — ₹68,500 Credited (Luxury Escrow Network)',
-    previewText: 'Monthly consolidated commission settlement for Platinum Corporate Travel.',
+    subject: 'B2B Partner Commission Cleared — ₹68,500 Credited (Partner Network)',
+    previewText: 'Monthly consolidated commission settlement for Corporate Travel Partners.',
     senderName: 'StaySphere Channel Relations',
     senderEmail: 'StaySphere <StaySphere@cybelinx.com>',
     contentHtml: {
       heading: 'B2B Channel Commission Statement',
-      subheading: 'Agency: Platinum Luxury Escapes Ltd • Ref: COMM-B2B-2026-09',
-      badgeText: 'ESCROW CLEARED COMMISSION',
+      subheading: 'Agency: Platinum Travel Partners Ltd • Ref: COMM-B2B-2026-09',
+      badgeText: 'CLEARED B2B COMMISSION',
       paragraphs: [
         'Dear Rajesh Khanna,',
         'Your agency has generated 6 high-value corporate bookings in the past 14 days with zero cancellations.',
         'Total Gross Booking Volume: ₹8,40,000 | Agency Commission (8.5%): ₹68,500.',
-        'Payout has been released directly from the StaySphere Escrow Vault.',
+        'Payout has been released directly to your registered bank account.',
       ],
       callToActionText: 'View B2B API Analytics Console →',
-      callToActionUrl: 'http://localhost:3002',
+      callToActionUrl: 'https://staysphere-control-tower.vercel.app',
     },
   },
 
@@ -198,11 +198,11 @@ export const EMAIL_TEMPLATES: EmailTemplate[] = [
       badgeText: 'P0 HIGH-SEVERITY ESCALATION',
       paragraphs: [
         'Attention: Relationship Manager Priya Sharma & General Manager On-Duty,',
-        'Guest in Villa 101 requested private dining modification at 14:15. No acknowledgment logged within the mandatory 15-minute SLA window.',
-        'Automated executive escalation has been triggered. Please contact the suite butler immediately.',
+        'Guest in Villa 101 requested dining modification at 14:15. No acknowledgment logged within the mandatory 15-minute SLA window.',
+        'Automated executive escalation has been triggered. Please attend to the request immediately.',
       ],
       callToActionText: 'Open Incident Resolution Console →',
-      callToActionUrl: 'http://localhost:3002',
+      callToActionUrl: 'https://staysphere-control-tower.vercel.app',
     },
   },
 ];
@@ -270,7 +270,7 @@ export function EmailCommunicationsCenter({ showToast }: EmailCommunicationsCent
 
     const ctaHtml = template.contentHtml.callToActionText
       ? `<div style="margin: 24px 0 10px 0;">
-          <a href="${template.contentHtml.callToActionUrl || 'http://localhost:3000'}" style="background: linear-gradient(135deg, #00A9A5 0%, #3CCF91 100%); color: #001428; padding: 12px 28px; border-radius: 12px; font-weight: 800; font-size: 13px; text-decoration: none; display: inline-block;">${template.contentHtml.callToActionText}</a>
+          <a href="${template.contentHtml.callToActionUrl || 'https://staysphere-guest.vercel.app'}" style="background: linear-gradient(135deg, #00A9A5 0%, #3CCF91 100%); color: #001428; padding: 12px 28px; border-radius: 12px; font-weight: 800; font-size: 13px; text-decoration: none; display: inline-block;">${template.contentHtml.callToActionText}</a>
         </div>`
       : '';
 
@@ -292,7 +292,7 @@ export function EmailCommunicationsCenter({ showToast }: EmailCommunicationsCent
                 <tr>
                   <td>
                     <span style="font-family: Georgia, serif; font-size: 18px; font-weight: 800; letter-spacing: 3px; color: #FFFFFF;">STAYSPHERE</span>
-                    <span style="font-size: 10px; color: #FFC857; margin-left: 6px; font-weight: 700;">SOVEREIGN TRAVEL</span>
+                    <span style="font-size: 10px; color: #FFC857; margin-left: 6px; font-weight: 700;">JOURNEY PLATFORM</span>
                   </td>
                   <td align="right">${badgeHtml}</td>
                 </tr>
@@ -309,8 +309,8 @@ export function EmailCommunicationsCenter({ showToast }: EmailCommunicationsCent
           </tr>
           <tr>
             <td style="padding: 20px 30px; background-color: #001020; border-top: 1px solid rgba(255, 255, 255, 0.08); text-align: center;">
-              <p style="margin: 0 0 6px 0; font-size: 11px; color: #64748B;">StaySphere Luxury Hospitality & Sovereign Mobility Network • Support Desk: 24/7</p>
-              <p style="margin: 0; font-size: 10px; color: #475569;">100% Escrow Protected Booking • Payout Guaranteed Post Check-In</p>
+              <p style="margin: 0 0 6px 0; font-size: 11px; color: #64748B;">StaySphere Unified Hospitality & Mobility Network • Support Desk: 24/7</p>
+              <p style="margin: 0; font-size: 10px; color: #475569;">Milestone-Protected Booking • Payout Guaranteed Post Arrival Verification</p>
             </td>
           </tr>
         </table>
@@ -581,7 +581,7 @@ export function EmailCommunicationsCenter({ showToast }: EmailCommunicationsCent
               {activeTemplate.contentHtml.callToActionText && (
                 <div className="pt-2">
                   <a
-                    href={activeTemplate.contentHtml.callToActionUrl || 'http://localhost:3000'}
+                    href={activeTemplate.contentHtml.callToActionUrl || 'https://staysphere-guest.vercel.app'}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-block px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-[#001428] text-xs font-black shadow-lg hover:brightness-110 transition"
@@ -594,8 +594,8 @@ export function EmailCommunicationsCenter({ showToast }: EmailCommunicationsCent
 
             {/* Email Footer */}
             <div className="pt-6 border-t border-white/10 text-[10px] text-slate-500 space-y-1">
-              <p>StaySphere Luxury Hospitality & Sovereign Mobility Network • Support Desk: 24/7</p>
-              <p>This is a verified transactional communication protected under StaySphere Smart Escrow Governance.</p>
+              <p>StaySphere Unified Hospitality & Mobility Network • Support Desk: 24/7</p>
+              <p>This is a verified transactional communication protected under StaySphere Milestone Payment Governance.</p>
             </div>
           </div>
         </div>
@@ -608,7 +608,7 @@ export function EmailCommunicationsCenter({ showToast }: EmailCommunicationsCent
             <Clock className="w-4 h-4 text-[#3CCF91]" />
             <span>Recent Resend Email Dispatch & Delivery Audit Logs</span>
           </h3>
-          <span className="text-xs text-slate-400">Resend Gateway: Active • 100% Delivery Rate</span>
+          <span className="text-xs text-slate-400">Resend Gateway: Active • Verified Production Delivery</span>
         </div>
 
         <div className="divide-y divide-white/5 border border-white/10 rounded-2xl overflow-hidden">

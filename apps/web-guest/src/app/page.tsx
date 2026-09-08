@@ -645,19 +645,18 @@ export default function GuestApp() {
       {/* Top Application Switcher Bar */}
       <div className="bg-[#000B17] border-b border-white/10 px-4 sm:px-8 py-2 text-xs flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2 text-slate-300">
-          <Crown className="w-3.5 h-3.5 text-[#FFC857]" />
-          <span>StaySphere Platform: <strong className="text-white">Ultra-Luxury Marketplace & Escrow Protected Travel</strong></span>
+          <Compass className="w-3.5 h-3.5 text-[#00D2C4]" />
+          <span>StaySphere Journey Platform: <strong className="text-white">Coordinated Stays, Mobility & Proactive Resolution</strong></span>
         </div>
         <div className="flex items-center gap-3">
-          <a
-            href="http://localhost:3002"
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#002B4D] border border-[#00A9A5]/40 text-[#00D2C4] font-bold hover:brightness-110 text-xs shadow-sm"
+          <button
+            type="button"
+            onClick={() => setShowPartnerModal(true)}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#002B4D] border border-[#00A9A5]/40 text-[#00D2C4] font-bold hover:brightness-110 text-xs shadow-sm cursor-pointer"
           >
             <Building2 className="w-3.5 h-3.5" />
-            <span>Operations & Staff Login (RM, Frontdesk, Payments, SaaS) ↗</span>
-          </a>
+            <span>Partner & Operations Network ↗</span>
+          </button>
         </div>
       </div>
 
@@ -772,19 +771,19 @@ export default function GuestApp() {
             {/* Hero Section */}
             <section className="relative rounded-3xl overflow-hidden glass-panel border border-white/10 p-6 sm:p-12 lg:p-14 text-center space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#002B4D] border border-[#00A9A5]/40 text-[#00D2C4] text-xs font-bold uppercase tracking-wider shadow-inner">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>India’s Unified Luxury Travel & Hospitality Platform</span>
+                <Compass className="w-3.5 h-3.5" />
+                <span>The Sovereign Journey Platform</span>
               </div>
 
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white max-w-4xl mx-auto leading-tight">
-                Your Hotel, Airport Cab & Local Sightseeing. <br />
+                Curated Stays, Airport Mobility & Local Experiences. <br />
                 <span className="bg-gradient-to-r from-[#FF8A3D] via-[#FFC857] to-[#00D2C4] bg-clip-text text-transparent">
-                  Booked Together. 100% Escrow Safe.
+                  Synchronized End-to-End. Protected Payments.
                 </span>
               </h1>
 
               <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
-                Book handpicked 5-star hotels, luxury resorts, serviced apartments, and private pool villas across Goa, Udaipur, Manali, and Mumbai with on-time airport chauffeur pickups, local sightseeing day tours, and airport drops.
+                Plan complete journeys combining boutique hotels, luxury resorts, serviced apartments, and private villas across Goa, Udaipur, Manali, and Mumbai—seamlessly linked with verified airport transfers, curated day excursions, and 24/7 proactive resolution.
               </p>
 
               {/* Special Seasonal Promo Banner */}
@@ -874,16 +873,16 @@ export default function GuestApp() {
               {/* Trust Badges */}
               <div className="flex flex-wrap items-center justify-center gap-6 pt-4 text-xs text-slate-300">
                 <span className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-[#3CCF91]" /> 100% Safe Escrow Protection
+                  <ShieldCheck className="w-4 h-4 text-[#3CCF91]" /> Milestone-Protected Payments
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Plane className="w-4 h-4 text-[#00D2C4]" /> Live Flight-Synced Airport Cab
+                  <Plane className="w-4 h-4 text-[#00D2C4]" /> Live Flight-Synced Airport Transfers
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Compass className="w-4 h-4 text-[#FF8A3D]" /> Curated Local Sightseeing Day Tours
+                  <Compass className="w-4 h-4 text-[#FF8A3D]" /> Curated Local Experiences & Mobility
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Luggage className="w-4 h-4 text-[#FFC857]" /> Airport Return Drop with Porter
+                  <Clock className="w-4 h-4 text-[#FFC857]" /> 15-Minute Guaranteed Resolution SLA
                 </span>
               </div>
             </section>
@@ -1245,13 +1244,13 @@ export default function GuestApp() {
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="text-center space-y-2">
               <span className="text-xs font-bold text-[#FF8A3D] uppercase tracking-widest">
-                Seamless 3-Step Travel Reservation
+                Integrated 3-Step Journey Builder
               </span>
               <h1 className="text-3xl font-black text-white">
-                Book Hotel, Airport Cab, Local Sightseeing & Return Drop
+                Book Stay, Airport Transfers, Local Mobility & Return Drop
               </h1>
               <p className="text-xs text-slate-300">
-                100% Protected by StaySphere Safe Escrow. Your payment is released only 2 hours after your confirmed arrival.
+                Protected by StaySphere Milestone Custody. Payments are disbursed to partners only after your verified arrival.
               </p>
             </div>
 
@@ -1654,23 +1653,23 @@ export default function GuestApp() {
                     onClick={() => setBookingStep(3)}
                     className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] hover:brightness-110 text-white font-black text-xs shadow-lg shadow-[#00A9A5]/30 flex items-center gap-2"
                   >
-                    <span>Proceed to 100% Safe Escrow Lock</span>
+                    <span>Proceed to Milestone Payment Protection</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
               </div>
             )}
 
-            {/* STEP 3: 100% SAFE ESCROW BILL BREAKDOWN & CONFIRM */}
+            {/* STEP 3: MILESTONE PAYMENT BREAKDOWN & CONFIRM */}
             {bookingStep === 3 && (
               <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-white/10 space-y-6">
                 {!bookingConfirmed ? (
                   <>
                     <div className="flex items-center justify-between pb-4 border-b border-white/10">
                       <div>
-                        <h2 className="text-xl font-black text-white">100% Safe Escrow Payment Lock</h2>
+                        <h2 className="text-xl font-black text-white">Milestone Payment Protection & Confirmation</h2>
                         <p className="text-xs text-slate-300 mt-0.5">
-                          Your money stays secured in StaySphere Safe Escrow until 2 hours after your confirmed arrival.
+                          Your payment remains protected in milestone custody until after your confirmed arrival.
                         </p>
                       </div>
                       <ShieldCheck className="w-8 h-8 text-[#3CCF91]" />
@@ -1759,23 +1758,23 @@ export default function GuestApp() {
                       )}
 
                       <div className="flex justify-between text-slate-300 pt-2 border-t border-white/10">
-                        <span>🛡️ Luxury Hospitality GST & Safe Escrow Protection Fee (12%)</span>
+                        <span>🛡️ Hospitality Taxes & Payment Protection Fee (12%)</span>
                         <span className="font-bold text-white">₹{luxuryTaxes.toLocaleString()}</span>
                       </div>
 
                       <div className="pt-3 border-t border-white/15 flex justify-between text-sm font-black text-white">
-                        <span>Total Safe Escrow Amount</span>
+                        <span>Total Protected Amount</span>
                         <span className="text-xl text-[#00D2C4]">₹{totalBill.toLocaleString()}</span>
                       </div>
                     </div>
 
-                    {/* Escrow Guarantee Banner */}
+                    {/* Milestone Protection Banner */}
                     <div className="p-4 rounded-2xl bg-[#002244]/60 border border-[#00A9A5]/40 flex items-start gap-3">
                       <ShieldCheck className="w-5 h-5 text-[#3CCF91] shrink-0 mt-0.5" />
                       <div className="text-xs space-y-1">
-                        <strong className="text-white block font-bold">100% Money-Back Escrow Safety Guarantee</strong>
+                        <strong className="text-white block font-bold">StaySphere Milestone Payment & Dispute Protection</strong>
                         <p className="text-slate-300 leading-relaxed">
-                          Your money is held in an encrypted escrow trust account. The hotel, chauffeur, and tour operators are paid only 2 hours after you arrive and verify that the accommodations and vehicles match 100% of expectations.
+                          Your booking payment is held in protected custody. Accommodation, chauffeur, and tour partners receive disbursements following verified arrival, backed by our 15-minute proactive resolution guarantee.
                         </p>
                       </div>
                     </div>
@@ -1884,6 +1883,27 @@ export default function GuestApp() {
         )}
       </main>
 
+      {/* Floating Persistent Resolve Sentinel Trigger */}
+      <div className="fixed bottom-6 right-6 z-40">
+        <button
+          type="button"
+          onClick={() => {
+            setResolveCategory('GENERAL_INQUIRY');
+            setShowResolveModal(true);
+          }}
+          className="group px-4 py-3 rounded-full bg-gradient-to-r from-[#FF8A3D] via-[#FFC857] to-[#00A9A5] text-[#001428] font-black text-xs shadow-2xl shadow-[#FF8A3D]/40 hover:scale-105 transition-all flex items-center gap-2 border-2 border-white/20 cursor-pointer"
+        >
+          <div className="relative">
+            <ShieldCheck className="w-5 h-5 text-[#001428]" />
+            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+          </div>
+          <span className="hidden sm:inline">Resolve Desk</span>
+          <span className="px-2 py-0.5 rounded-full bg-black/80 text-[#FFC857] text-[10px] font-extrabold font-mono">
+            15m SLA
+          </span>
+        </button>
+      </div>
+
       {/* Proactive Resolution Sentinel Modal */}
       <ProactiveResolveSentinel
         isOpen={showResolveModal}
@@ -1904,11 +1924,11 @@ export default function GuestApp() {
           <div className="flex items-center gap-3">
             <HorizontalLogo size="sm" variant="dark" />
             <span className="text-slate-500">|</span>
-            <span>100% Escrow Protected Travel & Stays</span>
+            <span>Coordinated Stays, Travel & Protected Payments</span>
           </div>
 
           <div className="flex items-center gap-6">
-            <span className="text-slate-400">© 2026 StaySphere Hospitality & Transit Pvt. Ltd.</span>
+            <span className="text-slate-400">© 2026 StaySphere Journey Platform Pvt. Ltd.</span>
             <button
               onClick={() => setShowPartnerModal(true)}
               className="text-[#FFC857] font-bold hover:underline"
