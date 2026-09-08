@@ -86,3 +86,148 @@ body {
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
+
+/* ========================================================================= */
+/* SOOTHING WARM PEARL THEME (Eye-Care Luxury Daylight Palette)              */
+/* ========================================================================= */
+.theme-pearl {
+  --color-bg-dark: #F8FAFD;
+  --color-text-dark: #0F172A;
+  background-color: #F8FAFD !important;
+  color: #0F172A !important;
+}
+
+.theme-pearl h1,
+.theme-pearl h2,
+.theme-pearl h3,
+.theme-pearl h4,
+.theme-pearl h5,
+.theme-pearl h6,
+.theme-pearl .font-serif-luxury {
+  color: #0F172A;
+}
+
+/* Soft text overrides */
+.theme-pearl .text-white {
+  color: #0F172A;
+}
+
+.theme-pearl .text-slate-100,
+.theme-pearl .text-slate-200 {
+  color: #1E293B;
+}
+
+.theme-pearl .text-slate-300 {
+  color: #334155;
+}
+
+.theme-pearl .text-slate-400 {
+  color: #475569;
+}
+
+.theme-pearl .text-slate-500 {
+  color: #64748B;
+}
+
+/* Retain high-contrast white text for gradient action buttons & badges */
+.theme-pearl button.bg-gradient-to-r,
+.theme-pearl button.bg-gradient-to-r *,
+.theme-pearl a.bg-gradient-to-r,
+.theme-pearl a.bg-gradient-to-r *,
+.theme-pearl .bg-gradient-to-r > *,
+.theme-pearl .bg-gradient-to-r span,
+.theme-pearl .bg-indigo-600,
+.theme-pearl .bg-indigo-600 *,
+.theme-pearl .bg-emerald-600,
+.theme-pearl .bg-emerald-600 *,
+.theme-pearl .bg-rose-600,
+.theme-pearl .bg-rose-600 * {
+  color: #FFFFFF !important;
+}
+
+.theme-pearl button.bg-gradient-to-r .text-\[\#001428\],
+.theme-pearl a.bg-gradient-to-r .text-\[\#001428\] {
+  color: #001428 !important;
+}
+
+/* Surface backgrounds: Crisp, eye-pleasing porcelain cards */
+.theme-pearl .panel-card,
+.theme-pearl .panel-card-luxury {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 4px 20px -2px rgba(11, 61, 145, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03) !important;
+  color: #0F172A !important;
+}
+
+.theme-pearl .bg-\[\#020B18\],
+.theme-pearl .bg-\[\#030D1A\],
+.theme-pearl .bg-\[\#001428\],
+.theme-pearl .bg-\[\#000E1C\],
+.theme-pearl .bg-\[\#020B14\],
+.theme-pearl .bg-\[\#001c38\],
+.theme-pearl .bg-\[\#001020\] {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+.theme-pearl .bg-\[\#030D1A\]\/95,
+.theme-pearl .bg-\[\#001c38\]\/80 {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+.theme-pearl .bg-\[\#002B4D\],
+.theme-pearl .bg-\[\#06182F\],
+.theme-pearl .bg-\[\#002444\],
+.theme-pearl .bg-slate-900,
+.theme-pearl .bg-slate-950 {
+  background-color: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}
+
+/* Border overrides */
+.theme-pearl .border-white\/10,
+.theme-pearl .border-white\/15,
+.theme-pearl .border-white\/20,
+.theme-pearl .border-white\/30,
+.theme-pearl .border-white\/5,
+.theme-pearl .border-slate-800,
+.theme-pearl .border-slate-700 {
+  border-color: #E2E8F0 !important;
+}
+
+.theme-pearl .border-indigo-800\/40,
+.theme-pearl .border-indigo-500\/40 {
+  border-color: #CBD5E1 !important;
+}
+
+/* Form controls */
+.theme-pearl input:not([type="checkbox"]):not([type="radio"]),
+.theme-pearl select,
+.theme-pearl textarea {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border-color: #CBD5E1 !important;
+}
+
+.theme-pearl input::placeholder,
+.theme-pearl textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* Custom Scrollbars in Pearl Theme */
+.theme-pearl ::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+.theme-pearl ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+}
+
+.theme-pearl ::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+

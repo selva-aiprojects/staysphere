@@ -1076,6 +1076,30 @@ export default function GuestApp() {
             <Building2 className="w-3.5 h-3.5 shrink-0" />
             <span>Partner Network ↗</span>
           </button>
+
+          {/* Eye-Care Adaptive Theme Switcher */}
+          <button
+            type="button"
+            onClick={() => setTheme(isPearl ? 'dark' : 'pearl')}
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-lg border font-bold text-xs shadow-sm cursor-pointer whitespace-nowrap transition-all ${
+              isPearl
+                ? 'bg-white hover:bg-slate-50 border-slate-300 text-slate-700 shadow-sm'
+                : 'bg-[#002B4D] border-slate-700 text-slate-200 hover:brightness-110'
+            }`}
+            title="Toggle Eye-Care Theme (Warm Pearl / Soft Slate)"
+          >
+            {isPearl ? (
+              <>
+                <Moon className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
+                <span>Soft Slate</span>
+              </>
+            ) : (
+              <>
+                <Sun className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <span>Warm Pearl</span>
+              </>
+            )}
+          </button>
         </div>
       </div>
 

@@ -44,7 +44,7 @@ import { DriverMobilePwa } from './components/DriverMobilePwa';
 import { FinanceEngineWorkspace } from './components/FinanceEngineWorkspace';
 import { TrustSafetyWorkspace } from './components/TrustSafetyWorkspace';
 import { apiClient, BackendStatus } from './services/apiClient';
-import { Mail, UserPlus, Compass, ShieldAlert, Star, Bot, LogOut, LayoutDashboard } from 'lucide-react';
+import { Mail, UserPlus, Compass, ShieldAlert, Star, Bot, LogOut, LayoutDashboard, Sun, Moon } from 'lucide-react';
 
 export type PortalMode = 'CONTROL_TOWER' | 'PROPERTY_PORTAL' | 'TRANSPORT_PORTAL' | 'DRIVER_MOBILE';
 
@@ -439,6 +439,9 @@ export default function OperationsControlTower() {
   // Backend Live/Demo Status
   const [backendStatus, setBackendStatus] = useState<BackendStatus>({ isLive: false, checkedAt: '' });
 
+  // Adaptive Eye-Care Theme State (Default to Soothing Warm Pearl)
+  const [theme, setTheme] = useState<'pearl' | 'slate'>('pearl');
+
   useEffect(() => {
     const unsub = apiClient.subscribe(setBackendStatus);
     return unsub;
@@ -515,7 +518,7 @@ export default function OperationsControlTower() {
   }
 
   return (
-    <div className="min-h-screen bg-[#001428] text-white flex flex-col font-sans selection:bg-[#00A9A5] selection:text-white">
+    <div className={`min-h-screen flex flex-col font-sans selection:bg-[#00A9A5] selection:text-white transition-colors duration-300 ${theme === 'pearl' ? 'theme-pearl bg-[#F8FAFD] text-[#0F172A]' : 'bg-[#001428] text-white'}`}>
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#002B4D] border border-[#00A9A5] text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 animate-slide-in">
@@ -525,16 +528,16 @@ export default function OperationsControlTower() {
       )}
 
       {/* Top Application Switcher Bar */}
-      <div className="bg-[#020B18] border-b border-white/10 px-6 py-2.5 text-xs flex flex-wrap items-center justify-between gap-3 shadow-md">
-        <div className="flex items-center gap-2.5 text-slate-300">
+      <div className={`border-b px-6 py-2.5 text-xs flex flex-wrap items-center justify-between gap-3 shadow-sm transition-colors ${theme === 'pearl' ? 'bg-[#EEF2F6] border-slate-200 text-slate-700' : 'bg-[#020B18] border-white/10 text-slate-300'}`}>
+        <div className="flex items-center gap-2.5">
           <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
           <span className="font-mono-telemetry text-[11px] text-[#10B981] font-bold">● 99.98% UPTIME</span>
           <span className="text-slate-500">•</span>
-          <span>StaySphere Sovereign Control Tower: <strong className="text-white font-medium">Orchestrated Multi-Stakeholder Matrix</strong></span>
+          <span>StaySphere Sovereign Control Tower: <strong className={theme === 'pearl' ? 'text-[#0F172A] font-semibold' : 'text-white font-medium'}>Orchestrated Multi-Stakeholder Matrix</strong></span>
         </div>
         <div className="flex items-center gap-3">
           {/* Platform Portal Selector */}
-          <div className="flex items-center gap-1 p-1 rounded-xl bg-black/40 border border-white/10 shadow-inner">
+          <div className={`flex items-center gap-1 p-1 rounded-xl shadow-inner transition-colors ${theme === 'pearl' ? 'bg-slate-200/80 border border-slate-300' : 'bg-black/40 border border-white/10'}`}>
             <button
               onClick={() => setPortalMode('CONTROL_TOWER')}
               className={`px-3 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
@@ -582,12 +585,39 @@ export default function OperationsControlTower() {
           </div>
 
           {/* Backend Status Indicator */}
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-700/60 text-xs shadow-sm">
-            <div className={`w-2 h-2 rounded-full ${backendStatus.isLive ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`} />
-            <span className={backendStatus.isLive ? 'text-emerald-300 font-mono text-[11px] font-bold' : 'text-amber-300 font-mono text-[11px]'}>
+          <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs shadow-sm transition-colors ${theme === 'pearl' ? 'bg-white border-slate-300' : 'bg-slate-900/90 border-slate-700/60'}`}>
+            <div className={`w-2 h-2 rounded-full ${backendStatus.isLive ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
+            <span className={backendStatus.isLive ? 'text-emerald-600 font-mono text-[11px] font-bold' : 'text-amber-600 font-mono text-[11px] font-bold'}>
               {backendStatus.isLive ? 'LIVE API (Port 4000)' : 'DEMO MODE'}
             </span>
           </div>
+
+          {/* Eye-Care Adaptive Theme Switcher */}
+          <button
+            onClick={() => {
+              const next = theme === 'pearl' ? 'slate' : 'pearl';
+              setTheme(next);
+              showToast(`Theme switched to ${next === 'pearl' ? 'Soothing Warm Pearl' : 'Soft Slate'}`);
+            }}
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-lg border text-xs font-bold transition shadow-sm cursor-pointer ${
+              theme === 'pearl'
+                ? 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
+                : 'bg-[#002B4D]/80 border-slate-700 text-slate-200 hover:brightness-110'
+            }`}
+            title="Toggle Eye-Care Theme (Warm Pearl / Soft Slate)"
+          >
+            {theme === 'pearl' ? (
+              <>
+                <Moon className="w-3.5 h-3.5 text-indigo-600" />
+                <span>Soft Slate</span>
+              </>
+            ) : (
+              <>
+                <Sun className="w-3.5 h-3.5 text-amber-400" />
+                <span>Warm Pearl</span>
+              </>
+            )}
+          </button>
 
           <button
             onClick={() => setIsCollabTicketsModalOpen(true)}
