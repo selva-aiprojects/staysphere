@@ -29,6 +29,9 @@ import {
 } from './components/CollaborativeTicketsModal';
 
 import { PartnerApiConsole } from './components/PartnerApiConsole';
+import { EmployeeDirectory } from './components/EmployeeDirectory';
+import { EmailCommunicationsCenter } from './components/EmailCommunicationsCenter';
+import { Mail, UserPlus } from 'lucide-react';
 
 // Persona / Role Types
 export type PlatformRole =
@@ -431,7 +434,16 @@ export default function OperationsControlTower() {
   const [currentUser, setCurrentUser] = useState<UserSession | null>(DEMO_ACCOUNTS.RELATIONSHIP_MANAGER);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
   const [activeWorkflow, setActiveWorkflow] = useState<
-    'partners' | 'rm' | 'frontdesk' | 'travel-desk' | 'channel-partners' | 'payments' | 'resolution' | 'api-docs'
+    | 'partners'
+    | 'rm'
+    | 'frontdesk'
+    | 'travel-desk'
+    | 'channel-partners'
+    | 'payments'
+    | 'resolution'
+    | 'api-docs'
+    | 'employees'
+    | 'emails'
   >('partners');
 
   // Workflows Datasets
@@ -644,6 +656,28 @@ export default function OperationsControlTower() {
             }`}
           >
             <Code className="w-3.5 h-3.5 text-cyan-300" /> 7. Partner APIs
+          </button>
+
+          <button
+            onClick={() => setActiveWorkflow('employees')}
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              activeWorkflow === 'employees'
+                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <UserPlus className="w-3.5 h-3.5 text-[#3CCF91]" /> 8. Employees
+          </button>
+
+          <button
+            onClick={() => setActiveWorkflow('emails')}
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              activeWorkflow === 'emails'
+                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Mail className="w-3.5 h-3.5 text-[#FFC857]" /> 9. Email Hub
           </button>
         </nav>
 
@@ -949,6 +983,12 @@ export default function OperationsControlTower() {
 
         {/* WORKSPACE 7: PARTNER APIS & DOCS */}
         {activeWorkflow === 'api-docs' && <PartnerApiConsole />}
+
+        {/* WORKSPACE 8: EMPLOYEE DIRECTORY */}
+        {activeWorkflow === 'employees' && <EmployeeDirectory showToast={showToast} />}
+
+        {/* WORKSPACE 9: EMAIL COMMUNICATIONS CENTER */}
+        {activeWorkflow === 'emails' && <EmailCommunicationsCenter showToast={showToast} />}
       </main>
 
       {/* PLATFORM SINGLE SIGN-ON / ROLE SWITCHER MODAL */}

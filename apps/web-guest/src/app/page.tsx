@@ -49,6 +49,7 @@ import {
   Percent,
 } from 'lucide-react';
 import { HorizontalLogo, LogoOnDark, StackedLogo, AppIcon, EmblemImageLogo } from '@staysphere/ui-kit';
+import { PartnerRegistrationModal } from '../components/PartnerRegistrationModal';
 
 interface VillaCategory {
   name: string;
@@ -506,16 +507,6 @@ export default function GuestApp() {
 
   // Partner Registration Modal State
   const [showPartnerModal, setShowPartnerModal] = useState<boolean>(false);
-  const [partnerFormData, setPartnerFormData] = useState({
-    propertyName: '',
-    propertyType: 'hotel',
-    city: 'Goa',
-    contactName: '',
-    phone: '',
-    email: '',
-    roomsCount: '10-25',
-  });
-  const [partnerSubmitted, setPartnerSubmitted] = useState<boolean>(false);
 
   // Active destination's sightseeing tours
   const currentDestination = selectedEstate ? selectedEstate.destinationCity : 'Goa';
@@ -644,10 +635,6 @@ export default function GuestApp() {
     ]);
   };
 
-  const handlePartnerSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setPartnerSubmitted(true);
-  };
 
   return (
     <div className="min-h-screen bg-[#001428] text-slate-100 flex flex-col font-sans selection:bg-[#FF8A3D] selection:text-white">
@@ -753,10 +740,7 @@ export default function GuestApp() {
           <div className="flex items-center gap-2 shrink-0">
             <button
               type="button"
-              onClick={() => {
-                setShowPartnerModal(true);
-                setPartnerSubmitted(false);
-              }}
+              onClick={() => setShowPartnerModal(true)}
               className="hidden md:flex px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#FFC857]/20 to-[#FF8A3D]/20 hover:from-[#FFC857]/30 hover:to-[#FF8A3D]/30 border border-[#FFC857]/40 text-[#FFC857] text-xs font-black transition-all items-center gap-1.5 shadow-sm cursor-pointer"
             >
               <Building2 className="w-3.5 h-3.5" />
@@ -1106,10 +1090,7 @@ export default function GuestApp() {
 
                 <button
                   type="button"
-                  onClick={() => {
-                    setShowPartnerModal(true);
-                    setPartnerSubmitted(false);
-                  }}
+                  onClick={() => setShowPartnerModal(true)}
                   className="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#FFC857] to-[#FF8A3D] hover:brightness-110 text-[#001428] font-black text-xs shadow-xl shadow-[#FF8A3D]/30 transition-all flex items-center gap-2 shrink-0 cursor-pointer"
                 >
                   <Building2 className="w-4 h-4" />
@@ -2322,166 +2303,11 @@ export default function GuestApp() {
         )}
       </main>
 
-      {/* Partner Onboarding Modal */}
-      {showPartnerModal && (
-        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="glass-panel-elevated w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl border border-[#FFC857]/40 p-6 sm:p-8 shadow-2xl">
-            <div className="flex items-start justify-between gap-4 mb-6">
-              <div>
-                <span className="text-xs font-bold text-[#FFC857] uppercase tracking-wider flex items-center gap-1.5">
-                  <Building2 className="w-4 h-4" /> Partner Network Registration
-                </span>
-                <h2 className="text-2xl font-black text-white mt-1">List Your Hotel, Resort, Apartment or Villa</h2>
-                <p className="text-xs text-slate-300 mt-1">
-                  Connect your property to high-spending luxury guests with 100% guaranteed escrow payouts.
-                </p>
-              </div>
-              <button
-                onClick={() => setShowPartnerModal(false)}
-                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-slate-300 hover:text-white"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            {partnerSubmitted ? (
-              <div className="py-12 text-center space-y-4">
-                <div className="w-16 h-16 rounded-full bg-[#3CCF91]/20 border border-[#3CCF91] text-[#3CCF91] flex items-center justify-center mx-auto animate-bounce">
-                  <CheckCircle className="w-8 h-8" />
-                </div>
-                <h3 className="text-2xl font-black text-white">Application Received!</h3>
-                <p className="text-xs text-slate-300 max-w-md mx-auto leading-relaxed">
-                  Thank you, <strong>{partnerFormData.contactName}</strong>. Our Partner Relationship Director will contact you at <strong>{partnerFormData.phone}</strong> within 24 hours to complete your verified onboarding.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handlePartnerSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-xs font-bold text-slate-300 uppercase">Property / Hotel Name</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Royal Palms Resort & Villas"
-                      value={partnerFormData.propertyName}
-                      onChange={(e) => setPartnerFormData({ ...partnerFormData, propertyName: e.target.value })}
-                      className="w-full mt-1.5 p-3 rounded-xl bg-[#001020] border border-white/15 text-white text-xs outline-none focus:border-[#FFC857]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-bold text-slate-300 uppercase">Property Type</label>
-                    <select
-                      value={partnerFormData.propertyType}
-                      onChange={(e) => setPartnerFormData({ ...partnerFormData, propertyType: e.target.value })}
-                      className="w-full mt-1.5 p-3 rounded-xl bg-[#001020] border border-white/15 text-white text-xs outline-none focus:border-[#FFC857] cursor-pointer"
-                    >
-                      <option value="hotel">5-Star Luxury Hotel</option>
-                      <option value="resort">Beachfront / Hill Resort</option>
-                      <option value="apartment">Serviced Apartments & Suites</option>
-                      <option value="villa">Private Pool Villa / Estate</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-xs font-bold text-slate-300 uppercase">City / Location</label>
-                    <select
-                      value={partnerFormData.city}
-                      onChange={(e) => setPartnerFormData({ ...partnerFormData, city: e.target.value })}
-                      className="w-full mt-1.5 p-3 rounded-xl bg-[#001020] border border-white/15 text-white text-xs outline-none focus:border-[#FFC857] cursor-pointer"
-                    >
-                      <option value="Goa">Goa</option>
-                      <option value="Udaipur">Udaipur, Rajasthan</option>
-                      <option value="Manali">Manali, Himachal Pradesh</option>
-                      <option value="Mumbai">Mumbai, Maharashtra</option>
-                      <option value="Bangalore">Bangalore, Karnataka</option>
-                      <option value="Jaipur">Jaipur, Rajasthan</option>
-                      <option value="Kerala">Kerala (Kovalam / Munnar)</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-bold text-slate-300 uppercase">Number of Units / Keys</label>
-                    <select
-                      value={partnerFormData.roomsCount}
-                      onChange={(e) => setPartnerFormData({ ...partnerFormData, roomsCount: e.target.value })}
-                      className="w-full mt-1.5 p-3 rounded-xl bg-[#001020] border border-white/15 text-white text-xs outline-none focus:border-[#FFC857] cursor-pointer"
-                    >
-                      <option value="1-5">1 – 5 Luxury Villas / Suites</option>
-                      <option value="6-20">6 – 20 Boutique Keys</option>
-                      <option value="21-50">21 – 50 Hotel Rooms</option>
-                      <option value="50+">50+ Resort / Hotel Inventory</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div>
-                    <label className="text-xs font-bold text-slate-300 uppercase">Contact Person</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Vikramaditya Singh"
-                      value={partnerFormData.contactName}
-                      onChange={(e) => setPartnerFormData({ ...partnerFormData, contactName: e.target.value })}
-                      className="w-full mt-1.5 p-3 rounded-xl bg-[#001020] border border-white/15 text-white text-xs outline-none focus:border-[#FFC857]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-bold text-slate-300 uppercase">Phone / WhatsApp</label>
-                    <input
-                      type="tel"
-                      required
-                      placeholder="+91 98765 43210"
-                      value={partnerFormData.phone}
-                      onChange={(e) => setPartnerFormData({ ...partnerFormData, phone: e.target.value })}
-                      className="w-full mt-1.5 p-3 rounded-xl bg-[#001020] border border-white/15 text-white text-xs outline-none focus:border-[#FFC857]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-bold text-slate-300 uppercase">Email Address</label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="vikram@royalpalms.com"
-                      value={partnerFormData.email}
-                      onChange={(e) => setPartnerFormData({ ...partnerFormData, email: e.target.value })}
-                      className="w-full mt-1.5 p-3 rounded-xl bg-[#001020] border border-white/15 text-white text-xs outline-none focus:border-[#FFC857]"
-                    />
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-[#002244]/60 border border-[#00A9A5]/30 text-xs text-slate-300 flex items-start gap-2.5">
-                  <ShieldCheck className="w-5 h-5 text-[#3CCF91] shrink-0 mt-0.5" />
-                  <p>
-                    <strong>Guaranteed Payout Terms:</strong> StaySphere disburses payouts 2 hours post-guest check-in directly to your verified business bank account. Zero chargebacks or payment disputes.
-                  </p>
-                </div>
-
-                <div className="flex justify-end gap-3 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setShowPartnerModal(false)}
-                    className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-300 font-bold text-xs"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#FFC857] to-[#FF8A3D] hover:brightness-110 text-[#001428] font-black text-xs shadow-lg"
-                  >
-                    Submit Property Application
-                  </button>
-                </div>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
+      {/* Partner Registration Multi-Stakeholder Modal */}
+      <PartnerRegistrationModal
+        isOpen={showPartnerModal}
+        onClose={() => setShowPartnerModal(false)}
+      />
 
       {/* Footer */}
       <footer className="border-t border-white/10 bg-[#001020] py-8 px-4 sm:px-8 text-xs text-slate-400 mt-16">
@@ -2495,10 +2321,7 @@ export default function GuestApp() {
           <div className="flex items-center gap-6">
             <span className="text-slate-400">© 2026 StaySphere Hospitality & Transit Pvt. Ltd.</span>
             <button
-              onClick={() => {
-                setShowPartnerModal(true);
-                setPartnerSubmitted(false);
-              }}
+              onClick={() => setShowPartnerModal(true)}
               className="text-[#FFC857] font-bold hover:underline"
             >
               Partner Network
