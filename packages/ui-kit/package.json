@@ -1,0 +1,31 @@
+{
+  "name": "@staysphere/ui-kit",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "rimraf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@staysphere/config-typescript": "workspace:*",
+    "@types/react": "^19.0.10",
+    "react": "^19.0.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.3"
+  }
+}

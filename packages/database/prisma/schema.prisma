@@ -1,0 +1,505 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum UserRole {
+  GUEST
+  HOTEL_MANAGER
+  HOTEL_STAFF
+  TRAVEL_PARTNER
+  DRIVER
+  CHANNEL_PARTNER
+  RESOLUTION_AGENT
+  OPS_ADMIN
+  SUPER_ADMIN
+}
+
+enum PropertyCategory {
+  HOTEL
+  RESORT
+  SERVICED_APARTMENT
+  APARTMENT_RENTAL
+  VILLA
+  BOUTIQUE_STAY
+  HOMESTAY
+}
+
+enum BookingStatus {
+  PENDING_PAYMENT
+  CONFIRMED
+  CHECKED_IN
+  CHECKED_OUT
+  CANCELLED
+  REFUNDED
+  DISPUTED
+}
+
+enum TransitServiceType {
+  AIRPORT_TRANSFER
+  RAILWAY_TRANSFER
+  LOCAL_CITY_CAB
+  FULL_DAY_RENTAL
+  OUTSTATION
+}
+
+enum VehicleClass {
+  SEDAN
+  SUV
+  LUXURY_SEDAN
+  TEMPO_TRAVELLER
+  ELECTRIC_CAB
+}
+
+enum TripStatus {
+  REQUESTED
+  SEARCHING
+  PARTNER_ACCEPTED
+  DRIVER_ASSIGNED
+  DRIVER_EN_ROUTE
+  DRIVER_ARRIVED
+  TRIP_STARTED
+  TRIP_COMPLETED
+  CANCELLED
+  NO_SHOW
+  DISPUTED
+}
+
+enum ServiceCategory {
+  HOUSEKEEPING
+  ROOM_DINING
+  MAINTENANCE
+  SPA_WELLNESS
+  BELL_DESK
+  FRONT_DESK
+}
+
+enum ServiceRequestStatus {
+  PENDING
+  ACKNOWLEDGED
+  IN_PROGRESS
+  COMPLETED
+  REJECTED
+  ESCALATED
+}
+
+enum TicketCategory {
+  TRANSIT_NO_SHOW
+  TRANSIT_DELAY
+  ROOM_UNAVAILABLE
+  ROOM_HYGIENE
+  AMENITY_DEFECT
+  BILLING_DISPUTE
+  SAFETY_SECURITY
+  GENERAL_INQUIRY
+}
+
+enum TicketPriority {
+  P0_CRITICAL
+  P1_HIGH
+  P2_MEDIUM
+  P3_LOW
+}
+
+enum TicketStatus {
+  OPEN
+  TRIAGED
+  PARTNER_CONTACTED
+  IN_PROGRESS
+  RESOLUTION_PROPOSED
+  CUSTOMER_CONFIRMED
+  CLOSED
+  REOPENED
+  ESCALATED
+}
+
+enum PartnerType {
+  HOTEL_OPERATOR
+  TRAVEL_OPERATOR
+  CHANNEL_PARTNER
+}
+
+enum AccountType {
+  GATEWAY_ESCROW
+  GUEST_PAYABLE
+  HOTEL_LIABILITY
+  TRAVEL_LIABILITY
+  PLATFORM_REVENUE_STAY
+  PLATFORM_REVENUE_MOVE
+  DISPUTE_HOLD_ESCROW
+  REFUND_SETTLEMENT
+}
+
+enum EntryType {
+  DEBIT
+  CREDIT
+}
+
+model User {
+  id           String    @id @default(uuid()) @db.Uuid
+  email        String    @unique
+  passwordHash String
+  fullName     String
+  phone        String?
+  role         UserRole  @default(GUEST)
+  isActive     Boolean   @default(true)
+  isVerified   Boolean   @default(false)
+  avatarUrl    String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  partnerProfile       PartnerProfile?
+  driverProfile        Driver?
+  stayBookings         StayBooking[]
+  transitBookings      TransitBooking[]
+  createdTickets       Ticket[]           @relation("TicketCreator")
+  assignedTickets      Ticket[]           @relation("TicketAssignee")
+  serviceRequests      ServiceRequest[]   @relation("GuestServiceRequests")
+  assignedServiceTasks ServiceRequest[]   @relation("StaffAssignedRequests")
+
+  @@index([email])
+  @@index([role])
+}
+
+model PartnerProfile {
+  id                      String      @id @default(uuid()) @db.Uuid
+  userId                  String      @unique @db.Uuid
+  businessName            String
+  tradeName               String
+  partnerType             PartnerType
+  taxRegistrationNumber   String      // GSTIN / VAT
+  businessLicenseNumber   String
+  bankAccountNumber       String
+  bankIfscOrSwift         String
+  commissionRatePct       Decimal     @default(15.00) @db.Decimal(5, 2)
+  trustScore              Decimal     @default(100.00) @db.Decimal(5, 2)
+  isVerified              Boolean     @default(false)
+  isActive                Boolean     @default(true)
+  settlementFrequencyDays Int         @default(7)
+  createdAt               DateTime    @default(now())
+  updatedAt               DateTime    @updatedAt
+
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  properties Property[]
+  vehicles   Vehicle[]
+  drivers    Driver[]
+
+  @@index([partnerType, isActive])
+}
+
+model Property {
+  id             String           @id @default(uuid()) @db.Uuid
+  partnerId      String           @db.Uuid
+  name           String
+  slug           String           @unique
+  category       PropertyCategory @default(HOTEL)
+  description    String           @db.Text
+  starRating     Int?             @default(4)
+  trustScore     Decimal          @default(98.50) @db.Decimal(5, 2)
+  addressLine1   String
+  city           String
+  state          String
+  country        String           @default("India")
+  postalCode     String
+  latitude       Decimal          @db.Decimal(10, 7)
+  longitude      Decimal          @db.Decimal(10, 7)
+  featuredImages String[]
+  checkInTime    String           @default("14:00")
+  checkOutTime   String           @default("11:00")
+  isVerified     Boolean          @default(true)
+  isActive       Boolean          @default(true)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  partner         PartnerProfile   @relation(fields: [partnerId], references: [id], onDelete: Cascade)
+  roomTypes       RoomType[]
+  stayBookings    StayBooking[]
+  amenities       PropertyAmenity[]
+  serviceRequests ServiceRequest[]
+
+  @@index([city, category, isActive])
+  @@index([latitude, longitude])
+}
+
+model Amenity {
+  id         String            @id @default(uuid()) @db.Uuid
+  name       String            @unique
+  category   String            @default("GENERAL")
+  iconName   String            @default("check")
+  properties PropertyAmenity[]
+}
+
+model PropertyAmenity {
+  propertyId String   @db.Uuid
+  amenityId  String   @db.Uuid
+
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  amenity    Amenity  @relation(fields: [amenityId], references: [id], onDelete: Cascade)
+
+  @@id([propertyId, amenityId])
+}
+
+model RoomType {
+  id               String        @id @default(uuid()) @db.Uuid
+  propertyId       String        @db.Uuid
+  name             String
+  description      String        @db.Text
+  baseCapacity     Int           @default(2)
+  maxCapacity      Int           @default(3)
+  bedConfiguration String        @default("1 King Bed")
+  roomSizeSqFt     Int?          @default(320)
+  images           String[]
+  totalInventory   Int           @default(10)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  property     Property      @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  ratePlans    RatePlan[]
+  stayBookings StayBooking[]
+
+  @@index([propertyId])
+}
+
+model RatePlan {
+  id                     String        @id @default(uuid()) @db.Uuid
+  roomTypeId             String        @db.Uuid
+  name                   String
+  isBreakfastIncluded    Boolean       @default(false)
+  isFreeCancellation     Boolean       @default(true)
+  cancellationCutoffHours Int          @default(24)
+  baseNightlyRate        Decimal       @db.Decimal(10, 2)
+  currency               String        @default("INR")
+  createdAt              DateTime      @default(now())
+  updatedAt              DateTime      @updatedAt
+
+  roomType     RoomType      @relation(fields: [roomTypeId], references: [id], onDelete: Cascade)
+  stayBookings StayBooking[]
+
+  @@index([roomTypeId])
+}
+
+model StayBooking {
+  id                String        @id @default(uuid()) @db.Uuid
+  bookingReference  String        @unique
+  guestId           String        @db.Uuid
+  propertyId        String        @db.Uuid
+  roomTypeId        String        @db.Uuid
+  ratePlanId        String        @db.Uuid
+  checkInDate       DateTime      @db.Date
+  checkOutDate      DateTime      @db.Date
+  totalNights       Int
+  guestCount        Int
+  status            BookingStatus @default(CONFIRMED)
+  baseAmount        Decimal       @db.Decimal(10, 2)
+  taxAmount         Decimal       @db.Decimal(10, 2)
+  platformFeeAmount Decimal       @db.Decimal(10, 2)
+  totalAmount       Decimal       @db.Decimal(10, 2)
+  currency          String        @default("INR")
+  specialRequests   String?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  guest           User             @relation(fields: [guestId], references: [id])
+  property        Property         @relation(fields: [propertyId], references: [id])
+  roomType        RoomType         @relation(fields: [roomTypeId], references: [id])
+  ratePlan        RatePlan         @relation(fields: [ratePlanId], references: [id])
+  transitBookings TransitBooking[]
+  serviceRequests ServiceRequest[]
+  tickets         Ticket[]
+
+  @@index([guestId])
+  @@index([propertyId, status])
+  @@index([bookingReference])
+}
+
+model Vehicle {
+  id                 String       @id @default(uuid()) @db.Uuid
+  travelPartnerId    String       @db.Uuid
+  vehicleClass       VehicleClass @default(SEDAN)
+  make               String
+  model              String
+  year               Int
+  licensePlate       String       @unique
+  registrationNumber String       @unique
+  passengerCapacity  Int          @default(4)
+  luggageCapacity    Int          @default(2)
+  isInsured          Boolean      @default(true)
+  isVerified         Boolean      @default(true)
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+
+  partner         PartnerProfile   @relation(fields: [travelPartnerId], references: [id], onDelete: Cascade)
+  drivers         Driver[]
+  transitBookings TransitBooking[]
+
+  @@index([travelPartnerId, vehicleClass])
+}
+
+model Driver {
+  id                      String   @id @default(uuid()) @db.Uuid
+  userId                  String   @unique @db.Uuid
+  travelPartnerId         String   @db.Uuid
+  assignedVehicleId       String?  @db.Uuid
+  commercialLicenseNumber String   @unique
+  licenseExpiryDate       DateTime
+  currentLatitude         Decimal? @db.Decimal(10, 7)
+  currentLongitude        Decimal? @db.Decimal(10, 7)
+  isAvailable             Boolean  @default(true)
+  trustRating             Decimal  @default(4.9) @db.Decimal(3, 2)
+  totalTripsCompleted     Int      @default(0)
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  partner         PartnerProfile   @relation(fields: [travelPartnerId], references: [id], onDelete: Cascade)
+  vehicle         Vehicle?         @relation(fields: [assignedVehicleId], references: [id])
+  transitBookings TransitBooking[]
+
+  @@index([travelPartnerId, isAvailable])
+}
+
+model TransitBooking {
+  id                   String             @id @default(uuid()) @db.Uuid
+  bookingReference     String             @unique
+  guestId              String             @db.Uuid
+  stayBookingId        String?            @db.Uuid
+  serviceType          TransitServiceType @default(AIRPORT_TRANSFER)
+  vehicleClass         VehicleClass       @default(SEDAN)
+  pickupAddress        String
+  pickupLatitude       Decimal            @db.Decimal(10, 7)
+  pickupLongitude      Decimal            @db.Decimal(10, 7)
+  dropAddress          String
+  dropLatitude         Decimal            @db.Decimal(10, 7)
+  dropLongitude        Decimal            @db.Decimal(10, 7)
+  scheduledPickupTime  DateTime
+  flightNumber         String?
+  status               TripStatus         @default(REQUESTED)
+  driverId             String?            @db.Uuid
+  vehicleId            String?            @db.Uuid
+  baseFare             Decimal            @db.Decimal(10, 2)
+  taxAmount            Decimal            @db.Decimal(10, 2)
+  totalFare            Decimal            @db.Decimal(10, 2)
+  currency             String             @default("INR")
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  guest       User         @relation(fields: [guestId], references: [id])
+  stayBooking StayBooking? @relation(fields: [stayBookingId], references: [id])
+  driver      Driver?      @relation(fields: [driverId], references: [id])
+  vehicle     Vehicle?     @relation(fields: [vehicleId], references: [id])
+  tickets     Ticket[]
+
+  @@index([guestId])
+  @@index([driverId, status])
+  @@index([bookingReference])
+}
+
+model ServiceRequest {
+  id               String               @id @default(uuid()) @db.Uuid
+  stayBookingId    String               @db.Uuid
+  propertyId       String               @db.Uuid
+  guestId          String               @db.Uuid
+  roomNumber       String
+  category         ServiceCategory      @default(HOUSEKEEPING)
+  title            String
+  details          String               @db.Text
+  quantity         Int                  @default(1)
+  status           ServiceRequestStatus @default(PENDING)
+  slaTargetMinutes Int                  @default(20)
+  assignedStaffId  String?              @db.Uuid
+  requestedAt      DateTime             @default(now())
+  acknowledgedAt   DateTime?
+  completedAt      DateTime?
+
+  stayBooking   StayBooking @relation(fields: [stayBookingId], references: [id], onDelete: Cascade)
+  property      Property    @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  guest         User        @relation("GuestServiceRequests", fields: [guestId], references: [id])
+  assignedStaff User?       @relation("StaffAssignedRequests", fields: [assignedStaffId], references: [id])
+
+  @@index([propertyId, status])
+  @@index([stayBookingId])
+}
+
+model Ticket {
+  id                        String         @id @default(uuid()) @db.Uuid
+  ticketNumber              String         @unique
+  category                  TicketCategory
+  priority                  TicketPriority @default(P2_MEDIUM)
+  status                    TicketStatus   @default(OPEN)
+  subject                   String
+  description               String         @db.Text
+  creatorUserId             String         @db.Uuid
+  relatedStayBookingId      String?        @db.Uuid
+  relatedTransitBookingId   String?        @db.Uuid
+  assignedAgentId           String?        @db.Uuid
+  initialResponseSlaMinutes Int            @default(10)
+  resolutionTargetMinutes   Int            @default(60)
+  slaBreachDeadline         DateTime
+  isSlaBreached             Boolean        @default(false)
+  proposedResolution        String?        @db.Text
+  serviceRecoveryType       String?
+  serviceRecoveryAmount     Decimal?       @db.Decimal(10, 2)
+  createdAt                 DateTime       @default(now())
+  updatedAt                 DateTime       @updatedAt
+
+  creator        User             @relation("TicketCreator", fields: [creatorUserId], references: [id])
+  assignedAgent  User?            @relation("TicketAssignee", fields: [assignedAgentId], references: [id])
+  stayBooking    StayBooking?     @relation(fields: [relatedStayBookingId], references: [id])
+  transitBooking TransitBooking?  @relation(fields: [relatedTransitBookingId], references: [id])
+  evidence       TicketEvidence[]
+
+  @@index([status, priority])
+  @@index([creatorUserId])
+  @@index([ticketNumber])
+}
+
+model TicketEvidence {
+  id               String   @id @default(uuid()) @db.Uuid
+  ticketId         String   @db.Uuid
+  uploadedByUserId String   @db.Uuid
+  fileUrl          String
+  fileType         String   @default("IMAGE")
+  description      String?
+  createdAt        DateTime @default(now())
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  @@index([ticketId])
+}
+
+model FinancialTransaction {
+  id                   String        @id @default(uuid()) @db.Uuid
+  referenceType        String        // STAY_BOOKING, TRANSIT_BOOKING, REFUND
+  referenceId          String
+  totalAmount          Decimal       @db.Decimal(12, 2)
+  currency             String        @default("INR")
+  status               String        @default("SETTLED") // PENDING, SETTLED, HELD, REFUNDED
+  gatewayTransactionId String?
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+
+  entries LedgerEntry[]
+
+  @@index([referenceType, referenceId])
+}
+
+model LedgerEntry {
+  id            String      @id @default(uuid()) @db.Uuid
+  transactionId String      @db.Uuid
+  accountId     String
+  accountType   AccountType
+  entryType     EntryType
+  amount        Decimal     @db.Decimal(12, 2)
+  currency      String      @default("INR")
+  description   String
+  createdAt     DateTime    @default(now())
+
+  transaction FinancialTransaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+
+  @@index([transactionId])
+  @@index([accountId, accountType])
+}

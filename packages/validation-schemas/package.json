@@ -1,0 +1,22 @@
+{
+  "name": "@staysphere/validation-schemas",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "rimraf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@staysphere/config-typescript": "workspace:*",
+    "@staysphere/domain-types": "workspace:*",
+    "typescript": "^5.7.3",
+    "rimraf": "^6.0.1"
+  }
+}

@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Brand Primary Colors */
+  --color-deep-ocean: #0B3D91;
+  --color-teal: #00A9A5;
+  
+  /* Brand Accent Colors */
+  --color-sunset-orange: #FF8A3D;
+  --color-warm-yellow: #FFC857;
+  --color-nature-green: #3CCF91;
+  --color-sky-gray: #E9EEF3;
+
+  /* Typography / Core Messaging Colors */
+  --color-text-dark: #0B3D91;
+  --color-text-muted: #666666;
+  --color-bg-dark: #001A33;
+
+  /* Component & Icon Pillar Styles */
+  --color-stay: #0B3D91;
+  --color-move: #00A9A5;
+  --color-explore: #FF8A3D;
+  --color-support: #FFC857;
+  --color-together: #3CCF91;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: #001A33;
+  color: #FFFFFF;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--color-teal);
+  color: #FFFFFF;
+}
+
+.panel-card {
+  background-color: rgba(0, 34, 68, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
