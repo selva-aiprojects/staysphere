@@ -120,37 +120,39 @@ export function MyJourneyView({ onOpenResolve }: MyJourneyViewProps) {
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Sovereign Journey Master Header Card */}
-      <div className="p-6 md:p-8 rounded-3xl bg-gradient-to-r from-[#001E36] via-[#002B4D] to-[#001830] border border-[#00A9A5]/50 shadow-2xl space-y-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6">
-          <div className="space-y-1.5">
+      <div className="p-6 md:p-8 rounded-3xl glass-panel-luxury border border-[#E5B869]/40 shadow-2xl space-y-6 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(229,184,105,0.12),transparent_60%)] pointer-events-none" />
+        
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6">
+          <div className="space-y-2">
             <div className="flex items-center gap-2.5 flex-wrap">
-              <span className="px-3 py-1 rounded-full bg-[#00A9A5]/20 text-[#00D2C4] border border-[#00A9A5]/40 text-xs font-black uppercase tracking-wider flex items-center gap-1.5">
+              <span className="px-3.5 py-1 rounded-full bg-[#002B4D]/90 text-[#00D2C4] border border-[#00D2C4]/40 text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-[#00D2C4] animate-pulse" />
                 Live Orchestrated Journey
               </span>
-              <span className="font-mono text-xs text-slate-300 bg-black/40 px-2.5 py-1 rounded-lg border border-white/10">
+              <span className="font-mono text-xs text-[#F3CA7E] bg-[#020B18]/90 px-3 py-1 rounded-lg border border-[#E5B869]/30">
                 Ref: <strong>JN-SS-2026-9041</strong>
               </span>
-              <span className="px-2.5 py-1 rounded-lg bg-[#FFC857]/20 text-[#FFC857] text-xs font-bold">
+              <span className="px-3 py-1 rounded-lg bg-[#FFC857]/20 text-[#FFC857] text-xs font-bold border border-[#FFC857]/30">
                 Sovereign Platinum Guest
               </span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-serif-luxury font-bold text-white tracking-tight">
               Goa Clifftop Retreat & Coastal Transit
             </h1>
-            <p className="text-xs md:text-sm text-slate-300 flex items-center gap-2">
-              <span>Guest: <strong>Vikram Malhotra</strong></span>
+            <p className="text-xs md:text-sm text-slate-300 flex items-center gap-2 font-light">
+              <span>Guest: <strong className="text-white">Vikram Malhotra</strong></span>
               <span className="text-slate-500">•</span>
               <span>12 Sep – 15 Sep 2026 (3 Nights)</span>
               <span className="text-slate-500">•</span>
-              <span className="text-[#3CCF91] font-bold">Payment Custody Protected (₹1,30,500)</span>
+              <span className="text-[#10B981] font-bold">Payment Custody Protected (₹1,30,500)</span>
             </p>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="relative z-10 flex items-center gap-3 shrink-0">
             <button
               onClick={() => onOpenResolve('GENERAL_INQUIRY')}
-              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] hover:brightness-110 text-[#001428] text-xs font-black shadow-lg shadow-[#FF8A3D]/25 transition flex items-center gap-2 cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] via-[#FFC857] to-[#E5B869] hover:brightness-110 text-[#001428] text-xs font-black shadow-lg shadow-[#FF8A3D]/25 transition flex items-center gap-2 cursor-pointer"
             >
               <ShieldCheck className="w-4 h-4" />
               <span>Proactive Resolve (15-Min SLA)</span>
@@ -159,9 +161,9 @@ export function MyJourneyView({ onOpenResolve }: MyJourneyViewProps) {
         </div>
 
         {/* Live Journey Telemetry Ticker */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="p-4 rounded-2xl bg-[#001428]/80 border border-white/10 space-y-1">
-            <span className="text-[10px] uppercase font-bold text-slate-400 flex items-center gap-1.5">
+        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="p-4 rounded-2xl bg-[#020B18]/90 border border-white/10 space-y-1">
+            <span className="text-[10px] uppercase font-bold text-[#F3CA7E] flex items-center gap-1.5">
               <Plane className="w-3.5 h-3.5 text-[#00D2C4]" /> Flight Telemetry
             </span>
             <div className="text-xs font-black text-white">IndiGo 6E-204 (DEL → GOX)</div>
@@ -170,8 +172,8 @@ export function MyJourneyView({ onOpenResolve }: MyJourneyViewProps) {
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#001428]/80 border border-white/10 space-y-1">
-            <span className="text-[10px] uppercase font-bold text-slate-400 flex items-center gap-1.5">
+          <div className="p-4 rounded-2xl bg-[#020B18]/90 border border-white/10 space-y-1">
+            <span className="text-[10px] uppercase font-bold text-[#F3CA7E] flex items-center gap-1.5">
               <Car className="w-3.5 h-3.5 text-[#FF8A3D]" /> Chauffeur Transit
             </span>
             <div className="text-xs font-black text-white">Gurpreet Singh (Maybach S680)</div>
@@ -180,8 +182,8 @@ export function MyJourneyView({ onOpenResolve }: MyJourneyViewProps) {
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#001428]/80 border border-white/10 space-y-1">
-            <span className="text-[10px] uppercase font-bold text-slate-400 flex items-center gap-1.5">
+          <div className="p-4 rounded-2xl bg-[#020B18]/90 border border-white/10 space-y-1">
+            <span className="text-[10px] uppercase font-bold text-[#F3CA7E] flex items-center gap-1.5">
               <Hotel className="w-3.5 h-3.5 text-[#FFC857]" /> Suite Readiness
             </span>
             <div className="text-xs font-black text-white">Villa 101 • Private Pool Villa</div>
@@ -190,9 +192,9 @@ export function MyJourneyView({ onOpenResolve }: MyJourneyViewProps) {
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#001428]/80 border border-white/10 space-y-1">
-            <span className="text-[10px] uppercase font-bold text-slate-400 flex items-center gap-1.5">
-              <Lock className="w-3.5 h-3.5 text-[#3CCF91]" /> Escrow Protection
+          <div className="p-4 rounded-2xl bg-[#020B18]/90 border border-white/10 space-y-1">
+            <span className="text-[10px] uppercase font-bold text-[#F3CA7E] flex items-center gap-1.5">
+              <Lock className="w-3.5 h-3.5 text-[#10B981]" /> Escrow Protection
             </span>
             <div className="text-xs font-black text-white">₹1,30,500 Sovereign Vault</div>
             <div className="text-[11px] text-slate-300">
@@ -206,7 +208,7 @@ export function MyJourneyView({ onOpenResolve }: MyJourneyViewProps) {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column (7 cols): Connected Multi-Stage Journey Timeline */}
         <div className="lg:col-span-7 space-y-6">
-          <div className="bg-[#001E36] border border-white/10 rounded-3xl p-6 md:p-8 shadow-xl space-y-6">
+          <div className="glass-panel rounded-3xl p-6 md:p-8 shadow-xl space-y-6 border border-white/10">
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
               <div>
                 <h2 className="text-lg font-bold text-white flex items-center gap-2">

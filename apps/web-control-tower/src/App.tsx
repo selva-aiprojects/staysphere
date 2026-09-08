@@ -545,31 +545,33 @@ export default function OperationsControlTower() {
       )}
 
       {/* Top Application Switcher Bar */}
-      <div className="bg-[#000B17] border-b border-white/10 px-6 py-2 text-xs flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2 text-slate-300">
-          <span className="w-2 h-2 rounded-full bg-[#00A9A5] animate-pulse" />
-          <span>StaySphere Operational Control: <strong className="text-white">Unified Partner & Journey Operations Network</strong></span>
+      <div className="bg-[#020B18] border-b border-white/10 px-6 py-2.5 text-xs flex flex-wrap items-center justify-between gap-3 shadow-md">
+        <div className="flex items-center gap-2.5 text-slate-300">
+          <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
+          <span className="font-mono-telemetry text-[11px] text-[#10B981] font-bold">● 99.98% UPTIME</span>
+          <span className="text-slate-500">•</span>
+          <span>StaySphere Sovereign Control Tower: <strong className="text-white font-medium">Orchestrated Multi-Stakeholder Matrix</strong></span>
         </div>
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsCollabTicketsModalOpen(true)}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#002B4D] border border-[#3CCF91]/40 text-[#3CCF91] font-bold hover:brightness-110 text-xs cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#002B4D]/80 border border-[#10B981]/40 text-[#10B981] font-bold hover:brightness-110 text-xs cursor-pointer shadow-sm"
           >
             <MessageSquare className="w-3.5 h-3.5" />
-            <span>Partner Support & Growth Tickets ({collaborativeTickets.filter(t => t.status !== 'RESOLVED').length} Active)</span>
+            <span>Support & Triage ({collaborativeTickets.filter(t => t.status !== 'RESOLVED').length} Active)</span>
           </button>
           <button
             onClick={() => setIsAuthModalOpen(true)}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#002B4D] border border-[#00A9A5]/40 text-[#00D2C4] font-bold hover:brightness-110 text-xs cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#002B4D]/80 border border-[#00D2C4]/40 text-[#00D2C4] font-bold hover:brightness-110 text-xs cursor-pointer shadow-sm"
           >
             <UserCheck className="w-3.5 h-3.5" />
-            <span>Switch Role / Login</span>
+            <span>Switch Persona</span>
           </button>
           <a
             href={typeof window !== 'undefined' ? (window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://staysphere-guest.vercel.app') : 'https://staysphere-guest.vercel.app'}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] text-[#001428] font-black text-xs hover:brightness-110 shadow-sm"
+            className="flex items-center gap-1.5 px-3.5 py-1 rounded-lg bg-gradient-to-r from-[#FF8A3D] via-[#FFC857] to-[#E5B869] text-[#001428] font-black text-xs hover:brightness-110 shadow-md transition"
           >
             <Hotel className="w-3.5 h-3.5" />
             <span>Guest Experience Portal ↗</span>
@@ -578,25 +580,25 @@ export default function OperationsControlTower() {
       </div>
 
       {/* Operations Master Header */}
-      <header className="h-20 border-b border-white/10 bg-[#001020]/90 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-40">
+      <header className="h-20 border-b border-white/10 bg-[#030D1A]/95 backdrop-blur-xl px-6 flex items-center justify-between sticky top-0 z-40 shadow-xl">
         <div className="flex items-center gap-4">
           <HorizontalLogo size="md" variant="dark" />
-          <span className="text-[11px] px-3 py-1 rounded-full bg-[#00A9A5]/10 text-[#00D2C4] border border-[#00A9A5]/30 font-bold uppercase tracking-wider hidden sm:inline-block">
-            Collaborative Ecosystem v3.4
+          <span className="text-[10px] px-3 py-1 rounded-full bg-[#00A9A5]/15 text-[#00D2C4] border border-[#00A9A5]/40 font-mono-telemetry font-bold uppercase tracking-wider hidden sm:inline-block">
+            ENTERPRISE CONTROL MATRIX v3.5
           </span>
         </div>
 
         {/* Global Navigation Bar */}
-        <nav className="flex items-center gap-1 p-1 rounded-2xl bg-[#000E1C] border border-white/10 text-xs font-bold overflow-x-auto no-scrollbar">
+        <nav className="flex items-center gap-1 p-1 rounded-2xl bg-[#020B18] border border-white/10 text-xs font-bold overflow-x-auto no-scrollbar shadow-inner">
           <button
             onClick={() => setActiveWorkflow('journeys')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
               activeWorkflow === 'journeys'
-                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-gradient-to-r from-[#0B3D91] via-[#002B4D] to-[#00A9A5] text-white shadow-lg border border-[#00D2C4]/40'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Compass className="w-3.5 h-3.5 text-[#00D2C4]" /> 1. Active Journeys
+            <Compass className="w-3.5 h-3.5 text-[#00D2C4]" /> 1. Live Journeys
           </button>
 
           <button
