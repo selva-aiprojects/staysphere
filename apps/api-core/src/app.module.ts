@@ -7,6 +7,7 @@ import { MyStayModule } from './modules/my-stay/my-stay.module';
 import { ResolutionModule } from './modules/resolution/resolution.module';
 import { FinanceModule } from './modules/finance/finance.module';
 import { EmailModule } from './modules/email/email.module';
+import { JourneyModule } from './modules/journey/journey.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { EmailModule } from './modules/email/email.module';
     ResolutionModule,
     FinanceModule,
     EmailModule,
+    JourneyModule,
   ],
 })
 export class AppModule {}

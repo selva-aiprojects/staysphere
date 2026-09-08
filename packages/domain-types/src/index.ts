@@ -5,4 +5,5 @@ export * from './my-stay';
 export * from './resolution';
 export * from './finance';
 export * from './partner';
+export * from './journey';
 

@@ -31,7 +31,9 @@ import {
 import { PartnerApiConsole } from './components/PartnerApiConsole';
 import { EmployeeDirectory } from './components/EmployeeDirectory';
 import { EmailCommunicationsCenter } from './components/EmailCommunicationsCenter';
-import { Mail, UserPlus } from 'lucide-react';
+import { JourneyCentricDashboard } from './components/JourneyCentricDashboard';
+import { SlaResolutionMonitoring } from './components/SlaResolutionMonitoring';
+import { Mail, UserPlus, Compass, ShieldAlert } from 'lucide-react';
 
 // Persona / Role Types
 export type PlatformRole =
@@ -434,17 +436,18 @@ export default function OperationsControlTower() {
   const [currentUser, setCurrentUser] = useState<UserSession | null>(DEMO_ACCOUNTS.RELATIONSHIP_MANAGER);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
   const [activeWorkflow, setActiveWorkflow] = useState<
+    | 'journeys'
     | 'partners'
     | 'rm'
     | 'frontdesk'
     | 'travel-desk'
     | 'channel-partners'
     | 'payments'
-    | 'resolution'
+    | 'sla-incidents'
     | 'api-docs'
     | 'employees'
     | 'emails'
-  >('partners');
+  >('journeys');
 
   // Workflows Datasets
   const [hotels, setHotels] = useState<HotelPartnerRecord[]>(INITIAL_HOTELS);
@@ -472,12 +475,12 @@ export default function OperationsControlTower() {
 
     // Automatically navigate to appropriate primary tab
     if (role === 'PROPERTY_PARTNER') setActiveWorkflow('partners');
-    else if (role === 'RELATIONSHIP_MANAGER') setActiveWorkflow('rm');
+    else if (role === 'RELATIONSHIP_MANAGER') setActiveWorkflow('journeys');
     else if (role === 'FRONTDESK') setActiveWorkflow('frontdesk');
     else if (role === 'TRAVEL_DESK_LEAD') setActiveWorkflow('travel-desk');
     else if (role === 'CHANNEL_PARTNER_LEAD') setActiveWorkflow('channel-partners');
     else if (role === 'FINANCE_PAYMENTS') setActiveWorkflow('payments');
-    else setActiveWorkflow('resolution');
+    else setActiveWorkflow('journeys');
 
     showToast(`Logged in as ${account.name} (${account.role})`);
   };
@@ -582,36 +585,14 @@ export default function OperationsControlTower() {
         {/* Global Navigation Bar */}
         <nav className="flex items-center gap-1 p-1 rounded-2xl bg-[#000E1C] border border-white/10 text-xs font-bold overflow-x-auto no-scrollbar">
           <button
-            onClick={() => setActiveWorkflow('partners')}
+            onClick={() => setActiveWorkflow('journeys')}
             className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
-              activeWorkflow === 'partners'
+              activeWorkflow === 'journeys'
                 ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <Building2 className="w-3.5 h-3.5 text-[#00D2C4]" /> 1. Property Partners
-          </button>
-
-          <button
-            onClick={() => setActiveWorkflow('travel-desk')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
-              activeWorkflow === 'travel-desk'
-                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Car className="w-3.5 h-3.5 text-amber-400" /> 2. Travel Desk
-          </button>
-
-          <button
-            onClick={() => setActiveWorkflow('channel-partners')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
-              activeWorkflow === 'channel-partners'
-                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Users className="w-3.5 h-3.5 text-[#3CCF91]" /> 3. Channel Partners
+            <Compass className="w-3.5 h-3.5 text-[#00D2C4]" /> 1. Active Journeys
           </button>
 
           <button
@@ -622,7 +603,51 @@ export default function OperationsControlTower() {
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <KeyRound className="w-3.5 h-3.5 text-[#FFC857]" /> 4. Frontdesk
+            <KeyRound className="w-3.5 h-3.5 text-[#FFC857]" /> 2. Stay Bookings
+          </button>
+
+          <button
+            onClick={() => setActiveWorkflow('travel-desk')}
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              activeWorkflow === 'travel-desk'
+                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Car className="w-3.5 h-3.5 text-amber-400" /> 3. Trip Monitoring
+          </button>
+
+          <button
+            onClick={() => setActiveWorkflow('sla-incidents')}
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              activeWorkflow === 'sla-incidents'
+                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <ShieldAlert className="w-3.5 h-3.5 text-rose-400" /> 4. SLA & Incidents
+          </button>
+
+          <button
+            onClick={() => setActiveWorkflow('partners')}
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              activeWorkflow === 'partners'
+                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Building2 className="w-3.5 h-3.5 text-[#00D2C4]" /> 5. Partner Health
+          </button>
+
+          <button
+            onClick={() => setActiveWorkflow('channel-partners')}
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              activeWorkflow === 'channel-partners'
+                ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Users className="w-3.5 h-3.5 text-[#3CCF91]" /> 6. Channel Partners
           </button>
 
           <button
@@ -633,7 +658,7 @@ export default function OperationsControlTower() {
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <Receipt className="w-3.5 h-3.5 text-[#3CCF91]" /> 5. Escrow & Receipts
+            <Receipt className="w-3.5 h-3.5 text-[#3CCF91]" /> 7. Escrow & Receipts
           </button>
 
           <button
@@ -644,7 +669,7 @@ export default function OperationsControlTower() {
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" /> 6. RM Governance
+            <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" /> 8. RM Governance
           </button>
 
           <button
@@ -655,7 +680,7 @@ export default function OperationsControlTower() {
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <Code className="w-3.5 h-3.5 text-cyan-300" /> 7. Partner APIs
+            <Code className="w-3.5 h-3.5 text-cyan-300" /> 9. Partner APIs
           </button>
 
           <button
@@ -666,7 +691,7 @@ export default function OperationsControlTower() {
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <UserPlus className="w-3.5 h-3.5 text-[#3CCF91]" /> 8. Employees
+            <UserPlus className="w-3.5 h-3.5 text-[#3CCF91]" /> 10. Employees
           </button>
 
           <button
@@ -677,7 +702,7 @@ export default function OperationsControlTower() {
                 : 'text-slate-400 hover:text-white'
             }`}
           >
-            <Mail className="w-3.5 h-3.5 text-[#FFC857]" /> 9. Email Hub
+            <Mail className="w-3.5 h-3.5 text-[#FFC857]" /> 11. Email Hub
           </button>
         </nav>
 
@@ -722,7 +747,19 @@ export default function OperationsControlTower() {
           </div>
         )}
 
-        {/* WORKSPACE 1: PROPERTY PARTNERS */}
+        {/* WORKSPACE 1: ACTIVE JOURNEYS */}
+        {activeWorkflow === 'journeys' && (
+          <JourneyCentricDashboard
+            onOpenResolveDesk={() => setActiveWorkflow('sla-incidents')}
+          />
+        )}
+
+        {/* WORKSPACE: SLA & INCIDENTS */}
+        {activeWorkflow === 'sla-incidents' && (
+          <SlaResolutionMonitoring />
+        )}
+
+        {/* WORKSPACE 2: PROPERTY PARTNERS */}
         {activeWorkflow === 'partners' && (
           <PropertyPartnersWorkflow
             onOpenTicketsModal={() => setIsCollabTicketsModalOpen(true)}

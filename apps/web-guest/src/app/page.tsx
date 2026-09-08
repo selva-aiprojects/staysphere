@@ -50,6 +50,8 @@ import {
 } from 'lucide-react';
 import { HorizontalLogo, LogoOnDark, StackedLogo, AppIcon, EmblemImageLogo } from '@staysphere/ui-kit';
 import { PartnerRegistrationModal } from '../components/PartnerRegistrationModal';
+import { MyJourneyView } from '../components/MyJourneyView';
+import { ProactiveResolveSentinel } from '../components/ProactiveResolveSentinel';
 
 interface VillaCategory {
   name: string;
@@ -463,7 +465,9 @@ const PROPERTIES: LuxuryEstate[] = [
 ];
 
 export default function GuestApp() {
-  const [activeTab, setActiveTab] = useState<'landing' | 'explore' | 'mystay' | 'booking' | 'dashboard'>('landing');
+  const [activeTab, setActiveTab] = useState<'landing' | 'explore' | 'booking' | 'myjourney' | 'resolve'>('landing');
+  const [showResolveModal, setShowResolveModal] = useState<boolean>(false);
+  const [resolveCategory, setResolveCategory] = useState<string>('GENERAL_INQUIRY');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchDestination, setSearchDestination] = useState<string>('Goa');
   const [searchPropertyType, setSearchPropertyType] = useState<string>('all');
@@ -545,7 +549,7 @@ export default function GuestApp() {
   const totalBill = subtotalAfterDiscount + luxuryTaxes;
 
   const navigateToTab = (
-    tab: 'landing' | 'explore' | 'mystay' | 'booking' | 'dashboard',
+    tab: 'landing' | 'explore' | 'booking' | 'myjourney' | 'resolve',
     step: 1 | 2 | 3 = 1,
     estate?: LuxuryEstate
   ) => {
@@ -692,7 +696,7 @@ export default function GuestApp() {
                 }`}
               >
                 <Hotel className="w-3.5 h-3.5 text-[#00D2C4]" />
-                <span>1. Hotels, Resorts & Villas</span>
+                <span>1. Stays & Itineraries</span>
               </button>
 
               <button
@@ -705,33 +709,32 @@ export default function GuestApp() {
                 }`}
               >
                 <Car className="w-3.5 h-3.5 text-[#FF8A3D]" />
-                <span>2. Book Stay, Cab & Tours</span>
+                <span>2. Book Unified Journey</span>
               </button>
 
               <button
                 type="button"
-                onClick={() => navigateToTab('mystay')}
+                onClick={() => navigateToTab('myjourney')}
                 className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
-                  activeTab === 'mystay'
-                    ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                    : 'text-slate-300 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                <Crown className="w-3.5 h-3.5 text-[#FFC857]" />
-                <span>3. 24/7 Butler Desk</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => navigateToTab('dashboard')}
-                className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
-                  activeTab === 'dashboard'
+                  activeTab === 'myjourney'
                     ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
                     : 'text-slate-300 hover:text-white hover:bg-white/5'
                 }`}
               >
                 <Navigation className="w-3.5 h-3.5 text-[#3CCF91]" />
-                <span>4. Journey Radar</span>
+                <span>3. My Journey (Live Timeline)</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setResolveCategory('GENERAL_INQUIRY');
+                  setShowResolveModal(true);
+                }}
+                className="px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer bg-[#FF8A3D]/15 hover:bg-[#FF8A3D]/25 border border-[#FF8A3D]/40 text-[#FFC857]"
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-[#FF8A3D]" />
+                <span>4. Resolve (15-Min SLA)</span>
               </button>
             </nav>
           </div>
@@ -956,7 +959,7 @@ export default function GuestApp() {
 
                 {/* Step 4 */}
                 <div
-                  onClick={() => navigateToTab('dashboard')}
+                  onClick={() => navigateToTab('myjourney')}
                   className="p-5 rounded-2xl glass-panel border border-white/10 hover:border-[#3CCF91] hover:bg-[#002B4D]/40 transition-all cursor-pointer space-y-3 group"
                 >
                   <div className="w-10 h-10 rounded-xl bg-[#3CCF91]/20 text-[#3CCF91] flex items-center justify-center font-black group-hover:scale-110 transition-transform">
@@ -1844,18 +1847,21 @@ export default function GuestApp() {
 
                     <div className="flex flex-wrap justify-center gap-4 pt-4">
                       <button
-                        onClick={() => setActiveTab('dashboard')}
-                        className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white font-black text-xs shadow-lg shadow-[#00A9A5]/30 flex items-center gap-2"
+                        onClick={() => setActiveTab('myjourney')}
+                        className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white font-black text-xs shadow-lg shadow-[#00A9A5]/30 flex items-center gap-2 hover:brightness-110 transition-all"
                       >
                         <Navigation className="w-4 h-4" />
-                        <span>Track Live Ride, Key & Sightseeing Radar</span>
+                        <span>Launch Live Journey Radar & Timeline</span>
                       </button>
                       <button
-                        onClick={() => setActiveTab('mystay')}
+                        onClick={() => {
+                          setResolveCategory('PRE_ARRIVAL');
+                          setShowResolveModal(true);
+                        }}
                         className="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs border border-white/20 flex items-center gap-2"
                       >
-                        <Crown className="w-4 h-4 text-[#FFC857]" />
-                        <span>Open 24/7 Hotel & Butler Desk</span>
+                        <ShieldCheck className="w-4 h-4 text-[#3CCF91]" />
+                        <span>Proactive Resolve Sentinel (15m SLA)</span>
                       </button>
                     </div>
                   </div>
@@ -1866,442 +1872,25 @@ export default function GuestApp() {
         )}
 
         {/* ========================================================================= */}
-        {/* TAB 4: 24/7 HOTEL & BUTLER DESK (IN-ROOM SERVICES)                        */}
+        {/* TAB 4: MY JOURNEY (SYNCHRONIZED TIMELINE & PROACTIVE RESOLVE SENTINEL)   */}
         {/* ========================================================================= */}
-        {activeTab === 'mystay' && (
-          <div className="space-y-8">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
-              <div>
-                <span className="text-xs font-bold text-[#FFC857] uppercase tracking-widest flex items-center gap-1">
-                  <Crown className="w-3.5 h-3.5" /> 24/7 In-Stay Concierge
-                </span>
-                <h1 className="text-3xl font-black text-white mt-1">24/7 Hotel & Butler Desk</h1>
-                <p className="text-xs text-slate-300 mt-1">
-                  Direct instant chat with your personal butler Chef Raghav, in-room dining, climate controls, and extra excursions.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <span className="text-xs px-3 py-1.5 rounded-xl bg-[#3CCF91]/20 text-[#3CCF91] font-bold border border-[#3CCF91]/30 flex items-center gap-1">
-                  <Sparkles className="w-3.5 h-3.5" /> Butler On Duty (Avg Reply: 45s)
-                </span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Chat with Personal Butler */}
-              <div className="lg:col-span-2 glass-panel rounded-3xl border border-white/10 p-6 flex flex-col h-[520px] justify-between">
-                <div className="flex items-center justify-between pb-4 border-b border-white/10">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#FFC857] to-[#FF8A3D] text-[#001428] font-black flex items-center justify-center text-sm shadow-md">
-                      CR
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-white text-sm">Chef Raghav (Executive Butler)</h3>
-                      <p className="text-[11px] text-[#3CCF91] font-semibold">● Active at Suite 101 Horizon Grand</p>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => alert('Connecting to Suite 101 Direct Intercom...')}
-                    className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-bold text-slate-200 flex items-center gap-1.5"
-                  >
-                    <PhoneCall className="w-3.5 h-3.5 text-[#3CCF91]" />
-                    <span>Call Butler</span>
-                  </button>
-                </div>
-
-                {/* Messages Feed */}
-                <div className="flex-1 overflow-y-auto space-y-3 py-4 pr-2">
-                  {butlerMessages.map((msg, idx) => (
-                    <div
-                      key={idx}
-                      className={`flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}
-                    >
-                      <div
-                        className={`max-w-md p-3.5 rounded-2xl text-xs leading-relaxed ${
-                          msg.sender === 'user'
-                            ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white rounded-br-none'
-                            : 'bg-[#001020] border border-white/10 text-slate-200 rounded-bl-none shadow-md'
-                        }`}
-                      >
-                        {msg.text}
-                      </div>
-                      <span className="text-[10px] text-slate-400 mt-1 px-1">{msg.time}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Chat Form */}
-                <form onSubmit={handleSendMessage} className="pt-3 border-t border-white/10 flex gap-2">
-                  <input
-                    type="text"
-                    placeholder="Ask for extra pillows, champagne bucket, spa booking..."
-                    value={chatInput}
-                    onChange={(e) => setChatInput(e.target.value)}
-                    className="flex-1 p-3 rounded-xl bg-[#001020] border border-white/10 text-white text-xs outline-none focus:border-[#00A9A5]"
-                  />
-                  <button
-                    type="submit"
-                    className="px-5 py-3 rounded-xl bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] text-[#001428] font-black text-xs shadow-md flex items-center gap-1.5 shrink-0"
-                  >
-                    <Send className="w-4 h-4" />
-                    <span>Send</span>
-                  </button>
-                </form>
-              </div>
-
-              {/* Suite Smart Controls & Quick Dining */}
-              <div className="space-y-6">
-                {/* Suite Controls */}
-                <div className="glass-panel rounded-3xl border border-white/10 p-6 space-y-4">
-                  <span className="text-xs font-bold text-[#00D2C4] uppercase">Suite 101 Smart Controls</span>
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-slate-300">Room Climate</span>
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => setRoomTemp((t) => t - 1)}
-                          className="w-7 h-7 rounded-lg bg-white/10 text-white font-bold flex items-center justify-center hover:bg-white/20"
-                        >
-                          -
-                        </button>
-                        <span className="text-sm font-black text-white">{roomTemp}°C</span>
-                        <button
-                          onClick={() => setRoomTemp((t) => t + 1)}
-                          className="w-7 h-7 rounded-lg bg-white/10 text-white font-bold flex items-center justify-center hover:bg-white/20"
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between pt-2 border-t border-white/10">
-                      <span className="text-xs text-slate-300">Ambience Mood</span>
-                      <div className="flex gap-1.5">
-                        {(['Relax', 'Romantic', 'Night'] as const).map((mode) => (
-                          <button
-                            key={mode}
-                            onClick={() => setLightsMode(mode)}
-                            className={`px-2.5 py-1 rounded-lg text-[10px] font-bold ${
-                              lightsMode === mode ? 'bg-[#FF8A3D] text-[#001428]' : 'bg-white/5 text-slate-300'
-                            }`}
-                          >
-                            {mode}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* In-Room Gourmet Dining */}
-                <div className="glass-panel rounded-3xl border border-white/10 p-6 space-y-3">
-                  <span className="text-xs font-bold text-[#FFC857] uppercase">24/7 Chef Dining Menu</span>
-                  <div className="space-y-2">
-                    {[
-                      { name: 'Butter Garlic Tiger Prawns with Poi', price: 1450 },
-                      { name: 'Royal Mewari Laal Maas & Naan', price: 1250 },
-                      { name: 'Truffle Mushroom Risotto', price: 1100 },
-                      { name: 'Moët & Chandon Brut Imperial (750ml)', price: 9500 },
-                    ].map((item) => (
-                      <div
-                        key={item.name}
-                        onClick={() => handleOrderDining(item.name)}
-                        className="p-2.5 rounded-xl bg-[#001020] border border-white/5 hover:border-[#FFC857]/40 cursor-pointer flex items-center justify-between text-xs transition-colors"
-                      >
-                        <div>
-                          <span className="font-bold text-white block">{item.name}</span>
-                          <span className="text-[10px] text-[#3CCF91]">Chef Signature</span>
-                        </div>
-                        <div className="text-right">
-                          <span className="text-[#00D2C4] font-black">₹{item.price.toLocaleString()}</span>
-                          <span className="text-[10px] text-[#FF8A3D] font-bold block">+ Order</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ========================================================================= */}
-        {/* TAB 5: LIVE RADAR (AIRPORT CAB, DIGITAL KEY, SIGHTSEEING, AIRPORT DROP)    */}
-        {/* ========================================================================= */}
-        {activeTab === 'dashboard' && (
-          <div className="space-y-8">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
-              <div>
-                <span className="text-xs font-bold text-[#3CCF91] uppercase tracking-widest flex items-center gap-1">
-                  <Navigation className="w-3.5 h-3.5" /> Full Journey Tracking Radar
-                </span>
-                <h1 className="text-3xl font-black text-white mt-1">Live Ride, Key & Tour Radar</h1>
-                <p className="text-xs text-slate-300 mt-1">
-                  End-to-end active tracking connecting your incoming flight, Maybach chauffeur cab, hotel room digital key, sightseeing tour, and airport drop.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <span className="text-xs px-3 py-1.5 rounded-xl bg-[#3CCF91]/20 text-[#3CCF91] font-bold border border-[#3CCF91]/30 flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> All 4 Legs Active & Synced
-                </span>
-              </div>
-            </div>
-
-            {/* 4-Stage Interactive Journey Timeline Switcher */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {[
-                { leg: 'pickup', title: '1. Airport Pickup', icon: Plane, color: 'text-[#00D2C4]', status: 'Arriving in 18 mins' },
-                { leg: 'stay', title: '2. Hotel NFC Key', icon: KeyRound, color: 'text-[#FFC857]', status: 'Armed & Ready' },
-                { leg: 'sightseeing', title: '3. Sightseeing Tour', icon: Compass, color: 'text-[#FF8A3D]', status: 'Scheduled 4:00 PM' },
-                { leg: 'drop', title: '4. Airport Drop', icon: Luggage, color: 'text-[#3CCF91]', status: 'Synced with AI-678' },
-              ].map((item) => (
-                <div
-                  key={item.leg}
-                  onClick={() => setActiveRadarLeg(item.leg as any)}
-                  className={`p-4 rounded-2xl border cursor-pointer transition-all space-y-1 ${
-                    activeRadarLeg === item.leg
-                      ? 'bg-[#002B4D] border-[#00A9A5] shadow-lg shadow-[#00A9A5]/20'
-                      : 'bg-[#001020] border-white/10 hover:border-white/20'
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <item.icon className={`w-4 h-4 ${item.color}`} />
-                    <span className="text-[10px] text-slate-400 font-bold">{item.status}</span>
-                  </div>
-                  <h4 className="font-bold text-xs text-white">{item.title}</h4>
-                </div>
-              ))}
-            </div>
-
-            {/* Active Radar Detail Panel */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Card 1: Primary Radar Display depending on activeRadarLeg */}
-              <div className="lg:col-span-2 p-6 sm:p-8 rounded-3xl glass-panel border border-white/10 space-y-6">
-                {activeRadarLeg === 'pickup' && (
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between pb-4 border-b border-white/10">
-                      <div>
-                        <span className="text-xs font-bold text-[#00D2C4] uppercase tracking-wider">
-                          Leg 1: Airport Arrival Chauffeur
-                        </span>
-                        <h3 className="text-2xl font-black text-white mt-0.5">Mercedes-Maybach S680</h3>
-                        <p className="text-xs text-slate-300">Vehicle No: GA-01-LUX-9988 • Chauffeur: Arjun Shekhawat</p>
-                      </div>
-                      <Car className="w-8 h-8 text-[#00D2C4]" />
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                      <div className="p-4 rounded-2xl bg-[#001020] border border-white/10 space-y-2">
-                        <span className="text-[11px] font-bold text-slate-400 uppercase">Incoming Flight Tracking</span>
-                        <div className="flex justify-between"><span className="text-slate-400">Flight No:</span> <strong className="text-white font-mono">{arrivalFlightNumber}</strong></div>
-                        <div className="flex justify-between"><span className="text-slate-400">Arrival Gate:</span> <strong className="text-white">VIP Terminal Gate 3</strong></div>
-                        <div className="flex justify-between"><span className="text-slate-400">Flight Status:</span> <strong className="text-[#3CCF91]">Landed On-Time</strong></div>
-                      </div>
-
-                      <div className="p-4 rounded-2xl bg-[#001020] border border-white/10 space-y-2">
-                        <span className="text-[11px] font-bold text-slate-400 uppercase">Chauffeur Status</span>
-                        <div className="flex justify-between"><span className="text-slate-400">Chauffeur:</span> <strong className="text-white">Arjun (VIP Certified)</strong></div>
-                        <div className="flex justify-between"><span className="text-slate-400">Current Position:</span> <strong className="text-white">Airport VIP Bay A</strong></div>
-                        <div className="flex justify-between"><span className="text-slate-400">ETA to Hotel:</span> <strong className="text-[#00D2C4] font-black text-sm">18 Minutes</strong></div>
-                      </div>
-                    </div>
-
-                    <div className="p-4 rounded-2xl bg-[#002244]/60 border border-[#00A9A5]/40 flex items-center justify-between">
-                      <span className="text-xs text-slate-200">
-                        Chauffeur is waiting at Arrival Gate 3 with digital name board & chilled refreshments.
-                      </span>
-                      <button
-                        onClick={() => alert('Calling Chauffeur Arjun Shekhawat on secure relay: +91 98220 01122')}
-                        className="px-4 py-2 rounded-xl bg-[#3CCF91] text-[#001428] font-bold text-xs shadow-md flex items-center gap-1.5"
-                      >
-                        <PhoneCall className="w-3.5 h-3.5" />
-                        <span>Call Driver</span>
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {activeRadarLeg === 'stay' && (
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between pb-4 border-b border-white/10">
-                      <div>
-                        <span className="text-xs font-bold text-[#FFC857] uppercase tracking-wider">
-                          Leg 2: Hotel & In-Room Digital Access
-                        </span>
-                        <h3 className="text-2xl font-black text-white mt-0.5">Suite 101 Horizon Grand</h3>
-                        <p className="text-xs text-slate-300">{selectedEstate?.name || 'The Grand Vagator Bay Resort'}</p>
-                      </div>
-                      <KeyRound className="w-8 h-8 text-[#FFC857]" />
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                      <div className="p-4 rounded-2xl bg-[#001020] border border-white/10 space-y-2">
-                        <span className="text-[11px] font-bold text-slate-400 uppercase">Room Environment</span>
-                        <div className="flex justify-between"><span className="text-slate-400">Preset Temp:</span> <strong className="text-[#00D2C4]">{roomTemp}°C (Cool & Fresh)</strong></div>
-                        <div className="flex justify-between"><span className="text-slate-400">High-Speed Wi-Fi:</span> <strong className="text-white font-mono">StaySphere_VIP_5G</strong></div>
-                        <div className="flex justify-between"><span className="text-slate-400">Check-in Status:</span> <strong className="text-[#3CCF91]">Pre-Registered Express</strong></div>
-                      </div>
-
-                      <div className="p-4 rounded-2xl bg-[#001020] border border-white/10 space-y-2">
-                        <span className="text-[11px] font-bold text-slate-400 uppercase">Concierge Butler</span>
-                        <div className="flex justify-between"><span className="text-slate-400">Assigned Butler:</span> <strong className="text-white">Chef Raghav</strong></div>
-                        <div className="flex justify-between"><span className="text-slate-400">Welcome Champagne:</span> <strong className="text-[#FFC857]">Chilled in Suite</strong></div>
-                        <div className="flex justify-between"><span className="text-slate-400">Luggage Transfer:</span> <strong className="text-[#3CCF91]">Direct to Suite</strong></div>
-                      </div>
-                    </div>
-
-                    <button
-                      onClick={() => alert('NFC Proximity Signal Emitted: Suite 101 Door Unlocked!')}
-                      className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#FFC857] to-[#FF8A3D] text-[#001428] font-black text-xs shadow-lg flex items-center justify-center gap-2"
-                    >
-                      <Zap className="w-4 h-4" />
-                      <span>Tap to Test Proximity Door Unlock</span>
-                    </button>
-                  </div>
-                )}
-
-                {activeRadarLeg === 'sightseeing' && (
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between pb-4 border-b border-white/10">
-                      <div>
-                        <span className="text-xs font-bold text-[#FF8A3D] uppercase tracking-wider">
-                          Leg 3: Scheduled Local Sightseeing Day Tour
-                        </span>
-                        <h3 className="text-2xl font-black text-white mt-0.5">
-                          {selectedSightseeingIds.length > 0
-                            ? SIGHTSEEING_CATALOG.find((t) => t.id === selectedSightseeingIds[0])?.name
-                            : 'Private Sunset Speedboat Cruise & Beach Tour'}
-                        </h3>
-                        <p className="text-xs text-slate-300">
-                          Pickup from Hotel Porch • Dedicated Tour Chauffeur & Licensed Guide
-                        </p>
-                      </div>
-                      <Compass className="w-8 h-8 text-[#FF8A3D]" />
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                      <div className="p-4 rounded-2xl bg-[#001020] border border-white/10 space-y-2">
-                        <span className="text-[11px] font-bold text-slate-400 uppercase">Tour Schedule & Vehicle</span>
-                        <div className="flex justify-between"><span className="text-slate-400">Pickup Time:</span> <strong className="text-[#FF8A3D]">4:00 PM (Lobby Porch)</strong></div>
-                        <div className="flex justify-between"><span className="text-slate-400">Duration:</span> <strong className="text-white">4 Hours</strong></div>
-                        <div className="flex justify-between"><span className="text-slate-400">Vehicle:</span> <strong className="text-white">Maybach + Speedboat</strong></div>
-                      </div>
-
-                      <div className="p-4 rounded-2xl bg-[#001020] border border-white/10 space-y-2">
-                        <span className="text-[11px] font-bold text-slate-400 uppercase">Guide & Inclusions</span>
-                        <div className="flex justify-between"><span className="text-slate-400">Tour Guide:</span> <strong className="text-white">Rohan Naik (Certified)</strong></div>
-                        <div className="flex justify-between"><span className="text-slate-400">Champagne & Canapés:</span> <strong className="text-[#3CCF91]">Pre-Arranged</strong></div>
-                        <div className="flex justify-between"><span className="text-slate-400">Private Beach Access:</span> <strong className="text-[#3CCF91]">VIP Pass Included</strong></div>
-                      </div>
-                    </div>
-
-                    <div className="p-4 rounded-2xl bg-[#001020] border border-white/10 text-xs space-y-1">
-                      <strong className="text-white block font-bold">Tour Itinerary:</strong>
-                      <p className="text-slate-300 leading-relaxed">
-                        1. Lobby pickup → 2. Sinquerim Jetty → 3. Sunset Speedboat Cruise to Morjim → 4. Dolphin spotting & champagne → 5. Chauffeured return to hotel.
-                      </p>
-                    </div>
-                  </div>
-                )}
-
-                {activeRadarLeg === 'drop' && (
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between pb-4 border-b border-white/10">
-                      <div>
-                        <span className="text-xs font-bold text-[#3CCF91] uppercase tracking-wider">
-                          Leg 4: Return Airport Drop
-                        </span>
-                        <h3 className="text-2xl font-black text-white mt-0.5">Hotel → Airport VIP Terminal</h3>
-                        <p className="text-xs text-slate-300">Synchronized with Return Flight {departureFlightNumber}</p>
-                      </div>
-                      <Luggage className="w-8 h-8 text-[#3CCF91]" />
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                      <div className="p-4 rounded-2xl bg-[#001020] border border-white/10 space-y-2">
-                        <span className="text-[11px] font-bold text-slate-400 uppercase">Return Flight Monitor</span>
-                        <div className="flex justify-between"><span className="text-slate-400">Flight No:</span> <strong className="text-white font-mono">{departureFlightNumber}</strong></div>
-                        <div className="flex justify-between"><span className="text-slate-400">Scheduled Takeoff:</span> <strong className="text-white">19:45 PM</strong></div>
-                        <div className="flex justify-between"><span className="text-slate-400">Gate / Terminal:</span> <strong className="text-white">Terminal 2 VIP Drop</strong></div>
-                      </div>
-
-                      <div className="p-4 rounded-2xl bg-[#001020] border border-white/10 space-y-2">
-                        <span className="text-[11px] font-bold text-slate-400 uppercase">Automated Dispatch Radar</span>
-                        <div className="flex justify-between"><span className="text-slate-400">Lobby Pickup:</span> <strong className="text-[#3CCF91] font-bold">16:45 PM (3 hrs prior)</strong></div>
-                        <div className="flex justify-between"><span className="text-slate-400">Route Traffic:</span> <strong className="text-[#3CCF91]">Green (Clear Highway)</strong></div>
-                        <div className="flex justify-between"><span className="text-slate-400">Luggage Porter:</span> <strong className="text-white">Assigned & Ready</strong></div>
-                      </div>
-                    </div>
-
-                    <div className="p-4 rounded-2xl bg-[#002244]/60 border border-[#00A9A5]/40 text-xs text-slate-200">
-                      StaySphere automatically recalculates your hotel departure time if your return flight status changes.
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Card 2: Digital NFC Keycard + Escrow Status */}
-              <div className="space-y-6">
-                {/* Encrypted Digital Key */}
-                <div className="p-6 rounded-3xl bg-gradient-to-br from-[#0B3D91] to-[#001428] border border-[#00A9A5]/40 shadow-2xl flex flex-col justify-between space-y-6">
-                  <div className="flex items-center justify-between">
-                    <HorizontalLogo size="sm" variant="dark" />
-                    <KeyRound className="w-6 h-6 text-[#FFC857]" />
-                  </div>
-
-                  <div>
-                    <span className="text-[10px] text-slate-300 uppercase tracking-widest font-mono">
-                      ENCRYPTED DIGITAL NFC KEY
-                    </span>
-                    <h4 className="text-2xl font-black text-white mt-1">Suite 101 Horizon Grand</h4>
-                    <p className="text-xs text-[#3CCF91] font-bold mt-1">✓ Armed & Ready for Proximity Unlock</p>
-                  </div>
-
-                  <div className="flex items-center justify-between text-xs text-slate-300 font-mono">
-                    <span>EXP: 15 SEP 2026</span>
-                    <span>ENCR: AES-256-GCM</span>
-                  </div>
-                </div>
-
-                {/* Escrow Protection Status */}
-                <div className="p-6 rounded-3xl glass-panel border border-white/10 space-y-4">
-                  <span className="text-xs font-bold text-[#3CCF91] uppercase">Escrow Protection Status</span>
-                  <h3 className="text-lg font-black text-white">Safe Payment Protection</h3>
-                  
-                  <div className="p-4 rounded-2xl bg-[#001020] border border-white/10 space-y-2 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-slate-400">Secured Amount:</span>
-                      <strong className="text-white font-bold">₹{totalBill.toLocaleString()}</strong>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-400">Release Trigger:</span>
-                      <strong className="text-[#FFC857]">2 hrs post check-in</strong>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-400">Escrow Status:</span>
-                      <span className="text-[#3CCF91] font-bold">LOCKED & PROTECTED</span>
-                    </div>
-                  </div>
-
-                  <div className="pt-2">
-                    <a
-                      href="http://localhost:3002"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="w-full py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 text-xs font-bold border border-white/10 flex items-center justify-center gap-1.5"
-                    >
-                      <span>View in Operations Control Tower ↗</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        {(activeTab === 'myjourney' || activeTab === 'resolve') && (
+          <MyJourneyView
+            onOpenResolve={(cat) => {
+              setResolveCategory(cat || 'GENERAL_INQUIRY');
+              setShowResolveModal(true);
+            }}
+          />
         )}
       </main>
+
+      {/* Proactive Resolution Sentinel Modal */}
+      <ProactiveResolveSentinel
+        isOpen={showResolveModal}
+        onClose={() => setShowResolveModal(false)}
+        defaultCategory={resolveCategory}
+        journeyReference={confirmedBookingId ? `JN-SS-2026-${confirmedBookingId.replace(/\D/g, '') || '9041'}` : 'JN-SS-2026-9041'}
+      />
 
       {/* Partner Registration Multi-Stakeholder Modal */}
       <PartnerRegistrationModal
