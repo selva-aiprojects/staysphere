@@ -51,12 +51,16 @@ import {
   Moon,
   User,
   UserCheck,
+  Bot,
+  MessageSquareCode,
 } from 'lucide-react';
 import { HorizontalLogo, LogoOnDark, StackedLogo, AppIcon, EmblemImageLogo } from '@staysphere/ui-kit';
 import { PartnerRegistrationModal } from '../components/PartnerRegistrationModal';
 import { MyJourneyView } from '../components/MyJourneyView';
 import { ProactiveResolveSentinel } from '../components/ProactiveResolveSentinel';
 import { CustomerAuthModal, CustomerUser, FREQUENT_GUEST_PRESETS } from '../components/CustomerAuthModal';
+import { GuestChatbotModal } from '../components/GuestChatbotModal';
+import { PartnerChatbotModal } from '../components/PartnerChatbotModal';
 
 export type StayTier = 'comfort' | 'premium' | 'luxe';
 
@@ -788,6 +792,10 @@ export default function GuestApp() {
   const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
   const [authModalMode, setAuthModalMode] = useState<'signin' | 'register' | 'profile'>('signin');
 
+  // Dedicated Chatbot States (Guest AI Butler & Partner Copilot AI)
+  const [showGuestChatbot, setShowGuestChatbot] = useState<boolean>(false);
+  const [showPartnerChatbot, setShowPartnerChatbot] = useState<boolean>(false);
+
   const [activeTab, setActiveTab] = useState<'landing' | 'explore' | 'booking' | 'myjourney' | 'resolve'>('landing');
   const [showResolveModal, setShowResolveModal] = useState<boolean>(false);
   const [resolveCategory, setResolveCategory] = useState<string>('GENERAL_INQUIRY');
@@ -1045,6 +1053,19 @@ export default function GuestApp() {
 
           <button
             type="button"
+            onClick={() => setShowPartnerChatbot(true)}
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-lg border font-bold text-xs shadow-sm cursor-pointer whitespace-nowrap transition-all ${
+              isPearl
+                ? 'bg-teal-50 hover:bg-teal-100 border-teal-300 text-teal-950'
+                : 'bg-[#002B4D] border-[#00A9A5]/40 text-[#00D2C4] hover:brightness-110'
+            }`}
+          >
+            <Bot className="w-3.5 h-3.5 text-[#00A9A5] shrink-0" />
+            <span>Partner Copilot AI ↗</span>
+          </button>
+
+          <button
+            type="button"
             onClick={() => setShowPartnerModal(true)}
             className={`flex items-center gap-1.5 px-3 py-1 rounded-lg border font-bold text-xs shadow-sm cursor-pointer whitespace-nowrap transition-all ${
               isPearl
@@ -1156,6 +1177,21 @@ export default function GuestApp() {
 
           {/* Right Action Buttons */}
           <div className="flex items-center gap-2 shrink-0">
+            {/* Guest AI Concierge Trigger */}
+            <button
+              type="button"
+              onClick={() => setShowGuestChatbot(true)}
+              className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-sm ${
+                isPearl
+                  ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white hover:brightness-110 shadow-blue-950/10'
+                  : 'bg-gradient-to-r from-[#00A9A5] to-[#0B3D91] text-white hover:brightness-110'
+              }`}
+              title="Open Guest AI Concierge & Butler"
+            >
+              <Bot className="w-3.5 h-3.5 text-[#FFC857]" />
+              <span className="hidden sm:inline">Guest AI Butler</span>
+            </button>
+
             {/* Theme Toggle Button */}
             <button
               type="button"
@@ -2524,8 +2560,37 @@ export default function GuestApp() {
         )}
       </main>
 
-      {/* Floating Persistent Resolve Sentinel Trigger */}
-      <div className="fixed bottom-6 right-6 z-40">
+      {/* Floating Action Triggers (Guest AI Butler, Partner Copilot & Proactive Resolve Sentinel) */}
+      <div className="fixed bottom-6 right-6 z-40 flex flex-col sm:flex-row items-end sm:items-center gap-2.5">
+        {/* Partner Copilot Quick Trigger */}
+        <button
+          type="button"
+          onClick={() => setShowPartnerChatbot(true)}
+          className="group px-3.5 py-2.5 rounded-full bg-[#001830]/95 hover:bg-[#002850] text-[#00D2C4] font-black text-xs shadow-xl shadow-cyan-950/40 hover:scale-105 transition-all flex items-center gap-2 border border-[#00A9A5]/40 backdrop-blur cursor-pointer"
+          title="Open Partner Operations Copilot AI"
+        >
+          <Bot className="w-4 h-4 text-[#00A9A5]" />
+          <span className="hidden md:inline">Partner Copilot AI</span>
+        </button>
+
+        {/* Guest AI Butler Trigger */}
+        <button
+          type="button"
+          onClick={() => setShowGuestChatbot(true)}
+          className="group px-4 py-3 rounded-full bg-gradient-to-r from-[#0B3D91] via-[#00A9A5] to-[#D4AF37] text-white font-black text-xs shadow-2xl shadow-[#00A9A5]/40 hover:scale-105 transition-all flex items-center gap-2 border-2 border-white/30 cursor-pointer"
+          title="Open Guest AI Concierge & In-Suite Butler"
+        >
+          <div className="relative">
+            <Crown className="w-4 h-4 text-[#FFC857]" />
+            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#FFC857] animate-ping" />
+          </div>
+          <span>Guest AI Butler</span>
+          <span className="px-2 py-0.5 rounded-full bg-black/60 text-[#FFC857] text-[10px] font-extrabold font-mono">
+            24/7 Concierge
+          </span>
+        </button>
+
+        {/* Proactive Resolve Sentinel Trigger */}
         <button
           type="button"
           onClick={() => {
@@ -2533,6 +2598,7 @@ export default function GuestApp() {
             setShowResolveModal(true);
           }}
           className="group px-4 py-3 rounded-full bg-gradient-to-r from-[#FF8A3D] via-[#FFC857] to-[#00A9A5] text-[#001428] font-black text-xs shadow-2xl shadow-[#FF8A3D]/40 hover:scale-105 transition-all flex items-center gap-2 border-2 border-white/20 cursor-pointer"
+          title="Proactive Resolution Desk (15-Minute SLA Guarantee)"
         >
           <div className="relative">
             <ShieldCheck className="w-5 h-5 text-[#001428]" />
@@ -2544,6 +2610,25 @@ export default function GuestApp() {
           </span>
         </button>
       </div>
+
+      {/* Guest AI Concierge & Butler Chatbot Modal */}
+      <GuestChatbotModal
+        isOpen={showGuestChatbot}
+        onClose={() => setShowGuestChatbot(false)}
+        theme={theme}
+        currentUser={currentUser}
+        onOpenResolve={(cat) => {
+          setResolveCategory(cat || 'GENERAL_INQUIRY');
+          setShowResolveModal(true);
+        }}
+      />
+
+      {/* Partner Operations Copilot AI Modal */}
+      <PartnerChatbotModal
+        isOpen={showPartnerChatbot}
+        onClose={() => setShowPartnerChatbot(false)}
+        theme={theme}
+      />
 
       {/* Customer Authentication & Sovereign Member Portal Modal */}
       <CustomerAuthModal

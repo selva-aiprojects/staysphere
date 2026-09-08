@@ -35,7 +35,8 @@ import { JourneyCentricDashboard } from './components/JourneyCentricDashboard';
 import { SlaResolutionMonitoring } from './components/SlaResolutionMonitoring';
 import { PropertyMasterDirectory } from './components/PropertyMasterDirectory';
 import { StakeholderFeedbackConsole } from './components/StakeholderFeedbackConsole';
-import { Mail, UserPlus, Compass, ShieldAlert, Star } from 'lucide-react';
+import { LeaderCommandChatbot } from './components/LeaderCommandChatbot';
+import { Mail, UserPlus, Compass, ShieldAlert, Star, Bot } from 'lucide-react';
 
 // Persona / Role Types
 export type PlatformRole =
@@ -462,6 +463,7 @@ export default function OperationsControlTower() {
   // Modals State
   const [viewingReceipt, setViewingReceipt] = useState<PaymentReceiptRecord | null>(null);
   const [isCollabTicketsModalOpen, setIsCollabTicketsModalOpen] = useState<boolean>(false);
+  const [showLeaderChatbot, setShowLeaderChatbot] = useState<boolean>(false);
 
   // Success Notification banner
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -734,21 +736,41 @@ export default function OperationsControlTower() {
           </button>
         </nav>
 
-        {/* User Persona Profile Pill */}
-        {currentUser && (
-          <div
-            onClick={() => setIsAuthModalOpen(true)}
-            className="flex items-center gap-3 p-1.5 pr-3.5 rounded-2xl bg-[#001830] border border-white/10 hover:border-[#00A9A5]/60 transition-all cursor-pointer shrink-0 hidden xl:flex"
+        {/* Header Right Actions */}
+        <div className="flex items-center gap-2 shrink-0">
+          {/* Executive Command AI Trigger */}
+          <button
+            type="button"
+            onClick={() => setShowLeaderChatbot(true)}
+            className="flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-gradient-to-r from-[#00A9A5] via-[#0B3D91] to-[#D4AF37] text-white font-black text-xs shadow-lg shadow-cyan-950/50 hover:brightness-110 transition-all border border-white/20 cursor-pointer shrink-0"
+            title="Open Platform Leaders Executive Command AI"
           >
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#0B3D91] to-[#00A9A5] flex items-center justify-center text-xs font-black text-white shrink-0">
-              {currentUser.avatar}
+            <div className="relative">
+              <Bot className="w-4 h-4 text-[#FFC857]" />
+              <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
             </div>
-            <div className="text-left leading-none">
-              <span className="text-xs font-bold text-white block whitespace-nowrap">{currentUser.name}</span>
-              <span className="text-[10px] text-[#00D2C4] font-medium block mt-0.5 whitespace-nowrap">{currentUser.role.replace(/_/g, ' ')}</span>
+            <span className="hidden sm:inline">Command AI</span>
+            <span className="px-1.5 py-0.5 rounded bg-black/50 text-[10px] text-[#FFC857] font-mono hidden md:inline">
+              ESCROW & SLA
+            </span>
+          </button>
+
+          {/* User Persona Profile Pill */}
+          {currentUser && (
+            <div
+              onClick={() => setIsAuthModalOpen(true)}
+              className="flex items-center gap-3 p-1.5 pr-3.5 rounded-2xl bg-[#001830] border border-white/10 hover:border-[#00A9A5]/60 transition-all cursor-pointer shrink-0 hidden xl:flex"
+            >
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#0B3D91] to-[#00A9A5] flex items-center justify-center text-xs font-black text-white shrink-0">
+                {currentUser.avatar}
+              </div>
+              <div className="text-left leading-none">
+                <span className="text-xs font-bold text-white block whitespace-nowrap">{currentUser.name}</span>
+                <span className="text-[10px] text-[#00D2C4] font-medium block mt-0.5 whitespace-nowrap">{currentUser.role.replace(/_/g, ' ')}</span>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </header>
 
       {/* Main Workspaces Area */}
@@ -1203,6 +1225,32 @@ export default function OperationsControlTower() {
           </div>
         </div>
       )}
+
+      {/* Floating Persistent Platform Leaders Command AI Trigger */}
+      <div className="fixed bottom-6 right-6 z-40 flex items-center gap-2.5">
+        <button
+          type="button"
+          onClick={() => setShowLeaderChatbot(true)}
+          className="group px-4 py-3 rounded-full bg-gradient-to-r from-[#001E36] via-[#0B3D91] to-[#00A9A5] text-white font-black text-xs shadow-2xl shadow-cyan-950/60 hover:scale-105 transition-all flex items-center gap-2.5 border-2 border-[#00D2C4]/40 cursor-pointer"
+          title="Open Platform Leaders Executive Intelligence AI"
+        >
+          <div className="relative">
+            <Bot className="w-5 h-5 text-[#FFC857]" />
+            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+          </div>
+          <span>Platform Leader AI</span>
+          <span className="px-2 py-0.5 rounded-full bg-black/80 text-[#00D2C4] text-[10px] font-extrabold font-mono">
+            Ops Copilot
+          </span>
+        </button>
+      </div>
+
+      {/* Platform Leaders Executive Intelligence AI Modal */}
+      <LeaderCommandChatbot
+        isOpen={showLeaderChatbot}
+        onClose={() => setShowLeaderChatbot(false)}
+        activeRoleTitle={currentUser?.title || 'Executive Leadership & Operations Desk'}
+      />
     </div>
   );
 }
