@@ -49,7 +49,7 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
         <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
           <div>
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#00A9A5] animate-pulse" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#00A9A5] animate-pulse shrink-0" />
               <h3 className="text-lg font-bold text-white tracking-wide">Partner with StaySphere</h3>
             </div>
             <p className="text-xs text-slate-400 mt-0.5">
@@ -58,7 +58,7 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white"
+            className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white cursor-pointer shrink-0"
           >
             <X className="w-5 h-5" />
           </button>
@@ -82,7 +82,7 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
             </div>
             <button
               onClick={onClose}
-              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-white text-xs font-bold shadow hover:brightness-110"
+              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-white text-xs font-bold shadow hover:brightness-110 cursor-pointer whitespace-nowrap"
             >
               Done & Return to Marketplace
             </button>
@@ -92,17 +92,17 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
             {/* Partner Category Selector */}
             <div>
               <label className="block text-xs font-bold text-slate-300 mb-2">Select Partnership Category</label>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <button
                   type="button"
                   onClick={() => setPartnerType('HOTEL_RESORT')}
-                  className={`p-3 rounded-xl border text-left transition flex flex-col gap-1.5 ${
+                  className={`p-3 rounded-xl border text-left transition flex flex-col gap-1.5 cursor-pointer ${
                     partnerType === 'HOTEL_RESORT'
                       ? 'bg-[#002B4D] border-[#00A9A5] shadow-lg text-white'
-                      : 'bg-[#001428] border-white/10 text-slate-400'
+                      : 'bg-[#001428] border-white/10 text-slate-400 hover:text-white'
                   }`}
                 >
-                  <Building2 className="w-4 h-4 text-[#00A9A5]" />
+                  <Building2 className="w-4 h-4 text-[#00A9A5] shrink-0" />
                   <span className="text-xs font-bold">Hotel / Resort / Villa</span>
                   <span className="text-[10px] text-slate-400">List Suites & Estates</span>
                 </button>
@@ -110,13 +110,13 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
                 <button
                   type="button"
                   onClick={() => setPartnerType('CHAUFFEUR_FLEET')}
-                  className={`p-3 rounded-xl border text-left transition flex flex-col gap-1.5 ${
+                  className={`p-3 rounded-xl border text-left transition flex flex-col gap-1.5 cursor-pointer ${
                     partnerType === 'CHAUFFEUR_FLEET'
                       ? 'bg-[#002B4D] border-amber-400 shadow-lg text-white'
-                      : 'bg-[#001428] border-white/10 text-slate-400'
+                      : 'bg-[#001428] border-white/10 text-slate-400 hover:text-white'
                   }`}
                 >
-                  <Car className="w-4 h-4 text-amber-400" />
+                  <Car className="w-4 h-4 text-amber-400 shrink-0" />
                   <span className="text-xs font-bold">Travel & Fleet Desk</span>
                   <span className="text-[10px] text-slate-400">Maybach / Helicopters</span>
                 </button>
@@ -124,13 +124,13 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
                 <button
                   type="button"
                   onClick={() => setPartnerType('CHANNEL_B2B')}
-                  className={`p-3 rounded-xl border text-left transition flex flex-col gap-1.5 ${
+                  className={`p-3 rounded-xl border text-left transition flex flex-col gap-1.5 cursor-pointer ${
                     partnerType === 'CHANNEL_B2B'
                       ? 'bg-[#002B4D] border-emerald-400 shadow-lg text-white'
-                      : 'bg-[#001428] border-white/10 text-slate-400'
+                      : 'bg-[#001428] border-white/10 text-slate-400 hover:text-white'
                   }`}
                 >
-                  <Users className="w-4 h-4 text-emerald-400" />
+                  <Users className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span className="text-xs font-bold">Channel Partner B2B</span>
                   <span className="text-[10px] text-slate-400">Corporate & Concierge</span>
                 </button>
@@ -138,7 +138,7 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
             </div>
 
             {/* Input Fields */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-1">
                   {partnerType === 'HOTEL_RESORT'
@@ -170,7 +170,7 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-1">Corporate Email Address</label>
                 <input
@@ -196,7 +196,7 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
                 <label className="block text-xs font-bold text-slate-300 mb-1">City / Region</label>
                 <input
@@ -226,7 +226,7 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
                 <select
                   value={formData.partnershipPlan}
                   onChange={(e) => setFormData({ ...formData, partnershipPlan: e.target.value })}
-                  className="w-full bg-[#002B4D] border border-white/15 rounded-xl px-2.5 py-2 text-xs text-white focus:outline-none focus:border-[#00A9A5]"
+                  className="w-full bg-[#002B4D] border border-white/15 rounded-xl px-2.5 py-2 text-xs text-white focus:outline-none focus:border-[#00A9A5] cursor-pointer"
                 >
                   <option value="VERIFIED_BOUTIQUE">Verified Boutique (8% rev share)</option>
                   <option value="PREMIER_RESORT">Premier Resort (12% rev share)</option>
@@ -238,7 +238,7 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
             {/* Guarantee Badge */}
             <div className="p-3.5 rounded-2xl bg-[#001428] border border-white/10 flex items-center gap-3 text-xs text-slate-300">
               <ShieldCheck className="w-5 h-5 text-[#3CCF91] shrink-0" />
-              <span>
+              <span className="leading-relaxed">
                 <strong>StaySphere Partner Standards:</strong> Prompt post-check-in milestone disbursements, Dedicated Relationship Manager & Direct Rate Sync.
               </span>
             </div>
@@ -248,16 +248,16 @@ export function PartnerRegistrationModal({ isOpen, onClose }: PartnerRegistratio
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 rounded-xl bg-white/5 text-slate-300 text-xs font-bold hover:bg-white/10"
+                className="px-4 py-2 rounded-xl bg-white/5 text-slate-300 text-xs font-bold hover:bg-white/10 cursor-pointer whitespace-nowrap"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-white text-xs font-bold shadow-lg hover:brightness-110 flex items-center gap-1.5"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-white text-xs font-bold shadow-lg hover:brightness-110 flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
               >
                 <span>Submit Partner Application</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 shrink-0" />
               </button>
             </div>
           </form>

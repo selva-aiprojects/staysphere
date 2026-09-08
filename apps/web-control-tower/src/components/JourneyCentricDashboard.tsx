@@ -318,22 +318,22 @@ export const JourneyCentricDashboard: React.FC<JourneyCentricDashboardProps> = (
           </div>
 
           {/* Quick Metrics Bar with Successful Journey Rate */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 shrink-0">
             <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Active Journeys</span>
-              <strong className="text-xl font-black text-white">12 Live</strong>
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block whitespace-nowrap">Active Journeys</span>
+              <strong className="text-xl font-black text-white whitespace-nowrap">12 Live</strong>
             </div>
             <div className="p-3 rounded-xl bg-[#00A9A5]/10 border border-[#00A9A5]/30">
-              <span className="text-[10px] text-[#00A9A5] font-bold uppercase tracking-wider block">Move / Telematics</span>
-              <strong className="text-xl font-black text-[#00A9A5]">4 GPS Live</strong>
+              <span className="text-[10px] text-[#00A9A5] font-bold uppercase tracking-wider block whitespace-nowrap">Move / Telematics</span>
+              <strong className="text-xl font-black text-[#00A9A5] whitespace-nowrap">4 GPS Live</strong>
             </div>
             <div className="p-3 rounded-xl bg-[#3CCF91]/10 border border-[#3CCF91]/30">
-              <span className="text-[10px] text-[#3CCF91] font-bold uppercase tracking-wider block">Journey SJR Rate</span>
-              <strong className="text-xl font-black text-[#3CCF91]">98.6% SJR</strong>
+              <span className="text-[10px] text-[#3CCF91] font-bold uppercase tracking-wider block whitespace-nowrap">Journey SJR Rate</span>
+              <strong className="text-xl font-black text-[#3CCF91] whitespace-nowrap">98.6% SJR</strong>
             </div>
             <div className="p-3 rounded-xl bg-[#FFC857]/10 border border-[#FFC857]/30">
-              <span className="text-[10px] text-[#FFC857] font-bold uppercase tracking-wider block">Resolve SLA Engine</span>
-              <strong className="text-xl font-black text-[#FFC857]">4.8m Avg</strong>
+              <span className="text-[10px] text-[#FFC857] font-bold uppercase tracking-wider block whitespace-nowrap">Resolve SLA Engine</span>
+              <strong className="text-xl font-black text-[#FFC857] whitespace-nowrap">4.8m Avg</strong>
             </div>
           </div>
         </div>
@@ -342,8 +342,8 @@ export const JourneyCentricDashboard: React.FC<JourneyCentricDashboardProps> = (
       {/* Control Bar: Filters & Search */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 rounded-xl bg-[#001E36] border border-white/10">
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-xs font-bold text-slate-400 flex items-center gap-1.5 mr-2">
-            <SlidersHorizontal className="w-3.5 h-3.5 text-[#00A9A5]" /> Filter by Stage:
+          <span className="text-xs font-bold text-slate-400 flex items-center gap-1.5 mr-2 whitespace-nowrap shrink-0">
+            <SlidersHorizontal className="w-3.5 h-3.5 text-[#00A9A5] shrink-0" /> Filter by Stage:
           </span>
           {[
             { id: 'ALL', label: 'All Active' },
@@ -354,7 +354,7 @@ export const JourneyCentricDashboard: React.FC<JourneyCentricDashboardProps> = (
             <button
               key={f.id}
               onClick={() => setFilterStage(f.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                 filterStage === f.id
                   ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
                   : 'bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10'
@@ -393,40 +393,40 @@ export const JourneyCentricDashboard: React.FC<JourneyCentricDashboardProps> = (
               {/* Card Header */}
               <div className="flex flex-col lg:flex-row lg:items-center justify-between pb-4 border-b border-white/10 gap-4">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0B3D91] to-[#00A9A5] flex items-center justify-center text-white font-black shadow-md">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0B3D91] to-[#00A9A5] flex items-center justify-center text-white font-black shadow-md shrink-0">
                     <Compass className="w-6 h-6" />
                   </div>
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-mono text-sm font-black text-white">{journey.journeyReference}</span>
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-white/10 text-slate-200 border border-white/15">
+                      <span className="font-mono text-sm font-black text-white whitespace-nowrap">{journey.journeyReference}</span>
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-white/10 text-slate-200 border border-white/15 whitespace-nowrap shrink-0">
                         {journey.vipTier}
                       </span>
                       {hasSlaAlert ? (
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-500/20 text-rose-400 border border-rose-500/40 flex items-center gap-1 animate-pulse">
-                          <AlertTriangle className="w-3 h-3" /> SLA Escalation Active ({journey.openTickets[0]?.severity})
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-rose-500/20 text-rose-400 border border-rose-500/40 flex items-center gap-1 animate-pulse whitespace-nowrap shrink-0">
+                          <AlertTriangle className="w-3 h-3 shrink-0" /> SLA Escalation Active ({journey.openTickets[0]?.severity})
                         </span>
                       ) : (
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#3CCF91]/20 text-[#3CCF91] border border-[#3CCF91]/40 flex items-center gap-1">
-                          <CheckCircle2 className="w-3 h-3" /> Nominal Sovereign Flow
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#3CCF91]/20 text-[#3CCF91] border border-[#3CCF91]/40 flex items-center gap-1 whitespace-nowrap shrink-0">
+                          <CheckCircle2 className="w-3 h-3 shrink-0" /> Nominal Sovereign Flow
                         </span>
                       )}
                     </div>
                     <p className="text-xs text-slate-300 mt-0.5">
-                      Guest: <strong className="text-white">{journey.guestName}</strong> • Phone: {journey.guestPhone}
+                      Guest: <strong className="text-white">{journey.guestName}</strong> • Phone: <span className="font-mono">{journey.guestPhone}</span>
                     </p>
                   </div>
                 </div>
 
                 {/* Right Action buttons */}
-                <div className="flex items-center gap-2 flex-wrap">
+                <div className="flex items-center gap-2 flex-wrap shrink-0">
                   {hasSlaAlert && (
                     <button
                       onClick={() => onOpenResolveDesk?.(journey.openTickets[0]?.id)}
-                      className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-black text-xs shadow-lg shadow-rose-900/40 flex items-center gap-1.5 transition-all"
+                      className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-black text-xs shadow-lg shadow-rose-900/40 flex items-center gap-1.5 transition-all whitespace-nowrap shrink-0 cursor-pointer"
                     >
-                      <AlertCircle className="w-4 h-4" />
-                      Resolve Sentinel Desk ({journey.openTickets[0]?.elapsedMinutes}m elapsed)
+                      <AlertCircle className="w-4 h-4 shrink-0" />
+                      <span>Resolve Sentinel Desk ({journey.openTickets[0]?.elapsedMinutes}m elapsed)</span>
                     </button>
                   )}
                   <button
@@ -434,10 +434,10 @@ export const JourneyCentricDashboard: React.FC<JourneyCentricDashboardProps> = (
                       setSelectedDrilldown(journey);
                       onSelectJourney?.(journey);
                     }}
-                    className="px-4 py-2 rounded-xl bg-[#002B4D] hover:bg-[#003B6D] text-white border border-[#00A9A5]/40 text-xs font-bold flex items-center gap-2 transition-all"
+                    className="px-4 py-2 rounded-xl bg-[#002B4D] hover:bg-[#003B6D] text-white border border-[#00A9A5]/40 text-xs font-bold flex items-center gap-2 transition-all whitespace-nowrap shrink-0 cursor-pointer"
                   >
-                    <Eye className="w-4 h-4 text-[#00A9A5]" />
-                    360° Journey Drilldown
+                    <Eye className="w-4 h-4 text-[#00A9A5] shrink-0" />
+                    <span>360° Journey Drilldown</span>
                   </button>
                 </div>
               </div>
@@ -446,53 +446,53 @@ export const JourneyCentricDashboard: React.FC<JourneyCentricDashboardProps> = (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-5">
                 {/* Stay Binding */}
                 <div className="p-4 rounded-xl bg-black/20 border border-white/5 space-y-2">
-                  <div className="flex items-center justify-between text-xs text-slate-400 font-bold uppercase tracking-wider">
-                    <span className="flex items-center gap-1.5 text-blue-400">
-                      <Hotel className="w-4 h-4" /> Luxury Stay Binding
+                  <div className="flex items-center justify-between gap-2 text-xs text-slate-400 font-bold uppercase tracking-wider">
+                    <span className="flex items-center gap-1.5 text-blue-400 whitespace-nowrap shrink-0">
+                      <Hotel className="w-4 h-4 shrink-0" /> Luxury Stay Binding
                     </span>
-                    <span className="text-[11px] font-mono text-slate-400">{journey.binding.stayBookingId}</span>
+                    <span className="text-[11px] font-mono text-slate-400 whitespace-nowrap shrink-0">{journey.binding.stayBookingId}</span>
                   </div>
-                  <h4 className="font-bold text-white text-sm">{journey.binding.propertyName}</h4>
-                  <p className="text-xs text-slate-300">{journey.binding.roomType}</p>
-                  <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/5">
-                    <span>Stay Subtotal: <strong className="text-[#3CCF91] font-mono">₹{journey.binding.stayAmount.toLocaleString()}</strong></span>
-                    <span>{journey.binding.nights} Nights</span>
+                  <h4 className="font-bold text-white text-sm leading-snug">{journey.binding.propertyName}</h4>
+                  <p className="text-xs text-slate-300 leading-snug">{journey.binding.roomType}</p>
+                  <div className="flex items-center justify-between gap-2 text-[11px] text-slate-400 pt-1 border-t border-white/5">
+                    <span className="whitespace-nowrap">Stay Subtotal: <strong className="text-[#3CCF91] font-mono whitespace-nowrap">₹{journey.binding.stayAmount.toLocaleString()}</strong></span>
+                    <span className="whitespace-nowrap shrink-0">{journey.binding.nights} Nights</span>
                   </div>
                 </div>
 
                 {/* Move & Chauffeur Binding */}
                 <div className="p-4 rounded-xl bg-black/20 border border-white/5 space-y-2">
-                  <div className="flex items-center justify-between text-xs text-slate-400 font-bold uppercase tracking-wider">
-                    <span className="flex items-center gap-1.5 text-amber-400">
-                      <Car className="w-4 h-4" /> Move & Chauffeur
+                  <div className="flex items-center justify-between gap-2 text-xs text-slate-400 font-bold uppercase tracking-wider">
+                    <span className="flex items-center gap-1.5 text-amber-400 whitespace-nowrap shrink-0">
+                      <Car className="w-4 h-4 shrink-0" /> Move & Chauffeur
                     </span>
-                    <span className="text-[11px] font-mono text-slate-400">{journey.binding.transitReference || 'IN_TRANSIT'}</span>
+                    <span className="text-[11px] font-mono text-slate-400 whitespace-nowrap shrink-0">{journey.binding.transitReference || 'IN_TRANSIT'}</span>
                   </div>
-                  <h4 className="font-bold text-white text-sm">{journey.binding.transitVehicle || 'Executive Luxury Chauffeur'}</h4>
-                  <p className="text-xs text-slate-300">Route: {journey.binding.pickupLocation} → {journey.binding.dropLocation}</p>
-                  <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-white/5">
-                    <span className="flex items-center gap-1 text-[#3CCF91]">
-                      <Radio className="w-3 h-3 animate-ping" /> Transit Cost: ₹{journey.binding.transitAmount?.toLocaleString() || '0'}
+                  <h4 className="font-bold text-white text-sm leading-snug">{journey.binding.transitVehicle || 'Executive Luxury Chauffeur'}</h4>
+                  <p className="text-xs text-slate-300 leading-snug">Route: {journey.binding.pickupLocation} → {journey.binding.dropLocation}</p>
+                  <div className="flex items-center justify-between gap-2 text-[11px] text-slate-400 pt-1 border-t border-white/5">
+                    <span className="flex items-center gap-1 text-[#3CCF91] whitespace-nowrap">
+                      <Radio className="w-3 h-3 animate-ping shrink-0" /> Transit Cost: ₹{journey.binding.transitAmount?.toLocaleString() || '0'}
                     </span>
-                    <span className="font-bold text-white">Status: {journey.status}</span>
+                    <span className="font-bold text-white whitespace-nowrap shrink-0">Status: {journey.status}</span>
                   </div>
                 </div>
 
                 {/* Escrow Custody & Settlement */}
                 <div className="p-4 rounded-xl bg-black/20 border border-white/5 space-y-2">
-                  <div className="flex items-center justify-between text-xs text-slate-400 font-bold uppercase tracking-wider">
-                    <span className="flex items-center gap-1.5 text-[#3CCF91]">
-                      <ShieldCheck className="w-4 h-4" /> Safe Escrow Ledger
+                  <div className="flex items-center justify-between gap-2 text-xs text-slate-400 font-bold uppercase tracking-wider">
+                    <span className="flex items-center gap-1.5 text-[#3CCF91] whitespace-nowrap shrink-0">
+                      <ShieldCheck className="w-4 h-4 shrink-0" /> Safe Escrow Ledger
                     </span>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#3CCF91]/20 text-[#3CCF91]">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#3CCF91]/20 text-[#3CCF91] whitespace-nowrap shrink-0">
                       ESCROW_PROTECTED
                     </span>
                   </div>
-                  <div className="flex items-baseline justify-between">
-                    <span className="text-xs text-slate-300">Locked Value:</span>
-                    <strong className="text-lg font-black text-white">₹{journey.binding.escrowLockedAmount.toLocaleString()}</strong>
+                  <div className="flex items-baseline justify-between gap-2">
+                    <span className="text-xs text-slate-300 whitespace-nowrap">Locked Value:</span>
+                    <strong className="text-lg font-black text-white whitespace-nowrap">₹{journey.binding.escrowLockedAmount.toLocaleString()}</strong>
                   </div>
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-[11px] text-slate-400 leading-snug">
                     Dual release: Hotel (₹{journey.binding.stayAmount.toLocaleString()}) + Fleet (₹{(journey.binding.transitAmount || 0).toLocaleString()})
                   </p>
                   <div className="text-[11px] text-slate-400 pt-1 border-t border-white/5 truncate">

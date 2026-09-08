@@ -181,17 +181,17 @@ export function CollaborativeTicketsModal({
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={() => setIsCreatingNew(true)}
-              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-white text-xs font-bold shadow-lg hover:brightness-110 transition-all flex items-center gap-1.5"
+              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-white text-xs font-bold shadow-lg hover:brightness-110 transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-4 h-4 shrink-0" />
               <span>Raise Operational Ticket</span>
             </button>
             <button
               onClick={onClose}
-              className="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-all"
+              className="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-all shrink-0 cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -201,9 +201,9 @@ export function CollaborativeTicketsModal({
         {/* Content Body */}
         <div className="flex-1 flex overflow-hidden">
           {/* Left Column: Ticket List */}
-          <div className="w-80 md:w-96 border-r border-white/10 flex flex-col bg-[#001428]/60">
+          <div className="w-80 md:w-96 border-r border-white/10 flex flex-col bg-[#001428]/60 shrink-0">
             {/* Filter Tabs */}
-            <div className="p-3 border-b border-white/10 flex gap-1 overflow-x-auto text-[11px] font-bold">
+            <div className="p-3 border-b border-white/10 flex gap-1 overflow-x-auto no-scrollbar text-[11px] font-bold pb-2">
               {[
                 { key: 'ALL', label: 'All Tickets' },
                 { key: 'PROPERTY_HOST', label: 'Hotels/Resorts' },
@@ -213,7 +213,7 @@ export function CollaborativeTicketsModal({
                 <button
                   key={tab.key}
                   onClick={() => setFilterCategory(tab.key)}
-                  className={`px-2.5 py-1 rounded-lg transition-all whitespace-nowrap ${
+                  className={`px-2.5 py-1 rounded-lg transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                     filterCategory === tab.key
                       ? 'bg-[#00A9A5] text-white shadow'
                       : 'text-slate-400 hover:bg-white/5 hover:text-white'
@@ -235,14 +235,14 @@ export function CollaborativeTicketsModal({
                       setSelectedTicketId(ticket.id);
                       setIsCreatingNew(false);
                     }}
-                    className={`w-full text-left p-4 transition-all flex flex-col gap-2 ${
+                    className={`w-full text-left p-4 transition-all flex flex-col gap-2 cursor-pointer ${
                       isSelected ? 'bg-[#002B4D] border-l-4 border-[#00A9A5]' : 'hover:bg-white/5'
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <span className="text-[10px] font-mono font-bold text-[#00A9A5]">{ticket.ticketNumber}</span>
+                      <span className="text-[10px] font-mono font-bold text-[#00A9A5] whitespace-nowrap shrink-0">{ticket.ticketNumber}</span>
                       <span
-                        className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                        className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full whitespace-nowrap shrink-0 ${
                           ticket.priority === 'P0_CRITICAL'
                             ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
                             : ticket.priority === 'P1_HIGH'
@@ -256,7 +256,7 @@ export function CollaborativeTicketsModal({
 
                     <div className="text-xs font-bold text-white line-clamp-1">{ticket.title}</div>
 
-                    <div className="flex items-center justify-between text-[11px] text-slate-400">
+                    <div className="flex items-center justify-between text-[11px] text-slate-400 gap-2">
                       <span className="flex items-center gap-1.5 truncate">
                         {ticket.category === 'PROPERTY_HOST' ? (
                           <Building2 className="w-3 h-3 text-cyan-400 shrink-0" />
@@ -269,7 +269,7 @@ export function CollaborativeTicketsModal({
                       </span>
 
                       <span
-                        className={`text-[10px] font-bold ${
+                        className={`text-[10px] font-bold whitespace-nowrap shrink-0 ${
                           ticket.status === 'RESOLVED'
                             ? 'text-emerald-400'
                             : ticket.status === 'IN_PROGRESS'

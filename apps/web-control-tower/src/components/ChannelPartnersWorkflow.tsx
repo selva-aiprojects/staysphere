@@ -194,40 +194,40 @@ export function ChannelPartnersWorkflow({ onOpenTicketsModal, showToast }: Chann
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           <button
             onClick={onOpenTicketsModal}
-            className="px-4 py-2.5 rounded-2xl bg-[#002B4D] hover:bg-[#003866] border border-emerald-500/40 text-white text-xs font-bold transition-all shadow flex items-center gap-2"
+            className="px-4 py-2.5 rounded-2xl bg-[#002B4D] hover:bg-[#003866] border border-emerald-500/40 text-white text-xs font-bold transition-all shadow flex items-center gap-2 whitespace-nowrap shrink-0 cursor-pointer"
           >
-            <MessageSquare className="w-4 h-4 text-emerald-400" />
+            <MessageSquare className="w-4 h-4 text-emerald-400 shrink-0" />
             <span>Channel Partner Requests (2 Active)</span>
           </button>
 
           <button
             onClick={() => setIsOnboardingOpen(true)}
-            className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-[#00A9A5] text-white text-xs font-bold transition-all shadow-lg hover:brightness-110 flex items-center gap-2"
+            className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-[#00A9A5] text-white text-xs font-bold transition-all shadow-lg hover:brightness-110 flex items-center gap-2 whitespace-nowrap shrink-0 cursor-pointer"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4 shrink-0" />
             <span>Onboard Channel Agency</span>
           </button>
         </div>
       </div>
 
       {/* Channel Partner Selector Tabs */}
-      <div className="flex gap-2 overflow-x-auto pb-1">
+      <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
         {partners.map((p) => {
           const isSelected = p.id === selectedPartnerId;
           return (
             <button
               key={p.id}
               onClick={() => setSelectedPartnerId(p.id)}
-              className={`px-4 py-3 rounded-2xl border text-left transition-all shrink-0 flex items-center gap-3 ${
+              className={`px-4 py-3 rounded-2xl border text-left transition-all shrink-0 flex items-center gap-3 whitespace-nowrap cursor-pointer ${
                 isSelected
                   ? 'bg-[#002B4D] border-emerald-400 shadow-lg text-white'
                   : 'bg-[#001428] border-white/10 hover:bg-white/5 text-slate-300'
               }`}
             >
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500/30 to-[#00A9A5]/30 flex items-center justify-center text-emerald-400 font-bold text-xs">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500/30 to-[#00A9A5]/30 flex items-center justify-center text-emerald-400 font-bold text-xs shrink-0">
                 {p.agencyName.slice(0, 2).toUpperCase()}
               </div>
               <div>
@@ -240,48 +240,48 @@ export function ChannelPartnersWorkflow({ onOpenTicketsModal, showToast }: Chann
       </div>
 
       {/* Channel Partner Performance Dashboard */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-[#001428] border border-white/10 rounded-2xl p-5 shadow">
           <div className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
-            <span>Total GMV Generated</span>
-            <TrendingUp className="w-4 h-4 text-emerald-400" />
+            <span className="whitespace-nowrap">Total GMV Generated</span>
+            <TrendingUp className="w-4 h-4 text-emerald-400 shrink-0" />
           </div>
-          <div className="text-3xl font-black text-white">₹{(activeAgency.totalGmvGenerated / 100000).toFixed(1)}L</div>
-          <div className="text-xs text-slate-300 mt-2 flex items-center justify-between">
-            <span>Total Confirmed Bookings:</span>
-            <strong className="text-white">{activeAgency.totalBookings} VIP Stays</strong>
+          <div className="text-3xl font-black text-white whitespace-nowrap">₹{(activeAgency.totalGmvGenerated / 100000).toFixed(1)}L</div>
+          <div className="text-xs text-slate-300 mt-2 flex items-center justify-between gap-2">
+            <span className="whitespace-nowrap">Confirmed Bookings:</span>
+            <strong className="text-white whitespace-nowrap">{activeAgency.totalBookings} VIP Stays</strong>
           </div>
         </div>
 
         <div className="bg-[#001428] border border-white/10 rounded-2xl p-5 shadow">
           <div className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
-            <span>Commission Tier</span>
-            <Award className="w-4 h-4 text-amber-400" />
+            <span className="whitespace-nowrap">Commission Tier</span>
+            <Award className="w-4 h-4 text-amber-400 shrink-0" />
           </div>
-          <div className="text-2xl font-black text-amber-300">{activeAgency.commissionRatePct}% Split</div>
-          <div className="text-xs text-slate-300 mt-2 flex items-center justify-between">
-            <span>Agency Tier Status:</span>
-            <strong className="text-white">{activeAgency.tier.replace(/_/g, ' ')}</strong>
+          <div className="text-2xl font-black text-amber-300 whitespace-nowrap">{activeAgency.commissionRatePct}% Split</div>
+          <div className="text-xs text-slate-300 mt-2 flex items-center justify-between gap-2">
+            <span className="whitespace-nowrap">Tier Status:</span>
+            <strong className="text-white whitespace-nowrap">{activeAgency.tier.replace(/_/g, ' ')}</strong>
           </div>
         </div>
 
         <div className="bg-[#001428] border border-white/10 rounded-2xl p-5 shadow">
           <div className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
-            <span>Unsettled Commission</span>
-            <Clock className="w-4 h-4 text-[#00A9A5]" />
+            <span className="whitespace-nowrap">Unsettled Commission</span>
+            <Clock className="w-4 h-4 text-[#00A9A5] shrink-0" />
           </div>
-          <div className="text-3xl font-black text-cyan-300">₹{(activeAgency.unsettledCommission).toLocaleString('en-IN')}</div>
+          <div className="text-3xl font-black text-cyan-300 whitespace-nowrap">₹{(activeAgency.unsettledCommission).toLocaleString('en-IN')}</div>
           <div className="mt-3 pt-2 border-t border-white/10">
             {activeAgency.unsettledCommission > 0 ? (
               <button
                 onClick={() => handleSettleCommission(activeAgency.id)}
-                className="w-full py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-xs font-bold transition text-center"
+                className="w-full py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-xs font-bold transition text-center cursor-pointer whitespace-nowrap"
               >
                 1-Click Instant Payout
               </button>
             ) : (
-              <span className="text-[11px] text-emerald-400 font-bold flex items-center justify-center gap-1">
-                <CheckCircle2 className="w-3 h-3" /> All Commissions Settled
+              <span className="text-[11px] text-emerald-400 font-bold flex items-center justify-center gap-1 whitespace-nowrap">
+                <CheckCircle2 className="w-3 h-3 shrink-0" /> All Commissions Settled
               </span>
             )}
           </div>
@@ -289,29 +289,29 @@ export function ChannelPartnersWorkflow({ onOpenTicketsModal, showToast }: Chann
 
         <div className="bg-[#001428] border border-white/10 rounded-2xl p-5 shadow">
           <div className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
-            <span>Total Settled to Date</span>
-            <DollarSign className="w-4 h-4 text-[#3CCF91]" />
+            <span className="whitespace-nowrap">Total Settled to Date</span>
+            <DollarSign className="w-4 h-4 text-[#3CCF91] shrink-0" />
           </div>
-          <div className="text-3xl font-black text-white">₹{(activeAgency.settledCommission / 100000).toFixed(2)}L</div>
-          <div className="text-xs text-slate-300 mt-2 flex items-center justify-between">
-            <span>Partnering Since:</span>
-            <strong className="text-slate-200">{activeAgency.partnerSince}</strong>
+          <div className="text-3xl font-black text-white whitespace-nowrap">₹{(activeAgency.settledCommission / 100000).toFixed(2)}L</div>
+          <div className="text-xs text-slate-300 mt-2 flex items-center justify-between gap-2">
+            <span className="whitespace-nowrap">Partnering Since:</span>
+            <strong className="text-slate-200 whitespace-nowrap">{activeAgency.partnerSince}</strong>
           </div>
         </div>
       </div>
 
       {/* Active VIP Client Pipeline */}
       <div className="bg-[#001E36] border border-white/10 rounded-3xl p-6 shadow-xl space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <h3 className="text-sm font-bold text-white flex items-center gap-2">
-            <Users className="w-4 h-4 text-emerald-400" />
+            <Users className="w-4 h-4 text-emerald-400 shrink-0" />
             <span>Active VIP Client Booking Pipeline ({activeAgency.agencyName})</span>
           </h3>
           <button
             onClick={onOpenTicketsModal}
-            className="px-3 py-1.5 rounded-xl bg-[#002B4D] hover:bg-[#003866] border border-white/10 text-xs text-slate-200 font-bold transition flex items-center gap-1.5"
+            className="px-3 py-1.5 rounded-xl bg-[#002B4D] hover:bg-[#003866] border border-white/10 text-xs text-slate-200 font-bold transition flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer self-start sm:self-auto"
           >
-            <MessageSquare className="w-3.5 h-3.5 text-[#3CCF91]" />
+            <MessageSquare className="w-3.5 h-3.5 text-[#3CCF91] shrink-0" />
             <span>Submit Custom Itinerary / Request</span>
           </button>
         </div>
@@ -321,10 +321,10 @@ export function ChannelPartnersWorkflow({ onOpenTicketsModal, showToast }: Chann
             activeAgency.activeClientPipeline.map((client, idx) => (
               <div key={idx} className="p-4 bg-[#001428] flex flex-wrap items-center justify-between gap-4">
                 <div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <span className="text-xs font-bold text-white">{client.clientName}</span>
                     <span
-                      className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                      className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full whitespace-nowrap shrink-0 ${
                         client.status === 'IN_STAY'
                           ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
                           : client.status === 'CONFIRMED'
@@ -340,9 +340,9 @@ export function ChannelPartnersWorkflow({ onOpenTicketsModal, showToast }: Chann
                   </div>
                 </div>
 
-                <div className="text-right">
-                  <div className="text-xs text-slate-400">Booking Value: <strong className="text-white">₹{client.bookingValue.toLocaleString('en-IN')}</strong></div>
-                  <div className="text-xs text-emerald-400 font-bold mt-0.5">
+                <div className="text-right shrink-0">
+                  <div className="text-xs text-slate-400">Booking Value: <strong className="text-white whitespace-nowrap">₹{client.bookingValue.toLocaleString('en-IN')}</strong></div>
+                  <div className="text-xs text-emerald-400 font-bold mt-0.5 whitespace-nowrap">
                     Agency Commission: ₹{Math.round((client.bookingValue * activeAgency.commissionRatePct) / 100).toLocaleString('en-IN')}
                   </div>
                 </div>

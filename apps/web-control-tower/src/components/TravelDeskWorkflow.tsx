@@ -158,20 +158,20 @@ export function TravelDeskWorkflow({ onOpenTicketsModal, showToast }: TravelDesk
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           <button
             onClick={onOpenTicketsModal}
-            className="px-4 py-2.5 rounded-2xl bg-[#002B4D] hover:bg-[#003866] border border-amber-500/40 text-white text-xs font-bold transition-all shadow flex items-center gap-2"
+            className="px-4 py-2.5 rounded-2xl bg-[#002B4D] hover:bg-[#003866] border border-amber-500/40 text-white text-xs font-bold transition-all shadow flex items-center gap-2 whitespace-nowrap shrink-0 cursor-pointer"
           >
-            <MessageSquare className="w-4 h-4 text-amber-400" />
+            <MessageSquare className="w-4 h-4 text-amber-400 shrink-0" />
             <span>Driver & Transit Tickets (2 Active)</span>
           </button>
 
           <button
             onClick={() => setIsFleetOnboardingOpen(true)}
-            className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500 to-[#3CCF91] text-white text-xs font-bold transition-all shadow-lg hover:brightness-110 flex items-center gap-2"
+            className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500 to-[#3CCF91] text-white text-xs font-bold transition-all shadow-lg hover:brightness-110 flex items-center gap-2 whitespace-nowrap shrink-0 cursor-pointer"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4 shrink-0" />
             <span>Onboard Fleet Vehicle</span>
           </button>
         </div>
@@ -180,42 +180,42 @@ export function TravelDeskWorkflow({ onOpenTicketsModal, showToast }: TravelDesk
       {/* Fleet Telemetry Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="p-4 rounded-2xl bg-[#001428] border border-white/10 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-500/40 text-amber-400 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-500/40 text-amber-400 flex items-center justify-center shrink-0">
             <Car className="w-6 h-6" />
           </div>
           <div>
-            <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">Active Fleet Vehicles</div>
-            <div className="text-2xl font-black text-white">{fleet.length} Chauffeurs</div>
+            <div className="text-xs text-slate-400 font-bold uppercase tracking-wider whitespace-nowrap">Active Fleet Vehicles</div>
+            <div className="text-2xl font-black text-white whitespace-nowrap">{fleet.length} Chauffeurs</div>
           </div>
         </div>
 
         <div className="p-4 rounded-2xl bg-[#001428] border border-white/10 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#00A9A5]/20 to-[#00A9A5]/40 text-[#00A9A5] flex items-center justify-center">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#00A9A5]/20 to-[#00A9A5]/40 text-[#00A9A5] flex items-center justify-center shrink-0">
             <Plane className="w-6 h-6" />
           </div>
           <div>
-            <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">Flight Radar Sync</div>
-            <div className="text-2xl font-black text-white">100% On-Time</div>
+            <div className="text-xs text-slate-400 font-bold uppercase tracking-wider whitespace-nowrap">Flight Radar Sync</div>
+            <div className="text-2xl font-black text-white whitespace-nowrap">100% On-Time</div>
           </div>
         </div>
 
         <div className="p-4 rounded-2xl bg-[#001428] border border-white/10 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#3CCF91]/20 to-[#3CCF91]/40 text-[#3CCF91] flex items-center justify-center">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#3CCF91]/20 to-[#3CCF91]/40 text-[#3CCF91] flex items-center justify-center shrink-0">
             <ShieldCheck className="w-6 h-6" />
           </div>
           <div>
-            <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">On-Time Performance</div>
-            <div className="text-2xl font-black text-white">99.8% OTP</div>
+            <div className="text-xs text-slate-400 font-bold uppercase tracking-wider whitespace-nowrap">On-Time Performance</div>
+            <div className="text-2xl font-black text-white whitespace-nowrap">99.8% OTP</div>
           </div>
         </div>
 
         <div className="p-4 rounded-2xl bg-[#001428] border border-white/10 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-cyan-500/40 text-cyan-400 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-cyan-500/40 text-cyan-400 flex items-center justify-center shrink-0">
             <DollarSign className="w-6 h-6" />
           </div>
           <div>
-            <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">Transit Escrow Pool</div>
-            <div className="text-2xl font-black text-white">₹59,700</div>
+            <div className="text-xs text-slate-400 font-bold uppercase tracking-wider whitespace-nowrap">Transit Escrow Pool</div>
+            <div className="text-2xl font-black text-white whitespace-nowrap">₹59,700</div>
           </div>
         </div>
       </div>
@@ -224,10 +224,10 @@ export function TravelDeskWorkflow({ onOpenTicketsModal, showToast }: TravelDesk
       <div className="bg-[#001E36] border border-white/10 rounded-3xl p-6 shadow-xl space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-sm font-bold text-white flex items-center gap-2">
-            <Navigation className="w-4 h-4 text-amber-400" />
+            <Navigation className="w-4 h-4 text-amber-400 shrink-0" />
             <span>Active VIP Airport Transits & Driver Telematics</span>
           </h3>
-          <span className="text-xs text-slate-400">Live GPS Polling • 30s Interval</span>
+          <span className="text-xs text-slate-400 whitespace-nowrap shrink-0">Live GPS Polling • 30s Interval</span>
         </div>
 
         <div className="space-y-4">
@@ -237,53 +237,53 @@ export function TravelDeskWorkflow({ onOpenTicketsModal, showToast }: TravelDesk
               className="p-5 rounded-2xl bg-[#001428] border border-white/10 hover:border-amber-500/40 transition flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4"
             >
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-[#002B4D] border border-white/10 flex items-center justify-center text-amber-400">
+                <div className="w-12 h-12 rounded-2xl bg-[#002B4D] border border-white/10 flex items-center justify-center text-amber-400 shrink-0">
                   <Car className="w-6 h-6" />
                 </div>
                 <div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <h4 className="text-sm font-bold text-white">{item.vehicleModel}</h4>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300 font-bold">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300 font-bold whitespace-nowrap shrink-0">
                       {item.licensePlate}
                     </span>
                   </div>
                   <div className="text-xs text-slate-400 mt-1 flex flex-wrap items-center gap-3">
-                    <span>
+                    <span className="whitespace-nowrap">
                       Chauffeur: <strong className="text-slate-200">{item.driverName}</strong> ({item.driverPhone})
                     </span>
-                    <span>•</span>
-                    <span>
+                    <span className="text-slate-600">•</span>
+                    <span className="whitespace-nowrap">
                       Guest: <strong className="text-[#3CCF91]">{item.assignedGuest}</strong>
                     </span>
-                    <span>•</span>
-                    <span className="text-cyan-300 font-mono font-bold">{item.guestFlightCode}</span>
+                    <span className="text-slate-600">•</span>
+                    <span className="text-cyan-300 font-mono font-bold whitespace-nowrap shrink-0">{item.guestFlightCode}</span>
                   </div>
                 </div>
               </div>
 
               {/* Status and Action Buttons */}
-              <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto justify-between lg:justify-end">
+              <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto justify-between lg:justify-end shrink-0">
                 <div className="text-left lg:text-right">
                   <div className="flex items-center gap-1.5">
                     <span
-                      className={`w-2 h-2 rounded-full ${
+                      className={`w-2 h-2 rounded-full shrink-0 ${
                         item.telematicsStatus === 'ARRIVED_AT_ESTATE'
                           ? 'bg-emerald-400'
                           : 'bg-amber-400 animate-ping'
                       }`}
                     />
-                    <span className="text-xs font-bold text-white">{item.telematicsStatus.replace(/_/g, ' ')}</span>
+                    <span className="text-xs font-bold text-white whitespace-nowrap">{item.telematicsStatus.replace(/_/g, ' ')}</span>
                   </div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">
+                  <div className="text-[11px] text-slate-400 mt-0.5 whitespace-nowrap">
                     {item.etaMinutes > 0 ? `ETA: ~${item.etaMinutes} mins` : 'Arrived at Villa Doorstep'}
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 shrink-0">
                   {item.telematicsStatus === 'LANDED_EN_ROUTE' && (
                     <button
                       onClick={() => handleUpdateStatus(item.id, 'BOARDING_TERMINAL')}
-                      className="px-3 py-1.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/30 text-xs font-bold transition"
+                      className="px-3 py-1.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/30 text-xs font-bold transition whitespace-nowrap shrink-0 cursor-pointer"
                     >
                       Mark Guest Boarded
                     </button>
@@ -292,7 +292,7 @@ export function TravelDeskWorkflow({ onOpenTicketsModal, showToast }: TravelDesk
                   {item.telematicsStatus === 'BOARDING_TERMINAL' && (
                     <button
                       onClick={() => handleUpdateStatus(item.id, 'IN_TRANSIT')}
-                      className="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 text-xs font-bold transition"
+                      className="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 text-xs font-bold transition whitespace-nowrap shrink-0 cursor-pointer"
                     >
                       Depart to Villa
                     </button>
@@ -301,15 +301,15 @@ export function TravelDeskWorkflow({ onOpenTicketsModal, showToast }: TravelDesk
                   {item.telematicsStatus === 'IN_TRANSIT' && (
                     <button
                       onClick={() => handleUpdateStatus(item.id, 'ARRIVED_AT_ESTATE')}
-                      className="px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-xs font-bold transition"
+                      className="px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-xs font-bold transition whitespace-nowrap shrink-0 cursor-pointer"
                     >
                       Confirm Arrival & Settle ₹{item.tripPayout}
                     </button>
                   )}
 
                   {item.telematicsStatus === 'ARRIVED_AT_ESTATE' && (
-                    <span className="px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold flex items-center gap-1">
-                      <CheckCircle2 className="w-3.5 h-3.5" /> Payout Settled
+                    <span className="px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold flex items-center gap-1 whitespace-nowrap shrink-0">
+                      <CheckCircle2 className="w-3.5 h-3.5 shrink-0" /> Payout Settled
                     </span>
                   )}
                 </div>

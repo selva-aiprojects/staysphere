@@ -346,14 +346,14 @@ export const PropertyMasterDirectory: React.FC<PropertyMasterDirectoryProps> = (
       {/* Filter & Search Bar */}
       <div className="p-4 rounded-xl bg-[#001E36] border border-white/10 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-xs font-bold text-slate-400 flex items-center gap-1.5 mr-1">
-            <Filter className="w-3.5 h-3.5 text-[#00A9A5]" /> Filter City:
+          <span className="text-xs font-bold text-slate-400 flex items-center gap-1.5 mr-1 whitespace-nowrap shrink-0">
+            <Filter className="w-3.5 h-3.5 text-[#00A9A5] shrink-0" /> Filter City:
           </span>
           {['ALL', 'Goa', 'Udaipur', 'Manali', 'Mumbai'].map((city) => (
             <button
               key={city}
               onClick={() => setSelectedCity(city)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap shrink-0 cursor-pointer ${
                 selectedCity === city
                   ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow'
                   : 'bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10'
@@ -363,8 +363,8 @@ export const PropertyMasterDirectory: React.FC<PropertyMasterDirectoryProps> = (
             </button>
           ))}
 
-          <span className="text-xs font-bold text-slate-400 flex items-center gap-1.5 ml-3 mr-1">
-            <Layers className="w-3.5 h-3.5 text-[#FFC857]" /> Category:
+          <span className="text-xs font-bold text-slate-400 flex items-center gap-1.5 ml-3 mr-1 whitespace-nowrap shrink-0">
+            <Layers className="w-3.5 h-3.5 text-[#FFC857] shrink-0" /> Category:
           </span>
           {[
             { id: 'ALL', label: 'All Types' },
@@ -376,7 +376,7 @@ export const PropertyMasterDirectory: React.FC<PropertyMasterDirectoryProps> = (
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap shrink-0 cursor-pointer ${
                 selectedCategory === cat.id
                   ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow'
                   : 'bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10'
@@ -414,44 +414,46 @@ export const PropertyMasterDirectory: React.FC<PropertyMasterDirectoryProps> = (
                 </div>
                 <div>
                   <div className="flex items-center gap-2.5 flex-wrap">
-                    <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-white/10 text-[#00D2C4] border border-white/15">
+                    <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-white/10 text-[#00D2C4] border border-white/15 whitespace-nowrap shrink-0">
                       {prop.code}
                     </span>
-                    <h3 className="font-bold text-white text-base">{prop.name}</h3>
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-[#FFC857]/20 text-[#FFC857] border border-[#FFC857]/40">
+                    <h3 className="font-bold text-white text-base leading-snug">{prop.name}</h3>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-[#FFC857]/20 text-[#FFC857] border border-[#FFC857]/40 whitespace-nowrap shrink-0">
                       {prop.categoryLabel}
                     </span>
                   </div>
-                  <p className="text-xs text-slate-300 mt-1 flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-rose-400" />
-                    <span>{prop.locationArea}, <strong>{prop.destinationCity}</strong></span>
-                    <span className="text-slate-500">•</span>
-                    <span className="text-amber-300 font-bold flex items-center gap-1">
-                      <Star className="w-3 h-3 fill-amber-300 text-amber-300" /> {prop.starRating} ({prop.reviewCount} reviews)
+                  <p className="text-xs text-slate-300 mt-1 flex items-center gap-1.5 flex-wrap">
+                    <span className="flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5 text-rose-400 shrink-0" />
+                      <span>{prop.locationArea}, <strong>{prop.destinationCity}</strong></span>
                     </span>
                     <span className="text-slate-500">•</span>
-                    <span className="text-[#3CCF91] font-bold">Trust Score: {prop.trustScore}%</span>
+                    <span className="text-amber-300 font-bold flex items-center gap-1 whitespace-nowrap shrink-0">
+                      <Star className="w-3 h-3 fill-amber-300 text-amber-300 shrink-0" /> {prop.starRating} ({prop.reviewCount} reviews)
+                    </span>
+                    <span className="text-slate-500">•</span>
+                    <span className="text-[#3CCF91] font-bold whitespace-nowrap shrink-0">Trust Score: {prop.trustScore}%</span>
                   </p>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-2 flex-wrap shrink-0">
                 {prop.rateParityStatus === 'DISCREPANCY' && (
                   <button
                     onClick={() => handleSyncParity(prop.id)}
-                    className="px-3.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center gap-1.5 cursor-pointer animate-pulse"
+                    className="px-3.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center gap-1.5 cursor-pointer animate-pulse whitespace-nowrap shrink-0"
                   >
-                    <RefreshCw className="w-3.5 h-3.5" />
-                    Sync Rate Parity (Discrepancy)
+                    <RefreshCw className="w-3.5 h-3.5 shrink-0" />
+                    <span>Sync Rate Parity (Discrepancy)</span>
                   </button>
                 )}
                 <button
                   onClick={() => setInspectingProperty(prop)}
-                  className="px-3.5 py-1.5 rounded-xl bg-[#002B4D] hover:bg-[#003B6D] text-white border border-[#00A9A5]/40 text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                  className="px-3.5 py-1.5 rounded-xl bg-[#002B4D] hover:bg-[#003B6D] text-white border border-[#00A9A5]/40 text-xs font-bold flex items-center gap-1.5 cursor-pointer whitespace-nowrap shrink-0"
                 >
-                  <Eye className="w-3.5 h-3.5 text-[#00A9A5]" />
-                  Inspect Suites & Rates
+                  <Eye className="w-3.5 h-3.5 text-[#00A9A5] shrink-0" />
+                  <span>Inspect Suites & Rates</span>
                 </button>
               </div>
             </div>
@@ -459,41 +461,41 @@ export const PropertyMasterDirectory: React.FC<PropertyMasterDirectoryProps> = (
             {/* Property Operational Specs Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
               <div className="p-3 rounded-xl bg-black/20 border border-white/5 space-y-1">
-                <span className="text-slate-400 font-semibold block">Base Nightly Rate & Commission</span>
+                <span className="text-slate-400 font-semibold block whitespace-nowrap">Base Nightly Rate & Commission</span>
                 <div className="flex items-baseline gap-2">
-                  <strong className="text-white text-sm">₹{prop.basePricePerNight.toLocaleString()}</strong>
-                  <span className="text-[#3CCF91] font-bold">({prop.commissionRatePercent}% Com.)</span>
+                  <strong className="text-white text-sm whitespace-nowrap">₹{prop.basePricePerNight.toLocaleString()}</strong>
+                  <span className="text-[#3CCF91] font-bold whitespace-nowrap">({prop.commissionRatePercent}% Com.)</span>
                 </div>
               </div>
 
-              <div className="p-3 rounded-xl bg-black/20 border border-white/5 space-y-1">
-                <span className="text-slate-400 font-semibold block">HostSphere PMS Connector</span>
+              <div className="p-3 rounded-xl bg-black/20 border border-white/5 space-y-1 min-w-0">
+                <span className="text-slate-400 font-semibold block whitespace-nowrap">HostSphere PMS Connector</span>
                 <div className="flex items-center gap-1.5 text-[#00D2C4] font-bold truncate">
                   <Link className="w-3.5 h-3.5 shrink-0" />
                   <span className="truncate">{prop.pmsConnector}</span>
                 </div>
               </div>
 
-              <div className="p-3 rounded-xl bg-black/20 border border-white/5 space-y-1">
-                <span className="text-slate-400 font-semibold block">General Manager / Host</span>
+              <div className="p-3 rounded-xl bg-black/20 border border-white/5 space-y-1 min-w-0">
+                <span className="text-slate-400 font-semibold block whitespace-nowrap">General Manager / Host</span>
                 <div className="text-white font-bold truncate">{prop.managerName}</div>
                 <div className="text-[11px] text-slate-400 font-mono truncate">{prop.managerPhone}</div>
               </div>
 
-              <div className="p-3 rounded-xl bg-black/20 border border-white/5 space-y-1">
-                <span className="text-slate-400 font-semibold block">Settlement Bank Account</span>
+              <div className="p-3 rounded-xl bg-black/20 border border-white/5 space-y-1 min-w-0">
+                <span className="text-slate-400 font-semibold block whitespace-nowrap">Settlement Bank Account</span>
                 <div className="text-white font-bold truncate">{prop.payoutBankInfo.bankName}</div>
-                <div className="text-[11px] text-[#3CCF91] font-mono">{prop.payoutBankInfo.accountEnding}</div>
+                <div className="text-[11px] text-[#3CCF91] font-mono whitespace-nowrap">{prop.payoutBankInfo.accountEnding}</div>
               </div>
             </div>
 
             {/* Room Suites Breakdown Pills */}
             <div className="pt-2 flex items-center gap-2 flex-wrap">
-              <span className="text-[11px] font-bold text-slate-400 mr-1">Active Suites:</span>
+              <span className="text-[11px] font-bold text-slate-400 mr-1 whitespace-nowrap shrink-0">Active Suites:</span>
               {prop.roomSuites.map((suite) => (
                 <span
                   key={suite.id}
-                  className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] text-slate-200"
+                  className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] text-slate-200 whitespace-nowrap shrink-0"
                 >
                   <strong>{suite.name}</strong> (₹{suite.basePricePerNight.toLocaleString()} • {suite.inventoryCount} units)
                 </span>

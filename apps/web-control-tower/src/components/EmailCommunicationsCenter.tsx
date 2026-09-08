@@ -403,14 +403,14 @@ export function EmailCommunicationsCenter({ showToast }: EmailCommunicationsCent
       {/* Top Banner: Resend API Integration Status */}
       <div className="p-5 rounded-3xl bg-gradient-to-r from-[#001E36] via-[#00284D] to-[#001E36] border border-[#00A9A5]/40 shadow-xl flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-[#00A9A5]/20 border border-[#00A9A5]/40 text-[#00A9A5] flex items-center justify-center font-bold">
+          <div className="w-10 h-10 rounded-2xl bg-[#00A9A5]/20 border border-[#00A9A5]/40 text-[#00A9A5] flex items-center justify-center font-bold shrink-0">
             <Mail className="w-5 h-5" />
           </div>
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <h2 className="text-base font-bold text-white">Resend Email Gateway & Communication Center</h2>
-              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-black uppercase tracking-wider flex items-center gap-1">
-                <CheckCircle2 className="w-3 h-3" /> Resend Connected
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-black uppercase tracking-wider flex items-center gap-1 whitespace-nowrap shrink-0">
+                <CheckCircle2 className="w-3 h-3 shrink-0" /> Resend Connected
               </span>
             </div>
             <p className="text-xs text-slate-300 mt-0.5">
@@ -419,13 +419,13 @@ export function EmailCommunicationsCenter({ showToast }: EmailCommunicationsCent
           </div>
         </div>
 
-        <div className="flex items-center gap-3 text-xs">
-          <div className="px-3 py-1.5 rounded-xl bg-black/40 border border-white/10 text-slate-300 flex items-center gap-2">
-            <Globe className="w-3.5 h-3.5 text-[#00A9A5]" />
+        <div className="flex items-center gap-3 text-xs shrink-0 flex-wrap">
+          <div className="px-3 py-1.5 rounded-xl bg-black/40 border border-white/10 text-slate-300 flex items-center gap-2 whitespace-nowrap shrink-0">
+            <Globe className="w-3.5 h-3.5 text-[#00A9A5] shrink-0" />
             <span>Domain: <strong className="text-white">cybelinx.com</strong> (Verified)</span>
           </div>
-          <div className="px-3 py-1.5 rounded-xl bg-black/40 border border-white/10 text-slate-300 flex items-center gap-2">
-            <KeyRound className="w-3.5 h-3.5 text-[#FFC857]" />
+          <div className="px-3 py-1.5 rounded-xl bg-black/40 border border-white/10 text-slate-300 flex items-center gap-2 whitespace-nowrap shrink-0">
+            <KeyRound className="w-3.5 h-3.5 text-[#FFC857] shrink-0" />
             <span>Sender: <strong className="text-white">StaySphere@cybelinx.com</strong></span>
           </div>
         </div>
@@ -438,10 +438,10 @@ export function EmailCommunicationsCenter({ showToast }: EmailCommunicationsCent
           <div className="bg-[#001E36] border border-white/10 rounded-3xl p-5 shadow-xl space-y-3">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-[#FFC857]" />
+                <Sparkles className="w-4 h-4 text-[#FFC857] shrink-0" />
                 <span>Email Templates & Triggers</span>
               </h3>
-              <span className="text-[11px] text-[#00A9A5] font-bold">{EMAIL_TEMPLATES.length} Live Templates</span>
+              <span className="text-[11px] text-[#00A9A5] font-bold whitespace-nowrap shrink-0">{EMAIL_TEMPLATES.length} Live Templates</span>
             </div>
 
             {/* Audience Filter Pills */}
@@ -457,7 +457,7 @@ export function EmailCommunicationsCenter({ showToast }: EmailCommunicationsCent
                 <button
                   key={pill.id}
                   onClick={() => setSelectedAudienceFilter(pill.id)}
-                  className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition ${
+                  className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition whitespace-nowrap shrink-0 cursor-pointer ${
                     selectedAudienceFilter === pill.id
                       ? 'bg-[#00A9A5] text-white shadow'
                       : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'

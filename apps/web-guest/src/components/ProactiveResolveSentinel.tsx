@@ -48,7 +48,7 @@ export function ProactiveResolveSentinel({
         <div className="flex items-start justify-between border-b border-white/10 pb-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#FF8A3D] animate-ping" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FF8A3D] animate-ping shrink-0" />
               <h3 className="text-lg font-bold text-white tracking-wide">Proactive Resolution Sentinel</h3>
             </div>
             <p className="text-xs text-slate-300 mt-1">
@@ -57,7 +57,7 @@ export function ProactiveResolveSentinel({
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-slate-300 hover:text-white"
+            className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-slate-300 hover:text-white shrink-0 cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -70,18 +70,18 @@ export function ProactiveResolveSentinel({
             </div>
             <h4 className="text-xl font-black text-white">Resolution Ticket Dispatched!</h4>
             <div className="p-4 rounded-2xl bg-[#001020] border border-white/15 max-w-md mx-auto text-xs text-left space-y-2">
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center gap-2">
                 <span className="text-slate-400">Ticket Number:</span>
-                <span className="font-mono font-bold text-[#FFC857]">{createdTicketId}</span>
+                <span className="font-mono font-bold text-[#FFC857] shrink-0">{createdTicketId}</span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center gap-2">
                 <span className="text-slate-400">Assigned Sentinel:</span>
-                <strong className="text-white">Priya Sharma (Senior Relationship Manager)</strong>
+                <strong className="text-white text-right">Priya Sharma (Senior Relationship Manager)</strong>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center gap-2">
                 <span className="text-slate-400">Guaranteed Response Clock:</span>
-                <span className="text-emerald-400 font-bold flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5" /> 15:00 Mins (Ticking)
+                <span className="text-emerald-400 font-bold flex items-center gap-1 shrink-0 whitespace-nowrap">
+                  <Clock className="w-3.5 h-3.5 shrink-0" /> 15:00 Mins (Ticking)
                 </span>
               </div>
             </div>
@@ -91,7 +91,7 @@ export function ProactiveResolveSentinel({
             <div className="pt-2">
               <button
                 onClick={onClose}
-                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-[#001428] font-black text-xs shadow-lg"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-[#001428] font-black text-xs shadow-lg cursor-pointer whitespace-nowrap"
               >
                 Return to Live Journey
               </button>
@@ -104,7 +104,7 @@ export function ProactiveResolveSentinel({
               <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-2">
                 Select Concern Category
               </label>
-              <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                 {[
                   { id: 'TRANSIT_DELAY', label: 'Transit & Flight Adjustment', icon: Car },
                   { id: 'ROOM_HYGIENE', label: 'Suite & In-Stay Preferences', icon: Hotel },
@@ -117,7 +117,7 @@ export function ProactiveResolveSentinel({
                       key={cat.id}
                       type="button"
                       onClick={() => setCategory(cat.id)}
-                      className={`p-3 rounded-xl border text-left flex items-center gap-2 transition ${
+                      className={`p-3 rounded-xl border text-left flex items-center gap-2 transition cursor-pointer ${
                         category === cat.id
                           ? 'bg-[#002B4D] border-[#FF8A3D] text-white font-bold shadow'
                           : 'bg-[#001428] border-white/10 text-slate-300 hover:border-white/20'
@@ -136,7 +136,7 @@ export function ProactiveResolveSentinel({
               <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-1.5">
                 Urgency Level
               </label>
-              <div className="flex gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 {[
                   { id: 'NORMAL', label: 'Standard (30 Min)' },
                   { id: 'URGENT_P1', label: 'Urgent P1 (15 Min)' },
@@ -146,7 +146,7 @@ export function ProactiveResolveSentinel({
                     key={lvl.id}
                     type="button"
                     onClick={() => setUrgency(lvl.id as any)}
-                    className={`flex-1 py-2 rounded-xl text-xs font-bold border transition ${
+                    className={`py-2 px-2.5 rounded-xl text-xs font-bold border transition text-center whitespace-nowrap cursor-pointer ${
                       urgency === lvl.id
                         ? 'bg-[#FF8A3D] text-[#001428] border-[#FF8A3D]'
                         : 'bg-[#001428] border-white/10 text-slate-400 hover:text-white'
@@ -176,25 +176,25 @@ export function ProactiveResolveSentinel({
             {/* SLA Guarantee Banner */}
             <div className="p-3.5 rounded-xl bg-[#001428] border border-white/10 text-xs text-slate-300 flex items-start gap-2.5">
               <ShieldCheck className="w-4 h-4 text-[#3CCF91] shrink-0 mt-0.5" />
-              <p>
+              <p className="leading-relaxed">
                 <strong>15-Minute Guaranteed SLA:</strong> StaySphere Sentinel automatically escalates unacknowledged requests to the Managing Director and freezes escrow payouts if issues remain unresolved.
               </p>
             </div>
 
             {/* Action Buttons */}
-            <div className="flex justify-end gap-3 pt-2">
+            <div className="flex items-center justify-end gap-3 pt-2">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-300 font-bold text-xs"
+                className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-300 font-bold text-xs cursor-pointer whitespace-nowrap"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] hover:brightness-110 text-[#001428] font-black text-xs shadow-lg shadow-[#FF8A3D]/20 flex items-center gap-2"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] hover:brightness-110 text-[#001428] font-black text-xs shadow-lg shadow-[#FF8A3D]/20 flex items-center gap-2 cursor-pointer whitespace-nowrap"
               >
-                <Send className="w-3.5 h-3.5" />
+                <Send className="w-3.5 h-3.5 shrink-0" />
                 <span>Submit to Resolution Sentinel</span>
               </button>
             </div>

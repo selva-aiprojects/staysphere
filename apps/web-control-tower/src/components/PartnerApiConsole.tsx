@@ -95,14 +95,14 @@ export function PartnerApiConsole() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           <a
             href="http://localhost:4000/docs"
             target="_blank"
             rel="noreferrer"
-            className="px-4 py-2.5 rounded-2xl bg-[#002B4D] hover:bg-[#003866] border border-cyan-500/40 text-cyan-300 text-xs font-bold transition shadow flex items-center gap-2"
+            className="px-4 py-2.5 rounded-2xl bg-[#002B4D] hover:bg-[#003866] border border-cyan-500/40 text-cyan-300 text-xs font-bold transition shadow flex items-center gap-2 whitespace-nowrap shrink-0"
           >
-            <Server className="w-4 h-4" />
+            <Server className="w-4 h-4 shrink-0" />
             <span>Open Swagger API Docs (Port 4000) ↗</span>
           </a>
         </div>
@@ -111,27 +111,27 @@ export function PartnerApiConsole() {
       {/* API Key Credentials Card */}
       <div className="bg-[#001428] border border-white/10 rounded-2xl p-5 shadow flex flex-wrap items-center justify-between gap-4">
         <div>
-          <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-            <ShieldCheck className="w-4 h-4 text-[#3CCF91]" />
+          <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1.5 whitespace-nowrap">
+            <ShieldCheck className="w-4 h-4 text-[#3CCF91] shrink-0" />
             <span>Live Partner API Credential</span>
           </div>
           <div className="font-mono text-xs text-slate-200 bg-[#000E1C] px-3.5 py-1.5 rounded-xl border border-white/10 flex items-center gap-3">
-            <span>Bearer: <strong>ss_live_partner_key_9941a8b3f2</strong></span>
-            <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">Active</span>
+            <span className="whitespace-nowrap">Bearer: <strong>ss_live_partner_key_9941a8b3f2</strong></span>
+            <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold whitespace-nowrap shrink-0">Active</span>
           </div>
         </div>
 
         <button
           onClick={copyApiKey}
-          className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition flex items-center gap-1.5"
+          className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer"
         >
-          {copiedKey ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+          {copiedKey ? <Check className="w-4 h-4 text-emerald-400 shrink-0" /> : <Copy className="w-4 h-4 shrink-0" />}
           <span>{copiedKey ? 'Copied to Clipboard' : 'Copy API Key'}</span>
         </button>
       </div>
 
       {/* Category Tabs */}
-      <div className="flex gap-2 overflow-x-auto text-xs font-bold">
+      <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1 text-xs font-bold">
         {[
           { key: 'HOTEL_PMS', label: '1. Hotel PMS & Channel Manager API' },
           { key: 'TRAVEL_FLEET', label: '2. Travel Desk & GPS Telematics API' },
@@ -144,7 +144,7 @@ export function PartnerApiConsole() {
               setSelectedApiCategory(tab.key as any);
               setTestResponse(null);
             }}
-            className={`px-4 py-2.5 rounded-xl transition ${
+            className={`px-4 py-2.5 rounded-xl transition whitespace-nowrap shrink-0 cursor-pointer ${
               selectedApiCategory === tab.key
                 ? 'bg-[#00A9A5] text-white shadow-md'
                 : 'bg-[#001428] border border-white/10 text-slate-400 hover:text-white'

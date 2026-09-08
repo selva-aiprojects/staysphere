@@ -643,18 +643,18 @@ export default function GuestApp() {
   return (
     <div className="min-h-screen bg-[#001428] text-slate-100 flex flex-col font-sans selection:bg-[#FF8A3D] selection:text-white">
       {/* Top Application Switcher Bar */}
-      <div className="bg-[#000B17] border-b border-white/10 px-4 sm:px-8 py-2 text-xs flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2 text-slate-300">
-          <Compass className="w-3.5 h-3.5 text-[#00D2C4]" />
-          <span>StaySphere Journey Platform: <strong className="text-white">Coordinated Stays, Mobility & Proactive Resolution</strong></span>
+      <div className="bg-[#000B17] border-b border-white/10 px-4 sm:px-8 py-2 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+        <div className="flex items-center gap-2 text-slate-300 min-w-0">
+          <Compass className="w-3.5 h-3.5 text-[#00D2C4] shrink-0" />
+          <span className="truncate sm:whitespace-normal">StaySphere Journey Platform: <strong className="text-white">Coordinated Stays, Mobility & Proactive Resolution</strong></span>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           <button
             type="button"
             onClick={() => setShowPartnerModal(true)}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#002B4D] border border-[#00A9A5]/40 text-[#00D2C4] font-bold hover:brightness-110 text-xs shadow-sm cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#002B4D] border border-[#00A9A5]/40 text-[#00D2C4] font-bold hover:brightness-110 text-xs shadow-sm cursor-pointer whitespace-nowrap"
           >
-            <Building2 className="w-3.5 h-3.5" />
+            <Building2 className="w-3.5 h-3.5 shrink-0" />
             <span>Partner & Operations Network ↗</span>
           </button>
         </div>
@@ -676,7 +676,7 @@ export default function GuestApp() {
               <button
                 type="button"
                 onClick={() => navigateToTab('landing')}
-                className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                   activeTab === 'landing'
                     ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
                     : 'text-slate-300 hover:text-white hover:bg-white/5'
@@ -688,39 +688,39 @@ export default function GuestApp() {
               <button
                 type="button"
                 onClick={() => navigateToTab('explore')}
-                className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
+                className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
                   activeTab === 'explore'
                     ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
                     : 'text-slate-300 hover:text-white hover:bg-white/5'
                 }`}
               >
-                <Hotel className="w-3.5 h-3.5 text-[#00D2C4]" />
+                <Hotel className="w-3.5 h-3.5 text-[#00D2C4] shrink-0" />
                 <span>1. Stays & Itineraries</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => navigateToTab('booking', 1)}
-                className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
+                className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
                   activeTab === 'booking'
                     ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
                     : 'text-slate-300 hover:text-white hover:bg-white/5'
                 }`}
               >
-                <Car className="w-3.5 h-3.5 text-[#FF8A3D]" />
+                <Car className="w-3.5 h-3.5 text-[#FF8A3D] shrink-0" />
                 <span>2. Book Unified Journey</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => navigateToTab('myjourney')}
-                className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
+                className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
                   activeTab === 'myjourney'
                     ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
                     : 'text-slate-300 hover:text-white hover:bg-white/5'
                 }`}
               >
-                <Navigation className="w-3.5 h-3.5 text-[#3CCF91]" />
+                <Navigation className="w-3.5 h-3.5 text-[#3CCF91] shrink-0" />
                 <span>3. My Journey (Live Timeline)</span>
               </button>
 
@@ -730,9 +730,9 @@ export default function GuestApp() {
                   setResolveCategory('GENERAL_INQUIRY');
                   setShowResolveModal(true);
                 }}
-                className="px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer bg-[#FF8A3D]/15 hover:bg-[#FF8A3D]/25 border border-[#FF8A3D]/40 text-[#FFC857]"
+                className="px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer bg-[#FF8A3D]/15 hover:bg-[#FF8A3D]/25 border border-[#FF8A3D]/40 text-[#FFC857]"
               >
-                <ShieldCheck className="w-3.5 h-3.5 text-[#FF8A3D]" />
+                <ShieldCheck className="w-3.5 h-3.5 text-[#FF8A3D] shrink-0" />
                 <span>4. Resolve (15-Min SLA)</span>
               </button>
             </nav>
@@ -743,19 +743,19 @@ export default function GuestApp() {
             <button
               type="button"
               onClick={() => setShowPartnerModal(true)}
-              className="hidden md:flex px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#FFC857]/20 to-[#FF8A3D]/20 hover:from-[#FFC857]/30 hover:to-[#FF8A3D]/30 border border-[#FFC857]/40 text-[#FFC857] text-xs font-black transition-all items-center gap-1.5 shadow-sm cursor-pointer"
+              className="hidden md:flex px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#FFC857]/20 to-[#FF8A3D]/20 hover:from-[#FFC857]/30 hover:to-[#FF8A3D]/30 border border-[#FFC857]/40 text-[#FFC857] text-xs font-black transition-all items-center gap-1.5 shadow-sm cursor-pointer whitespace-nowrap shrink-0"
             >
-              <Building2 className="w-3.5 h-3.5" />
+              <Building2 className="w-3.5 h-3.5 shrink-0" />
               <span>Partner With Us</span>
             </button>
 
             <button
               type="button"
               onClick={() => navigateToTab('booking', 1)}
-              className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] hover:brightness-110 text-[#001428] font-black text-xs shadow-lg shadow-[#FF8A3D]/20 transition-all flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] hover:brightness-110 text-[#001428] font-black text-xs shadow-lg shadow-[#FF8A3D]/20 transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap shrink-0"
             >
               <span>Book Trip</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5 shrink-0" />
             </button>
           </div>
         </div>
@@ -790,17 +790,17 @@ export default function GuestApp() {
               </p>
 
               {/* Special Seasonal Promo Banner */}
-              <div className="relative z-10 max-w-3xl mx-auto p-3.5 rounded-2xl bg-gradient-to-r from-[#002B4D] via-[#001E38] to-[#001428] border border-[#E5B869]/40 flex items-center justify-between gap-3 text-left shadow-xl">
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#FFC857] to-[#FF8A3D] text-[#001428] font-black flex items-center justify-center shadow-md">
-                    <Tag className="w-4 h-4" />
+              <div className="relative z-10 max-w-3xl mx-auto p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-[#002B4D] via-[#001E38] to-[#001428] border border-[#E5B869]/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-left shadow-xl">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#FFC857] to-[#FF8A3D] text-[#001428] font-black flex items-center justify-center shadow-md shrink-0">
+                    <Tag className="w-4 h-4 shrink-0" />
                   </div>
-                  <div>
-                    <span className="text-xs font-black text-white block flex items-center gap-1.5">
+                  <div className="min-w-0">
+                    <div className="text-xs font-black text-white flex flex-wrap items-center gap-1.5">
                       <span>Monsoon Privilege Offer: Code "MONSOON20"</span>
-                      <span className="px-2 py-0.2 rounded-full bg-[#FFC857]/20 text-[#FFC857] text-[10px] font-bold border border-[#FFC857]/30">VIP EXCLUSIVE</span>
-                    </span>
-                    <span className="text-[11px] text-slate-300">Enjoy 20% Off Stays + Complimentary Airport Chauffeur Upgrade</span>
+                      <span className="px-2 py-0.5 rounded-full bg-[#FFC857]/20 text-[#FFC857] text-[10px] font-bold border border-[#FFC857]/30 whitespace-nowrap shrink-0">VIP EXCLUSIVE</span>
+                    </div>
+                    <span className="text-[11px] text-slate-300 block mt-0.5">Enjoy 20% Off Stays + Complimentary Airport Chauffeur Upgrade</span>
                   </div>
                 </div>
                 <button
@@ -810,14 +810,14 @@ export default function GuestApp() {
                     setPromoMessage('Coupon "MONSOON20" applied! You saved 20%.');
                     navigateToTab('booking', 1, PROPERTIES[0]);
                   }}
-                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#FFC857] to-[#FF8A3D] text-[#001428] font-black text-xs hover:brightness-110 shrink-0 cursor-pointer shadow-lg shadow-[#FF8A3D]/25 transition"
+                  className="w-full sm:w-auto px-4 py-2 rounded-xl bg-gradient-to-r from-[#FFC857] to-[#FF8A3D] text-[#001428] font-black text-xs hover:brightness-110 shrink-0 cursor-pointer shadow-lg shadow-[#FF8A3D]/25 transition whitespace-nowrap text-center"
                 >
                   Apply & Book
                 </button>
               </div>
 
               {/* Quick Search & Filter Bar */}
-              <div className="relative z-10 max-w-4xl mx-auto p-4 sm:p-5 rounded-2xl bg-[#030D1A]/95 border border-[#E5B869]/30 backdrop-blur-2xl shadow-2xl grid grid-cols-1 sm:grid-cols-4 gap-3 text-left">
+              <div className="relative z-10 max-w-4xl mx-auto p-4 sm:p-5 rounded-2xl bg-[#030D1A]/95 border border-[#E5B869]/30 backdrop-blur-2xl shadow-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 text-left">
                 <div>
                   <label className="text-[11px] font-bold text-[#F3CA7E] uppercase tracking-wider block mb-1">
                     Destination
@@ -827,10 +827,10 @@ export default function GuestApp() {
                     onChange={(e) => setSearchDestination(e.target.value)}
                     className="w-full p-2.5 rounded-xl bg-[#06182F] border border-white/10 text-white font-bold text-xs outline-none focus:border-[#E5B869] cursor-pointer"
                   >
-                    <option value="Goa">Goa (Beach Resorts & Clifftop Villas)</option>
-                    <option value="Udaipur">Udaipur (Heritage Palace Hotels)</option>
-                    <option value="Manali">Manali (Snow Chalets & Mountain Retreats)</option>
-                    <option value="Mumbai">Mumbai (Luxury Serviced Penthouses)</option>
+                    <option value="Goa">Goa (Beach Resorts & Villas)</option>
+                    <option value="Udaipur">Udaipur (Palace Hotels)</option>
+                    <option value="Manali">Manali (Snow Chalets)</option>
+                    <option value="Mumbai">Mumbai (Serviced Penthouses)</option>
                   </select>
                 </div>
 
@@ -843,7 +843,7 @@ export default function GuestApp() {
                     onChange={(e) => setSearchPropertyType(e.target.value)}
                     className="w-full p-2.5 rounded-xl bg-[#06182F] border border-white/10 text-white font-bold text-xs outline-none focus:border-[#E5B869] cursor-pointer"
                   >
-                    <option value="all">All Stays (Hotels, Resorts, Villas)</option>
+                    <option value="all">All Stays (Hotels & Villas)</option>
                     <option value="hotel">5-Star Luxury Hotels</option>
                     <option value="resort">Beachfront & Mountain Resorts</option>
                     <option value="apartment">Serviced Luxury Suites</option>
@@ -856,8 +856,8 @@ export default function GuestApp() {
                     Dates & Nights
                   </label>
                   <div className="flex items-center gap-1.5 p-2.5 rounded-xl bg-[#06182F] border border-white/10 text-white text-xs font-bold">
-                    <Calendar className="w-3.5 h-3.5 text-[#00D2C4]" />
-                    <span>Sep 12 – 15 (3 Nights)</span>
+                    <Calendar className="w-3.5 h-3.5 text-[#00D2C4] shrink-0" />
+                    <span className="whitespace-nowrap">Sep 12 – 15 (3 Nights)</span>
                   </div>
                 </div>
 
@@ -868,27 +868,27 @@ export default function GuestApp() {
                       const matched = PROPERTIES.find((p) => p.destinationCity.toLowerCase() === searchDestination.toLowerCase()) || PROPERTIES[0];
                       navigateToTab('booking', 1, matched);
                     }}
-                    className="w-full p-2.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] via-[#FFC857] to-[#E5B869] hover:brightness-110 text-[#001428] font-black text-xs shadow-lg shadow-[#FF8A3D]/25 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                    className="w-full p-2.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] via-[#FFC857] to-[#E5B869] hover:brightness-110 text-[#001428] font-black text-xs shadow-lg shadow-[#FF8A3D]/25 transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
                   >
                     <span>Search & Book Trip</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4 shrink-0" />
                   </button>
                 </div>
               </div>
 
               {/* Trust Badges */}
-              <div className="relative z-10 flex flex-wrap items-center justify-center gap-6 pt-2 text-xs text-slate-300">
-                <span className="flex items-center gap-1.5 font-medium">
-                  <ShieldCheck className="w-4 h-4 text-[#10B981]" /> Milestone Custody Protection
+              <div className="relative z-10 flex flex-wrap items-center justify-center gap-4 sm:gap-6 pt-2 text-xs text-slate-300">
+                <span className="flex items-center gap-1.5 font-medium whitespace-nowrap shrink-0">
+                  <ShieldCheck className="w-4 h-4 text-[#10B981] shrink-0" /> Milestone Custody Protection
                 </span>
-                <span className="flex items-center gap-1.5 font-medium">
-                  <Plane className="w-4 h-4 text-[#00D2C4]" /> Flight-Synced Airport Chauffeurs
+                <span className="flex items-center gap-1.5 font-medium whitespace-nowrap shrink-0">
+                  <Plane className="w-4 h-4 text-[#00D2C4] shrink-0" /> Flight-Synced Airport Chauffeurs
                 </span>
-                <span className="flex items-center gap-1.5 font-medium">
-                  <Compass className="w-4 h-4 text-[#FF8A3D]" /> Curated Excursions & Private Yachts
+                <span className="flex items-center gap-1.5 font-medium whitespace-nowrap shrink-0">
+                  <Compass className="w-4 h-4 text-[#FF8A3D] shrink-0" /> Curated Excursions & Private Yachts
                 </span>
-                <span className="flex items-center gap-1.5 font-medium">
-                  <Clock className="w-4 h-4 text-[#FFC857]" /> 15-Minute Guaranteed SLA Sentinel
+                <span className="flex items-center gap-1.5 font-medium whitespace-nowrap shrink-0">
+                  <Clock className="w-4 h-4 text-[#FFC857] shrink-0" /> 15-Minute Guaranteed SLA Sentinel
                 </span>
               </div>
             </section>
@@ -907,77 +907,85 @@ export default function GuestApp() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
                 {/* Step 1 */}
                 <div
                   onClick={() => navigateToTab('explore')}
-                  className="p-5 rounded-2xl glass-panel border border-white/10 hover:border-[#00A9A5] hover:bg-[#002B4D]/40 transition-all cursor-pointer space-y-3 group"
+                  className="p-5 rounded-2xl glass-panel border border-white/10 hover:border-[#00A9A5] hover:bg-[#002B4D]/40 transition-all cursor-pointer space-y-3 group flex flex-col justify-between"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-[#00A9A5]/20 text-[#00D2C4] flex items-center justify-center font-black group-hover:scale-110 transition-transform">
-                    <Hotel className="w-5 h-5" />
+                  <div className="space-y-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#00A9A5]/20 text-[#00D2C4] flex items-center justify-center font-black group-hover:scale-110 transition-transform shrink-0">
+                      <Hotel className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-bold text-white text-base leading-snug flex items-center justify-between gap-2">
+                      <span>1. Luxury Stays</span>
+                      <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#00D2C4] transition-colors shrink-0" />
+                    </h3>
+                    <p className="text-xs text-slate-300 leading-relaxed font-light">
+                      Choose from 5-star hotels, beachfront resorts, serviced apartments, and pool villas with transparent pricing.
+                    </p>
                   </div>
-                  <h3 className="font-bold text-white text-base flex items-center justify-between">
-                    <span>1. Luxury Stays</span>
-                    <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#00D2C4] transition-colors" />
-                  </h3>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    Choose from 5-star hotels, beachfront resorts, serviced apartments, and pool villas with transparent pricing.
-                  </p>
-                  <span className="text-[11px] font-bold text-[#00D2C4] block">Explore Stays →</span>
+                  <span className="text-[11px] font-bold text-[#00D2C4] block pt-2">Explore Stays →</span>
                 </div>
 
                 {/* Step 2 */}
                 <div
                   onClick={() => navigateToTab('booking', 2, PROPERTIES[0])}
-                  className="p-5 rounded-2xl glass-panel border border-white/10 hover:border-[#FF8A3D] hover:bg-[#002B4D]/40 transition-all cursor-pointer space-y-3 group"
+                  className="p-5 rounded-2xl glass-panel border border-white/10 hover:border-[#FF8A3D] hover:bg-[#002B4D]/40 transition-all cursor-pointer space-y-3 group flex flex-col justify-between"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-[#FF8A3D]/20 text-[#FF8A3D] flex items-center justify-center font-black group-hover:scale-110 transition-transform">
-                    <Plane className="w-5 h-5" />
+                  <div className="space-y-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#FF8A3D]/20 text-[#FF8A3D] flex items-center justify-center font-black group-hover:scale-110 transition-transform shrink-0">
+                      <Plane className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-bold text-white text-base leading-snug flex items-center justify-between gap-2">
+                      <span>2. Airport Transfers</span>
+                      <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#FF8A3D] transition-colors shrink-0" />
+                    </h3>
+                    <p className="text-xs text-slate-300 leading-relaxed font-light">
+                      Live flight arrival tracking. VIP meet-and-greet in a Maybach or Defender directly to your hotel lobby.
+                    </p>
                   </div>
-                  <h3 className="font-bold text-white text-base flex items-center justify-between">
-                    <span>2. Airport Pickup & Drop</span>
-                    <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#FF8A3D] transition-colors" />
-                  </h3>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    Live flight arrival tracking. VIP meet-and-greet in a Maybach or Defender directly to your hotel lobby.
-                  </p>
-                  <span className="text-[11px] font-bold text-[#FF8A3D] block">Configure Transit →</span>
+                  <span className="text-[11px] font-bold text-[#FF8A3D] block pt-2">Configure Transit →</span>
                 </div>
 
                 {/* Step 3 */}
                 <div
                   onClick={() => navigateToTab('booking', 2, PROPERTIES[0])}
-                  className="p-5 rounded-2xl glass-panel border border-white/10 hover:border-[#FFC857] hover:bg-[#002B4D]/40 transition-all cursor-pointer space-y-3 group"
+                  className="p-5 rounded-2xl glass-panel border border-white/10 hover:border-[#FFC857] hover:bg-[#002B4D]/40 transition-all cursor-pointer space-y-3 group flex flex-col justify-between"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-[#FFC857]/20 text-[#FFC857] flex items-center justify-center font-black group-hover:scale-110 transition-transform">
-                    <Compass className="w-5 h-5" />
+                  <div className="space-y-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#FFC857]/20 text-[#FFC857] flex items-center justify-center font-black group-hover:scale-110 transition-transform shrink-0">
+                      <Compass className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-bold text-white text-base leading-snug flex items-center justify-between gap-2">
+                      <span>3. Local Excursions</span>
+                      <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#FFC857] transition-colors shrink-0" />
+                    </h3>
+                    <p className="text-xs text-slate-300 leading-relaxed font-light">
+                      Curated speedboats, solar boat palace tours, snow safaris, and heritage trails with dedicated tour guides.
+                    </p>
                   </div>
-                  <h3 className="font-bold text-white text-base flex items-center justify-between">
-                    <span>3. Local Sightseeing</span>
-                    <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#FFC857] transition-colors" />
-                  </h3>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    Curated speedboats, solar boat palace tours, snow safaris, and heritage trails with dedicated tour guides.
-                  </p>
-                  <span className="text-[11px] font-bold text-[#FFC857] block">Pick Excursions →</span>
+                  <span className="text-[11px] font-bold text-[#FFC857] block pt-2">Pick Excursions →</span>
                 </div>
 
                 {/* Step 4 */}
                 <div
                   onClick={() => navigateToTab('myjourney')}
-                  className="p-5 rounded-2xl glass-panel border border-white/10 hover:border-[#3CCF91] hover:bg-[#002B4D]/40 transition-all cursor-pointer space-y-3 group"
+                  className="p-5 rounded-2xl glass-panel border border-white/10 hover:border-[#3CCF91] hover:bg-[#002B4D]/40 transition-all cursor-pointer space-y-3 group flex flex-col justify-between"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-[#3CCF91]/20 text-[#3CCF91] flex items-center justify-center font-black group-hover:scale-110 transition-transform">
-                    <Navigation className="w-5 h-5" />
+                  <div className="space-y-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#3CCF91]/20 text-[#3CCF91] flex items-center justify-center font-black group-hover:scale-110 transition-transform shrink-0">
+                      <Navigation className="w-5 h-5" />
+                    </div>
+                    <h3 className="font-bold text-white text-base leading-snug flex items-center justify-between gap-2">
+                      <span>4. Live Journey Radar</span>
+                      <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#3CCF91] transition-colors shrink-0" />
+                    </h3>
+                    <p className="text-xs text-slate-300 leading-relaxed font-light">
+                      Live GPS radar for airport pickup, instant NFC digital room key, and automated flight drop-off sync.
+                    </p>
                   </div>
-                  <h3 className="font-bold text-white text-base flex items-center justify-between">
-                    <span>4. Journey Radar & Key</span>
-                    <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#3CCF91] transition-colors" />
-                  </h3>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    Live GPS radar for airport pickup, instant NFC digital room key, and automated flight drop-off sync.
-                  </p>
-                  <span className="text-[11px] font-bold text-[#3CCF91] block">View Live Radar →</span>
+                  <span className="text-[11px] font-bold text-[#3CCF91] block pt-2">View Live Radar →</span>
                 </div>
               </div>
             </section>
@@ -1134,43 +1142,43 @@ export default function GuestApp() {
                 </p>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
                 <button
                   onClick={() => setSelectedCategory('all')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold ${
-                    selectedCategory === 'all' ? 'bg-[#00A9A5] text-white' : 'bg-white/5 text-slate-400 hover:text-white'
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap shrink-0 cursor-pointer ${
+                    selectedCategory === 'all' ? 'bg-[#00A9A5] text-white shadow-md' : 'bg-white/5 text-slate-400 hover:text-white'
                   }`}
                 >
                   All (4)
                 </button>
                 <button
                   onClick={() => setSelectedCategory('coastal')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold ${
-                    selectedCategory === 'coastal' ? 'bg-[#00A9A5] text-white' : 'bg-white/5 text-slate-400 hover:text-white'
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap shrink-0 cursor-pointer ${
+                    selectedCategory === 'coastal' ? 'bg-[#00A9A5] text-white shadow-md' : 'bg-white/5 text-slate-400 hover:text-white'
                   }`}
                 >
                   Goa Beach
                 </button>
                 <button
                   onClick={() => setSelectedCategory('palace')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold ${
-                    selectedCategory === 'palace' ? 'bg-[#00A9A5] text-white' : 'bg-white/5 text-slate-400 hover:text-white'
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap shrink-0 cursor-pointer ${
+                    selectedCategory === 'palace' ? 'bg-[#00A9A5] text-white shadow-md' : 'bg-white/5 text-slate-400 hover:text-white'
                   }`}
                 >
                   Udaipur Palace
                 </button>
                 <button
                   onClick={() => setSelectedCategory('chalet')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold ${
-                    selectedCategory === 'chalet' ? 'bg-[#00A9A5] text-white' : 'bg-white/5 text-slate-400 hover:text-white'
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap shrink-0 cursor-pointer ${
+                    selectedCategory === 'chalet' ? 'bg-[#00A9A5] text-white shadow-md' : 'bg-white/5 text-slate-400 hover:text-white'
                   }`}
                 >
                   Manali Snow
                 </button>
                 <button
                   onClick={() => setSelectedCategory('apartment')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold ${
-                    selectedCategory === 'apartment' ? 'bg-[#00A9A5] text-white' : 'bg-white/5 text-slate-400 hover:text-white'
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap shrink-0 cursor-pointer ${
+                    selectedCategory === 'apartment' ? 'bg-[#00A9A5] text-white shadow-md' : 'bg-white/5 text-slate-400 hover:text-white'
                   }`}
                 >
                   Mumbai Penthouse
@@ -1270,7 +1278,7 @@ export default function GuestApp() {
             </div>
 
             {/* Stepper Progress Bar */}
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {[
                 { step: 1, title: '1. Hotel & Dates', icon: Hotel },
                 { step: 2, title: '2. Airport Cab & Sightseeing', icon: Car },
@@ -1287,8 +1295,8 @@ export default function GuestApp() {
                       : 'bg-[#001020] border-white/10 text-slate-500'
                   }`}
                 >
-                  <s.icon className="w-4 h-4" />
-                  <span className="text-xs font-bold">{s.title}</span>
+                  <s.icon className="w-4 h-4 shrink-0" />
+                  <span className="text-xs font-bold whitespace-nowrap">{s.title}</span>
                 </div>
               ))}
             </div>
@@ -1323,13 +1331,13 @@ export default function GuestApp() {
                               : 'bg-[#001020] border-white/10 hover:border-white/25'
                           }`}
                         >
-                          <div>
+                          <div className="min-w-0">
                             <h4 className="font-bold text-sm text-white">{villa.name}</h4>
                             <p className="text-xs text-slate-400 mt-1">{villa.description}</p>
                             <div className="flex flex-wrap gap-2 mt-2">
                               {villa.curatedPerks.map((perk, idx) => (
-                                <span key={idx} className="text-[10px] text-[#3CCF91] font-bold flex items-center gap-1">
-                                  <Sparkles className="w-3 h-3" /> {perk}
+                                <span key={idx} className="text-[10px] text-[#3CCF91] font-bold flex items-center gap-1 whitespace-nowrap shrink-0">
+                                  <Sparkles className="w-3 h-3 shrink-0" /> {perk}
                                 </span>
                               ))}
                             </div>
@@ -1616,14 +1624,14 @@ export default function GuestApp() {
                               <Check className="w-4 h-4 stroke-[3]" />
                             </div>
 
-                            <div className="space-y-1">
+                            <div className="space-y-1 min-w-0">
                               <div className="flex items-center gap-2 flex-wrap">
                                 <h4 className="font-bold text-sm text-white">{tour.name}</h4>
-                                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#00A9A5]/20 text-[#00D2C4] font-bold">
+                                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#00A9A5]/20 text-[#00D2C4] font-bold whitespace-nowrap shrink-0">
                                   {tour.badge}
                                 </span>
-                                <span className="text-[10px] text-slate-400 flex items-center gap-1">
-                                  <Clock className="w-3 h-3" /> {tour.duration}
+                                <span className="text-[10px] text-slate-400 flex items-center gap-1 whitespace-nowrap shrink-0">
+                                  <Clock className="w-3 h-3 shrink-0" /> {tour.duration}
                                 </span>
                               </div>
 
@@ -1631,8 +1639,8 @@ export default function GuestApp() {
 
                               <div className="flex flex-wrap gap-2 pt-1">
                                 {tour.highlights.map((highlight, idx) => (
-                                  <span key={idx} className="text-[10px] text-[#3CCF91] font-semibold flex items-center gap-1">
-                                    <Sparkles className="w-2.5 h-2.5" /> {highlight}
+                                  <span key={idx} className="text-[10px] text-[#3CCF91] font-semibold flex items-center gap-1 whitespace-nowrap shrink-0">
+                                    <Sparkles className="w-2.5 h-2.5 shrink-0" /> {highlight}
                                   </span>
                                 ))}
                               </div>
@@ -1645,8 +1653,8 @@ export default function GuestApp() {
 
                           <div className="text-left sm:text-right shrink-0 pl-9 sm:pl-0">
                             <span className="text-base font-black text-white">₹{tour.price.toLocaleString()}</span>
-                            <span className="text-[10px] text-slate-400 block">all-inclusive</span>
-                            <span className={`text-[11px] font-bold mt-1 inline-block ${isSelected ? 'text-[#00D2C4]' : 'text-slate-400'}`}>
+                            <span className="text-[10px] text-slate-400 block whitespace-nowrap">all-inclusive</span>
+                            <span className={`text-[11px] font-bold mt-1 inline-block whitespace-nowrap ${isSelected ? 'text-[#00D2C4]' : 'text-slate-400'}`}>
                               {isSelected ? '✓ Added to Booking' : '+ Click to Add'}
                             </span>
                           </div>
@@ -1829,33 +1837,33 @@ export default function GuestApp() {
 
                     {/* Complete Booking Itinerary Card */}
                     <div className="max-w-xl mx-auto p-5 rounded-2xl bg-[#001020] border border-white/15 text-left text-xs space-y-3">
-                      <div className="flex justify-between pb-2 border-b border-white/10">
-                        <span className="text-slate-400">1. Property & Suite:</span>
-                        <strong className="text-white text-right">{selectedEstate?.name} ({selectedVilla})</strong>
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pb-2 border-b border-white/10">
+                        <span className="text-slate-400 shrink-0">1. Property & Suite:</span>
+                        <strong className="text-white text-left sm:text-right min-w-0 break-words">{selectedEstate?.name} ({selectedVilla})</strong>
                       </div>
-                      <div className="flex justify-between pb-2 border-b border-white/10">
-                        <span className="text-slate-400">2. Airport Pickup:</span>
-                        <strong className="text-[#00D2C4] text-right">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pb-2 border-b border-white/10">
+                        <span className="text-slate-400 shrink-0">2. Airport Pickup:</span>
+                        <strong className="text-[#00D2C4] text-left sm:text-right min-w-0 break-words">
                           {transferVehicle.toUpperCase()} (Flight: {arrivalFlightNumber} @ {selectedEstate?.defaultAirport})
                         </strong>
                       </div>
-                      <div className="flex justify-between pb-2 border-b border-white/10">
-                        <span className="text-slate-400">3. Sightseeing Tours:</span>
-                        <strong className="text-[#FFC857] text-right">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pb-2 border-b border-white/10">
+                        <span className="text-slate-400 shrink-0">3. Sightseeing Tours:</span>
+                        <strong className="text-[#FFC857] text-left sm:text-right min-w-0 break-words">
                           {selectedSightseeingIds.length > 0
                             ? selectedSightseeingIds.map((id) => SIGHTSEEING_CATALOG.find((t) => t.id === id)?.name).join(', ')
                             : 'None Selected'}
                         </strong>
                       </div>
-                      <div className="flex justify-between pb-2 border-b border-white/10">
-                        <span className="text-slate-400">4. Airport Drop:</span>
-                        <strong className="text-[#3CCF91] text-right">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pb-2 border-b border-white/10">
+                        <span className="text-slate-400 shrink-0">4. Airport Drop:</span>
+                        <strong className="text-[#3CCF91] text-left sm:text-right min-w-0 break-words">
                           {transferVehicle.toUpperCase()} (Flight: {departureFlightNumber} @ Terminal Drop)
                         </strong>
                       </div>
-                      <div className="flex justify-between pt-1 text-sm">
+                      <div className="flex justify-between items-center pt-1 text-sm">
                         <span className="text-slate-300 font-bold">Total Paid in Safe Escrow:</span>
-                        <strong className="text-[#3CCF91] font-black">₹{totalBill.toLocaleString()}</strong>
+                        <strong className="text-[#3CCF91] font-black shrink-0 text-right whitespace-nowrap">₹{totalBill.toLocaleString()}</strong>
                       </div>
                     </div>
 

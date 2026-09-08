@@ -258,40 +258,40 @@ export function PropertyPartnersWorkflow({ onOpenTicketsModal, showToast }: Prop
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           <button
             onClick={onOpenTicketsModal}
-            className="px-4 py-2.5 rounded-2xl bg-[#002B4D] hover:bg-[#003866] border border-[#00A9A5]/40 text-white text-xs font-bold transition-all shadow flex items-center gap-2"
+            className="px-4 py-2.5 rounded-2xl bg-[#002B4D] hover:bg-[#003866] border border-[#00A9A5]/40 text-white text-xs font-bold transition-all shadow flex items-center gap-2 whitespace-nowrap shrink-0 cursor-pointer"
           >
-            <MessageSquare className="w-4 h-4 text-[#3CCF91]" />
+            <MessageSquare className="w-4 h-4 text-[#3CCF91] shrink-0" />
             <span>Partner Support & Growth Desk (3 Active)</span>
           </button>
 
           <button
             onClick={() => setIsOnboardingModalOpen(true)}
-            className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-white text-xs font-bold transition-all shadow-lg hover:brightness-110 flex items-center gap-2"
+            className="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-white text-xs font-bold transition-all shadow-lg hover:brightness-110 flex items-center gap-2 whitespace-nowrap shrink-0 cursor-pointer"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4 shrink-0" />
             <span>Onboard New Hotel / Resort</span>
           </button>
         </div>
       </div>
 
       {/* Property Selector Bar */}
-      <div className="flex gap-2 overflow-x-auto pb-1">
+      <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
         {partners.map((prop) => {
           const isSelected = prop.id === selectedPartnerId;
           return (
             <button
               key={prop.id}
               onClick={() => setSelectedPartnerId(prop.id)}
-              className={`px-4 py-3 rounded-2xl border text-left transition-all shrink-0 flex items-center gap-3 ${
+              className={`px-4 py-3 rounded-2xl border text-left transition-all shrink-0 flex items-center gap-3 whitespace-nowrap cursor-pointer ${
                 isSelected
                   ? 'bg-[#002B4D] border-[#00A9A5] shadow-lg text-white'
                   : 'bg-[#001428] border-white/10 hover:bg-white/5 text-slate-300'
               }`}
             >
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#00A9A5]/30 to-[#3CCF91]/30 flex items-center justify-center text-[#00A9A5]">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#00A9A5]/30 to-[#3CCF91]/30 flex items-center justify-center text-[#00A9A5] shrink-0">
                 <Building2 className="w-4 h-4" />
               </div>
               <div>
@@ -304,31 +304,31 @@ export function PropertyPartnersWorkflow({ onOpenTicketsModal, showToast }: Prop
       </div>
 
       {/* Active Property Performance Dashboard */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* KPI 1: Occupancy & Keys */}
         <div className="bg-[#001428] border border-white/10 rounded-2xl p-5 shadow">
           <div className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
-            <span>Occupancy & Inventory</span>
-            <TrendingUp className="w-4 h-4 text-[#3CCF91]" />
+            <span className="whitespace-nowrap">Occupancy & Inventory</span>
+            <TrendingUp className="w-4 h-4 text-[#3CCF91] shrink-0" />
           </div>
-          <div className="text-3xl font-black text-white">{activePartner.occupancyPct}%</div>
-          <div className="text-xs text-slate-300 mt-2 flex items-center justify-between">
-            <span>Allocated to StaySphere:</span>
-            <strong className="text-white">{activePartner.allottedKeysToStaySphere} / {activePartner.totalKeys} Keys</strong>
+          <div className="text-3xl font-black text-white whitespace-nowrap">{activePartner.occupancyPct}%</div>
+          <div className="text-xs text-slate-300 mt-2 flex items-center justify-between gap-2">
+            <span className="whitespace-nowrap">Allocated:</span>
+            <strong className="text-white whitespace-nowrap">{activePartner.allottedKeysToStaySphere} / {activePartner.totalKeys} Keys</strong>
           </div>
           {/* Key Allocation Controls */}
           <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between text-xs">
-            <span className="text-[11px] text-slate-400">Quick Adjust:</span>
-            <div className="flex gap-1">
+            <span className="text-[11px] text-slate-400 whitespace-nowrap">Quick Adjust:</span>
+            <div className="flex gap-1 shrink-0">
               <button
                 onClick={() => handleKeyAllocationChange(activePartner.id, -1)}
-                className="px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-white font-bold"
+                className="px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-white font-bold cursor-pointer"
               >
                 -1
               </button>
               <button
                 onClick={() => handleKeyAllocationChange(activePartner.id, 1)}
-                className="px-2 py-0.5 rounded bg-[#00A9A5] hover:bg-[#00A9A5]/80 text-white font-bold"
+                className="px-2 py-0.5 rounded bg-[#00A9A5] hover:bg-[#00A9A5]/80 text-white font-bold cursor-pointer whitespace-nowrap"
               >
                 +1 Key
               </button>
@@ -339,48 +339,48 @@ export function PropertyPartnersWorkflow({ onOpenTicketsModal, showToast }: Prop
         {/* KPI 2: ADR & RevPAR */}
         <div className="bg-[#001428] border border-white/10 rounded-2xl p-5 shadow">
           <div className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
-            <span>ADR / RevPAR Performance</span>
-            <DollarSign className="w-4 h-4 text-amber-400" />
+            <span className="whitespace-nowrap">ADR / RevPAR Performance</span>
+            <DollarSign className="w-4 h-4 text-amber-400 shrink-0" />
           </div>
-          <div className="text-3xl font-black text-white">₹{(activePartner.adr).toLocaleString('en-IN')}</div>
-          <div className="text-xs text-slate-300 mt-2 flex items-center justify-between">
-            <span>RevPAR (Per Avail Room):</span>
-            <strong className="text-[#3CCF91]">₹{(activePartner.revPar).toLocaleString('en-IN')}</strong>
+          <div className="text-3xl font-black text-white whitespace-nowrap">₹{(activePartner.adr).toLocaleString('en-IN')}</div>
+          <div className="text-xs text-slate-300 mt-2 flex items-center justify-between gap-2">
+            <span className="whitespace-nowrap">RevPAR (Avail Room):</span>
+            <strong className="text-[#3CCF91] whitespace-nowrap">₹{(activePartner.revPar).toLocaleString('en-IN')}</strong>
           </div>
           <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400">
-            <span>Partnership Plan:</span>
-            <span className="text-[#00A9A5] font-bold">{activePartner.partnershipPlan.replace('_', ' ')}</span>
+            <span className="whitespace-nowrap">Plan:</span>
+            <span className="text-[#00A9A5] font-bold whitespace-nowrap">{activePartner.partnershipPlan.replace('_', ' ')}</span>
           </div>
         </div>
 
         {/* KPI 3: Escrow Settlements */}
         <div className="bg-[#001428] border border-white/10 rounded-2xl p-5 shadow">
           <div className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
-            <span>Monthly Escrow Payouts</span>
-            <Clock className="w-4 h-4 text-[#00A9A5]" />
+            <span className="whitespace-nowrap">Monthly Escrow Payouts</span>
+            <Clock className="w-4 h-4 text-[#00A9A5] shrink-0" />
           </div>
-          <div className="text-3xl font-black text-white">₹{(activePartner.escrowSettledThisMonth / 100000).toFixed(2)}L</div>
-          <div className="text-xs text-slate-300 mt-2 flex items-center justify-between">
-            <span>In Escrow (Locked):</span>
-            <strong className="text-amber-400">₹{(activePartner.escrowLockedCurrent / 100000).toFixed(2)}L</strong>
+          <div className="text-3xl font-black text-white whitespace-nowrap">₹{(activePartner.escrowSettledThisMonth / 100000).toFixed(2)}L</div>
+          <div className="text-xs text-slate-300 mt-2 flex items-center justify-between gap-2">
+            <span className="whitespace-nowrap">In Escrow (Locked):</span>
+            <strong className="text-amber-400 whitespace-nowrap">₹{(activePartner.escrowLockedCurrent / 100000).toFixed(2)}L</strong>
           </div>
           <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400">
-            <span>Payout SLA:</span>
-            <span className="text-slate-200 font-medium">2-Hr Post Check-In</span>
+            <span className="whitespace-nowrap">Payout SLA:</span>
+            <span className="text-slate-200 font-medium whitespace-nowrap">2-Hr Post Check-In</span>
           </div>
         </div>
 
         {/* KPI 4: 84-Point Audit Score */}
         <div className="bg-[#001428] border border-white/10 rounded-2xl p-5 shadow">
           <div className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
-            <span>84-Point Quality Audit</span>
-            <ShieldCheck className="w-4 h-4 text-[#3CCF91]" />
+            <span className="whitespace-nowrap">84-Point Quality Audit</span>
+            <ShieldCheck className="w-4 h-4 text-[#3CCF91] shrink-0" />
           </div>
-          <div className="text-3xl font-black text-white">{activePartner.qualityAuditScore}%</div>
-          <div className="text-xs text-slate-300 mt-2 flex items-center justify-between">
-            <span>Rate Parity Status:</span>
+          <div className="text-3xl font-black text-white whitespace-nowrap">{activePartner.qualityAuditScore}%</div>
+          <div className="text-xs text-slate-300 mt-2 flex items-center justify-between gap-2">
+            <span className="whitespace-nowrap">Rate Parity:</span>
             <span
-              className={`font-bold ${
+              className={`font-bold whitespace-nowrap ${
                 activePartner.rateParityStatus === 'IN_SYNC' ? 'text-emerald-400' : 'text-rose-400'
               }`}
             >
@@ -391,13 +391,13 @@ export function PropertyPartnersWorkflow({ onOpenTicketsModal, showToast }: Prop
             {activePartner.rateParityStatus === 'DISCREPANCY' ? (
               <button
                 onClick={() => handleFixRateParity(activePartner.id)}
-                className="w-full py-1 rounded bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 font-bold text-center"
+                className="w-full py-1 rounded bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 font-bold text-center cursor-pointer whitespace-nowrap"
               >
                 1-Click Fix Rate Parity
               </button>
             ) : (
-              <span className="text-[11px] text-emerald-400 font-bold flex items-center gap-1">
-                <CheckCircle2 className="w-3 h-3" /> Certified Sovereign Partner
+              <span className="text-[11px] text-emerald-400 font-bold flex items-center gap-1 whitespace-nowrap">
+                <CheckCircle2 className="w-3 h-3 shrink-0" /> Certified Sovereign Partner
               </span>
             )}
           </div>

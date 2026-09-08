@@ -276,23 +276,23 @@ export const StakeholderFeedbackConsole: React.FC<StakeholderFeedbackConsoleProp
         {/* 360° Reputation KPI Metric Badges */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-white/10 mt-6">
           <div className="p-3 rounded-xl bg-black/40 border border-white/10">
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Guest CSAT Score</span>
+            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block whitespace-nowrap">Guest CSAT Score</span>
             <div className="flex items-baseline gap-1.5 mt-0.5">
-              <strong className="text-xl font-black text-white">4.85 / 5.0</strong>
-              <Star className="w-3.5 h-3.5 fill-amber-300 text-amber-300 inline" />
+              <strong className="text-xl font-black text-white whitespace-nowrap">4.85 / 5.0</strong>
+              <Star className="w-3.5 h-3.5 fill-amber-300 text-amber-300 inline shrink-0" />
             </div>
           </div>
           <div className="p-3 rounded-xl bg-black/40 border border-white/10">
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Hotel Partner Trust</span>
-            <strong className="text-xl font-black text-[#3CCF91]">98.2%</strong>
+            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block whitespace-nowrap">Hotel Partner Trust</span>
+            <strong className="text-xl font-black text-[#3CCF91] whitespace-nowrap">98.2%</strong>
           </div>
           <div className="p-3 rounded-xl bg-black/40 border border-white/10">
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Channel Partner NPS</span>
-            <strong className="text-xl font-black text-[#00D2C4]">+64 NPS</strong>
+            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block whitespace-nowrap">Channel Partner NPS</span>
+            <strong className="text-xl font-black text-[#00D2C4] whitespace-nowrap">+64 NPS</strong>
           </div>
           <div className="p-3 rounded-xl bg-black/40 border border-white/10">
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Fleet Punctuality</span>
-            <strong className="text-xl font-black text-[#FFC857]">4.92 / 5.0</strong>
+            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block whitespace-nowrap">Fleet Punctuality</span>
+            <strong className="text-xl font-black text-[#FFC857] whitespace-nowrap">4.92 / 5.0</strong>
           </div>
         </div>
       </div>
@@ -300,8 +300,8 @@ export const StakeholderFeedbackConsole: React.FC<StakeholderFeedbackConsoleProp
       {/* Stakeholder Filters & Search */}
       <div className="p-4 rounded-xl bg-[#001E36] border border-white/10 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-xs font-bold text-slate-400 flex items-center gap-1.5 mr-1">
-            <Users className="w-3.5 h-3.5 text-[#00A9A5]" /> Reviewer:
+          <span className="text-xs font-bold text-slate-400 flex items-center gap-1.5 mr-1 whitespace-nowrap shrink-0">
+            <Users className="w-3.5 h-3.5 text-[#00A9A5] shrink-0" /> Reviewer:
           </span>
           {[
             { id: 'ALL', label: 'All Parties (360°)' },
@@ -313,7 +313,7 @@ export const StakeholderFeedbackConsole: React.FC<StakeholderFeedbackConsoleProp
             <button
               key={role.id}
               onClick={() => setSelectedRole(role.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer whitespace-nowrap shrink-0 ${
                 selectedRole === role.id
                   ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow'
                   : 'bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10'
@@ -323,7 +323,7 @@ export const StakeholderFeedbackConsole: React.FC<StakeholderFeedbackConsoleProp
             </button>
           ))}
 
-          <span className="text-xs font-bold text-slate-400 flex items-center gap-1.5 ml-3 mr-1">
+          <span className="text-xs font-bold text-slate-400 flex items-center gap-1.5 ml-3 mr-1 whitespace-nowrap shrink-0">
             Sentiment:
           </span>
           {[
@@ -334,7 +334,7 @@ export const StakeholderFeedbackConsole: React.FC<StakeholderFeedbackConsoleProp
             <button
               key={sent.id}
               onClick={() => setSelectedSentiment(sent.id)}
-              className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer whitespace-nowrap shrink-0 ${
                 selectedSentiment === sent.id
                   ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow'
                   : 'bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10'
@@ -373,7 +373,7 @@ export const StakeholderFeedbackConsole: React.FC<StakeholderFeedbackConsoleProp
               <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-white/10 gap-3">
                 <div className="flex items-center gap-3">
                   <div
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-white shadow ${
+                    className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-white shadow shrink-0 ${
                       isGuest
                         ? 'bg-gradient-to-br from-blue-600 to-cyan-500'
                         : isHotel
@@ -392,7 +392,7 @@ export const StakeholderFeedbackConsole: React.FC<StakeholderFeedbackConsoleProp
                     <div className="flex items-center gap-2 flex-wrap">
                       <strong className="text-white text-sm">{fb.reviewerName}</strong>
                       <span
-                        className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full border ${
+                        className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full border whitespace-nowrap shrink-0 ${
                           isGuest
                             ? 'bg-blue-500/20 text-blue-300 border-blue-500/40'
                             : isHotel
@@ -410,26 +410,26 @@ export const StakeholderFeedbackConsole: React.FC<StakeholderFeedbackConsoleProp
                     </div>
                     <div className="text-xs text-slate-400 mt-0.5">
                       Regarding: <strong className="text-slate-200">{fb.targetEntity}</strong> • Journey Ref:{' '}
-                      <span className="font-mono text-[#00D2C4] font-bold">{fb.journeyReference}</span>
+                      <span className="font-mono text-[#00D2C4] font-bold whitespace-nowrap">{fb.journeyReference}</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-1 bg-amber-500/15 border border-amber-500/30 px-2.5 py-1 rounded-lg">
+                <div className="flex items-center gap-3 shrink-0">
+                  <div className="flex items-center gap-1 bg-amber-500/15 border border-amber-500/30 px-2.5 py-1 rounded-lg shrink-0">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className={`w-3.5 h-3.5 ${
+                        className={`w-3.5 h-3.5 shrink-0 ${
                           i < fb.overallRating ? 'fill-amber-300 text-amber-300' : 'text-slate-600'
                         }`}
                       />
                     ))}
-                    <span className="text-xs font-black text-amber-300 ml-1">{fb.overallRating}.0</span>
+                    <span className="text-xs font-black text-amber-300 ml-1 whitespace-nowrap">{fb.overallRating}.0</span>
                   </div>
 
                   <span
-                    className={`text-[10px] font-bold px-2 py-1 rounded-lg uppercase ${
+                    className={`text-[10px] font-bold px-2 py-1 rounded-lg uppercase whitespace-nowrap shrink-0 ${
                       fb.status === 'PUBLISHED'
                         ? 'bg-[#3CCF91]/20 text-[#3CCF91]'
                         : 'bg-purple-500/20 text-purple-300'

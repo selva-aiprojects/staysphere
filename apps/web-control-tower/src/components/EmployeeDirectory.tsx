@@ -175,7 +175,7 @@ export function EmployeeDirectory({ showToast }: EmployeeDirectoryProps) {
 
       {/* Filter & Search Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex gap-1 overflow-x-auto text-xs font-bold">
+        <div className="flex gap-1 overflow-x-auto no-scrollbar text-xs font-bold pb-1">
           {[
             { key: 'ALL', label: 'All Staff' },
             { key: 'RELATIONSHIP_MANAGEMENT', label: 'Relationship Managers' },
@@ -187,7 +187,7 @@ export function EmployeeDirectory({ showToast }: EmployeeDirectoryProps) {
             <button
               key={tab.key}
               onClick={() => setFilterDepartment(tab.key)}
-              className={`px-3.5 py-2 rounded-xl transition whitespace-nowrap ${
+              className={`px-3.5 py-2 rounded-xl transition whitespace-nowrap shrink-0 cursor-pointer ${
                 filterDepartment === tab.key
                   ? 'bg-[#00A9A5] text-white shadow-md'
                   : 'bg-[#001428] border border-white/10 text-slate-400 hover:text-white'
@@ -198,14 +198,14 @@ export function EmployeeDirectory({ showToast }: EmployeeDirectoryProps) {
           ))}
         </div>
 
-        <div className="relative">
+        <div className="relative min-w-[240px]">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search staff by name, title, email..."
-            className="bg-[#001428] border border-white/15 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00A9A5] w-64"
+            className="bg-[#001428] border border-white/15 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-[#00A9A5] w-full sm:w-64"
           />
         </div>
       </div>
@@ -218,14 +218,14 @@ export function EmployeeDirectory({ showToast }: EmployeeDirectoryProps) {
             className="bg-[#001E36] border border-white/10 rounded-2xl p-5 shadow-xl flex flex-col justify-between space-y-4 hover:border-[#00A9A5]/40 transition"
           >
             <div>
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/10 text-slate-300">
+              <div className="flex items-center justify-between mb-3 gap-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/10 text-slate-300 whitespace-nowrap shrink-0">
                   {emp.department.replace(/_/g, ' ')}
                 </span>
 
                 <button
                   onClick={() => handleToggleShift(emp.id)}
-                  className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full border transition ${
+                  className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full border transition whitespace-nowrap shrink-0 cursor-pointer ${
                     emp.shiftStatus === 'ON_DUTY'
                       ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
                       : 'bg-slate-500/20 text-slate-400 border-white/10'
@@ -241,29 +241,29 @@ export function EmployeeDirectory({ showToast }: EmployeeDirectoryProps) {
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-white">{emp.fullName}</h3>
-                  <div className="text-xs text-[#3CCF91] font-medium">{emp.jobTitle}</div>
+                  <div className="text-xs text-[#3CCF91] font-medium leading-snug">{emp.jobTitle}</div>
                 </div>
               </div>
 
               <div className="mt-4 pt-3 border-t border-white/10 space-y-2 text-xs text-slate-300">
                 <div className="flex items-center gap-2">
-                  <Mail className="w-3.5 h-3.5 text-slate-400" />
-                  <span className="font-mono text-slate-200">{emp.corporateEmail}</span>
+                  <Mail className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                  <span className="font-mono text-slate-200 truncate">{emp.corporateEmail}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Phone className="w-3.5 h-3.5 text-slate-400" />
-                  <span>{emp.phone}</span>
+                  <Phone className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                  <span className="whitespace-nowrap">{emp.phone}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Building2 className="w-3.5 h-3.5 text-slate-400" />
+                  <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                   <span className="text-[11px] text-slate-400 truncate">Assigned: {emp.assignedRegionOrProperty}</span>
                 </div>
               </div>
             </div>
 
             <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400">
-              <span>Joined {emp.joinedDate}</span>
-              <span className="text-cyan-300 font-bold">{emp.activeTicketsCount} Active Tickets</span>
+              <span className="whitespace-nowrap">Joined {emp.joinedDate}</span>
+              <span className="text-cyan-300 font-bold whitespace-nowrap shrink-0">{emp.activeTicketsCount} Active Tickets</span>
             </div>
           </div>
         ))}

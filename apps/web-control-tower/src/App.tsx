@@ -580,157 +580,157 @@ export default function OperationsControlTower() {
       </div>
 
       {/* Operations Master Header */}
-      <header className="h-20 border-b border-white/10 bg-[#030D1A]/95 backdrop-blur-xl px-6 flex items-center justify-between sticky top-0 z-40 shadow-xl">
-        <div className="flex items-center gap-4">
+      <header className="h-auto min-h-[5rem] py-3 border-b border-white/10 bg-[#030D1A]/95 backdrop-blur-xl px-4 sm:px-6 flex items-center justify-between sticky top-0 z-40 shadow-xl gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           <HorizontalLogo size="md" variant="dark" />
-          <span className="text-[10px] px-3 py-1 rounded-full bg-[#00A9A5]/15 text-[#00D2C4] border border-[#00A9A5]/40 font-mono-telemetry font-bold uppercase tracking-wider hidden sm:inline-block">
+          <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#00A9A5]/15 text-[#00D2C4] border border-[#00A9A5]/40 font-mono-telemetry font-bold uppercase tracking-wider hidden sm:inline-block whitespace-nowrap shrink-0">
             ENTERPRISE CONTROL MATRIX v3.5
           </span>
         </div>
 
         {/* Global Navigation Bar */}
-        <nav className="flex items-center gap-1 p-1 rounded-2xl bg-[#020B18] border border-white/10 text-xs font-bold overflow-x-auto no-scrollbar shadow-inner">
+        <nav className="flex items-center gap-1 p-1 rounded-2xl bg-[#020B18] border border-white/10 text-xs font-bold min-w-0 flex-1 max-w-full overflow-x-auto no-scrollbar shadow-inner mx-2 sm:mx-4">
           <button
             onClick={() => setActiveWorkflow('journeys')}
-            className={`px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
               activeWorkflow === 'journeys'
                 ? 'bg-gradient-to-r from-[#0B3D91] via-[#002B4D] to-[#00A9A5] text-white shadow-lg border border-[#00D2C4]/40'
                 : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Compass className="w-3.5 h-3.5 text-[#00D2C4]" /> 1. Live Journeys
+            <Compass className="w-3.5 h-3.5 text-[#00D2C4] shrink-0" /> 1. Live Journeys
           </button>
 
           <button
             onClick={() => setActiveWorkflow('property-master')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
               activeWorkflow === 'property-master'
                 ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Hotel className="w-3.5 h-3.5 text-[#FFC857]" /> 2. Properties Master
+            <Hotel className="w-3.5 h-3.5 text-[#FFC857] shrink-0" /> 2. Properties Master
           </button>
 
           <button
             onClick={() => setActiveWorkflow('feedback')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
               activeWorkflow === 'feedback'
                 ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" /> 3. Multi-Party Feedback (360°)
+            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400 shrink-0" /> 3. Feedback (360°)
           </button>
 
           <button
             onClick={() => setActiveWorkflow('frontdesk')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
               activeWorkflow === 'frontdesk'
                 ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <KeyRound className="w-3.5 h-3.5 text-[#FFC857]" /> 4. Stay Bookings
+            <KeyRound className="w-3.5 h-3.5 text-[#FFC857] shrink-0" /> 4. Stay Bookings
           </button>
 
           <button
             onClick={() => setActiveWorkflow('travel-desk')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
               activeWorkflow === 'travel-desk'
                 ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Car className="w-3.5 h-3.5 text-amber-400" /> 3. Trip Monitoring
+            <Car className="w-3.5 h-3.5 text-amber-400 shrink-0" /> 5. Travel Desk
           </button>
 
           <button
             onClick={() => setActiveWorkflow('sla-incidents')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
               activeWorkflow === 'sla-incidents'
                 ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <ShieldAlert className="w-3.5 h-3.5 text-rose-400" /> 4. SLA & Incidents
+            <ShieldAlert className="w-3.5 h-3.5 text-rose-400 shrink-0" /> 6. SLA & Incidents
           </button>
 
           <button
             onClick={() => setActiveWorkflow('partners')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
               activeWorkflow === 'partners'
                 ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Building2 className="w-3.5 h-3.5 text-[#00D2C4]" /> 5. Partner Health
+            <Building2 className="w-3.5 h-3.5 text-[#00D2C4] shrink-0" /> 7. Partner Health
           </button>
 
           <button
             onClick={() => setActiveWorkflow('channel-partners')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
               activeWorkflow === 'channel-partners'
                 ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Users className="w-3.5 h-3.5 text-[#3CCF91]" /> 6. Channel Partners
+            <Users className="w-3.5 h-3.5 text-[#3CCF91] shrink-0" /> 8. Channel Partners
           </button>
 
           <button
             onClick={() => setActiveWorkflow('payments')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
               activeWorkflow === 'payments'
                 ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Receipt className="w-3.5 h-3.5 text-[#3CCF91]" /> 7. Escrow & Receipts
+            <Receipt className="w-3.5 h-3.5 text-[#3CCF91] shrink-0" /> 9. Escrow Vault
           </button>
 
           <button
             onClick={() => setActiveWorkflow('rm')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
               activeWorkflow === 'rm'
                 ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" /> 8. RM Governance
+            <ShieldCheck className="w-3.5 h-3.5 text-cyan-400 shrink-0" /> 10. RM Governance
           </button>
 
           <button
             onClick={() => setActiveWorkflow('api-docs')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
               activeWorkflow === 'api-docs'
                 ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Code className="w-3.5 h-3.5 text-cyan-300" /> 9. Partner APIs
+            <Code className="w-3.5 h-3.5 text-cyan-300 shrink-0" /> 11. Partner APIs
           </button>
 
           <button
             onClick={() => setActiveWorkflow('employees')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
               activeWorkflow === 'employees'
                 ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <UserPlus className="w-3.5 h-3.5 text-[#3CCF91]" /> 10. Employees
+            <UserPlus className="w-3.5 h-3.5 text-[#3CCF91] shrink-0" /> 12. Employees
           </button>
 
           <button
             onClick={() => setActiveWorkflow('emails')}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap ${
+            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 whitespace-nowrap shrink-0 cursor-pointer ${
               activeWorkflow === 'emails'
                 ? 'bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
+                : 'text-slate-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Mail className="w-3.5 h-3.5 text-[#FFC857]" /> 11. Email Hub
+            <Mail className="w-3.5 h-3.5 text-[#FFC857] shrink-0" /> 13. Email Hub
           </button>
         </nav>
 
@@ -738,14 +738,14 @@ export default function OperationsControlTower() {
         {currentUser && (
           <div
             onClick={() => setIsAuthModalOpen(true)}
-            className="flex items-center gap-3 p-1.5 pr-3.5 rounded-2xl bg-[#001830] border border-white/10 hover:border-[#00A9A5]/60 transition-all cursor-pointer hidden xl:flex"
+            className="flex items-center gap-3 p-1.5 pr-3.5 rounded-2xl bg-[#001830] border border-white/10 hover:border-[#00A9A5]/60 transition-all cursor-pointer shrink-0 hidden xl:flex"
           >
             <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#0B3D91] to-[#00A9A5] flex items-center justify-center text-xs font-black text-white shrink-0">
               {currentUser.avatar}
             </div>
             <div className="text-left leading-none">
-              <span className="text-xs font-bold text-white block">{currentUser.name}</span>
-              <span className="text-[10px] text-[#00D2C4] font-medium block mt-0.5">{currentUser.role.replace(/_/g, ' ')}</span>
+              <span className="text-xs font-bold text-white block whitespace-nowrap">{currentUser.name}</span>
+              <span className="text-[10px] text-[#00D2C4] font-medium block mt-0.5 whitespace-nowrap">{currentUser.role.replace(/_/g, ' ')}</span>
             </div>
           </div>
         )}
@@ -863,12 +863,12 @@ export default function OperationsControlTower() {
                 {frontdeskGuests.map((guest) => (
                   <div
                     key={guest.id}
-                    className="p-5 rounded-2xl bg-[#001428] border border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4"
+                    className="p-5 rounded-2xl bg-[#001428] border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
                   >
                     <div>
                       <div className="flex items-center gap-2">
                         <h4 className="text-sm font-bold text-white">{guest.guestName}</h4>
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#FF8A3D]/20 text-[#FF8A3D] font-bold">
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#FF8A3D]/20 text-[#FF8A3D] font-bold whitespace-nowrap shrink-0">
                           {guest.vipTier}
                         </span>
                       </div>
@@ -880,26 +880,26 @@ export default function OperationsControlTower() {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 shrink-0">
                       {guest.status === 'EXPECTED_TODAY' && (
                         <button
                           onClick={() => handleCheckInGuest(guest.id)}
-                          className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-white text-xs font-bold shadow hover:brightness-110 flex items-center gap-1.5"
+                          className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-white text-xs font-bold shadow hover:brightness-110 flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
                         >
-                          <KeyRound className="w-3.5 h-3.5" />
+                          <KeyRound className="w-3.5 h-3.5 shrink-0" />
                           <span>1-Click Check-In & Issue Key</span>
                         </button>
                       )}
 
                       {guest.status === 'CHECKED_IN' && (
-                        <span className="px-3.5 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold flex items-center gap-1.5">
-                          <CheckCircle2 className="w-3.5 h-3.5" />
+                        <span className="px-3.5 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold flex items-center gap-1.5 whitespace-nowrap shrink-0">
+                          <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
                           <span>In-Stay (Key Active)</span>
                         </span>
                       )}
 
                       {guest.status === 'CHECKED_OUT' && (
-                        <span className="px-3.5 py-1.5 rounded-xl bg-slate-500/20 text-slate-400 text-xs font-bold">
+                        <span className="px-3.5 py-1.5 rounded-xl bg-slate-500/20 text-slate-400 text-xs font-bold whitespace-nowrap shrink-0">
                           Checked Out
                         </span>
                       )}

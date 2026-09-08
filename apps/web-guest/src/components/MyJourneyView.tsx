@@ -126,35 +126,35 @@ export function MyJourneyView({ onOpenResolve }: MyJourneyViewProps) {
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2.5 flex-wrap">
-              <span className="px-3.5 py-1 rounded-full bg-[#002B4D]/90 text-[#00D2C4] border border-[#00D2C4]/40 text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
+              <span className="px-3.5 py-1 rounded-full bg-[#002B4D]/90 text-[#00D2C4] border border-[#00D2C4]/40 text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-sm whitespace-nowrap shrink-0">
                 <span className="w-2 h-2 rounded-full bg-[#00D2C4] animate-pulse" />
                 Live Orchestrated Journey
               </span>
-              <span className="font-mono text-xs text-[#F3CA7E] bg-[#020B18]/90 px-3 py-1 rounded-lg border border-[#E5B869]/30">
+              <span className="font-mono text-xs text-[#F3CA7E] bg-[#020B18]/90 px-3 py-1 rounded-lg border border-[#E5B869]/30 whitespace-nowrap shrink-0">
                 Ref: <strong>JN-SS-2026-9041</strong>
               </span>
-              <span className="px-3 py-1 rounded-lg bg-[#FFC857]/20 text-[#FFC857] text-xs font-bold border border-[#FFC857]/30">
+              <span className="px-3 py-1 rounded-lg bg-[#FFC857]/20 text-[#FFC857] text-xs font-bold border border-[#FFC857]/30 whitespace-nowrap shrink-0">
                 Sovereign Platinum Guest
               </span>
             </div>
             <h1 className="text-2xl md:text-3xl font-serif-luxury font-bold text-white tracking-tight">
               Goa Clifftop Retreat & Coastal Transit
             </h1>
-            <p className="text-xs md:text-sm text-slate-300 flex items-center gap-2 font-light">
-              <span>Guest: <strong className="text-white">Vikram Malhotra</strong></span>
+            <p className="text-xs md:text-sm text-slate-300 flex flex-wrap items-center gap-2 font-light">
+              <span className="whitespace-nowrap">Guest: <strong className="text-white">Vikram Malhotra</strong></span>
               <span className="text-slate-500">•</span>
-              <span>12 Sep – 15 Sep 2026 (3 Nights)</span>
+              <span className="whitespace-nowrap">12 Sep – 15 Sep 2026 (3 Nights)</span>
               <span className="text-slate-500">•</span>
-              <span className="text-[#10B981] font-bold">Payment Custody Protected (₹1,30,500)</span>
+              <span className="text-[#10B981] font-bold whitespace-nowrap">Payment Custody Protected (₹1,30,500)</span>
             </p>
           </div>
 
           <div className="relative z-10 flex items-center gap-3 shrink-0">
             <button
               onClick={() => onOpenResolve('GENERAL_INQUIRY')}
-              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] via-[#FFC857] to-[#E5B869] hover:brightness-110 text-[#001428] text-xs font-black shadow-lg shadow-[#FF8A3D]/25 transition flex items-center gap-2 cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FF8A3D] via-[#FFC857] to-[#E5B869] hover:brightness-110 text-[#001428] text-xs font-black shadow-lg shadow-[#FF8A3D]/25 transition flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0"
             >
-              <ShieldCheck className="w-4 h-4" />
+              <ShieldCheck className="w-4 h-4 shrink-0" />
               <span>Proactive Resolve (15-Min SLA)</span>
             </button>
           </div>
@@ -263,14 +263,14 @@ export function MyJourneyView({ onOpenResolve }: MyJourneyViewProps) {
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <div className="flex items-center gap-2">
-                          <IconComponent className="w-4 h-4 text-[#00A9A5]" />
+                          <IconComponent className="w-4 h-4 text-[#00A9A5] shrink-0" />
                           <h3 className="text-sm font-bold text-white">{stage.title}</h3>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full border ${stage.badgeColor}`}>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full border whitespace-nowrap shrink-0 ${stage.badgeColor}`}>
                             {stage.badge}
                           </span>
-                          <span className="text-xs text-slate-400 font-mono">{stage.time}</span>
+                          <span className="text-xs text-slate-400 font-mono whitespace-nowrap">{stage.time}</span>
                         </div>
                       </div>
 
@@ -343,10 +343,10 @@ export function MyJourneyView({ onOpenResolve }: MyJourneyViewProps) {
           <div className="bg-[#001E36] border border-[#00A9A5]/40 rounded-3xl p-6 shadow-xl space-y-5">
             <div className="flex items-center justify-between border-b border-white/10 pb-3">
               <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-[#3CCF91]" />
+                <ShieldCheck className="w-4 h-4 text-[#3CCF91] shrink-0" />
                 <span>Coupled Journey Contract</span>
               </h3>
-              <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-[#00A9A5]/20 text-[#00D2C4] border border-[#00A9A5]/30">
+              <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-[#00A9A5]/20 text-[#00D2C4] border border-[#00A9A5]/30 whitespace-nowrap shrink-0">
                 1 SINGLE ITINERARY
               </span>
             </div>
@@ -356,52 +356,52 @@ export function MyJourneyView({ onOpenResolve }: MyJourneyViewProps) {
             </p>
 
             <div className="divide-y divide-white/5 border border-white/10 rounded-2xl overflow-hidden text-xs">
-              <div className="p-3.5 bg-[#001428] flex justify-between items-center">
-                <div className="flex items-center gap-2">
-                  <Hotel className="w-4 h-4 text-[#00A9A5]" />
-                  <div>
+              <div className="p-3.5 bg-[#001428] flex justify-between items-center gap-3">
+                <div className="flex items-center gap-2 min-w-0">
+                  <Hotel className="w-4 h-4 text-[#00A9A5] shrink-0" />
+                  <div className="min-w-0">
                     <strong className="text-white block">Stay Reservation</strong>
-                    <span className="text-slate-400 text-[11px]">The Grand Vagator Bay (Villa 101)</span>
+                    <span className="text-slate-400 text-[11px] block truncate">The Grand Vagator Bay (Villa 101)</span>
                   </div>
                 </div>
-                <span className="font-mono font-bold text-white">BK-STAY-4012</span>
+                <span className="font-mono font-bold text-white shrink-0 whitespace-nowrap">BK-STAY-4012</span>
               </div>
 
-              <div className="p-3.5 bg-[#001428] flex justify-between items-center">
-                <div className="flex items-center gap-2">
-                  <Car className="w-4 h-4 text-[#FF8A3D]" />
-                  <div>
+              <div className="p-3.5 bg-[#001428] flex justify-between items-center gap-3">
+                <div className="flex items-center gap-2 min-w-0">
+                  <Car className="w-4 h-4 text-[#FF8A3D] shrink-0" />
+                  <div className="min-w-0">
                     <strong className="text-white block">Chauffeur Transit</strong>
-                    <span className="text-slate-400 text-[11px]">Airport MOPA ↔ Vagator Bay</span>
+                    <span className="text-slate-400 text-[11px] block truncate">Airport MOPA ↔ Vagator Bay</span>
                   </div>
                 </div>
-                <span className="font-mono font-bold text-white">TRIP-MOV-8821</span>
+                <span className="font-mono font-bold text-white shrink-0 whitespace-nowrap">TRIP-MOV-8821</span>
               </div>
 
-              <div className="p-3.5 bg-[#001428] flex justify-between items-center">
-                <div className="flex items-center gap-2">
-                  <Lock className="w-4 h-4 text-[#3CCF91]" />
-                  <div>
+              <div className="p-3.5 bg-[#001428] flex justify-between items-center gap-3">
+                <div className="flex items-center gap-2 min-w-0">
+                  <Lock className="w-4 h-4 text-[#3CCF91] shrink-0" />
+                  <div className="min-w-0">
                     <strong className="text-white block">Smart Escrow Vault</strong>
-                    <span className="text-slate-400 text-[11px]">Automated 2-Hr Post-Checkin</span>
+                    <span className="text-slate-400 text-[11px] block truncate">Automated 2-Hr Post-Checkin</span>
                   </div>
                 </div>
-                <span className="font-mono font-bold text-[#3CCF91]">₹1,30,500</span>
+                <span className="font-mono font-bold text-[#3CCF91] shrink-0 whitespace-nowrap">₹1,30,500</span>
               </div>
             </div>
 
             {/* Smart Digital Keycard Pass */}
             <div className="p-4 rounded-2xl bg-gradient-to-r from-[#00284D] to-[#001428] border border-[#00A9A5]/40 flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#00A9A5]/20 text-[#00D2C4] flex items-center justify-center font-bold">
-                  <KeyRound className="w-5 h-5" />
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-10 h-10 rounded-xl bg-[#00A9A5]/20 text-[#00D2C4] flex items-center justify-center font-bold shrink-0">
+                  <KeyRound className="w-5 h-5 shrink-0" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <h4 className="text-xs font-bold text-white">Digital Suite Keycard Pass</h4>
                   <p className="text-[11px] text-slate-300">Tap against Villa 101 lock sensor on arrival</p>
                 </div>
               </div>
-              <span className="text-[10px] font-black uppercase px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 shrink-0">
+              <span className="text-[10px] font-black uppercase px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 shrink-0 whitespace-nowrap">
                 ARMED & READY
               </span>
             </div>
@@ -411,10 +411,10 @@ export function MyJourneyView({ onOpenResolve }: MyJourneyViewProps) {
           <div className="bg-gradient-to-br from-[#001E36] via-[#002244] to-[#001428] border border-[#FF8A3D]/40 rounded-3xl p-6 shadow-xl space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FF8A3D] animate-ping" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#FF8A3D] animate-ping shrink-0" />
                 <h3 className="text-sm font-bold text-white">Proactive Resolution Sentinel</h3>
               </div>
-              <span className="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-[#FF8A3D]/20 text-[#FFC857] border border-[#FF8A3D]/40">
+              <span className="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-[#FF8A3D]/20 text-[#FFC857] border border-[#FF8A3D]/40 whitespace-nowrap shrink-0">
                 15-MIN SLA GUARANTEE
               </span>
             </div>
@@ -458,10 +458,10 @@ export function MyJourneyView({ onOpenResolve }: MyJourneyViewProps) {
           <div className="bg-[#001E36] border border-white/10 rounded-3xl p-6 shadow-xl space-y-4">
             <div className="flex items-center justify-between border-b border-white/10 pb-3">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-[#FFC857]" />
+                <Sparkles className="w-4 h-4 text-[#FFC857] shrink-0" />
                 <h3 className="text-sm font-bold text-white">360° Journey Feedback</h3>
               </div>
-              <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-[#3CCF91]/20 text-[#3CCF91] border border-[#3CCF91]/30">
+              <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-[#3CCF91]/20 text-[#3CCF91] border border-[#3CCF91]/30 whitespace-nowrap shrink-0">
                 Verified Stakeholder Hub
               </span>
             </div>
