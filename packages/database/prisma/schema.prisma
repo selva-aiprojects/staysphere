@@ -156,6 +156,7 @@ model User {
   driverProfile        Driver?
   stayBookings         StayBooking[]
   transitBookings      TransitBooking[]
+  journeys             Journey[]
   createdTickets       Ticket[]           @relation("TicketCreator")
   assignedTickets      Ticket[]           @relation("TicketAssignee")
   serviceRequests      ServiceRequest[]   @relation("GuestServiceRequests")
@@ -286,6 +287,7 @@ model StayBooking {
   id                String        @id @default(uuid()) @db.Uuid
   bookingReference  String        @unique
   guestId           String        @db.Uuid
+  journeyId         String?       @db.Uuid
   propertyId        String        @db.Uuid
   roomTypeId        String        @db.Uuid
   ratePlanId        String        @db.Uuid
@@ -304,6 +306,7 @@ model StayBooking {
   updatedAt         DateTime      @updatedAt
 
   guest           User             @relation(fields: [guestId], references: [id])
+  journey         Journey?         @relation(fields: [journeyId], references: [id])
   property        Property         @relation(fields: [propertyId], references: [id])
   roomType        RoomType         @relation(fields: [roomTypeId], references: [id])
   ratePlan        RatePlan         @relation(fields: [ratePlanId], references: [id])
@@ -366,6 +369,7 @@ model TransitBooking {
   id                   String             @id @default(uuid()) @db.Uuid
   bookingReference     String             @unique
   guestId              String             @db.Uuid
+  journeyId            String?            @db.Uuid
   stayBookingId        String?            @db.Uuid
   serviceType          TransitServiceType @default(AIRPORT_TRANSFER)
   vehicleClass         VehicleClass       @default(SEDAN)
@@ -388,6 +392,7 @@ model TransitBooking {
   updatedAt            DateTime           @updatedAt
 
   guest       User         @relation(fields: [guestId], references: [id])
+  journey     Journey?     @relation(fields: [journeyId], references: [id])
   stayBooking StayBooking? @relation(fields: [stayBookingId], references: [id])
   driver      Driver?      @relation(fields: [driverId], references: [id])
   vehicle     Vehicle?     @relation(fields: [vehicleId], references: [id])
@@ -503,3 +508,94 @@ model LedgerEntry {
   @@index([transactionId])
   @@index([accountId, accountType])
 }
+
+enum JourneyStatus {
+  DRAFT
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  DISPUTED
+}
+
+enum JourneyStage {
+  PRE_ARRIVAL_FLIGHT
+  AIRPORT_PICKUP_TRANSIT
+  SUITE_CHECK_IN
+  IN_STAY_EXPERIENCE
+  DEPARTURE_DROP
+  JOURNEY_CONCLUDED
+}
+
+enum MilestoneType {
+  CURBSIDE_PICKUP_HANDSHAKE
+  SUITE_CHECK_IN_CONFIRMATION
+  CHECK_OUT_INSPECTION
+}
+
+enum MilestoneStatus {
+  LOCKED
+  ELIGIBLE
+  DISBURSED
+  DISPUTE_HELD
+}
+
+model Journey {
+  id                  String        @id @default(uuid()) @db.Uuid
+  journeyReference    String        @unique
+  guestId             String        @db.Uuid
+  status              JourneyStatus @default(CONFIRMED)
+  currentStage        JourneyStage  @default(PRE_ARRIVAL_FLIGHT)
+  vipTier             String        @default("STANDARD")
+  totalAmount         Decimal       @db.Decimal(10, 2)
+  escrowLockedAmount  Decimal       @db.Decimal(10, 2)
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+
+  guest            User                   @relation(fields: [guestId], references: [id])
+  stayBookings     StayBooking[]
+  transitBookings  TransitBooking[]
+  timelineEvents   JourneyTimelineEvent[]
+  escrowMilestones EscrowMilestone[]
+
+  @@index([guestId])
+  @@index([status])
+  @@index([journeyReference])
+}
+
+model JourneyTimelineEvent {
+  id            String       @id @default(uuid()) @db.Uuid
+  journeyId     String       @db.Uuid
+  stage         JourneyStage
+  title         String
+  subtitle      String?
+  status        String       @default("PENDING") // PENDING, IN_PROGRESS, COMPLETED, FAILED
+  telemetryJson Json?
+  timestamp     DateTime     @default(now())
+
+  journey       Journey      @relation(fields: [journeyId], references: [id], onDelete: Cascade)
+
+  @@index([journeyId])
+}
+
+model EscrowMilestone {
+  id               String          @id @default(uuid()) @db.Uuid
+  journeyId        String          @db.Uuid
+  milestoneType    MilestoneType
+  title            String
+  targetParty      String          // HOTEL_OPERATOR, TRAVEL_OPERATOR
+  percentage       Decimal         @db.Decimal(5, 2)
+  amount           Decimal         @db.Decimal(10, 2)
+  status           MilestoneStatus @default(LOCKED)
+  disbursedAt      DateTime?
+  disbursedTxId    String?
+  verificationCode String?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  journey          Journey         @relation(fields: [journeyId], references: [id], onDelete: Cascade)
+
+  @@index([journeyId])
+  @@index([status])
+}
+

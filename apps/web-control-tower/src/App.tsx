@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   AlertTriangle,
   CheckCircle2,
@@ -40,11 +40,14 @@ import { OfferManagementConsole } from './components/OfferManagementConsole';
 import { OverviewDashboard } from './components/OverviewDashboard';
 import { PropertyPartnerPortal } from './components/PropertyPartnerPortal';
 import { TransportPartnerPortal } from './components/TransportPartnerPortal';
+import { DriverMobilePwa } from './components/DriverMobilePwa';
 import { FinanceEngineWorkspace } from './components/FinanceEngineWorkspace';
 import { TrustSafetyWorkspace } from './components/TrustSafetyWorkspace';
+import { apiClient, BackendStatus } from './services/apiClient';
 import { Mail, UserPlus, Compass, ShieldAlert, Star, Bot, LogOut, LayoutDashboard } from 'lucide-react';
 
-export type PortalMode = 'CONTROL_TOWER' | 'PROPERTY_PORTAL' | 'TRANSPORT_PORTAL';
+export type PortalMode = 'CONTROL_TOWER' | 'PROPERTY_PORTAL' | 'TRANSPORT_PORTAL' | 'DRIVER_MOBILE';
+
 
 // Persona / Role Types
 export type PlatformRole =
@@ -433,6 +436,14 @@ export default function OperationsControlTower() {
   const [isCollabTicketsModalOpen, setIsCollabTicketsModalOpen] = useState<boolean>(false);
   const [showLeaderChatbot, setShowLeaderChatbot] = useState<boolean>(false);
 
+  // Backend Live/Demo Status
+  const [backendStatus, setBackendStatus] = useState<BackendStatus>({ isLive: false, checkedAt: '' });
+
+  useEffect(() => {
+    const unsub = apiClient.subscribe(setBackendStatus);
+    return unsub;
+  }, []);
+
   // Success Notification banner
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
@@ -557,6 +568,25 @@ export default function OperationsControlTower() {
               <Car className="w-3.5 h-3.5 text-[#001428]" />
               <span>Transport Partner Portal</span>
             </button>
+            <button
+              onClick={() => setPortalMode('DRIVER_MOBILE')}
+              className={`px-3 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
+                portalMode === 'DRIVER_MOBILE'
+                  ? 'bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-black shadow'
+                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              <Car className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Chauffeur PWA</span>
+            </button>
+          </div>
+
+          {/* Backend Status Indicator */}
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-700/60 text-xs shadow-sm">
+            <div className={`w-2 h-2 rounded-full ${backendStatus.isLive ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`} />
+            <span className={backendStatus.isLive ? 'text-emerald-300 font-mono text-[11px] font-bold' : 'text-amber-300 font-mono text-[11px]'}>
+              {backendStatus.isLive ? 'LIVE API (Port 4000)' : 'DEMO MODE'}
+            </span>
           </div>
 
           <button
@@ -607,6 +637,21 @@ export default function OperationsControlTower() {
           onSwitchToControlTower={() => setPortalMode('CONTROL_TOWER')}
           onOpenTickets={() => setIsCollabTicketsModalOpen(true)}
         />
+      ) : portalMode === 'DRIVER_MOBILE' ? (
+        <div className="p-4 sm:p-8 bg-[#020B14] min-h-screen">
+          <div className="flex justify-between items-center mb-4 max-w-md mx-auto">
+            <button
+              onClick={() => setPortalMode('CONTROL_TOWER')}
+              className="text-xs text-indigo-400 hover:underline flex items-center gap-1 font-medium"
+            >
+              ← Return to Control Tower
+            </button>
+            <span className="text-xs text-slate-400 font-mono">Chauffeur Mobile PWA</span>
+          </div>
+          <DriverMobilePwa
+            onNotifyProperty={(msg) => showToast(`Sync: ${msg}`)}
+          />
+        </div>
       ) : (
         <>
           {/* Operations Master Header */}

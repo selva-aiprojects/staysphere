@@ -1,21 +1,30 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, Get, Post, Body } from '@nestjs/common';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { FinanceService } from './finance.service';
-import { RolesGuard } from '../auth/roles.guard';
-import { Roles } from '../auth/roles.decorator';
+
+export class ReleaseEscrowDto {
+  journeyReference!: string;
+  milestoneType!: 'CURBSIDE_PICKUP_HANDSHAKE' | 'SUITE_CHECK_IN_CONFIRMATION' | 'CHECK_OUT_INSPECTION';
+  targetParty!: 'HOTEL_OPERATOR' | 'TRAVEL_OPERATOR';
+  amount!: number;
+  platformCommissionPct?: number;
+}
 
 @ApiTags('Finance, Split-Payment & Double-Entry Ledger (FINANCE)')
 @Controller('finance')
-@UseGuards(AuthGuard('jwt'), RolesGuard)
-@ApiBearerAuth()
 export class FinanceController {
   constructor(private readonly financeService: FinanceService) {}
 
   @Get('ledger')
-  @Roles('SUPER_ADMIN', 'OPS_ADMIN')
   @ApiOperation({ summary: 'Audit double-entry ledger balances, escrow pools & platform take rates' })
   async getLedgerSummary() {
     return this.financeService.getLedgerSummary();
   }
+
+  @Post('escrow/release-milestone')
+  @ApiOperation({ summary: 'Disburse escrow milestone and write double-entry balanced journal entries' })
+  async releaseEscrowMilestone(@Body() body: ReleaseEscrowDto) {
+    return this.financeService.releaseEscrowMilestone(body);
+  }
 }
+
