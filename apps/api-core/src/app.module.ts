@@ -6,6 +6,7 @@ import { MoveModule } from './modules/move/move.module';
 import { MyStayModule } from './modules/my-stay/my-stay.module';
 import { ResolutionModule } from './modules/resolution/resolution.module';
 import { FinanceModule } from './modules/finance/finance.module';
+import { EmailModule } from './modules/email/email.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { FinanceModule } from './modules/finance/finance.module';
     MyStayModule,
     ResolutionModule,
     FinanceModule,
+    EmailModule,
   ],
 })
 export class AppModule {}

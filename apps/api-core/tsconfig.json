@@ -6,6 +6,8 @@
     "target": "ES2022",
     "outDir": "./dist",
     "rootDir": "./src",
+    "declaration": false,
+    "declarationMap": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true
