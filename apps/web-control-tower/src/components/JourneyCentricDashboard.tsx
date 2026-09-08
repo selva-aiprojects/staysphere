@@ -317,23 +317,23 @@ export const JourneyCentricDashboard: React.FC<JourneyCentricDashboardProps> = (
             </p>
           </div>
 
-          {/* Quick Metrics Bar */}
+          {/* Quick Metrics Bar with Successful Journey Rate */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div className="p-3 rounded-xl bg-white/5 border border-white/10">
               <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Active Journeys</span>
               <strong className="text-xl font-black text-white">12 Live</strong>
             </div>
             <div className="p-3 rounded-xl bg-[#00A9A5]/10 border border-[#00A9A5]/30">
-              <span className="text-[10px] text-[#00A9A5] font-bold uppercase tracking-wider block">In Transit</span>
+              <span className="text-[10px] text-[#00A9A5] font-bold uppercase tracking-wider block">Move / Telematics</span>
               <strong className="text-xl font-black text-[#00A9A5]">4 GPS Live</strong>
             </div>
             <div className="p-3 rounded-xl bg-[#3CCF91]/10 border border-[#3CCF91]/30">
-              <span className="text-[10px] text-[#3CCF91] font-bold uppercase tracking-wider block">Escrow Custody</span>
-              <strong className="text-xl font-black text-[#3CCF91]">₹8.42L</strong>
+              <span className="text-[10px] text-[#3CCF91] font-bold uppercase tracking-wider block">Journey SJR Rate</span>
+              <strong className="text-xl font-black text-[#3CCF91]">98.6% SJR</strong>
             </div>
             <div className="p-3 rounded-xl bg-[#FFC857]/10 border border-[#FFC857]/30">
-              <span className="text-[10px] text-[#FFC857] font-bold uppercase tracking-wider block">15m SLA Rate</span>
-              <strong className="text-xl font-black text-[#FFC857]">99.4%</strong>
+              <span className="text-[10px] text-[#FFC857] font-bold uppercase tracking-wider block">Resolve SLA Engine</span>
+              <strong className="text-xl font-black text-[#FFC857]">4.8m Avg</strong>
             </div>
           </div>
         </div>
