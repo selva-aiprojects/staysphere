@@ -44,6 +44,8 @@ import { DriverMobilePwa } from './components/DriverMobilePwa';
 import { FinanceEngineWorkspace } from './components/FinanceEngineWorkspace';
 import { TrustSafetyWorkspace } from './components/TrustSafetyWorkspace';
 import { TelemetryCascadeController } from './components/TelemetryCascadeController';
+import { RateParityIntelligenceWorkspace } from './components/RateParityIntelligenceWorkspace';
+import { NightAuditWorkspace } from './components/NightAuditWorkspace';
 import { apiClient, BackendStatus } from './services/apiClient';
 import { Mail, UserPlus, Compass, ShieldAlert, Star, Bot, LogOut, LayoutDashboard, Sun, Moon, ExternalLink, TrendingUp, Radio } from 'lucide-react';
 
@@ -56,6 +58,8 @@ export const WORKFLOW_TABS = [
   { id: 'frontdesk', label: 'Bookings', icon: KeyRound, iconColor: 'text-[#FFC857]' },
   { id: 'travel-desk', label: 'Mobility', icon: Car, iconColor: 'text-amber-400' },
   { id: 'telemetry-cascade', label: 'Telemetry', icon: Radio, iconColor: 'text-cyan-400' },
+  { id: 'rate-parity', label: 'Rate Parity', icon: TrendingUp, iconColor: 'text-[#FFC857]' },
+  { id: 'night-audit', label: 'Night Audit', icon: Moon, iconColor: 'text-amber-400' },
   { id: 'sla-incidents', label: 'SLA Sentinel', icon: ShieldAlert, iconColor: 'text-rose-400' },
   { id: 'finance-engine', label: 'Finance', icon: Receipt, iconColor: 'text-[#3CCF91]' },
   { id: 'trust-safety', label: 'Trust & Safety', icon: ShieldCheck, iconColor: 'text-[#3CCF91]' },
@@ -446,6 +450,8 @@ export default function OperationsControlTower() {
     | 'emails'
     | 'offer-management'
     | 'telemetry-cascade'
+    | 'rate-parity'
+    | 'night-audit'
   >('overview');
 
   // Workflows Datasets
@@ -881,6 +887,16 @@ export default function OperationsControlTower() {
         {/* WORKSPACE: TELEMETRY DELAY CASCADE CONTROLLER */}
         {activeWorkflow === 'telemetry-cascade' && (
           <TelemetryCascadeController />
+        )}
+
+        {/* WORKSPACE: RATE PARITY INTELLIGENCE */}
+        {activeWorkflow === 'rate-parity' && (
+          <RateParityIntelligenceWorkspace />
+        )}
+
+        {/* WORKSPACE: HOTEL NIGHT AUDIT & DAILY CLOSE */}
+        {activeWorkflow === 'night-audit' && (
+          <NightAuditWorkspace />
         )}
 
         {/* WORKSPACE: PROPERTIES MASTER ENTRIES */}

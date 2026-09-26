@@ -26,9 +26,12 @@ import {
   Zap,
   LayoutGrid,
   Globe,
+  Moon,
 } from 'lucide-react';
 import { RoomTapeChartWorkspace } from './RoomTapeChartWorkspace';
 import { ForeignGuestCFormWorkspace } from './ForeignGuestCFormWorkspace';
+import { RateParityIntelligenceWorkspace } from './RateParityIntelligenceWorkspace';
+import { NightAuditWorkspace } from './NightAuditWorkspace';
 
 interface PropertyPartnerPortalProps {
   onSwitchToControlTower?: () => void;
@@ -40,7 +43,7 @@ export const PropertyPartnerPortal: React.FC<PropertyPartnerPortalProps> = ({
   onOpenTickets,
 }) => {
   const [activeTab, setActiveTab] = useState<
-    'dashboard' | 'tape-chart' | 'inventory' | 'rates' | 'arrivals' | 'services' | 'c-form' | 'settlements' | 'feedback' | 'support'
+    'dashboard' | 'tape-chart' | 'inventory' | 'rates' | 'rate-parity' | 'arrivals' | 'services' | 'c-form' | 'night-audit' | 'settlements' | 'feedback' | 'support'
   >('dashboard');
 
   const [selectedProperty, setSelectedProperty] = useState('vana-azure');
@@ -368,6 +371,8 @@ export const PropertyPartnerPortal: React.FC<PropertyPartnerPortalProps> = ({
             { id: 'rates', label: 'Rates & Parity', icon: Percent },
             { id: 'services', label: 'Guest Services & Butler', icon: Coffee, badge: '2 Open' },
             { id: 'c-form', label: 'Foreign Guest C-Form', icon: Globe, badge: 'MHA / BoI' },
+            { id: 'rate-parity', label: 'Rate Parity Shopper', icon: TrendingUp, badge: 'Live OTAs' },
+            { id: 'night-audit', label: 'Hotel Night Audit', icon: Moon, badge: 'OPERA' },
             { id: 'settlements', label: 'Escrow & Settlements', icon: CreditCard },
             { id: 'feedback', label: 'Guest Reviews (4.9★)', icon: Star },
             { id: 'support', label: 'Partner Support Desk', icon: MessageSquare },
@@ -563,6 +568,16 @@ export const PropertyPartnerPortal: React.FC<PropertyPartnerPortalProps> = ({
         {/* TAB: FOREIGN GUEST C-FORM COMPLIANCE (MHA / BOI LEGAL)                   */}
         {/* ========================================================================= */}
         {activeTab === 'c-form' && <ForeignGuestCFormWorkspace />}
+
+        {/* ========================================================================= */}
+        {/* TAB: RATE PARITY INTELLIGENCE (SITEMINDER / RATEGAIN STANDARD)            */}
+        {/* ========================================================================= */}
+        {activeTab === 'rate-parity' && <RateParityIntelligenceWorkspace />}
+
+        {/* ========================================================================= */}
+        {/* TAB: HOTEL NIGHT AUDIT & DAILY CLOSE (OPERA CLOUD STANDARD)               */}
+        {/* ========================================================================= */}
+        {activeTab === 'night-audit' && <NightAuditWorkspace />}
 
         {/* ========================================================================= */}
         {/* TAB 2: ROOMS & INVENTORY                                                  */}

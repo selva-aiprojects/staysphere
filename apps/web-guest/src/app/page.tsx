@@ -66,6 +66,9 @@ import { DigitalRoomPassModal } from '../components/DigitalRoomPassModal';
 import { GuestFolioInvoiceModal } from '../components/GuestFolioInvoiceModal';
 import { CookieConsentBanner } from '../components/CookieConsentBanner';
 import { PrivacyDataCenterModal } from '../components/PrivacyDataCenterModal';
+import { SupportedLanguage } from '../lib/i18n';
+import { LanguageSelector } from '../components/LanguageSelector';
+import { InventorySoftLockBanner } from '../components/InventorySoftLockBanner';
 
 export type StayTier = 'comfort' | 'premium' | 'luxe';
 
@@ -853,6 +856,9 @@ export default function GuestApp() {
   // Global Multi-Currency Support (USD, EUR, GBP, AED, SGD, INR)
   const [selectedCurrency, setSelectedCurrency] = useState<SupportedCurrency>('INR');
 
+  // Multi-Language Support (EN, ES, FR, DE, AR)
+  const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage>('en');
+
   // Digital Room Pass & Folio Invoice Modals
   const [showDigitalPassModal, setShowDigitalPassModal] = useState<boolean>(false);
   const [showFolioModal, setShowFolioModal] = useState<boolean>(false);
@@ -1109,6 +1115,13 @@ export default function GuestApp() {
               ))}
             </select>
           </div>
+
+          {/* Multi-Language Selector */}
+          <LanguageSelector
+            currentLanguage={selectedLanguage}
+            onLanguageChange={setSelectedLanguage}
+            theme={theme}
+          />
 
           {/* Eye-Care Adaptive Theme Switcher */}
           <button
@@ -2015,6 +2028,15 @@ export default function GuestApp() {
                 Protected by StaySphere Milestone Custody. Payments are disbursed to partners only after your verified arrival.
               </p>
             </div>
+
+            {/* 15-Minute Guaranteed Inventory Soft-Lock Banner */}
+            {!bookingConfirmed && (
+              <InventorySoftLockBanner
+                villaName={selectedEstate ? `${selectedEstate.name} — ${selectedVilla}` : 'Luxury Villa Suite'}
+                theme={theme}
+                language={selectedLanguage}
+              />
+            )}
 
             {/* Stepper Progress Bar */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
