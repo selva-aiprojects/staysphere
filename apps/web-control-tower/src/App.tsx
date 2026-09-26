@@ -43,8 +43,9 @@ import { TransportPartnerPortal } from './components/TransportPartnerPortal';
 import { DriverMobilePwa } from './components/DriverMobilePwa';
 import { FinanceEngineWorkspace } from './components/FinanceEngineWorkspace';
 import { TrustSafetyWorkspace } from './components/TrustSafetyWorkspace';
+import { TelemetryCascadeController } from './components/TelemetryCascadeController';
 import { apiClient, BackendStatus } from './services/apiClient';
-import { Mail, UserPlus, Compass, ShieldAlert, Star, Bot, LogOut, LayoutDashboard, Sun, Moon, ExternalLink, TrendingUp } from 'lucide-react';
+import { Mail, UserPlus, Compass, ShieldAlert, Star, Bot, LogOut, LayoutDashboard, Sun, Moon, ExternalLink, TrendingUp, Radio } from 'lucide-react';
 
 export type PortalMode = 'CONTROL_TOWER' | 'PROPERTY_PORTAL' | 'TRANSPORT_PORTAL' | 'DRIVER_MOBILE';
 
@@ -54,6 +55,7 @@ export const WORKFLOW_TABS = [
   { id: 'property-master', label: 'Properties', icon: Hotel, iconColor: 'text-[#FFC857]' },
   { id: 'frontdesk', label: 'Bookings', icon: KeyRound, iconColor: 'text-[#FFC857]' },
   { id: 'travel-desk', label: 'Mobility', icon: Car, iconColor: 'text-amber-400' },
+  { id: 'telemetry-cascade', label: 'Telemetry', icon: Radio, iconColor: 'text-cyan-400' },
   { id: 'sla-incidents', label: 'SLA Sentinel', icon: ShieldAlert, iconColor: 'text-rose-400' },
   { id: 'finance-engine', label: 'Finance', icon: Receipt, iconColor: 'text-[#3CCF91]' },
   { id: 'trust-safety', label: 'Trust & Safety', icon: ShieldCheck, iconColor: 'text-[#3CCF91]' },
@@ -443,6 +445,7 @@ export default function OperationsControlTower() {
     | 'employees'
     | 'emails'
     | 'offer-management'
+    | 'telemetry-cascade'
   >('overview');
 
   // Workflows Datasets
@@ -873,6 +876,11 @@ export default function OperationsControlTower() {
           <JourneyCentricDashboard
             onOpenResolveDesk={() => setActiveWorkflow('sla-incidents')}
           />
+        )}
+
+        {/* WORKSPACE: TELEMETRY DELAY CASCADE CONTROLLER */}
+        {activeWorkflow === 'telemetry-cascade' && (
+          <TelemetryCascadeController />
         )}
 
         {/* WORKSPACE: PROPERTIES MASTER ENTRIES */}

@@ -17,16 +17,28 @@ import {
   Lock,
   Crown,
   User,
+  Receipt,
 } from 'lucide-react';
 import { CustomerUser } from './CustomerAuthModal';
+import { SupportedCurrency, formatCurrencyAmount } from '@staysphere/domain-types';
 
 interface MyJourneyViewProps {
   onOpenResolve: (defaultCategory?: string) => void;
+  onOpenDigitalPass?: () => void;
+  onOpenFolio?: () => void;
   theme?: 'dark' | 'pearl';
   currentUser?: CustomerUser | null;
+  currency?: SupportedCurrency;
 }
 
-export function MyJourneyView({ onOpenResolve, theme = 'pearl', currentUser }: MyJourneyViewProps) {
+export function MyJourneyView({
+  onOpenResolve,
+  onOpenDigitalPass,
+  onOpenFolio,
+  theme = 'pearl',
+  currentUser,
+  currency = 'INR',
+}: MyJourneyViewProps) {
   const [activeStageIndex, setActiveStageIndex] = useState<number>(1); // Step 2: In-Transit Chauffeur Pickup
   const [guestRating, setGuestRating] = useState<number>(5);
   const [selectedTags, setSelectedTags] = useState<string[]>(['Seamless Transit', 'Spotless Suite']);
@@ -254,14 +266,17 @@ export function MyJourneyView({ onOpenResolve, theme = 'pearl', currentUser }: M
           </div>
 
           <div
-            className={`p-4 rounded-2xl border space-y-1 ${
+            onClick={onOpenFolio}
+            className={`p-4 rounded-2xl border space-y-1 cursor-pointer transition hover:border-[#00D2C4] ${
               isPearl ? 'bg-slate-50 border-slate-200' : 'bg-[#020B18]/90 border-white/10'
             }`}
+            title="Click to view Official Folio & Tax Invoice"
           >
-            <span className={`text-[10px] uppercase font-bold flex items-center gap-1.5 ${isPearl ? 'text-[#0B3D91]' : 'text-[#F3CA7E]'}`}>
-              <Lock className="w-3.5 h-3.5 text-[#10B981]" /> Escrow Protection
+            <span className={`text-[10px] uppercase font-bold flex items-center justify-between gap-1.5 ${isPearl ? 'text-[#0B3D91]' : 'text-[#F3CA7E]'}`}>
+              <span className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5 text-[#10B981]" /> Escrow Protection</span>
+              <span className="text-[10px] text-[#00A9A5] font-bold hover:underline">Folio ↗</span>
             </span>
-            <div className={`text-xs font-black ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>₹1,30,500 Sovereign Vault</div>
+            <div className={`text-xs font-black ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>{formatCurrencyAmount(130500, currency)} Sovereign Vault</div>
             <div className={`text-[11px] ${isPearl ? 'text-slate-500' : 'text-slate-300'}`}>
               Disburses 2 hrs post check-in
             </div>
@@ -469,11 +484,13 @@ export function MyJourneyView({ onOpenResolve, theme = 'pearl', currentUser }: M
 
           {/* Digital Smart Keycard */}
           <div
-            className={`border rounded-3xl p-6 shadow-xl space-y-4 relative overflow-hidden ${
+            onClick={onOpenDigitalPass}
+            className={`border rounded-3xl p-6 shadow-xl space-y-4 relative overflow-hidden cursor-pointer transition hover:scale-[1.01] ${
               isPearl
                 ? 'bg-gradient-to-br from-amber-50/90 to-white border-[#D4AF37]/40 text-[#001E3D]'
                 : 'bg-gradient-to-br from-[#002B4D] to-[#001428] border-[#FFC857]/30 text-white'
             }`}
+            title="Click to open full Apple / Google Wallet Digital Pass"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -486,8 +503,8 @@ export function MyJourneyView({ onOpenResolve, theme = 'pearl', currentUser }: M
             </div>
 
             <div className="p-4 rounded-2xl bg-white/60 dark:bg-black/40 border border-slate-200 dark:border-white/10 text-center space-y-2">
-              <div className="text-xs text-slate-500 dark:text-slate-400">Hold phone near Villa 101 smart lock</div>
-              <div className="text-lg font-bold font-mono text-[#00A9A5]">TAP TO UNLOCK</div>
+              <div className="text-xs text-slate-500 dark:text-slate-400">Hold phone near Villa 101 smart lock or click to view pass</div>
+              <div className="text-lg font-bold font-mono text-[#00A9A5]">TAP FOR WALLET PASS ↗</div>
             </div>
           </div>
         </div>

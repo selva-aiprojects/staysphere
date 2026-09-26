@@ -57,10 +57,15 @@ import {
 import { HorizontalLogo, LogoOnDark, StackedLogo, AppIcon, EmblemImageLogo } from '@staysphere/ui-kit';
 import { PartnerRegistrationModal } from '../components/PartnerRegistrationModal';
 import { MyJourneyView } from '../components/MyJourneyView';
-import { ProactiveResolveSentinel } from '../components/ProactiveResolveSentinel';
 import { CustomerAuthModal, CustomerUser, FREQUENT_GUEST_PRESETS } from '../components/CustomerAuthModal';
+import { ProactiveResolveSentinel } from '../components/ProactiveResolveSentinel';
 import { GuestChatbotModal } from '../components/GuestChatbotModal';
 import { PartnerChatbotModal } from '../components/PartnerChatbotModal';
+import { SupportedCurrency, SUPPORTED_CURRENCIES, formatCurrencyAmount } from '@staysphere/domain-types';
+import { DigitalRoomPassModal } from '../components/DigitalRoomPassModal';
+import { GuestFolioInvoiceModal } from '../components/GuestFolioInvoiceModal';
+import { CookieConsentBanner } from '../components/CookieConsentBanner';
+import { PrivacyDataCenterModal } from '../components/PrivacyDataCenterModal';
 
 export type StayTier = 'comfort' | 'premium' | 'luxe';
 
@@ -845,6 +850,16 @@ export default function GuestApp() {
   // Partner Registration Modal State
   const [showPartnerModal, setShowPartnerModal] = useState<boolean>(false);
 
+  // Global Multi-Currency Support (USD, EUR, GBP, AED, SGD, INR)
+  const [selectedCurrency, setSelectedCurrency] = useState<SupportedCurrency>('INR');
+
+  // Digital Room Pass & Folio Invoice Modals
+  const [showDigitalPassModal, setShowDigitalPassModal] = useState<boolean>(false);
+  const [showFolioModal, setShowFolioModal] = useState<boolean>(false);
+  const [showPrivacyModal, setShowPrivacyModal] = useState<boolean>(false);
+
+  const fmt = (amountInINR: number) => formatCurrencyAmount(amountInINR, selectedCurrency);
+
   // Active destination's sightseeing tours
   const currentDestination = selectedEstate ? selectedEstate.destinationCity : 'Goa';
   const availableSightseeing = SIGHTSEEING_CATALOG.filter(
@@ -1077,6 +1092,24 @@ export default function GuestApp() {
             <span>Partner Network ↗</span>
           </button>
 
+          {/* Global Multi-Currency Selector */}
+          <div className={`flex items-center gap-1.5 px-2 py-1 rounded-lg border text-xs font-bold transition-all shadow-sm ${
+            isPearl ? 'bg-white border-slate-300 text-slate-800' : 'bg-[#002B4D] border-white/20 text-white'
+          }`}>
+            <Globe className="w-3.5 h-3.5 text-[#00A9A5] shrink-0" />
+            <select
+              value={selectedCurrency}
+              onChange={(e) => setSelectedCurrency(e.target.value as SupportedCurrency)}
+              className="bg-transparent text-xs font-bold focus:outline-none cursor-pointer"
+            >
+              {Object.values(SUPPORTED_CURRENCIES).map((curr) => (
+                <option key={curr.code} value={curr.code} className="bg-[#001428] text-white">
+                  {curr.flag} {curr.code} ({curr.symbol.trim()})
+                </option>
+              ))}
+            </select>
+          </div>
+
           {/* Eye-Care Adaptive Theme Switcher */}
           <button
             type="button"
@@ -1215,6 +1248,51 @@ export default function GuestApp() {
 
           {/* Right Action Buttons */}
           <div className="flex items-center gap-2 shrink-0">
+            {/* Digital Key Pass Button */}
+            <button
+              type="button"
+              onClick={() => setShowDigitalPassModal(true)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-bold text-xs shadow-sm cursor-pointer whitespace-nowrap transition-all border ${
+                isPearl
+                  ? 'bg-emerald-50 hover:bg-emerald-100 border-emerald-300 text-emerald-900'
+                  : 'bg-[#002B4D] hover:bg-[#003866] border-emerald-500/40 text-emerald-400'
+              }`}
+              title="Open Digital Room Key Pass (Apple Wallet / NFC)"
+            >
+              <KeyRound className="w-3.5 h-3.5 text-emerald-400" />
+              <span className="hidden sm:inline">Digital Key</span>
+            </button>
+
+            {/* Guest Tax Folio Invoice Button */}
+            <button
+              type="button"
+              onClick={() => setShowFolioModal(true)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-bold text-xs shadow-sm cursor-pointer whitespace-nowrap transition-all border ${
+                isPearl
+                  ? 'bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-800'
+                  : 'bg-[#002B4D] hover:bg-[#003866] border-white/20 text-slate-200'
+              }`}
+              title="View Official Guest Folio & Tax Invoice"
+            >
+              <Receipt className="w-3.5 h-3.5 text-[#FFC857]" />
+              <span className="hidden sm:inline">Folio</span>
+            </button>
+
+            {/* Privacy & DPDP Consent Button */}
+            <button
+              type="button"
+              onClick={() => setShowPrivacyModal(true)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-bold text-xs shadow-sm cursor-pointer whitespace-nowrap transition-all border ${
+                isPearl
+                  ? 'bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-800'
+                  : 'bg-[#002B4D] hover:bg-[#003866] border-[#00A9A5]/40 text-[#00A9A5]'
+              }`}
+              title="Guest Privacy, GDPR & DPDP 2023 Consent Center"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-[#00A9A5]" />
+              <span className="hidden lg:inline">Privacy & DPDP</span>
+            </button>
+
             {/* Guest AI Concierge Trigger */}
             <button
               type="button"
@@ -2445,7 +2523,7 @@ export default function GuestApp() {
                           <span>
                             🛫 Airport Return Drop Chauffeur ({transferVehicle.toUpperCase()} – Flight: {departureFlightNumber})
                           </span>
-                          <span className="font-bold text-white">₹{dropCost.toLocaleString()}</span>
+                          <span className="font-bold text-white">{fmt(dropCost)}</span>
                         </div>
                       )}
 
@@ -2457,7 +2535,7 @@ export default function GuestApp() {
                             return (
                               <div key={id} className="flex justify-between text-slate-300 pl-2 border-l border-[#00A9A5]">
                                 <span>🗺️ {tour.name}</span>
-                                <span className="font-bold text-white">₹{tour.price.toLocaleString()}</span>
+                                <span className="font-bold text-white">{fmt(tour.price)}</span>
                               </div>
                             );
                           })}
@@ -2467,25 +2545,25 @@ export default function GuestApp() {
                       {bundleDiscount > 0 && (
                         <div className="flex justify-between text-[#3CCF91] pt-1">
                           <span>🏷️ Complete Holiday Bundle Discount (Transit + Tours)</span>
-                          <span className="font-bold">-₹{bundleDiscount.toLocaleString()}</span>
+                          <span className="font-bold">-{fmt(bundleDiscount)}</span>
                         </div>
                       )}
 
                       {appliedPromo && promoDiscountAmount > 0 && (
                         <div className="flex justify-between text-[#FFC857] pt-1">
                           <span>🎉 Promo Discount ({appliedPromo.code} – {appliedPromo.discountPercent}%)</span>
-                          <span className="font-bold">-₹{promoDiscountAmount.toLocaleString()}</span>
+                          <span className="font-bold">-{fmt(promoDiscountAmount)}</span>
                         </div>
                       )}
 
                       <div className="flex justify-between text-slate-300 pt-2 border-t border-white/10">
                         <span>🛡️ Hospitality GST & Escrow Fee (12%)</span>
-                        <span className="font-bold text-white">₹{hospitalityTaxes.toLocaleString()}</span>
+                        <span className="font-bold text-white">{fmt(hospitalityTaxes)}</span>
                       </div>
 
                       <div className="pt-3 border-t border-white/15 flex justify-between text-sm font-black text-white">
                         <span>Total Protected Amount</span>
-                        <span className="text-xl text-[#00D2C4]">₹{totalBill.toLocaleString()}</span>
+                        <span className="text-xl text-[#00D2C4]">{fmt(totalBill)}</span>
                       </div>
                     </div>
 
@@ -2503,16 +2581,16 @@ export default function GuestApp() {
                     <div className="flex justify-between pt-4 border-t border-white/10">
                       <button
                         onClick={() => setBookingStep(2)}
-                        className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-bold text-xs"
+                        className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-bold text-xs cursor-pointer"
                       >
                         Back to Transit & Sightseeing
                       </button>
                       <button
                         onClick={handleCompleteBooking}
-                        className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] hover:brightness-110 text-[#001428] font-black text-xs shadow-lg shadow-[#FF8A3D]/25 flex items-center gap-2"
+                        className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#FF8A3D] to-[#FFC857] hover:brightness-110 text-[#001428] font-black text-xs shadow-lg shadow-[#FF8A3D]/25 flex items-center gap-2 cursor-pointer"
                       >
                         <Lock className="w-4 h-4" />
-                        <span>Confirm & Lock in Escrow (₹{totalBill.toLocaleString()})</span>
+                        <span>Confirm & Lock in Escrow ({fmt(totalBill)})</span>
                       </button>
                     </div>
                   </>
@@ -2561,17 +2639,31 @@ export default function GuestApp() {
                       </div>
                       <div className="flex justify-between items-center pt-1 text-sm">
                         <span className="text-slate-300 font-bold">Total Paid in Safe Escrow:</span>
-                        <strong className="text-[#3CCF91] font-black shrink-0 text-right whitespace-nowrap">₹{totalBill.toLocaleString()}</strong>
+                        <strong className="text-[#3CCF91] font-black shrink-0 text-right whitespace-nowrap">{fmt(totalBill)}</strong>
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap justify-center gap-4 pt-4">
+                    <div className="flex flex-wrap justify-center gap-3 pt-4">
                       <button
                         onClick={() => setActiveTab('myjourney')}
-                        className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white font-black text-xs shadow-lg shadow-[#00A9A5]/30 flex items-center gap-2 hover:brightness-110 transition-all"
+                        className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] text-white font-black text-xs shadow-lg shadow-[#00A9A5]/30 flex items-center gap-2 hover:brightness-110 transition-all cursor-pointer"
                       >
                         <Navigation className="w-4 h-4" />
-                        <span>Launch Live Journey Radar & Timeline</span>
+                        <span>Launch Journey Radar</span>
+                      </button>
+                      <button
+                        onClick={() => setShowDigitalPassModal(true)}
+                        className="px-4 py-2.5 rounded-xl bg-[#002B4D] hover:bg-[#003B6A] border border-[#00D2C4]/40 text-[#00D2C4] font-black text-xs flex items-center gap-2 transition cursor-pointer"
+                      >
+                        <KeyRound className="w-4 h-4 text-[#FFC857]" />
+                        <span>Digital Room Pass</span>
+                      </button>
+                      <button
+                        onClick={() => setShowFolioModal(true)}
+                        className="px-4 py-2.5 rounded-xl bg-[#002B4D] hover:bg-[#003B6A] border border-white/20 text-white font-black text-xs flex items-center gap-2 transition cursor-pointer"
+                      >
+                        <Receipt className="w-4 h-4 text-[#FF8A3D]" />
+                        <span>Official Tax Folio</span>
                       </button>
                       <button
                         onClick={() => {
@@ -2748,8 +2840,11 @@ export default function GuestApp() {
               setResolveCategory(cat || 'GENERAL_INQUIRY');
               setShowResolveModal(true);
             }}
+            onOpenDigitalPass={() => setShowDigitalPassModal(true)}
+            onOpenFolio={() => setShowFolioModal(true)}
             theme={theme}
             currentUser={currentUser}
+            currency={selectedCurrency}
           />
         )}
 
@@ -2928,6 +3023,46 @@ export default function GuestApp() {
         theme={theme}
       />
 
+      {/* Digital Room Pass PKPass Modal */}
+      <DigitalRoomPassModal
+        isOpen={showDigitalPassModal}
+        onClose={() => setShowDigitalPassModal(false)}
+        guestName={currentUser?.fullName || 'Vikram Malhotra'}
+        roomName={selectedEstate ? selectedEstate.villas[0]?.name : 'Villa 101 — Horizon Oceanfront Private Pool Villa'}
+        propertyName={selectedEstate ? selectedEstate.name : 'The Grand Vagator Bay Resort & Oceanfront Villas'}
+        bookingRef={confirmedBookingId}
+        theme={theme}
+        currency={selectedCurrency}
+      />
+
+      {/* Guest Folio Invoice Modal */}
+      <GuestFolioInvoiceModal
+        isOpen={showFolioModal}
+        onClose={() => setShowFolioModal(false)}
+        guestName={currentUser?.fullName || 'Vikram & Radhika Malhotra'}
+        guestEmail={currentUser?.email || 'vikram.m@corp.in'}
+        roomName={selectedEstate ? selectedEstate.villas[0]?.name : 'Villa 101 — Horizon Oceanfront Private Pool Villa'}
+        propertyName={selectedEstate ? selectedEstate.name : 'The Grand Vagator Bay Resort & Oceanfront Villas'}
+        bookingRef={confirmedBookingId}
+        inStayOrders={orderedItems}
+        theme={theme}
+        currency={selectedCurrency}
+      />
+
+      {/* Guest Privacy & DPDP 2023 Center Modal */}
+      <PrivacyDataCenterModal
+        isOpen={showPrivacyModal}
+        onClose={() => setShowPrivacyModal(false)}
+        currentUser={currentUser}
+        theme={theme}
+      />
+
+      {/* Cookie & Consent Banner */}
+      <CookieConsentBanner
+        onOpenPrivacyCenter={() => setShowPrivacyModal(true)}
+        theme={theme}
+      />
+
       {/* Footer */}
       <footer
         className={`border-t py-8 px-4 sm:px-8 text-xs mt-16 transition-colors ${
@@ -2947,6 +3082,13 @@ export default function GuestApp() {
             <span className={isPearl ? 'text-slate-500' : 'text-slate-400'}>
               © 2026 StaySphere Journey Platform Pvt. Ltd.
             </span>
+            <button
+              type="button"
+              onClick={() => setShowPrivacyModal(true)}
+              className="text-[#00A9A5] font-bold hover:underline cursor-pointer"
+            >
+              Privacy & DPDP Center
+            </button>
             <button
               type="button"
               onClick={() => {

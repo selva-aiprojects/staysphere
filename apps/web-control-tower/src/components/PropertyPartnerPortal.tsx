@@ -24,7 +24,11 @@ import {
   Car,
   Navigation,
   Zap,
+  LayoutGrid,
+  Globe,
 } from 'lucide-react';
+import { RoomTapeChartWorkspace } from './RoomTapeChartWorkspace';
+import { ForeignGuestCFormWorkspace } from './ForeignGuestCFormWorkspace';
 
 interface PropertyPartnerPortalProps {
   onSwitchToControlTower?: () => void;
@@ -36,7 +40,7 @@ export const PropertyPartnerPortal: React.FC<PropertyPartnerPortalProps> = ({
   onOpenTickets,
 }) => {
   const [activeTab, setActiveTab] = useState<
-    'dashboard' | 'inventory' | 'rates' | 'arrivals' | 'services' | 'settlements' | 'feedback' | 'support'
+    'dashboard' | 'tape-chart' | 'inventory' | 'rates' | 'arrivals' | 'services' | 'c-form' | 'settlements' | 'feedback' | 'support'
   >('dashboard');
 
   const [selectedProperty, setSelectedProperty] = useState('vana-azure');
@@ -358,10 +362,12 @@ export const PropertyPartnerPortal: React.FC<PropertyPartnerPortalProps> = ({
         <div className="flex items-center gap-2">
           {[
             { id: 'dashboard', label: 'Dashboard', icon: TrendingUp },
+            { id: 'tape-chart', label: 'Room Tape Chart (PMS)', icon: LayoutGrid, badge: 'Live Rack' },
+            { id: 'arrivals', label: 'Arrivals & Keycards', icon: KeyRound, badge: '3 Today' },
             { id: 'inventory', label: 'Rooms & Inventory', icon: Bed },
             { id: 'rates', label: 'Rates & Parity', icon: Percent },
-            { id: 'arrivals', label: 'Arrivals & Keycards', icon: KeyRound, badge: '3 Today' },
             { id: 'services', label: 'Guest Services & Butler', icon: Coffee, badge: '2 Open' },
+            { id: 'c-form', label: 'Foreign Guest C-Form', icon: Globe, badge: 'MHA / BoI' },
             { id: 'settlements', label: 'Escrow & Settlements', icon: CreditCard },
             { id: 'feedback', label: 'Guest Reviews (4.9★)', icon: Star },
             { id: 'support', label: 'Partner Support Desk', icon: MessageSquare },
@@ -547,6 +553,16 @@ export const PropertyPartnerPortal: React.FC<PropertyPartnerPortalProps> = ({
             </div>
           </div>
         )}
+
+        {/* ========================================================================= */}
+        {/* TAB: INTERACTIVE ROOM TAPE CHART (PMS STANDARD)                           */}
+        {/* ========================================================================= */}
+        {activeTab === 'tape-chart' && <RoomTapeChartWorkspace />}
+
+        {/* ========================================================================= */}
+        {/* TAB: FOREIGN GUEST C-FORM COMPLIANCE (MHA / BOI LEGAL)                   */}
+        {/* ========================================================================= */}
+        {activeTab === 'c-form' && <ForeignGuestCFormWorkspace />}
 
         {/* ========================================================================= */}
         {/* TAB 2: ROOMS & INVENTORY                                                  */}
