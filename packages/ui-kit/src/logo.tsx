@@ -171,23 +171,26 @@ export const HorizontalLogo: React.FC<LogoProps & { useImageEmblem?: boolean }> 
   };
 
   const { icon, text, sub } = sizeMap[size];
-  const stayTextColor = variant === 'light' ? 'text-[#0B3D91]' : 'text-white';
-  const taglineColor = variant === 'light' ? 'text-[#666666]' : 'text-slate-400';
+  const isLight = variant === 'light';
+  const stayTextColor = isLight ? 'text-[#002244]' : 'text-white';
+  const sphereTextColor = isLight ? 'text-[#007A78]' : 'text-[#00D2C4]';
+  const taglineColor = isLight ? 'text-slate-600' : 'text-slate-400';
 
   return (
     <div className={`inline-flex items-center gap-3 font-sans select-none cursor-pointer ${className}`}>
       {useImageEmblem ? <EmblemImageLogo size={icon} /> : <AppIcon size={icon} />}
       <div className="flex flex-col leading-none">
         <div className={`font-black tracking-tight ${text} inline-flex items-center whitespace-nowrap`}>
-          <span className={stayTextColor}>Stay</span><span className="text-[#00A9A5] bg-gradient-to-r from-[#00D2C4] via-[#00A9A5] to-[#3CCF91] bg-clip-text text-transparent">Sphere</span>
+          <span className={stayTextColor} style={{ color: isLight ? '#002244' : '#FFFFFF' }}>Stay</span>
+          <span className={`${sphereTextColor} font-black`} style={{ color: isLight ? '#007A78' : '#00D2C4' }}>Sphere</span>
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#FF8A3D] ml-1.5 self-center animate-pulse" />
         </div>
         {showTagline ? (
-          <span className={`tracking-widest uppercase font-semibold text-[#FF8A3D] ${sub} mt-1`}>
+          <span className={`tracking-widest uppercase font-bold text-[#E66A1F] ${sub} mt-1`}>
             Stay • Move • Experience
           </span>
         ) : (
-          <span className={`tracking-widest uppercase font-medium ${taglineColor} ${sub} mt-1 opacity-80`}>
+          <span className={`tracking-widest uppercase font-semibold ${taglineColor} ${sub} mt-1`} style={{ color: isLight ? '#475569' : '#94A3B8' }}>
             Luxury Journey Escrow
           </span>
         )}
@@ -209,7 +212,9 @@ export const StackedLogo: React.FC<LogoProps & { useImageEmblem?: boolean }> = (
 }) => {
   const iconSize = size === 'xl' ? 84 : size === 'lg' ? 68 : size === 'md' ? 52 : 38;
   const textSize = size === 'xl' ? 'text-4xl md:text-5xl' : size === 'lg' ? 'text-3xl md:text-4xl' : 'text-2xl';
-  const stayTextColor = variant === 'light' ? 'text-[#0B3D91]' : 'text-white';
+  const isLight = variant === 'light';
+  const stayTextColor = isLight ? 'text-[#002244]' : 'text-white';
+  const sphereTextColor = isLight ? 'text-[#007A78]' : 'text-[#00D2C4]';
 
   return (
     <div className={`flex flex-col items-center text-center font-sans ${className}`}>
@@ -222,7 +227,8 @@ export const StackedLogo: React.FC<LogoProps & { useImageEmblem?: boolean }> = (
         )}
       </div>
       <div className={`font-black tracking-tight ${textSize} leading-none mb-1 inline-flex items-center justify-center whitespace-nowrap`}>
-        <span className={stayTextColor}>Stay</span><span className="bg-gradient-to-r from-[#00D2C4] via-[#00A9A5] to-[#3CCF91] bg-clip-text text-transparent">Sphere</span>
+        <span className={stayTextColor} style={{ color: isLight ? '#002244' : '#FFFFFF' }}>Stay</span>
+        <span className={`${sphereTextColor} font-black`} style={{ color: isLight ? '#007A78' : '#00D2C4' }}>Sphere</span>
         <span className="inline-block w-2 h-2 rounded-full bg-[#FF8A3D] ml-2 self-center animate-bounce" />
       </div>
       {showTagline && (

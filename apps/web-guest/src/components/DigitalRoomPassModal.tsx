@@ -114,7 +114,7 @@ export const DigitalRoomPassModal: React.FC<DigitalRoomPassModalProps> = ({
         {/* Modal Scrollable Content */}
         <div className="p-6 overflow-y-auto space-y-6">
           {/* Authentic Apple/Google Wallet Digital Pass Card */}
-          <div className="relative rounded-3xl bg-gradient-to-br from-[#001B36] via-[#002B4D] to-[#004B7A] border border-[#00D2C4]/40 p-6 text-white shadow-2xl overflow-hidden">
+          <div data-keep-dark className="relative rounded-3xl bg-gradient-to-br from-[#001B36] via-[#002B4D] to-[#004B7A] border border-[#00D2C4]/40 p-6 text-white shadow-2xl overflow-hidden keep-dark">
             {/* Ambient Background Shimmer */}
             <div className="absolute -top-16 -right-16 w-44 h-44 rounded-full bg-[#00A9A5]/25 blur-3xl pointer-events-none" />
             <div className="absolute -bottom-16 -left-16 w-44 h-44 rounded-full bg-[#FF8A3D]/20 blur-3xl pointer-events-none" />

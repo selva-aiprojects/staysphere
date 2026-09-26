@@ -1733,7 +1733,7 @@ export default function GuestApp() {
                     key={property.id}
                     className="glass-panel-luxury rounded-3xl border border-white/10 overflow-hidden hover:border-[#E5B869]/60 transition-all duration-500 flex flex-col group shadow-xl"
                   >
-                    <div className="relative h-72 overflow-hidden bg-slate-950">
+                    <div className="relative h-72 overflow-hidden bg-slate-950 image-overlay" data-keep-white>
                       <img
                         src={property.image}
                         alt={property.name}
@@ -1751,7 +1751,7 @@ export default function GuestApp() {
                         }`}>
                           {property.tierLabel}
                         </span>
-                        <span className="px-3 py-1 rounded-full bg-[#002B4D]/90 backdrop-blur-md border border-white/15 text-slate-200 text-[11px] font-medium whitespace-nowrap shrink-0">
+                        <span className="px-3 py-1 rounded-full bg-[#002B4D]/90 backdrop-blur-md border border-white/15 text-slate-100 text-[11px] font-medium whitespace-nowrap shrink-0">
                           {property.propertyTypeLabel}
                         </span>
                         <span className="px-3 py-1 rounded-full bg-[#020B18]/90 backdrop-blur-md border border-[#10B981]/40 text-[#10B981] text-[11px] font-bold flex items-center gap-1 whitespace-nowrap shrink-0">
@@ -1767,14 +1767,14 @@ export default function GuestApp() {
 
                       <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
                         <div className="min-w-0 pr-3">
-                          <span className="text-xs text-[#F3CA7E] flex items-center gap-1 font-medium truncate">
+                          <span className="text-xs text-[#F3CA7E] flex items-center gap-1 font-medium truncate drop-shadow-sm">
                             <MapPin className="w-3.5 h-3.5 text-[#FF8A3D] shrink-0" /> {property.location}
                           </span>
-                          <h3 className="text-xl font-serif-luxury font-bold text-white mt-0.5 truncate">{property.name}</h3>
+                          <h3 className="text-xl font-serif-luxury font-bold text-white mt-0.5 truncate drop-shadow-md">{property.name}</h3>
                         </div>
                         <div className="text-right shrink-0">
-                          <span className="text-2xl font-serif-luxury font-bold text-[#F3CA7E]">₹{property.pricePerNight.toLocaleString()}</span>
-                          <span className="text-xs text-slate-400 block font-sans">/ night</span>
+                          <span className="text-2xl font-serif-luxury font-bold text-[#F3CA7E] drop-shadow-md">₹{property.pricePerNight.toLocaleString()}</span>
+                          <span className="text-xs text-slate-300 block font-sans">/ night</span>
                         </div>
                       </div>
                     </div>
@@ -1929,7 +1929,7 @@ export default function GuestApp() {
                   key={property.id}
                   className="glass-panel rounded-3xl border border-white/10 overflow-hidden hover:border-[#00A9A5]/50 transition-all duration-300 flex flex-col"
                 >
-                  <div className="relative h-64 overflow-hidden bg-slate-900">
+                  <div className="relative h-64 overflow-hidden bg-slate-900 image-overlay" data-keep-white>
                     <img
                       src={property.image}
                       alt={property.name}
@@ -1947,7 +1947,7 @@ export default function GuestApp() {
                       }`}>
                         {property.tierLabel}
                       </span>
-                      <span className="px-3 py-1 rounded-full bg-[#002B4D]/90 backdrop-blur-md border border-white/15 text-slate-200 text-[11px] font-bold whitespace-nowrap shrink-0">
+                      <span className="px-3 py-1 rounded-full bg-[#002B4D]/90 backdrop-blur-md border border-white/15 text-slate-100 text-[11px] font-bold whitespace-nowrap shrink-0">
                         {property.propertyTypeLabel}
                       </span>
                     </div>
@@ -1960,33 +1960,33 @@ export default function GuestApp() {
 
                     <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
                       <div className="min-w-0 pr-3">
-                        <span className="text-xs text-slate-300 flex items-center gap-1 truncate">
+                        <span className="text-xs text-slate-200 flex items-center gap-1 truncate drop-shadow-sm">
                           <MapPin className="w-3.5 h-3.5 text-[#FF8A3D] shrink-0" /> {property.location}
                         </span>
-                        <h3 className="text-xl font-black text-white mt-0.5 truncate">{property.name}</h3>
+                        <h3 className="text-xl font-black text-white mt-0.5 truncate drop-shadow-md">{property.name}</h3>
                       </div>
                       <div className="text-right shrink-0">
-                        <span className="text-xl font-black text-white">₹{property.pricePerNight.toLocaleString()}</span>
-                        <span className="text-xs text-slate-400 block">/ night</span>
+                        <span className="text-xl font-black text-white drop-shadow-md">₹{property.pricePerNight.toLocaleString()}</span>
+                        <span className="text-xs text-slate-300 block">/ night</span>
                       </div>
                     </div>
                   </div>
 
                   <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
-                    <p className="text-xs text-slate-300 leading-relaxed">
+                    <p className={`text-xs leading-relaxed ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
                       {property.description}
                     </p>
 
                     {/* Room Types */}
                     <div className="space-y-2 pt-2 border-t border-white/10">
-                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                      <span className={`text-[11px] font-bold uppercase tracking-wider ${isPearl ? 'text-slate-600' : 'text-slate-400'}`}>
                         Available Room / Suite Categories:
                       </span>
                       <div className="space-y-1.5">
                         {property.villas.map((villa, idx) => (
-                          <div key={idx} className="p-2.5 rounded-xl bg-[#001020] border border-white/5 flex items-center justify-between text-xs">
-                            <span className="font-bold text-white truncate pr-2">{villa.name}</span>
-                            <span className="text-[#00D2C4] font-black whitespace-nowrap shrink-0">₹{villa.price.toLocaleString()} / night</span>
+                          <div key={idx} className={`p-2.5 rounded-xl border flex items-center justify-between text-xs ${isPearl ? 'bg-slate-50 border-slate-200' : 'bg-[#001020] border-white/5'}`}>
+                            <span className={`font-bold truncate pr-2 ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>{villa.name}</span>
+                            <span className={`font-black whitespace-nowrap shrink-0 ${isPearl ? 'text-[#007A78]' : 'text-[#00D2C4]'}`}>₹{villa.price.toLocaleString()} / night</span>
                           </div>
                         ))}
                       </div>
@@ -2050,9 +2050,15 @@ export default function GuestApp() {
                   onClick={() => !bookingConfirmed && setBookingStep(s.step as 1 | 2 | 3)}
                   className={`p-3 rounded-2xl border text-center transition-all flex items-center justify-center gap-2 cursor-pointer ${
                     bookingStep === s.step
-                      ? 'bg-[#002B4D] border-[#00A9A5] text-white shadow-lg shadow-[#00A9A5]/20'
+                      ? isPearl
+                        ? 'bg-sky-50 border-[#00A9A5] text-[#001E3D] shadow-md font-black'
+                        : 'bg-[#002B4D] border-[#00A9A5] text-white shadow-lg shadow-[#00A9A5]/20'
                       : bookingStep > s.step
-                      ? 'bg-[#001020] border-[#3CCF91]/50 text-[#3CCF91]'
+                      ? isPearl
+                        ? 'bg-emerald-50/80 border-emerald-500 text-emerald-800 font-bold'
+                        : 'bg-[#001020] border-[#3CCF91]/50 text-[#3CCF91]'
+                      : isPearl
+                      ? 'bg-slate-100 border-slate-200 text-slate-500'
                       : 'bg-[#001020] border-white/10 text-slate-500'
                   }`}
                 >
@@ -2064,13 +2070,13 @@ export default function GuestApp() {
 
             {/* STEP 1: RESIDENCE & SUITE SELECTION */}
             {bookingStep === 1 && (
-              <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-white/10 space-y-6">
-                <div className="flex items-center justify-between pb-4 border-b border-white/10">
+              <div className={`p-6 sm:p-8 rounded-3xl glass-panel border space-y-6 ${isPearl ? 'border-slate-200' : 'border-white/10'}`}>
+                <div className={`flex items-center justify-between pb-4 border-b ${isPearl ? 'border-slate-200' : 'border-white/10'}`}>
                   <div>
-                    <h2 className="text-xl font-black text-white">
+                    <h2 className={`text-xl font-black ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>
                       {selectedEstate ? selectedEstate.name : 'Select Your Sanctuary'}
                     </h2>
-                    <p className="text-xs text-slate-300 mt-0.5">
+                    <p className={`text-xs mt-0.5 ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
                       {selectedEstate ? selectedEstate.location : 'Choose your preferred destination and suite category.'}
                     </p>
                   </div>
@@ -2080,7 +2086,7 @@ export default function GuestApp() {
                 {/* Suite Category Selection */}
                 {selectedEstate && (
                   <div className="space-y-3">
-                    <label className="text-xs font-bold text-slate-400 uppercase">Select Suite / Villa Category</label>
+                    <label className={`text-xs font-bold uppercase ${isPearl ? 'text-slate-600' : 'text-slate-400'}`}>Select Suite / Villa Category</label>
                     <div className="grid grid-cols-1 gap-3">
                       {selectedEstate.villas.map((villa) => (
                         <div
@@ -2088,24 +2094,28 @@ export default function GuestApp() {
                           onClick={() => setSelectedVilla(villa.name)}
                           className={`p-4 rounded-2xl border cursor-pointer transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
                             selectedVilla === villa.name
-                              ? 'bg-[#002B4D] border-[#00A9A5] shadow-lg shadow-[#00A9A5]/20'
+                              ? isPearl
+                                ? 'bg-sky-50/90 border-[#00A9A5] shadow-md ring-1 ring-[#00A9A5]/30'
+                                : 'bg-[#002B4D] border-[#00A9A5] shadow-lg shadow-[#00A9A5]/20'
+                              : isPearl
+                              ? 'bg-white border-slate-200 hover:border-slate-300'
                               : 'bg-[#001020] border-white/10 hover:border-white/25'
                           }`}
                         >
                           <div className="min-w-0">
-                            <h4 className="font-bold text-sm text-white">{villa.name}</h4>
-                            <p className="text-xs text-slate-400 mt-1">{villa.description}</p>
+                            <h4 className={`font-bold text-sm ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>{villa.name}</h4>
+                            <p className={`text-xs mt-1 ${isPearl ? 'text-slate-600' : 'text-slate-400'}`}>{villa.description}</p>
                             <div className="flex flex-wrap gap-2 mt-2">
                               {villa.curatedPerks.map((perk, idx) => (
-                                <span key={idx} className="text-[10px] text-[#3CCF91] font-bold flex items-center gap-1 whitespace-nowrap shrink-0">
+                                <span key={idx} className={`text-[10px] font-bold flex items-center gap-1 whitespace-nowrap shrink-0 ${isPearl ? 'text-emerald-700' : 'text-[#3CCF91]'}`}>
                                   <Sparkles className="w-3 h-3 shrink-0" /> {perk}
                                 </span>
                               ))}
                             </div>
                           </div>
                           <div className="text-left sm:text-right shrink-0">
-                            <span className="text-lg font-black text-white">₹{villa.price.toLocaleString()}</span>
-                            <span className="text-xs text-slate-400 block">/ night</span>
+                            <span className={`text-lg font-black ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>₹{villa.price.toLocaleString()}</span>
+                            <span className={`text-xs block ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>/ night</span>
                           </div>
                         </div>
                       ))}
@@ -2115,21 +2125,29 @@ export default function GuestApp() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="text-xs font-bold text-slate-400 uppercase">Check-In Date</label>
+                    <label className={`text-xs font-bold uppercase ${isPearl ? 'text-slate-600' : 'text-slate-400'}`}>Check-In Date</label>
                     <input
                       type="date"
                       value={checkInDate}
                       onChange={(e) => setCheckInDate(e.target.value)}
-                      className="w-full mt-1.5 p-3 rounded-xl bg-[#001020] border border-white/10 text-white font-bold text-xs outline-none focus:border-[#00A9A5]"
+                      className={`w-full mt-1.5 p-3 rounded-xl border font-bold text-xs outline-none focus:border-[#00A9A5] ${
+                        isPearl
+                          ? 'bg-white border-slate-300 text-[#001E3D]'
+                          : 'bg-[#001020] border-white/10 text-white'
+                      }`}
                     />
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold text-slate-400 uppercase">Stay Duration</label>
+                    <label className={`text-xs font-bold uppercase ${isPearl ? 'text-slate-600' : 'text-slate-400'}`}>Stay Duration</label>
                     <select
                       value={nights}
                       onChange={(e) => setNights(Number(e.target.value))}
-                      className="w-full mt-1.5 p-3 rounded-xl bg-[#001020] border border-white/10 text-white font-bold text-xs outline-none cursor-pointer"
+                      className={`w-full mt-1.5 p-3 rounded-xl border font-bold text-xs outline-none cursor-pointer ${
+                        isPearl
+                          ? 'bg-white border-slate-300 text-[#001E3D]'
+                          : 'bg-[#001020] border-white/10 text-white'
+                      }`}
                     >
                       <option value={2}>2 Nights Stay</option>
                       <option value={3}>3 Nights Bespoke Stay</option>
@@ -2139,11 +2157,15 @@ export default function GuestApp() {
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold text-slate-400 uppercase">Number of Guests</label>
+                    <label className={`text-xs font-bold uppercase ${isPearl ? 'text-slate-600' : 'text-slate-400'}`}>Number of Guests</label>
                     <select
                       value={guestsCount}
                       onChange={(e) => setGuestsCount(Number(e.target.value))}
-                      className="w-full mt-1.5 p-3 rounded-xl bg-[#001020] border border-white/10 text-white font-bold text-xs outline-none cursor-pointer"
+                      className={`w-full mt-1.5 p-3 rounded-xl border font-bold text-xs outline-none cursor-pointer ${
+                        isPearl
+                          ? 'bg-white border-slate-300 text-[#001E3D]'
+                          : 'bg-[#001020] border-white/10 text-white'
+                      }`}
                     >
                       <option value={2}>2 Adults (Couple)</option>
                       <option value={4}>4 Adults (Family / Group)</option>
@@ -2152,10 +2174,10 @@ export default function GuestApp() {
                   </div>
                 </div>
 
-                <div className="flex justify-end pt-4 border-t border-white/10">
+                <div className={`flex justify-end pt-4 border-t ${isPearl ? 'border-slate-200' : 'border-white/10'}`}>
                   <button
                     onClick={() => setBookingStep(2)}
-                    className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] hover:brightness-110 text-white font-black text-xs shadow-lg shadow-[#00A9A5]/30 flex items-center gap-2"
+                    className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] hover:brightness-110 text-white font-black text-xs shadow-lg shadow-[#00A9A5]/30 flex items-center gap-2 cursor-pointer"
                   >
                     <span>Proceed to Airport Travel & Sightseeing</span>
                     <ArrowRight className="w-4 h-4" />
@@ -2166,12 +2188,12 @@ export default function GuestApp() {
 
             {/* STEP 2: AIRPORT TRANSIT (PICKUP & DROP) + LOCAL SIGHTSEEING EXCURSIONS */}
             {bookingStep === 2 && (
-              <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-white/10 space-y-8">
+              <div className={`p-6 sm:p-8 rounded-3xl glass-panel border space-y-8 ${isPearl ? 'border-slate-200' : 'border-white/10'}`}>
                 {/* Header */}
-                <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                <div className={`flex items-center justify-between pb-4 border-b ${isPearl ? 'border-slate-200' : 'border-white/10'}`}>
                   <div>
-                    <h2 className="text-xl font-black text-white">Airport Travel & Local Sightseeing</h2>
-                    <p className="text-xs text-slate-300 mt-0.5">
+                    <h2 className={`text-xl font-black ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>Airport Travel & Local Sightseeing</h2>
+                    <p className={`text-xs mt-0.5 ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
                       Select your flight-tracked airport pickup, local sightseeing day excursions, and airport drop.
                     </p>
                   </div>
@@ -2184,11 +2206,11 @@ export default function GuestApp() {
                 {/* Section A: Airport Transit Options */}
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                    <label className={`text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>
                       <Car className="w-4 h-4 text-[#FF8A3D]" />
                       <span>1. Airport Transit Route Selection</span>
                     </label>
-                    <span className="text-[11px] font-bold text-[#3CCF91]">Live GPS & Flight Radar Synced</span>
+                    <span className={`text-[11px] font-bold ${isPearl ? 'text-emerald-700' : 'text-[#3CCF91]'}`}>Live GPS & Flight Radar Synced</span>
                   </div>
 
                   {/* Mode Selector */}
@@ -2197,20 +2219,24 @@ export default function GuestApp() {
                       onClick={() => setTransitMode('roundtrip')}
                       className={`p-4 rounded-2xl border cursor-pointer transition-all space-y-1.5 ${
                         transitMode === 'roundtrip'
-                          ? 'bg-[#002B4D] border-[#FF8A3D] shadow-lg shadow-[#FF8A3D]/20'
+                          ? isPearl
+                            ? 'bg-orange-50/90 border-[#FF8A3D] shadow-md ring-1 ring-[#FF8A3D]/30'
+                            : 'bg-[#002B4D] border-[#FF8A3D] shadow-lg shadow-[#FF8A3D]/20'
+                          : isPearl
+                          ? 'bg-white border-slate-200 hover:border-slate-300'
                           : 'bg-[#001020] border-white/10 hover:border-white/20'
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-xs text-white">Full Roundtrip</span>
+                        <span className={`font-bold text-xs ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>Full Roundtrip</span>
                         <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#FF8A3D]/20 text-[#FF8A3D] font-bold">
                           Recommended
                         </span>
                       </div>
-                      <p className="text-[11px] text-slate-300">
+                      <p className={`text-[11px] ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
                         Airport Pickup → Hotel + Return Hotel → Airport Drop.
                       </p>
-                      <span className="text-xs font-black text-[#00D2C4] block pt-1">
+                      <span className={`text-xs font-black block pt-1 ${isPearl ? 'text-[#007A78]' : 'text-[#00D2C4]'}`}>
                         ₹{(vehiclePricePerLeg * 2).toLocaleString()} total
                       </span>
                     </div>
@@ -2219,15 +2245,19 @@ export default function GuestApp() {
                       onClick={() => setTransitMode('pickup_only')}
                       className={`p-4 rounded-2xl border cursor-pointer transition-all space-y-1.5 ${
                         transitMode === 'pickup_only'
-                          ? 'bg-[#002B4D] border-[#00A9A5] shadow-lg shadow-[#00A9A5]/20'
+                          ? isPearl
+                            ? 'bg-sky-50/90 border-[#00A9A5] shadow-md ring-1 ring-[#00A9A5]/30'
+                            : 'bg-[#002B4D] border-[#00A9A5] shadow-lg shadow-[#00A9A5]/20'
+                          : isPearl
+                          ? 'bg-white border-slate-200 hover:border-slate-300'
                           : 'bg-[#001020] border-white/10 hover:border-white/20'
                       }`}
                     >
-                      <span className="font-bold text-xs text-white block">Airport Pickup Only</span>
-                      <p className="text-[11px] text-slate-300">
+                      <span className={`font-bold text-xs block ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>Airport Pickup Only</span>
+                      <p className={`text-[11px] ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
                         Arrival Flight Meet & Greet → Direct transfer to Hotel lobby.
                       </p>
-                      <span className="text-xs font-black text-[#00D2C4] block pt-1">
+                      <span className={`text-xs font-black block pt-1 ${isPearl ? 'text-[#007A78]' : 'text-[#00D2C4]'}`}>
                         ₹{vehiclePricePerLeg.toLocaleString()}
                       </span>
                     </div>
@@ -2236,15 +2266,19 @@ export default function GuestApp() {
                       onClick={() => setTransitMode('drop_only')}
                       className={`p-4 rounded-2xl border cursor-pointer transition-all space-y-1.5 ${
                         transitMode === 'drop_only'
-                          ? 'bg-[#002B4D] border-[#00A9A5] shadow-lg shadow-[#00A9A5]/20'
+                          ? isPearl
+                            ? 'bg-sky-50/90 border-[#00A9A5] shadow-md ring-1 ring-[#00A9A5]/30'
+                            : 'bg-[#002B4D] border-[#00A9A5] shadow-lg shadow-[#00A9A5]/20'
+                          : isPearl
+                          ? 'bg-white border-slate-200 hover:border-slate-300'
                           : 'bg-[#001020] border-white/10 hover:border-white/20'
                       }`}
                     >
-                      <span className="font-bold text-xs text-white block">Airport Drop Only</span>
-                      <p className="text-[11px] text-slate-300">
+                      <span className={`font-bold text-xs block ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>Airport Drop Only</span>
+                      <p className={`text-[11px] ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
                         Hotel → Airport VIP Terminal with return flight check-in sync.
                       </p>
-                      <span className="text-xs font-black text-[#00D2C4] block pt-1">
+                      <span className={`text-xs font-black block pt-1 ${isPearl ? 'text-[#007A78]' : 'text-[#00D2C4]'}`}>
                         ₹{vehiclePricePerLeg.toLocaleString()}
                       </span>
                     </div>
@@ -2254,98 +2288,118 @@ export default function GuestApp() {
                   {transitMode !== 'none' && (
                     <div className="space-y-3 pt-2">
                       <div className="flex items-center justify-between">
-                        <label className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+                        <label className={`text-xs font-bold uppercase tracking-wider ${isPearl ? 'text-slate-700' : 'text-slate-300'}`}>
                           Select Transit & Chauffeur Fleet (All Classes)
                         </label>
-                        <span className="text-[11px] text-slate-400">Flight arrival tracking included</span>
+                        <span className={`text-[11px] ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>Flight arrival tracking included</span>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
                         <div
                           onClick={() => setTransferVehicle('sedan')}
                           className={`p-3.5 rounded-2xl border cursor-pointer transition-all space-y-1 ${
                             transferVehicle === 'sedan'
-                              ? 'bg-[#002B4D] border-emerald-400 shadow-md ring-1 ring-emerald-400'
+                              ? isPearl
+                                ? 'bg-emerald-50 border-emerald-500 shadow-md ring-1 ring-emerald-500'
+                                : 'bg-[#002B4D] border-emerald-400 shadow-md ring-1 ring-emerald-400'
+                              : isPearl
+                              ? 'bg-white border-slate-200 hover:border-slate-300'
                               : 'bg-[#001020] border-white/10 hover:border-white/20'
                           }`}
                         >
                           <div className="flex items-center justify-between">
-                            <span className="font-bold text-xs text-white">City AC Sedan</span>
-                            <Car className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                            <span className={`font-bold text-xs ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>City AC Sedan</span>
+                            <Car className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
                           </div>
-                          <p className="text-[10px] text-slate-400">Dzire / Etios / Tigor EV, clean AC cab</p>
-                          <span className="text-xs font-bold text-emerald-400 block">₹900 / leg</span>
+                          <p className={`text-[10px] ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>Dzire / Etios / Tigor EV, clean AC cab</p>
+                          <span className={`text-xs font-bold block ${isPearl ? 'text-emerald-700' : 'text-emerald-400'}`}>₹900 / leg</span>
                         </div>
 
                         <div
                           onClick={() => setTransferVehicle('comfort_mpv')}
                           className={`p-3.5 rounded-2xl border cursor-pointer transition-all space-y-1 ${
                             transferVehicle === 'comfort_mpv'
-                              ? 'bg-[#002B4D] border-sky-400 shadow-md ring-1 ring-sky-400'
+                              ? isPearl
+                                ? 'bg-sky-50 border-sky-500 shadow-md ring-1 ring-sky-500'
+                                : 'bg-[#002B4D] border-sky-400 shadow-md ring-1 ring-sky-400'
+                              : isPearl
+                              ? 'bg-white border-slate-200 hover:border-slate-300'
                               : 'bg-[#001020] border-white/10 hover:border-white/20'
                           }`}
                         >
                           <div className="flex items-center justify-between">
-                            <span className="font-bold text-xs text-white">Comfort MPV</span>
-                            <Users className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+                            <span className={`font-bold text-xs ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>Comfort MPV</span>
+                            <Users className="w-3.5 h-3.5 text-sky-500 shrink-0" />
                           </div>
-                          <p className="text-[10px] text-slate-400">Innova Crysta / Ertiga, 6-seat family comfort</p>
-                          <span className="text-xs font-bold text-sky-400 block">₹1,600 / leg</span>
+                          <p className={`text-[10px] ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>Innova Crysta / Ertiga, 6-seat family comfort</p>
+                          <span className={`text-xs font-bold block ${isPearl ? 'text-sky-700' : 'text-sky-400'}`}>₹1,600 / leg</span>
                         </div>
 
                         <div
                           onClick={() => setTransferVehicle('electric')}
                           className={`p-3.5 rounded-2xl border cursor-pointer transition-all space-y-1 ${
                             transferVehicle === 'electric'
-                              ? 'bg-[#002B4D] border-[#3CCF91] shadow-md ring-1 ring-[#3CCF91]'
+                              ? isPearl
+                                ? 'bg-teal-50 border-[#00A9A5] shadow-md ring-1 ring-[#00A9A5]'
+                                : 'bg-[#002B4D] border-[#3CCF91] shadow-md ring-1 ring-[#3CCF91]'
+                              : isPearl
+                              ? 'bg-white border-slate-200 hover:border-slate-300'
                               : 'bg-[#001020] border-white/10 hover:border-white/20'
                           }`}
                         >
                           <div className="flex items-center justify-between">
-                            <span className="font-bold text-xs text-white">Executive EV Sedan</span>
-                            <Zap className="w-3.5 h-3.5 text-[#3CCF91] shrink-0" />
+                            <span className={`font-bold text-xs ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>Executive EV Sedan</span>
+                            <Zap className="w-3.5 h-3.5 text-teal-600 shrink-0" />
                           </div>
-                          <p className="text-[10px] text-slate-400">Whisper quiet luxury EV, executive lounge</p>
-                          <span className="text-xs font-bold text-[#3CCF91] block">₹2,400 / leg</span>
+                          <p className={`text-[10px] ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>Whisper quiet luxury EV, executive lounge</p>
+                          <span className={`text-xs font-bold block ${isPearl ? 'text-teal-700' : 'text-[#3CCF91]'}`}>₹2,400 / leg</span>
                         </div>
 
                         <div
                           onClick={() => setTransferVehicle('defender')}
                           className={`p-3.5 rounded-2xl border cursor-pointer transition-all space-y-1 ${
                             transferVehicle === 'defender'
-                              ? 'bg-[#002B4D] border-[#00A9A5] shadow-md ring-1 ring-[#00A9A5]'
+                              ? isPearl
+                                ? 'bg-blue-50 border-[#0B3D91] shadow-md ring-1 ring-[#0B3D91]'
+                                : 'bg-[#002B4D] border-[#00A9A5] shadow-md ring-1 ring-[#00A9A5]'
+                              : isPearl
+                              ? 'bg-white border-slate-200 hover:border-slate-300'
                               : 'bg-[#001020] border-white/10 hover:border-white/20'
                           }`}
                         >
                           <div className="flex items-center justify-between">
-                            <span className="font-bold text-xs text-white">4x4 Mountain SUV</span>
-                            <Mountain className="w-3.5 h-3.5 text-[#00D2C4] shrink-0" />
+                            <span className={`font-bold text-xs ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>4x4 Mountain SUV</span>
+                            <Mountain className="w-3.5 h-3.5 text-blue-600 shrink-0" />
                           </div>
-                          <p className="text-[10px] text-slate-400">Land Rover Defender / 4x4 all-terrain</p>
-                          <span className="text-xs font-bold text-[#00D2C4] block">₹3,800 / leg</span>
+                          <p className={`text-[10px] ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>Land Rover Defender / 4x4 all-terrain</p>
+                          <span className={`text-xs font-bold block ${isPearl ? 'text-blue-700' : 'text-[#00D2C4]'}`}>₹3,800 / leg</span>
                         </div>
 
                         <div
                           onClick={() => setTransferVehicle('maybach')}
                           className={`p-3.5 rounded-2xl border cursor-pointer transition-all space-y-1 ${
                             transferVehicle === 'maybach'
-                              ? 'bg-[#002B4D] border-[#FFC857] shadow-md ring-1 ring-[#FFC857]'
+                              ? isPearl
+                                ? 'bg-amber-50 border-amber-500 shadow-md ring-1 ring-amber-500'
+                                : 'bg-[#002B4D] border-[#FFC857] shadow-md ring-1 ring-[#FFC857]'
+                              : isPearl
+                              ? 'bg-white border-slate-200 hover:border-slate-300'
                               : 'bg-[#001020] border-white/10 hover:border-white/20'
                           }`}
                         >
                           <div className="flex items-center justify-between">
-                            <span className="font-bold text-xs text-white">Maybach S680</span>
-                            <Crown className="w-3.5 h-3.5 text-[#FFC857] shrink-0" />
+                            <span className={`font-bold text-xs ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>Maybach S680</span>
+                            <Crown className="w-3.5 h-3.5 text-amber-500 shrink-0" />
                           </div>
-                          <p className="text-[10px] text-slate-400">VIP tarmac meet, bottled water, champagne</p>
-                          <span className="text-xs font-bold text-[#FFC857] block">₹4,500 / leg</span>
+                          <p className={`text-[10px] ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>VIP tarmac meet, bottled water, champagne</p>
+                          <span className={`text-xs font-bold block ${isPearl ? 'text-amber-700' : 'text-[#FFC857]'}`}>₹4,500 / leg</span>
                         </div>
                       </div>
 
                       {/* Flight Details Input */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                         <div>
-                          <label className="text-[11px] font-bold text-slate-300 uppercase flex items-center gap-1">
-                            <Plane className="w-3.5 h-3.5 text-[#3CCF91]" />
+                          <label className={`text-[11px] font-bold uppercase flex items-center gap-1 ${isPearl ? 'text-slate-700' : 'text-slate-300'}`}>
+                            <Plane className="w-3.5 h-3.5 text-emerald-500" />
                             <span>Arrival Flight Number (For Pickup)</span>
                           </label>
                           <input
@@ -2353,15 +2407,19 @@ export default function GuestApp() {
                             placeholder="e.g. 6E-204 / AI-865"
                             value={arrivalFlightNumber}
                             onChange={(e) => setArrivalFlightNumber(e.target.value.toUpperCase())}
-                            className="w-full mt-1 p-2.5 rounded-xl bg-[#001020] border border-white/10 text-white font-mono text-xs font-bold outline-none focus:border-[#00A9A5]"
+                            className={`w-full mt-1 p-2.5 rounded-xl border font-mono text-xs font-bold outline-none focus:border-[#00A9A5] ${
+                              isPearl
+                                ? 'bg-white border-slate-300 text-[#001E3D]'
+                                : 'bg-[#001020] border-white/10 text-white'
+                            }`}
                           />
-                          <span className="text-[10px] text-slate-400 mt-1 block">
+                          <span className={`text-[10px] mt-1 block ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>
                             Chauffeur automatically tracks landing time & terminal gate.
                           </span>
                         </div>
 
                         <div>
-                          <label className="text-[11px] font-bold text-slate-300 uppercase flex items-center gap-1">
+                          <label className={`text-[11px] font-bold uppercase flex items-center gap-1 ${isPearl ? 'text-slate-700' : 'text-slate-300'}`}>
                             <Plane className="w-3.5 h-3.5 text-[#FF8A3D]" />
                             <span>Departure Return Flight Number (For Drop)</span>
                           </label>
@@ -2370,9 +2428,13 @@ export default function GuestApp() {
                             placeholder="e.g. AI-678 / UK-992"
                             value={departureFlightNumber}
                             onChange={(e) => setDepartureFlightNumber(e.target.value.toUpperCase())}
-                            className="w-full mt-1 p-2.5 rounded-xl bg-[#001020] border border-white/10 text-white font-mono text-xs font-bold outline-none focus:border-[#00A9A5]"
+                            className={`w-full mt-1 p-2.5 rounded-xl border font-mono text-xs font-bold outline-none focus:border-[#00A9A5] ${
+                              isPearl
+                                ? 'bg-white border-slate-300 text-[#001E3D]'
+                                : 'bg-[#001020] border-white/10 text-white'
+                            }`}
                           />
-                          <span className="text-[10px] text-slate-400 mt-1 block">
+                          <span className={`text-[10px] mt-1 block ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>
                             Chauffeur picks you up from hotel porch 3 hours before flight.
                           </span>
                         </div>
@@ -2382,18 +2444,18 @@ export default function GuestApp() {
                 </div>
 
                 {/* Section B: Curated Local Sightseeing Day Tours */}
-                <div className="space-y-4 pt-4 border-t border-white/10">
+                <div className={`space-y-4 pt-4 border-t ${isPearl ? 'border-slate-200' : 'border-white/10'}`}>
                   <div className="flex items-center justify-between">
                     <div>
-                      <label className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                      <label className={`text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>
                         <Compass className="w-4 h-4 text-[#00D2C4]" />
                         <span>2. Curated Local Sightseeing Excursions in {currentDestination}</span>
                       </label>
-                      <p className="text-[11px] text-slate-300 mt-0.5">
+                      <p className={`text-[11px] mt-0.5 ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
                         Add destination-tailored day tours with private chauffeur, licensed guide & exclusive perks.
                       </p>
                     </div>
-                    <span className="text-[11px] font-bold text-[#FFC857]">
+                    <span className={`text-[11px] font-bold ${isPearl ? 'text-amber-800' : 'text-[#FFC857]'}`}>
                       {selectedSightseeingIds.length} Selected
                     </span>
                   </div>
@@ -2407,7 +2469,11 @@ export default function GuestApp() {
                           onClick={() => handleToggleSightseeing(tour.id)}
                           className={`p-4 rounded-2xl border cursor-pointer transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
                             isSelected
-                              ? 'bg-[#002B4D] border-[#00D2C4] shadow-lg shadow-[#00D2C4]/20'
+                              ? isPearl
+                                ? 'bg-teal-50/90 border-[#00A9A5] shadow-md ring-1 ring-[#00A9A5]/30'
+                                : 'bg-[#002B4D] border-[#00D2C4] shadow-lg shadow-[#00D2C4]/20'
+                              : isPearl
+                              ? 'bg-white border-slate-200 hover:border-slate-300'
                               : 'bg-[#001020] border-white/10 hover:border-white/20'
                           }`}
                         >
@@ -2415,8 +2481,8 @@ export default function GuestApp() {
                             <div
                               className={`w-6 h-6 rounded-lg border mt-0.5 flex items-center justify-center shrink-0 transition-colors ${
                                 isSelected
-                                  ? 'bg-[#00D2C4] border-[#00D2C4] text-[#001428]'
-                                  : 'border-white/30 bg-transparent text-transparent'
+                                  ? 'bg-[#00A9A5] border-[#00A9A5] text-white'
+                                  : isPearl ? 'border-slate-300 bg-transparent text-transparent' : 'border-white/30 bg-transparent text-transparent'
                               }`}
                             >
                               <Check className="w-4 h-4 stroke-[3]" />
@@ -2424,35 +2490,39 @@ export default function GuestApp() {
 
                             <div className="space-y-1 min-w-0">
                               <div className="flex items-center gap-2 flex-wrap">
-                                <h4 className="font-bold text-sm text-white">{tour.name}</h4>
-                                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#00A9A5]/20 text-[#00D2C4] font-bold whitespace-nowrap shrink-0">
+                                <h4 className={`font-bold text-sm ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>{tour.name}</h4>
+                                <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold whitespace-nowrap shrink-0 ${isPearl ? 'bg-teal-100 text-teal-800' : 'bg-[#00A9A5]/20 text-[#00D2C4]'}`}>
                                   {tour.badge}
                                 </span>
-                                <span className="text-[10px] text-slate-400 flex items-center gap-1 whitespace-nowrap shrink-0">
+                                <span className={`text-[10px] flex items-center gap-1 whitespace-nowrap shrink-0 ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>
                                   <Clock className="w-3 h-3 shrink-0" /> {tour.duration}
                                 </span>
                               </div>
 
-                              <p className="text-xs text-slate-300">{tour.tagline}</p>
+                              <p className={`text-xs ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>{tour.tagline}</p>
 
                               <div className="flex flex-wrap gap-2 pt-1">
                                 {tour.highlights.map((highlight, idx) => (
-                                  <span key={idx} className="text-[10px] text-[#3CCF91] font-semibold flex items-center gap-1 whitespace-nowrap shrink-0">
+                                  <span key={idx} className={`text-[10px] font-semibold flex items-center gap-1 whitespace-nowrap shrink-0 ${isPearl ? 'text-emerald-700' : 'text-[#3CCF91]'}`}>
                                     <Sparkles className="w-2.5 h-2.5 shrink-0" /> {highlight}
                                   </span>
                                 ))}
                               </div>
 
-                              <div className="text-[11px] text-slate-400 pt-0.5">
-                                Included Transit: <strong className="text-slate-200">{tour.includedVehicle}</strong>
+                              <div className={`text-[11px] pt-0.5 ${isPearl ? 'text-slate-600' : 'text-slate-400'}`}>
+                                Included Transit: <strong className={isPearl ? 'text-slate-800' : 'text-slate-200'}>{tour.includedVehicle}</strong>
                               </div>
                             </div>
                           </div>
 
                           <div className="text-left sm:text-right shrink-0 pl-9 sm:pl-0">
-                            <span className="text-base font-black text-white">₹{tour.price.toLocaleString()}</span>
-                            <span className="text-[10px] text-slate-400 block whitespace-nowrap">all-inclusive</span>
-                            <span className={`text-[11px] font-bold mt-1 inline-block whitespace-nowrap ${isSelected ? 'text-[#00D2C4]' : 'text-slate-400'}`}>
+                            <span className={`text-base font-black ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>₹{tour.price.toLocaleString()}</span>
+                            <span className={`text-[10px] block whitespace-nowrap ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>all-inclusive</span>
+                            <span className={`text-[11px] font-bold mt-1 inline-block whitespace-nowrap ${
+                              isSelected
+                                ? isPearl ? 'text-[#007A78]' : 'text-[#00D2C4]'
+                                : isPearl ? 'text-slate-500' : 'text-slate-400'
+                            }`}>
                               {isSelected ? '✓ Added to Booking' : '+ Click to Add'}
                             </span>
                           </div>
@@ -2463,16 +2533,18 @@ export default function GuestApp() {
                 </div>
 
                 {/* Navigation Buttons */}
-                <div className="flex justify-between pt-4 border-t border-white/10">
+                <div className={`flex justify-between pt-4 border-t ${isPearl ? 'border-slate-200' : 'border-white/10'}`}>
                   <button
                     onClick={() => setBookingStep(1)}
-                    className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-bold text-xs"
+                    className={`px-6 py-3 rounded-xl font-bold text-xs cursor-pointer transition ${
+                      isPearl ? 'bg-slate-100 hover:bg-slate-200 text-slate-700' : 'bg-white/5 hover:bg-white/10 text-slate-300'
+                    }`}
                   >
                     Back to Suite Selection
                   </button>
                   <button
                     onClick={() => setBookingStep(3)}
-                    className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] hover:brightness-110 text-white font-black text-xs shadow-lg shadow-[#00A9A5]/30 flex items-center gap-2"
+                    className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#0B3D91] to-[#00A9A5] hover:brightness-110 text-white font-black text-xs shadow-lg shadow-[#00A9A5]/30 flex items-center gap-2 cursor-pointer"
                   >
                     <span>Proceed to Milestone Payment Protection</span>
                     <ArrowRight className="w-4 h-4" />
@@ -2483,23 +2555,23 @@ export default function GuestApp() {
 
             {/* STEP 3: MILESTONE PAYMENT BREAKDOWN & CONFIRM */}
             {bookingStep === 3 && (
-              <div className="p-6 sm:p-8 rounded-3xl glass-panel border border-white/10 space-y-6">
+              <div className={`p-6 sm:p-8 rounded-3xl glass-panel border space-y-6 ${isPearl ? 'border-slate-200' : 'border-white/10'}`}>
                 {!bookingConfirmed ? (
                   <>
-                    <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                    <div className={`flex items-center justify-between pb-4 border-b ${isPearl ? 'border-slate-200' : 'border-white/10'}`}>
                       <div>
-                        <h2 className="text-xl font-black text-white">Milestone Payment Protection & Confirmation</h2>
-                        <p className="text-xs text-slate-300 mt-0.5">
+                        <h2 className={`text-xl font-black ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>Milestone Payment Protection & Confirmation</h2>
+                        <p className={`text-xs mt-0.5 ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
                           Your payment remains protected in milestone custody until after your confirmed arrival.
                         </p>
                       </div>
-                      <ShieldCheck className="w-8 h-8 text-[#3CCF91]" />
+                      <ShieldCheck className={`w-8 h-8 ${isPearl ? 'text-[#00A9A5]' : 'text-[#3CCF91]'}`} />
                     </div>
 
                     {/* Promotions & Coupon Code Box */}
-                    <form onSubmit={handleApplyPromo} className="p-4 rounded-2xl bg-[#001020] border border-white/10 flex flex-col sm:flex-row items-center gap-3">
-                      <div className="flex items-center gap-2 text-xs font-bold text-white shrink-0">
-                        <Percent className="w-4 h-4 text-[#FFC857]" />
+                    <form onSubmit={handleApplyPromo} className={`p-4 rounded-2xl border flex flex-col sm:flex-row items-center gap-3 ${isPearl ? 'bg-white border-slate-200' : 'bg-[#001020] border-white/10'}`}>
+                      <div className={`flex items-center gap-2 text-xs font-bold shrink-0 ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>
+                        <Percent className={`w-4 h-4 ${isPearl ? 'text-amber-600' : 'text-[#FFC857]'}`} />
                         <span>Have a Promo Offer?</span>
                       </div>
                       <input
@@ -2507,45 +2579,47 @@ export default function GuestApp() {
                         placeholder="e.g. MONSOON20 / STAYSPHERE2026"
                         value={promoCodeInput}
                         onChange={(e) => setPromoCodeInput(e.target.value)}
-                        className="flex-1 w-full sm:w-auto p-2.5 rounded-xl bg-[#001830] border border-white/10 text-white font-mono text-xs uppercase outline-none focus:border-[#FFC857]"
+                        className={`flex-1 w-full sm:w-auto p-2.5 rounded-xl border font-mono text-xs uppercase outline-none focus:border-[#FFC857] ${
+                          isPearl ? 'bg-slate-50 border-slate-300 text-[#001E3D]' : 'bg-[#001830] border-white/10 text-white'
+                        }`}
                       />
                       <button
                         type="submit"
-                        className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FFC857] to-[#FF8A3D] text-[#001428] font-black text-xs hover:brightness-110"
+                        className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FFC857] to-[#FF8A3D] text-[#001428] font-black text-xs hover:brightness-110 cursor-pointer shadow-sm"
                       >
                         Apply Promo
                       </button>
                     </form>
                     {promoMessage && (
-                      <p className="text-xs text-[#3CCF91] font-semibold -mt-2 px-1">
+                      <p className={`text-xs font-semibold -mt-2 px-1 ${isPearl ? 'text-emerald-700' : 'text-[#3CCF91]'}`}>
                         {promoMessage}
                       </p>
                     )}
 
                     {/* Detailed Itemized Breakdown */}
-                    <div className="p-5 rounded-2xl bg-[#001020] border border-white/10 space-y-3 text-xs">
-                      <div className="flex justify-between text-slate-300">
+                    <div className={`p-5 rounded-2xl border space-y-3 text-xs ${isPearl ? 'bg-white border-slate-200' : 'bg-[#001020] border-white/10'}`}>
+                      <div className={`flex justify-between ${isPearl ? 'text-slate-700' : 'text-slate-300'}`}>
                         <span>
                           🏨 <strong>{selectedVilla || selectedEstate?.name}</strong> ({nights} Nights)
                         </span>
-                        <span className="font-bold text-white">₹{staySubtotal.toLocaleString()}</span>
+                        <span className={`font-bold ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>₹{staySubtotal.toLocaleString()}</span>
                       </div>
 
                       {pickupCost > 0 && (
-                        <div className="flex justify-between text-slate-300">
+                        <div className={`flex justify-between ${isPearl ? 'text-slate-700' : 'text-slate-300'}`}>
                           <span>
                             ✈️ Airport Pickup Chauffeur ({transferVehicle.toUpperCase()} – Flight: {arrivalFlightNumber})
                           </span>
-                          <span className="font-bold text-white">₹{pickupCost.toLocaleString()}</span>
+                          <span className={`font-bold ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>₹{pickupCost.toLocaleString()}</span>
                         </div>
                       )}
 
                       {dropCost > 0 && (
-                        <div className="flex justify-between text-slate-300">
+                        <div className={`flex justify-between ${isPearl ? 'text-slate-700' : 'text-slate-300'}`}>
                           <span>
                             🛫 Airport Return Drop Chauffeur ({transferVehicle.toUpperCase()} – Flight: {departureFlightNumber})
                           </span>
-                          <span className="font-bold text-white">{fmt(dropCost)}</span>
+                          <span className={`font-bold ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>{fmt(dropCost)}</span>
                         </div>
                       )}
 
@@ -2555,9 +2629,9 @@ export default function GuestApp() {
                             const tour = SIGHTSEEING_CATALOG.find((t) => t.id === id);
                             if (!tour) return null;
                             return (
-                              <div key={id} className="flex justify-between text-slate-300 pl-2 border-l border-[#00A9A5]">
+                              <div key={id} className={`flex justify-between pl-2 border-l border-[#00A9A5] ${isPearl ? 'text-slate-700' : 'text-slate-300'}`}>
                                 <span>🗺️ {tour.name}</span>
-                                <span className="font-bold text-white">{fmt(tour.price)}</span>
+                                <span className={`font-bold ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>{fmt(tour.price)}</span>
                               </div>
                             );
                           })}
@@ -2565,45 +2639,47 @@ export default function GuestApp() {
                       )}
 
                       {bundleDiscount > 0 && (
-                        <div className="flex justify-between text-[#3CCF91] pt-1">
+                        <div className={`flex justify-between pt-1 ${isPearl ? 'text-emerald-700' : 'text-[#3CCF91]'}`}>
                           <span>🏷️ Complete Holiday Bundle Discount (Transit + Tours)</span>
                           <span className="font-bold">-{fmt(bundleDiscount)}</span>
                         </div>
                       )}
 
                       {appliedPromo && promoDiscountAmount > 0 && (
-                        <div className="flex justify-between text-[#FFC857] pt-1">
+                        <div className={`flex justify-between pt-1 ${isPearl ? 'text-amber-800' : 'text-[#FFC857]'}`}>
                           <span>🎉 Promo Discount ({appliedPromo.code} – {appliedPromo.discountPercent}%)</span>
                           <span className="font-bold">-{fmt(promoDiscountAmount)}</span>
                         </div>
                       )}
 
-                      <div className="flex justify-between text-slate-300 pt-2 border-t border-white/10">
+                      <div className={`flex justify-between pt-2 border-t ${isPearl ? 'border-slate-200 text-slate-700' : 'border-white/10 text-slate-300'}`}>
                         <span>🛡️ Hospitality GST & Escrow Fee (12%)</span>
-                        <span className="font-bold text-white">{fmt(hospitalityTaxes)}</span>
+                        <span className={`font-bold ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>{fmt(hospitalityTaxes)}</span>
                       </div>
 
-                      <div className="pt-3 border-t border-white/15 flex justify-between text-sm font-black text-white">
+                      <div className={`pt-3 border-t flex justify-between text-sm font-black ${isPearl ? 'border-slate-300 text-[#001E3D]' : 'border-white/15 text-white'}`}>
                         <span>Total Protected Amount</span>
-                        <span className="text-xl text-[#00D2C4]">{fmt(totalBill)}</span>
+                        <span className={`text-xl ${isPearl ? 'text-[#007A78]' : 'text-[#00D2C4]'}`}>{fmt(totalBill)}</span>
                       </div>
                     </div>
 
                     {/* Milestone Protection Banner */}
-                    <div className="p-4 rounded-2xl bg-[#002244]/60 border border-[#00A9A5]/40 flex items-start gap-3">
-                      <ShieldCheck className="w-5 h-5 text-[#3CCF91] shrink-0 mt-0.5" />
+                    <div className={`p-4 rounded-2xl border flex items-start gap-3 ${isPearl ? 'bg-sky-50 border-sky-300' : 'bg-[#002244]/60 border-[#00A9A5]/40'}`}>
+                      <ShieldCheck className={`w-5 h-5 shrink-0 mt-0.5 ${isPearl ? 'text-[#00A9A5]' : 'text-[#3CCF91]'}`} />
                       <div className="text-xs space-y-1">
-                        <strong className="text-white block font-bold">StaySphere Milestone Payment & Dispute Protection</strong>
-                        <p className="text-slate-300 leading-relaxed">
+                        <strong className={`block font-bold ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>StaySphere Milestone Payment & Dispute Protection</strong>
+                        <p className={`leading-relaxed ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
                           Your booking payment is held in protected custody. Accommodation, chauffeur, and tour partners receive disbursements following verified arrival, backed by our 15-minute proactive resolution guarantee.
                         </p>
                       </div>
                     </div>
 
-                    <div className="flex justify-between pt-4 border-t border-white/10">
+                    <div className={`flex justify-between pt-4 border-t ${isPearl ? 'border-slate-200' : 'border-white/10'}`}>
                       <button
                         onClick={() => setBookingStep(2)}
-                        className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-bold text-xs cursor-pointer"
+                        className={`px-6 py-3 rounded-xl font-bold text-xs cursor-pointer transition ${
+                          isPearl ? 'bg-slate-100 hover:bg-slate-200 text-slate-700' : 'bg-white/5 hover:bg-white/10 text-slate-300'
+                        }`}
                       >
                         Back to Transit & Sightseeing
                       </button>
@@ -2624,44 +2700,44 @@ export default function GuestApp() {
                     </div>
 
                     <div className="space-y-2">
-                      <span className="text-xs font-bold text-[#3CCF91] uppercase tracking-widest">
+                      <span className={`text-xs font-bold uppercase tracking-widest ${isPearl ? 'text-emerald-700' : 'text-[#3CCF91]'}`}>
                         Reservation Confirmed & Safe in Escrow
                       </span>
-                      <h2 className="text-3xl font-black text-white">Your Entire Journey is Booked!</h2>
-                      <p className="text-xs text-slate-300 max-w-lg mx-auto">
-                        Your booking <strong className="text-[#00D2C4] font-mono">{confirmedBookingId}</strong> has been locked in Safe Escrow. Your flight pickup cab, hotel digital key, sightseeing tour, and airport drop are all scheduled.
+                      <h2 className={`text-3xl font-black ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>Your Entire Journey is Booked!</h2>
+                      <p className={`text-xs max-w-lg mx-auto ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
+                        Your booking <strong className={`font-mono ${isPearl ? 'text-[#007A78]' : 'text-[#00D2C4]'}`}>{confirmedBookingId}</strong> has been locked in Safe Escrow. Your flight pickup cab, hotel digital key, sightseeing tour, and airport drop are all scheduled.
                       </p>
                     </div>
 
                     {/* Complete Booking Itinerary Card */}
-                    <div className="max-w-xl mx-auto p-5 rounded-2xl bg-[#001020] border border-white/15 text-left text-xs space-y-3">
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pb-2 border-b border-white/10">
-                        <span className="text-slate-400 shrink-0">1. Property & Suite:</span>
-                        <strong className="text-white text-left sm:text-right min-w-0 break-words">{selectedEstate?.name} ({selectedVilla})</strong>
+                    <div className={`max-w-xl mx-auto p-5 rounded-2xl border text-left text-xs space-y-3 ${isPearl ? 'bg-white border-slate-200 shadow-md' : 'bg-[#001020] border-white/15'}`}>
+                      <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pb-2 border-b ${isPearl ? 'border-slate-200' : 'border-white/10'}`}>
+                        <span className={`shrink-0 ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>1. Property & Suite:</span>
+                        <strong className={`text-left sm:text-right min-w-0 break-words ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>{selectedEstate?.name} ({selectedVilla})</strong>
                       </div>
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pb-2 border-b border-white/10">
-                        <span className="text-slate-400 shrink-0">2. Airport Pickup:</span>
-                        <strong className="text-[#00D2C4] text-left sm:text-right min-w-0 break-words">
+                      <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pb-2 border-b ${isPearl ? 'border-slate-200' : 'border-white/10'}`}>
+                        <span className={`shrink-0 ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>2. Airport Pickup:</span>
+                        <strong className={`text-left sm:text-right min-w-0 break-words ${isPearl ? 'text-[#007A78]' : 'text-[#00D2C4]'}`}>
                           {transferVehicle.toUpperCase()} (Flight: {arrivalFlightNumber} @ {selectedEstate?.defaultAirport})
                         </strong>
                       </div>
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pb-2 border-b border-white/10">
-                        <span className="text-slate-400 shrink-0">3. Sightseeing Tours:</span>
-                        <strong className="text-[#FFC857] text-left sm:text-right min-w-0 break-words">
+                      <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pb-2 border-b ${isPearl ? 'border-slate-200' : 'border-white/10'}`}>
+                        <span className={`shrink-0 ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>3. Sightseeing Tours:</span>
+                        <strong className={`text-left sm:text-right min-w-0 break-words ${isPearl ? 'text-amber-800' : 'text-[#FFC857]'}`}>
                           {selectedSightseeingIds.length > 0
                             ? selectedSightseeingIds.map((id) => SIGHTSEEING_CATALOG.find((t) => t.id === id)?.name).join(', ')
                             : 'None Selected'}
                         </strong>
                       </div>
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pb-2 border-b border-white/10">
-                        <span className="text-slate-400 shrink-0">4. Airport Drop:</span>
-                        <strong className="text-[#3CCF91] text-left sm:text-right min-w-0 break-words">
+                      <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pb-2 border-b ${isPearl ? 'border-slate-200' : 'border-white/10'}`}>
+                        <span className={`shrink-0 ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>4. Airport Drop:</span>
+                        <strong className={`text-left sm:text-right min-w-0 break-words ${isPearl ? 'text-emerald-700' : 'text-[#3CCF91]'}`}>
                           {transferVehicle.toUpperCase()} (Flight: {departureFlightNumber} @ Terminal Drop)
                         </strong>
                       </div>
                       <div className="flex justify-between items-center pt-1 text-sm">
-                        <span className="text-slate-300 font-bold">Total Paid in Safe Escrow:</span>
-                        <strong className="text-[#3CCF91] font-black shrink-0 text-right whitespace-nowrap">{fmt(totalBill)}</strong>
+                        <span className={`font-bold ${isPearl ? 'text-slate-700' : 'text-slate-300'}`}>Total Paid in Safe Escrow:</span>
+                        <strong className={`font-black shrink-0 text-right whitespace-nowrap ${isPearl ? 'text-emerald-700' : 'text-[#3CCF91]'}`}>{fmt(totalBill)}</strong>
                       </div>
                     </div>
 
@@ -2675,14 +2751,22 @@ export default function GuestApp() {
                       </button>
                       <button
                         onClick={() => setShowDigitalPassModal(true)}
-                        className="px-4 py-2.5 rounded-xl bg-[#002B4D] hover:bg-[#003B6A] border border-[#00D2C4]/40 text-[#00D2C4] font-black text-xs flex items-center gap-2 transition cursor-pointer"
+                        className={`px-4 py-2.5 rounded-xl font-black text-xs flex items-center gap-2 transition cursor-pointer border ${
+                          isPearl
+                            ? 'bg-emerald-50 hover:bg-emerald-100 border-emerald-300 text-emerald-900 shadow-sm'
+                            : 'bg-[#002B4D] hover:bg-[#003B6A] border-[#00D2C4]/40 text-[#00D2C4]'
+                        }`}
                       >
-                        <KeyRound className="w-4 h-4 text-[#FFC857]" />
+                        <KeyRound className="w-4 h-4 text-emerald-500" />
                         <span>Digital Room Pass</span>
                       </button>
                       <button
                         onClick={() => setShowFolioModal(true)}
-                        className="px-4 py-2.5 rounded-xl bg-[#002B4D] hover:bg-[#003B6A] border border-white/20 text-white font-black text-xs flex items-center gap-2 transition cursor-pointer"
+                        className={`px-4 py-2.5 rounded-xl font-black text-xs flex items-center gap-2 transition cursor-pointer border ${
+                          isPearl
+                            ? 'bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-800 shadow-sm'
+                            : 'bg-[#002B4D] hover:bg-[#003B6A] border-white/20 text-white'
+                        }`}
                       >
                         <Receipt className="w-4 h-4 text-[#FF8A3D]" />
                         <span>Official Tax Folio</span>
@@ -2692,7 +2776,11 @@ export default function GuestApp() {
                           setResolveCategory('PRE_ARRIVAL');
                           setShowResolveModal(true);
                         }}
-                        className="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs border border-white/20 flex items-center gap-2"
+                        className={`px-6 py-3 rounded-xl font-bold text-xs border flex items-center gap-2 cursor-pointer transition ${
+                          isPearl
+                            ? 'bg-amber-50 hover:bg-amber-100 border-amber-300 text-amber-900 shadow-sm'
+                            : 'bg-white/10 hover:bg-white/15 text-white border-white/20'
+                        }`}
                       >
                         <ShieldCheck className="w-4 h-4 text-[#3CCF91]" />
                         <span>Proactive Resolve Sentinel (15m SLA)</span>

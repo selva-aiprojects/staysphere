@@ -119,7 +119,7 @@ body {
 }
 
 /* Global Text Contrast Overrides in Pearl Theme */
-.theme-pearl .text-white {
+.theme-pearl .text-white:not(.image-overlay *):not([data-keep-white] *):not(.keep-white *):not([data-keep-dark] *):not(.keep-dark *):not([class*="bg-emerald-950"] *):not([class*="bg-sky-950"] *):not([class*="bg-[#002B4D]/90"] *):not([class*="bg-[#020B18]/90"] *) {
   color: #001E3D;
 }
 
@@ -133,9 +133,7 @@ body {
 .theme-pearl .bg-gradient-to-r h3,
 .theme-pearl .bg-gradient-to-r strong,
 .theme-pearl a.bg-gradient-to-r,
-.theme-pearl a.bg-gradient-to-r *,
-.theme-pearl [data-keep-white],
-.theme-pearl [data-keep-white] * {
+.theme-pearl a.bg-gradient-to-r * {
   color: inherit;
 }
 
@@ -148,22 +146,40 @@ body {
   color: #001428 !important;
 }
 
-/* Slate Subtitles & Secondary Text */
-.theme-pearl .text-slate-100,
-.theme-pearl .text-slate-200 {
+/* Slate Subtitles & Secondary Text in Pearl Theme */
+.theme-pearl .text-slate-100:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not([class*="bg-[#002B4D]/90"] *),
+.theme-pearl .text-slate-200:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not([class*="bg-[#002B4D]/90"] *) {
   color: #001E3D;
 }
 
-.theme-pearl .text-slate-300 {
+.theme-pearl .text-slate-300:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not([class*="bg-[#002B4D]/90"] *) {
   color: #334155;
 }
 
-.theme-pearl .text-slate-400 {
+.theme-pearl .text-slate-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *) {
   color: #475569;
 }
 
-.theme-pearl .text-slate-500 {
+.theme-pearl .text-slate-500:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *) {
   color: #64748B;
+}
+
+/* Vibrant AAA Brand Colors on Light Pearl Surfaces */
+.theme-pearl .text-\[\#00D2C4\]:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *) {
+  color: #007A78 !important;
+}
+
+.theme-pearl .text-cyan-300:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *),
+.theme-pearl .text-cyan-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *) {
+  color: #007A78 !important;
+}
+
+.theme-pearl .text-\[\#FFC857\]:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *) {
+  color: #B87333 !important;
+}
+
+.theme-pearl .text-\[\#3CCF91\]:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *) {
+  color: #0D824D !important;
 }
 
 /* Glass Panels in Pearl Theme */
@@ -191,21 +207,100 @@ body {
   box-shadow: 0 15px 35px -10px rgba(0, 169, 165, 0.14), inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
-/* Dark Background Surface Overrides in Pearl Theme */
-.theme-pearl .bg-gradient-to-br,
-.theme-pearl .bg-gradient-to-r:not(button):not(a):not(.gold-text-gradient) {
+/* Image Overlays & Dark Card Text Preservation */
+.theme-pearl .image-overlay,
+.theme-pearl [data-keep-white],
+.theme-pearl .keep-white,
+.theme-pearl [data-keep-dark],
+.theme-pearl .keep-dark {
+  color: #FFFFFF !important;
+}
+
+.theme-pearl .image-overlay h1,
+.theme-pearl .image-overlay h2,
+.theme-pearl .image-overlay h3,
+.theme-pearl .image-overlay h4,
+.theme-pearl .image-overlay .text-white,
+.theme-pearl [data-keep-white] h1,
+.theme-pearl [data-keep-white] h2,
+.theme-pearl [data-keep-white] h3,
+.theme-pearl [data-keep-white] h4,
+.theme-pearl [data-keep-white] .text-white,
+.theme-pearl .keep-white h1,
+.theme-pearl .keep-white h2,
+.theme-pearl .keep-white h3,
+.theme-pearl .keep-white h4,
+.theme-pearl .keep-white .text-white,
+.theme-pearl [data-keep-dark] h1,
+.theme-pearl [data-keep-dark] h2,
+.theme-pearl [data-keep-dark] h3,
+.theme-pearl [data-keep-dark] h4,
+.theme-pearl [data-keep-dark] .text-white,
+.theme-pearl .keep-dark h1,
+.theme-pearl .keep-dark h2,
+.theme-pearl .keep-dark h3,
+.theme-pearl .keep-dark h4,
+.theme-pearl .keep-dark .text-white {
+  color: #FFFFFF !important;
+}
+
+.theme-pearl .image-overlay .text-slate-200,
+.theme-pearl .image-overlay .text-slate-300,
+.theme-pearl [data-keep-white] .text-slate-200,
+.theme-pearl [data-keep-white] .text-slate-300,
+.theme-pearl .keep-white .text-slate-200,
+.theme-pearl .keep-white .text-slate-300,
+.theme-pearl [data-keep-dark] .text-slate-200,
+.theme-pearl [data-keep-dark] .text-slate-300,
+.theme-pearl .keep-dark .text-slate-200,
+.theme-pearl .keep-dark .text-slate-300 {
+  color: #E2E8F0 !important;
+}
+
+.theme-pearl .image-overlay .text-slate-400,
+.theme-pearl [data-keep-white] .text-slate-400,
+.theme-pearl .keep-white .text-slate-400,
+.theme-pearl [data-keep-dark] .text-slate-400,
+.theme-pearl .keep-dark .text-slate-400 {
+  color: #CBD5E1 !important;
+}
+
+.theme-pearl .image-overlay .text-\[\#F3CA7E\],
+.theme-pearl [data-keep-white] .text-\[\#F3CA7E\],
+.theme-pearl [data-keep-dark] .text-\[\#F3CA7E\] {
+  color: #F3CA7E !important;
+}
+
+.theme-pearl [class*="bg-[#002B4D]/90"] .text-slate-200,
+.theme-pearl [class*="bg-[#002B4D]/90"] .text-slate-300 {
+  color: #F1F5F9 !important;
+}
+
+/* Gradient Surface Overrides: Exclude text gradients and elements marked to stay dark */
+.theme-pearl .bg-gradient-to-br:not(.bg-clip-text):not([class*="bg-clip-text"]):not([data-keep-dark]):not(.keep-dark):not(.image-overlay),
+.theme-pearl .bg-gradient-to-r:not(button):not(a):not(.gold-text-gradient):not(.bg-clip-text):not([class*="bg-clip-text"]):not([data-keep-dark]):not(.keep-dark):not(.image-overlay) {
   background-image: linear-gradient(135deg, #FFFFFF 0%, #FAF8F5 50%, #F5EFEA 100%) !important;
   border-color: #E2E8F0 !important;
+}
+
+/* Ensure gradient text never loses its clip property */
+.theme-pearl .bg-clip-text,
+.theme-pearl [class*="bg-clip-text"] {
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
 }
 
 .theme-pearl .bg-\[\#001428\],
 .theme-pearl .bg-\[\#001020\],
 .theme-pearl .bg-\[\#001830\],
+.theme-pearl .bg-\[\#001D38\],
+.theme-pearl .bg-\[\#001F3B\],
 .theme-pearl .bg-\[\#000E1C\],
 .theme-pearl .bg-\[\#030D1A\]\/95,
 .theme-pearl .bg-\[\#030D1A\],
 .theme-pearl .bg-\[\#020B18\]\/90,
-.theme-pearl .bg-\[\#020B18\] {
+.theme-pearl .bg-\[\#020B18\],
+.theme-pearl .bg-\[\#001428\]\/60 {
   background-color: #FFFFFF !important;
   border-color: #E2E8F0 !important;
   color: #001E3D;
@@ -213,7 +308,9 @@ body {
 
 .theme-pearl .bg-\[\#06182F\],
 .theme-pearl .bg-\[\#002444\],
-.theme-pearl .bg-\[\#002B4D\]:not(button):not(span) {
+.theme-pearl .bg-\[\#002244\],
+.theme-pearl .bg-\[\#002244\]\/60,
+.theme-pearl .bg-\[\#002B4D\]:not(button):not(span):not([data-keep-dark]) {
   background-color: #F1F5F9 !important;
   border-color: #CBD5E1 !important;
   color: #001E3D;

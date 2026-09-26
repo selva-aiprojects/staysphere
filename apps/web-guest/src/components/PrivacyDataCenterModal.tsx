@@ -193,7 +193,7 @@ export const PrivacyDataCenterModal: React.FC<PrivacyDataCenterModalProps> = ({
         }`}
       >
         {/* Header */}
-        <div className="p-6 bg-gradient-to-r from-[#001A33] via-[#002B4D] to-[#003B5C] border-b border-white/10 flex flex-wrap items-center justify-between gap-4">
+        <div data-keep-dark className="p-6 bg-gradient-to-r from-[#001A33] via-[#002B4D] to-[#003B5C] border-b border-white/10 flex flex-wrap items-center justify-between gap-4 keep-dark">
           <div className="flex items-center gap-3">
             <div className="p-3 rounded-2xl bg-[#00A9A5]/20 border border-[#00A9A5]/40 text-[#00A9A5]">
               <ShieldCheck className="w-6 h-6" />
@@ -231,13 +231,17 @@ export const PrivacyDataCenterModal: React.FC<PrivacyDataCenterModalProps> = ({
         )}
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-white/10 px-6 pt-3 gap-2 bg-[#001428]/60 overflow-x-auto">
+        <div className={`flex border-b px-6 pt-3 gap-2 overflow-x-auto ${isPearl ? 'bg-slate-100 border-slate-200' : 'bg-[#001428]/60 border-white/10'}`}>
           <button
             type="button"
             onClick={() => setActiveTab('consent')}
             className={`px-4 py-2.5 text-xs font-bold rounded-t-xl transition-all flex items-center gap-2 border-b-2 cursor-pointer shrink-0 ${
               activeTab === 'consent'
-                ? 'border-[#00A9A5] text-[#00A9A5] bg-[#001D38]'
+                ? isPearl
+                  ? 'border-[#00A9A5] text-[#00A9A5] bg-white shadow-sm'
+                  : 'border-[#00A9A5] text-[#00A9A5] bg-[#001D38]'
+                : isPearl
+                ? 'border-transparent text-slate-500 hover:text-slate-900'
                 : 'border-transparent text-slate-400 hover:text-white'
             }`}
           >
@@ -250,7 +254,11 @@ export const PrivacyDataCenterModal: React.FC<PrivacyDataCenterModalProps> = ({
             onClick={() => setActiveTab('export')}
             className={`px-4 py-2.5 text-xs font-bold rounded-t-xl transition-all flex items-center gap-2 border-b-2 cursor-pointer shrink-0 ${
               activeTab === 'export'
-                ? 'border-[#00A9A5] text-[#00A9A5] bg-[#001D38]'
+                ? isPearl
+                  ? 'border-[#00A9A5] text-[#00A9A5] bg-white shadow-sm'
+                  : 'border-[#00A9A5] text-[#00A9A5] bg-[#001D38]'
+                : isPearl
+                ? 'border-transparent text-slate-500 hover:text-slate-900'
                 : 'border-transparent text-slate-400 hover:text-white'
             }`}
           >
@@ -263,7 +271,11 @@ export const PrivacyDataCenterModal: React.FC<PrivacyDataCenterModalProps> = ({
             onClick={() => setActiveTab('erasure')}
             className={`px-4 py-2.5 text-xs font-bold rounded-t-xl transition-all flex items-center gap-2 border-b-2 cursor-pointer shrink-0 ${
               activeTab === 'erasure'
-                ? 'border-rose-500 text-rose-400 bg-[#001D38]'
+                ? isPearl
+                  ? 'border-rose-500 text-rose-600 bg-white shadow-sm'
+                  : 'border-rose-500 text-rose-400 bg-[#001D38]'
+                : isPearl
+                ? 'border-transparent text-slate-500 hover:text-slate-900'
                 : 'border-transparent text-slate-400 hover:text-white'
             }`}
           >
@@ -278,19 +290,19 @@ export const PrivacyDataCenterModal: React.FC<PrivacyDataCenterModalProps> = ({
           {activeTab === 'consent' && (
             <div className="space-y-5 animate-fade-in">
               {/* Active Consent Receipt Card */}
-              <div className="p-4 rounded-2xl bg-[#001F3B] border border-white/10 flex flex-wrap items-center justify-between gap-4">
+              <div className={`p-4 rounded-2xl border flex flex-wrap items-center justify-between gap-4 ${isPearl ? 'bg-slate-50 border-slate-200' : 'bg-[#001F3B] border-white/10'}`}>
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <Fingerprint className="w-4 h-4 text-[#00A9A5]" />
-                    <span className="font-bold text-white text-xs">Active Cryptographic Consent Receipt</span>
+                    <span className={`font-bold text-xs ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>Active Cryptographic Consent Receipt</span>
                   </div>
-                  <div className="font-mono text-[11px] text-cyan-300">{consentData.consentId}</div>
-                  <div className="text-[10px] text-slate-400">
+                  <div className={`font-mono text-[11px] font-bold ${isPearl ? 'text-teal-700' : 'text-cyan-300'}`}>{consentData.consentId}</div>
+                  <div className={`text-[10px] ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>
                     Timestamp: {consentData.timestamp} • Region: India / APAC • Legal Basis: GDPR Art 6(1)(b) Contractual Necessity
                   </div>
                 </div>
 
-                <div className="px-3 py-1 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold text-[11px] flex items-center gap-1.5">
+                <div className="px-3 py-1 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 font-bold text-[11px] flex items-center gap-1.5">
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   <span>Legally Enforceable</span>
                 </div>
@@ -298,18 +310,18 @@ export const PrivacyDataCenterModal: React.FC<PrivacyDataCenterModalProps> = ({
 
               {/* Granular Consent Controls */}
               <div className="space-y-3">
-                <h4 className="font-bold text-white text-sm">Granular Processing Permissions</h4>
+                <h4 className={`font-bold text-sm ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>Granular Processing Permissions</h4>
 
                 {/* 1. Essential Travel Escrow */}
-                <div className="p-4 rounded-2xl bg-[#001428] border border-white/10 flex items-start justify-between gap-4">
+                <div className={`p-4 rounded-2xl border flex items-start justify-between gap-4 ${isPearl ? 'bg-slate-50 border-slate-200' : 'bg-[#001428] border-white/10'}`}>
                   <div className="space-y-1">
-                    <div className="font-bold text-white flex items-center gap-2">
+                    <div className={`font-bold flex items-center gap-2 ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>
                       <span>Core 3-in-1 Journey Orchestration & Escrow Settlement</span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30">
+                      <span className="text-[10px] px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-500 font-bold border border-emerald-500/30">
                         Mandatory
                       </span>
                     </div>
-                    <p className="text-slate-400 leading-relaxed text-[11px]">
+                    <p className={`leading-relaxed text-[11px] ${isPearl ? 'text-slate-600' : 'text-slate-400'}`}>
                       Required to hold villa inventory, coordinate chauffeur dispatch, issue curbside OTPs, and release milestone funds to partners. Excluded from opt-out.
                     </p>
                   </div>
@@ -317,12 +329,12 @@ export const PrivacyDataCenterModal: React.FC<PrivacyDataCenterModalProps> = ({
                 </div>
 
                 {/* 2. Aviation Telemetry */}
-                <div className="p-4 rounded-2xl bg-[#001428] border border-white/10 flex items-start justify-between gap-4">
+                <div className={`p-4 rounded-2xl border flex items-start justify-between gap-4 ${isPearl ? 'bg-slate-50 border-slate-200' : 'bg-[#001428] border-white/10'}`}>
                   <div className="space-y-1">
-                    <div className="font-bold text-white flex items-center gap-2">
+                    <div className={`font-bold flex items-center gap-2 ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>
                       <span>Live Aviation Telemetry (ADS-B Flight Radar Sync)</span>
                     </div>
-                    <p className="text-slate-400 leading-relaxed text-[11px]">
+                    <p className={`leading-relaxed text-[11px] ${isPearl ? 'text-slate-600' : 'text-slate-400'}`}>
                       Allows StaySphere to track flight delay drifts and automatically adjust executive chauffeur pickup times without needing you to call dispatch.
                     </p>
                   </div>
@@ -335,12 +347,12 @@ export const PrivacyDataCenterModal: React.FC<PrivacyDataCenterModalProps> = ({
                 </div>
 
                 {/* 3. Personalized Butler */}
-                <div className="p-4 rounded-2xl bg-[#001428] border border-white/10 flex items-start justify-between gap-4">
+                <div className={`p-4 rounded-2xl border flex items-start justify-between gap-4 ${isPearl ? 'bg-slate-50 border-slate-200' : 'bg-[#001428] border-white/10'}`}>
                   <div className="space-y-1">
-                    <div className="font-bold text-white flex items-center gap-2">
+                    <div className={`font-bold flex items-center gap-2 ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>
                       <span>Curated Butler & In-Stay Hospitality Personalization</span>
                     </div>
-                    <p className="text-slate-400 leading-relaxed text-[11px]">
+                    <p className={`leading-relaxed text-[11px] ${isPearl ? 'text-slate-600' : 'text-slate-400'}`}>
                       Allows remembering your dietary allergens, favorite welcome champagne, and climate preferences for repeat stays across our luxury estate network.
                     </p>
                   </div>
@@ -353,12 +365,12 @@ export const PrivacyDataCenterModal: React.FC<PrivacyDataCenterModalProps> = ({
                 </div>
 
                 {/* 4. Anonymous Analytics */}
-                <div className="p-4 rounded-2xl bg-[#001428] border border-white/10 flex items-start justify-between gap-4">
+                <div className={`p-4 rounded-2xl border flex items-start justify-between gap-4 ${isPearl ? 'bg-slate-50 border-slate-200' : 'bg-[#001428] border-white/10'}`}>
                   <div className="space-y-1">
-                    <div className="font-bold text-white flex items-center gap-2">
+                    <div className={`font-bold flex items-center gap-2 ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>
                       <span>Anonymous Experience Performance Analytics</span>
                     </div>
-                    <p className="text-slate-400 leading-relaxed text-[11px]">
+                    <p className={`leading-relaxed text-[11px] ${isPearl ? 'text-slate-600' : 'text-slate-400'}`}>
                       Collects non-PII performance metrics to improve search speed and prevent checkout concurrency issues.
                     </p>
                   </div>
@@ -388,13 +400,13 @@ export const PrivacyDataCenterModal: React.FC<PrivacyDataCenterModalProps> = ({
           {/* TAB 2: DATA PORTABILITY */}
           {activeTab === 'export' && (
             <div className="space-y-5 animate-fade-in">
-              <div className="p-4 rounded-2xl bg-[#002244] border border-white/10 flex flex-wrap items-center justify-between gap-4">
+              <div className={`p-4 rounded-2xl border flex flex-wrap items-center justify-between gap-4 ${isPearl ? 'bg-slate-50 border-slate-200' : 'bg-[#002244] border-white/10'}`}>
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-[#3CCF91]" />
-                    <span className="font-bold text-white text-xs">Article 20 Machine-Readable Dossier</span>
+                    <FileText className="w-4 h-4 text-[#00A9A5]" />
+                    <span className={`font-bold text-xs ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>Article 20 Machine-Readable Dossier</span>
                   </div>
-                  <p className="text-[11px] text-slate-300">
+                  <p className={`text-[11px] ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
                     Export your complete personal data in standard structured JSON format, including identity, past journeys, chauffeur rides, and escrow invoices.
                   </p>
                 </div>
@@ -402,7 +414,7 @@ export const PrivacyDataCenterModal: React.FC<PrivacyDataCenterModalProps> = ({
                 <button
                   type="button"
                   onClick={handleDownloadDossier}
-                  className="px-4 py-2 rounded-xl bg-[#3CCF91] hover:bg-[#48E2A1] text-slate-950 font-bold text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-[#00A9A5] hover:bg-[#00c2be] text-white font-bold text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer"
                 >
                   <Download className="w-4 h-4" />
                   <span>Download .JSON Dossier</span>
@@ -411,11 +423,11 @@ export const PrivacyDataCenterModal: React.FC<PrivacyDataCenterModalProps> = ({
 
               {/* JSON Data Preview */}
               <div className="space-y-2">
-                <div className="flex items-center justify-between text-[11px] text-slate-400">
-                  <span className="font-bold">Live Data Package Preview:</span>
-                  <span className="font-mono">Format: application/json (UTF-8)</span>
+                <div className="flex items-center justify-between text-[11px]">
+                  <span className={`font-bold ${isPearl ? 'text-slate-700' : 'text-slate-400'}`}>Live Data Package Preview:</span>
+                  <span className={`font-mono ${isPearl ? 'text-slate-500' : 'text-slate-400'}`}>Format: application/json (UTF-8)</span>
                 </div>
-                <pre className="p-4 rounded-2xl bg-[#000E1C] border border-white/10 font-mono text-[11px] text-emerald-400/90 overflow-x-auto max-h-72 leading-relaxed">
+                <pre className={`p-4 rounded-2xl border font-mono text-[11px] overflow-x-auto max-h-72 leading-relaxed ${isPearl ? 'bg-slate-900 border-slate-700 text-emerald-300' : 'bg-[#000E1C] border-white/10 text-emerald-400/90'}`}>
                   {JSON.stringify(guestDataDossier, null, 2)}
                 </pre>
               </div>
@@ -428,31 +440,31 @@ export const PrivacyDataCenterModal: React.FC<PrivacyDataCenterModalProps> = ({
               {!erasureCompleted ? (
                 <>
                   <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 flex items-start gap-3">
-                    <AlertTriangle className="w-5 h-5 shrink-0 text-rose-400 mt-0.5" />
+                    <AlertTriangle className="w-5 h-5 shrink-0 text-rose-500 mt-0.5" />
                     <div className="space-y-1">
-                      <div className="font-bold text-white text-xs">
+                      <div className={`font-bold text-xs ${isPearl ? 'text-rose-900' : 'text-white'}`}>
                         Right to Erasure & Cryptographic Anonymization (GDPR Art. 17 & DPDP §12)
                       </div>
-                      <p className="text-[11px] text-slate-300 leading-relaxed">
+                      <p className={`text-[11px] leading-relaxed ${isPearl ? 'text-slate-700' : 'text-slate-300'}`}>
                         Requesting erasure permanently removes your full legal name, phone number, email, flight telemetry logs, and butler preferences from active StaySphere operational databases.
                       </p>
                     </div>
                   </div>
 
                   {/* Statutory Tax Retention Notice */}
-                  <div className="p-4 rounded-2xl bg-[#001D38] border border-white/10 space-y-2">
-                    <h5 className="font-bold text-white text-xs flex items-center gap-2">
-                      <FileCheck className="w-4 h-4 text-[#FFC857]" />
+                  <div className={`p-4 rounded-2xl border space-y-2 ${isPearl ? 'bg-amber-50 border-amber-200' : 'bg-[#001D38] border-white/10'}`}>
+                    <h5 className={`font-bold text-xs flex items-center gap-2 ${isPearl ? 'text-amber-900' : 'text-white'}`}>
+                      <FileCheck className="w-4 h-4 text-[#FF8A3D]" />
                       <span>Statutory Financial Accounting Exemption</span>
                     </h5>
-                    <p className="text-[11px] text-slate-300 leading-relaxed">
-                      In accordance with Section 44AB of the Indian Income Tax Act and Section 36 of the Central Goods & Services Tax (GST) Act 2017, escrow milestone transactions and tax invoice numbers must be preserved for <strong className="text-white">7 years</strong>. These records will be permanently decoupled from your identity and stored as an anonymous cryptographic hash (<code className="text-cyan-300 font-mono">ANONYMIZED_GUEST_HASH</code>).
+                    <p className={`text-[11px] leading-relaxed ${isPearl ? 'text-slate-700' : 'text-slate-300'}`}>
+                      In accordance with Section 44AB of the Indian Income Tax Act and Section 36 of the Central Goods & Services Tax (GST) Act 2017, escrow milestone transactions and tax invoice numbers must be preserved for <strong className={isPearl ? 'text-slate-900' : 'text-white'}>7 years</strong>. These records will be permanently decoupled from your identity and stored as an anonymous cryptographic hash (<code className={`font-mono ${isPearl ? 'text-teal-700' : 'text-cyan-300'}`}>ANONYMIZED_GUEST_HASH</code>).
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-2xl border border-white/10 bg-[#001224] space-y-3">
-                    <div className="text-white font-bold text-xs">What will be executed upon confirmation:</div>
-                    <ul className="space-y-2 text-[11px] text-slate-300 list-disc list-inside">
+                  <div className={`p-4 rounded-2xl border space-y-3 ${isPearl ? 'bg-slate-50 border-slate-200' : 'bg-[#001224] border-white/10'}`}>
+                    <div className={`font-bold text-xs ${isPearl ? 'text-[#001E3D]' : 'text-white'}`}>What will be executed upon confirmation:</div>
+                    <ul className={`space-y-2 text-[11px] list-disc list-inside ${isPearl ? 'text-slate-600' : 'text-slate-300'}`}>
                       <li>Full Legal Name scrubbed and replaced with an irreversible UUID token.</li>
                       <li>Phone & Email addresses wiped from CRM and marketing dispatch queues.</li>
                       <li>Historical GPS coordinates and flight telemetry feeds wiped permanently.</li>
