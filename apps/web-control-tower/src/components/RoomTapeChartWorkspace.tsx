@@ -248,7 +248,7 @@ export const RoomTapeChartWorkspace: React.FC = () => {
     <div className="space-y-6">
       {/* Toast Alert */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#002B4D] border border-[#00D2C4] text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 animate-slide-in">
+        <div data-keep-dark className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#002B4D] border border-[#00D2C4] text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 animate-slide-in">
           <Sparkles className="w-4 h-4 text-[#00D2C4]" />
           <span>{toastMessage}</span>
         </div>
@@ -263,7 +263,7 @@ export const RoomTapeChartWorkspace: React.FC = () => {
             </span>
             <span className="text-xs text-slate-400 font-mono">Tape Chart v4.2 • 7-Day Live Rack</span>
           </div>
-          <h2 className="text-xl font-black text-white tracking-wide">
+          <h2 className="text-xl font-serif-luxury font-bold text-white tracking-wide">
             Interactive PMS Room Tape Chart & Rack Operations
           </h2>
           <p className="text-xs text-slate-300 max-w-2xl">

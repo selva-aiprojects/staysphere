@@ -151,7 +151,7 @@ export const TrustSafetyWorkspace: React.FC = () => {
     <div className="space-y-6">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#002B4D] border border-[#3CCF91] text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 animate-slide-in">
+        <div data-keep-dark className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#002B4D] border border-[#3CCF91] text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 animate-slide-in">
           <Sparkles className="w-4 h-4 text-[#3CCF91]" />
           <span>{toastMessage}</span>
         </div>
@@ -162,7 +162,7 @@ export const TrustSafetyWorkspace: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <ShieldCheck className="w-6 h-6 text-[#3CCF91]" />
-            <h1 className="text-xl font-bold text-white tracking-wide">
+            <h1 className="text-xl font-serif-luxury font-bold text-white tracking-wide">
               Trust, Governance & Sovereign Data Protection
             </h1>
           </div>

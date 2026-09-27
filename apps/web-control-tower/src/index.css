@@ -11,6 +11,7 @@
   --color-cyan-glow: #00D2C4;
   
   /* Luxury Gold & Status Colors */
+  --color-gold-light: #F3CA7E;
   --color-gold-base: #E5B869;
   --color-sunset-orange: #FF8A3D;
   --color-warm-yellow: #FFC857;
@@ -28,6 +29,10 @@
   --color-explore: #FF8A3D;
   --color-support: #FFC857;
   --color-together: #10B981;
+
+  /* Theme Canvas */
+  --background: #020B18;
+  --foreground: #F8FAFC;
 }
 
 body {
@@ -52,7 +57,7 @@ body {
   color: #020B18;
 }
 
-/* Custom Scrollbars */
+/* Custom Luxury Scrollbars (Midnight Default) */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -63,12 +68,37 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(229, 184, 105, 0.25);
   border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(229, 184, 105, 0.4);
+  background: rgba(229, 184, 105, 0.5);
+}
+
+/* Luxury Frosted Glass Panels (Midnight Slate Default) */
+.glass-panel {
+  background: rgba(6, 21, 43, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-luxury {
+  background: linear-gradient(145deg, rgba(8, 27, 54, 0.85) 0%, rgba(3, 13, 26, 0.92) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(229, 184, 105, 0.22);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-panel-elevated {
+  background: rgba(10, 31, 60, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 210, 196, 0.25);
+  box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .panel-card {
@@ -87,16 +117,29 @@ body {
   box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
+/* Default Ambient Radial Glows (Dark Midnight) */
+.gradient-glow {
+  background: radial-gradient(circle at 50% 25%, rgba(0, 210, 196, 0.16), rgba(11, 61, 145, 0.1) 45%, transparent 70%);
+}
+
+.gradient-glow-gold {
+  background: radial-gradient(circle at 50% 50%, rgba(229, 184, 105, 0.12), transparent 60%);
+}
+
 /* ========================================================================= */
-/* SOOTHING WARM PEARL THEME (Eye-Care Luxury Daylight Palette)              */
+/* SOOTHING WARM PEARL THEME (Comprehensive Daylight Luxury Overrides)        */
+/* Aligned with Web Guest Experience Portal Standard                         */
 /* ========================================================================= */
 .theme-pearl {
   --color-bg-dark: #F8FAFD;
-  --color-text-dark: #0F172A;
+  --color-text-dark: #001E3D;
+  --background: #F8FAFD;
+  --foreground: #001E3D;
   background-color: #F8FAFD !important;
-  color: #0F172A !important;
+  color: #001E3D !important;
 }
 
+/* Base Headings & Titles in Pearl Theme */
 .theme-pearl h1,
 .theme-pearl h2,
 .theme-pearl h3,
@@ -104,38 +147,41 @@ body {
 .theme-pearl h5,
 .theme-pearl h6,
 .theme-pearl .font-serif-luxury {
-  color: #0F172A;
+  color: #001E3D;
 }
 
-/* Soft text overrides */
-.theme-pearl .text-white {
-  color: #0F172A;
+/* Global Text Contrast Overrides in Pearl Theme with Strict Exclusions */
+.theme-pearl .text-white:not(.image-overlay *):not([data-keep-white] *):not(.keep-white *):not([data-keep-dark] *):not(.keep-dark *):not([class*="bg-emerald-950"] *):not([class*="bg-sky-950"] *):not([class*="bg-[#002B4D]/90"] *):not([class*="bg-[#020B18]/90"] *) {
+  color: #001E3D;
 }
 
-.theme-pearl .text-slate-100,
-.theme-pearl .text-slate-200 {
-  color: #1E293B;
-}
-
-.theme-pearl .text-slate-300 {
-  color: #334155;
-}
-
-.theme-pearl .text-slate-400 {
-  color: #475569;
-}
-
-.theme-pearl .text-slate-500 {
-  color: #64748B;
-}
-
-/* Retain high-contrast white text for gradient action buttons & badges */
+/* Exceptions: Gradient CTA buttons, active tabs, and primary action badges keep white or dark text */
 .theme-pearl button.bg-gradient-to-r,
 .theme-pearl button.bg-gradient-to-r *,
-.theme-pearl a.bg-gradient-to-r,
-.theme-pearl a.bg-gradient-to-r *,
 .theme-pearl .bg-gradient-to-r > *,
 .theme-pearl .bg-gradient-to-r span,
+.theme-pearl .bg-gradient-to-r h1,
+.theme-pearl .bg-gradient-to-r h2,
+.theme-pearl .bg-gradient-to-r h3,
+.theme-pearl .bg-gradient-to-r strong,
+.theme-pearl a.bg-gradient-to-r,
+.theme-pearl a.bg-gradient-to-r * {
+  color: inherit;
+}
+
+.theme-pearl button.bg-gradient-to-r,
+.theme-pearl a.bg-gradient-to-r {
+  color: #FFFFFF !important;
+}
+
+.theme-pearl button.bg-gradient-to-r .text-\[\#001428\],
+.theme-pearl button.bg-gradient-to-r .text-black,
+.theme-pearl a.bg-gradient-to-r .text-\[\#001428\],
+.theme-pearl a.bg-gradient-to-r .text-black {
+  color: #001428 !important;
+}
+
+/* Retain high-contrast white text for solid saturated action buttons */
 .theme-pearl .bg-indigo-600,
 .theme-pearl .bg-indigo-600 *,
 .theme-pearl .bg-emerald-600,
@@ -145,18 +191,191 @@ body {
   color: #FFFFFF !important;
 }
 
-.theme-pearl button.bg-gradient-to-r .text-\[\#001428\],
-.theme-pearl a.bg-gradient-to-r .text-\[\#001428\] {
-  color: #001428 !important;
+/* Slate Subtitles & Secondary Text in Pearl Theme */
+.theme-pearl .text-slate-100:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not([class*="bg-[#002B4D]/90"] *),
+.theme-pearl .text-slate-200:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not([class*="bg-[#002B4D]/90"] *) {
+  color: #001E3D;
 }
 
-/* Surface backgrounds: Crisp, eye-pleasing porcelain cards */
+.theme-pearl .text-slate-300:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not([class*="bg-[#002B4D]/90"] *) {
+  color: #334155;
+}
+
+.theme-pearl .text-slate-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *) {
+  color: #475569;
+}
+
+.theme-pearl .text-slate-500:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *) {
+  color: #64748B;
+}
+
+/* Vibrant AAA Brand Colors on Light Pearl Surfaces */
+.theme-pearl .text-\[\#00D2C4\]:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *) {
+  color: #007A78 !important;
+}
+
+.theme-pearl .text-\[\#00A9A5\]:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *) {
+  color: #007A78 !important;
+}
+
+.theme-pearl .text-cyan-300:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *),
+.theme-pearl .text-cyan-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *) {
+  color: #007A78 !important;
+}
+
+.theme-pearl .text-\[\#FFC857\]:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *):not([class*="bg-gradient-"]) {
+  color: #B87333 !important;
+}
+
+.theme-pearl .text-\[\#E5B869\]:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *):not([class*="bg-gradient-"]) {
+  color: #9E6E16 !important;
+}
+
+.theme-pearl .text-\[\#D4AF37\]:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *):not([class*="bg-gradient-"]) {
+  color: #9A7B1C !important;
+}
+
+.theme-pearl .text-\[\#FF8A3D\]:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *):not([class*="bg-gradient-"]) {
+  color: #C2410C !important;
+}
+
+.theme-pearl .text-amber-300:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *),
+.theme-pearl .text-amber-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *),
+.theme-pearl .text-yellow-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *) {
+  color: #B45309 !important;
+}
+
+.theme-pearl .text-\[\#3CCF91\]:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *):not([class*="bg-gradient-"]),
+.theme-pearl .text-\[\#10B981\]:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *):not([class*="bg-gradient-"]) {
+  color: #0D824D !important;
+}
+
+.theme-pearl .text-emerald-300:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *),
+.theme-pearl .text-emerald-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *),
+.theme-pearl .text-green-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *) {
+  color: #0D824D !important;
+}
+
+.theme-pearl .text-rose-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *),
+.theme-pearl .text-red-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *) {
+  color: #BE123C !important;
+}
+
+.theme-pearl .text-violet-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *),
+.theme-pearl .text-purple-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *) {
+  color: #6D28D9 !important;
+}
+
+.theme-pearl .text-blue-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *),
+.theme-pearl .text-indigo-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *),
+.theme-pearl .text-sky-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *) {
+  color: #1D4ED8 !important;
+}
+
+/* Glass Panels in Pearl Theme */
+.theme-pearl .glass-panel {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  box-shadow: 0 10px 30px -5px rgba(11, 61, 145, 0.06), 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+}
+
+.theme-pearl .glass-panel-luxury {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98) 0%, rgba(250, 248, 242, 0.96) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 0 20px 45px -12px rgba(11, 61, 145, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.theme-pearl .glass-panel-elevated {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 169, 165, 0.4);
+  box-shadow: 0 15px 35px -10px rgba(0, 169, 165, 0.14), inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
 .theme-pearl .panel-card,
 .theme-pearl .panel-card-luxury {
   background: #FFFFFF !important;
   border: 1px solid #E2E8F0 !important;
   box-shadow: 0 4px 20px -2px rgba(11, 61, 145, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03) !important;
-  color: #0F172A !important;
+  color: #001E3D !important;
+}
+
+/* Image Overlays & Dark Card Text Preservation */
+.theme-pearl .image-overlay,
+.theme-pearl [data-keep-white],
+.theme-pearl .keep-white,
+.theme-pearl [data-keep-dark],
+.theme-pearl .keep-dark {
+  color: #FFFFFF !important;
+}
+
+.theme-pearl .image-overlay h1,
+.theme-pearl .image-overlay h2,
+.theme-pearl .image-overlay h3,
+.theme-pearl .image-overlay h4,
+.theme-pearl .image-overlay .text-white,
+.theme-pearl [data-keep-white] h1,
+.theme-pearl [data-keep-white] h2,
+.theme-pearl [data-keep-white] h3,
+.theme-pearl [data-keep-white] h4,
+.theme-pearl [data-keep-white] .text-white,
+.theme-pearl .keep-white h1,
+.theme-pearl .keep-white h2,
+.theme-pearl .keep-white h3,
+.theme-pearl .keep-white h4,
+.theme-pearl .keep-white .text-white,
+.theme-pearl [data-keep-dark] h1,
+.theme-pearl [data-keep-dark] h2,
+.theme-pearl [data-keep-dark] h3,
+.theme-pearl [data-keep-dark] h4,
+.theme-pearl [data-keep-dark] .text-white,
+.theme-pearl .keep-dark h1,
+.theme-pearl .keep-dark h2,
+.theme-pearl .keep-dark h3,
+.theme-pearl .keep-dark h4,
+.theme-pearl .keep-dark .text-white {
+  color: #FFFFFF !important;
+}
+
+.theme-pearl .image-overlay .text-slate-200,
+.theme-pearl .image-overlay .text-slate-300,
+.theme-pearl [data-keep-white] .text-slate-200,
+.theme-pearl [data-keep-white] .text-slate-300,
+.theme-pearl .keep-white .text-slate-200,
+.theme-pearl .keep-white .text-slate-300,
+.theme-pearl [data-keep-dark] .text-slate-200,
+.theme-pearl [data-keep-dark] .text-slate-300,
+.theme-pearl .keep-dark .text-slate-200,
+.theme-pearl .keep-dark .text-slate-300 {
+  color: #E2E8F0 !important;
+}
+
+.theme-pearl .image-overlay .text-slate-400,
+.theme-pearl [data-keep-white] .text-slate-400,
+.theme-pearl .keep-white .text-slate-400,
+.theme-pearl [data-keep-dark] .text-slate-400,
+.theme-pearl .keep-dark .text-slate-400 {
+  color: #CBD5E1 !important;
+}
+
+/* Gradient Surface Overrides: Exclude text gradients and elements marked to stay dark */
+.theme-pearl .bg-gradient-to-br:not(.bg-clip-text):not([class*="bg-clip-text"]):not([data-keep-dark]):not(.keep-dark):not(.image-overlay):not(button):not(a),
+.theme-pearl .bg-gradient-to-r:not(button):not(a):not(.gold-text-gradient):not(.bg-clip-text):not([class*="bg-clip-text"]):not([data-keep-dark]):not(.keep-dark):not(.image-overlay) {
+  background-image: linear-gradient(135deg, #FFFFFF 0%, #FAF8F5 50%, #F5EFEA 100%) !important;
+  border-color: #E2E8F0 !important;
+  color: #001E3D;
+}
+
+/* Ensure gradient text never loses its clip property */
+.theme-pearl .bg-clip-text,
+.theme-pearl [class*="bg-clip-text"] {
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
 }
 
 /* Primary surface porcelain overrides */
@@ -174,15 +393,18 @@ body {
 .theme-pearl .bg-\[\#001830\],
 .theme-pearl .bg-\[\#001A33\],
 .theme-pearl .bg-\[\#001D33\],
+.theme-pearl .bg-\[\#001D38\],
+.theme-pearl .bg-\[\#001F3B\],
 .theme-pearl .bg-\[\#001E36\],
 .theme-pearl .bg-\[\#00223A\] {
   background-color: #FFFFFF !important;
   border-color: #E2E8F0 !important;
-  color: #0F172A !important;
+  color: #001E3D !important;
 }
 
 /* Semi-transparent surface porcelain overrides */
 .theme-pearl .bg-\[\#030D1A\]\/95,
+.theme-pearl .bg-\[\#020B18\]\/90,
 .theme-pearl .bg-\[\#001c38\]\/80,
 .theme-pearl .bg-\[\#001428\]\/95,
 .theme-pearl .bg-\[\#001428\]\/90,
@@ -190,63 +412,79 @@ body {
 .theme-pearl .bg-\[\#001428\]\/60,
 .theme-pearl .bg-\[\#001830\]\/95,
 .theme-pearl .bg-\[\#002444\]\/90,
-.theme-pearl .bg-\[\#002B4D\]\/80 {
+.theme-pearl .bg-\[\#002B4D\]\/80,
+.theme-pearl .bg-\[\#002244\]\/60 {
   background-color: rgba(255, 255, 255, 0.95) !important;
   border-color: #E2E8F0 !important;
-  color: #0F172A !important;
+  color: #001E3D !important;
 }
 
 /* Secondary & inner panel soft slate backgrounds */
-.theme-pearl .bg-\[\#002B4D\],
+.theme-pearl .bg-\[\#002B4D\]:not(button):not(span):not([data-keep-dark]),
 .theme-pearl .bg-\[\#06182F\],
 .theme-pearl .bg-\[\#002444\],
+.theme-pearl .bg-\[\#002244\],
 .theme-pearl .bg-\[\#00243D\],
 .theme-pearl .bg-\[\#002544\],
 .theme-pearl .bg-\[\#002844\],
+.theme-pearl .bg-\[\#00284D\],
 .theme-pearl .bg-\[\#003866\],
 .theme-pearl .bg-\[\#003B6D\],
 .theme-pearl .bg-slate-900,
 .theme-pearl .bg-slate-950 {
   background-color: #F8FAFC !important;
   border-color: #E2E8F0 !important;
-  color: #0F172A !important;
+  color: #001E3D !important;
 }
 
 /* Red alerts & incident banners */
 .theme-pearl .bg-\[\#2A0E14\],
-.theme-pearl .bg-\[\#2A0E14\]\/70 {
+.theme-pearl .bg-\[\#2A0E14\]\/70,
+.theme-pearl .bg-rose-950\/60,
+.theme-pearl .bg-rose-950\/40 {
   background-color: #FFF1F2 !important;
   border-color: #FECDD3 !important;
   color: #9F1239 !important;
 }
 
-.theme-pearl .bg-\[\#00261E\] {
+.theme-pearl .bg-\[\#00261E\],
+.theme-pearl .bg-emerald-950\/40 {
   background-color: #F0FDF4 !important;
   border-color: #BBF7D0 !important;
   color: #166534 !important;
 }
 
+.theme-pearl .bg-amber-950\/40 {
+  background-color: #FFFBEB !important;
+  border-color: #FDE68A !important;
+  color: #92400E !important;
+}
+
 /* Badges, pill counters and small chips */
 .theme-pearl .bg-white\/5,
-.theme-pearl .bg-white\/10 {
+.theme-pearl .bg-white\/10,
+.theme-pearl .bg-white\/15 {
   background-color: #F1F5F9 !important;
-  border-color: #E2E8F0 !important;
+  border-color: #CBD5E1 !important;
   color: #334155 !important;
 }
 
+.theme-pearl .bg-black\/10,
+.theme-pearl .bg-black\/20,
 .theme-pearl .bg-black\/30,
 .theme-pearl .bg-black\/40,
 .theme-pearl .bg-black\/50,
 .theme-pearl .bg-black\/60 {
-  background-color: #E2E8F0 !important;
-  border-color: #CBD5E1 !important;
+  background-color: #F1F5F9 !important;
+  border-color: #E2E8F0 !important;
 }
 
 /* Table headers */
 .theme-pearl thead,
 .theme-pearl thead th,
 .theme-pearl thead.bg-\[\#001428\],
-.theme-pearl thead.bg-\[\#001830\] {
+.theme-pearl thead.bg-\[\#001830\],
+.theme-pearl thead.bg-\[\#001C38\] {
   background-color: #F1F5F9 !important;
   color: #475569 !important;
   border-color: #E2E8F0 !important;
@@ -260,7 +498,15 @@ body {
 }
 
 .theme-pearl .hover\:text-white:hover {
-  color: #0F172A !important;
+  color: #001E3D !important;
+}
+
+.theme-pearl .hover\:bg-\[\#003866\]:hover,
+.theme-pearl .hover\:bg-\[\#002B4D\]:hover,
+.theme-pearl .hover\:bg-\[\#003B6A\]:hover,
+.theme-pearl .hover\:bg-\[\#003B6D\]:hover {
+  background-color: #E2E8F0 !important;
+  color: #001E3D !important;
 }
 
 /* Border overrides */
@@ -275,28 +521,55 @@ body {
   border-color: #E2E8F0 !important;
 }
 
+.theme-pearl .divide-white\/5 > :not([hidden]) ~ :not([hidden]),
+.theme-pearl .divide-white\/10 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #E2E8F0 !important;
+}
+
 .theme-pearl .border-indigo-800\/40,
 .theme-pearl .border-indigo-500\/40 {
   border-color: #CBD5E1 !important;
 }
 
-/* Form controls */
+/* Form controls in Pearl Theme */
 .theme-pearl input:not([type="checkbox"]):not([type="radio"]),
 .theme-pearl select,
 .theme-pearl textarea {
   background-color: #FFFFFF !important;
-  color: #0F172A !important;
+  color: #001E3D !important;
   border-color: #CBD5E1 !important;
 }
 
 .theme-pearl select option {
   background-color: #FFFFFF !important;
-  color: #0F172A !important;
+  color: #001E3D !important;
 }
 
 .theme-pearl input::placeholder,
 .theme-pearl textarea::placeholder {
   color: #94A3B8 !important;
+}
+
+/* Text Gradients in Pearl Theme */
+.theme-pearl .gold-text-gradient {
+  background: linear-gradient(135deg, #996515 0%, #D4AF37 50%, #7A4E00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.theme-pearl .brand-title-gradient {
+  background: linear-gradient(135deg, #001E3D 0%, #0B3D91 50%, #00A9A5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Light Pearl Ambient Glows */
+.theme-pearl .gradient-glow-gold {
+  background: radial-gradient(circle at 50% 50%, rgba(229, 184, 105, 0.22), transparent 65%);
+}
+
+.theme-pearl .gradient-glow {
+  background: radial-gradient(circle at 50% 25%, rgba(0, 169, 165, 0.14), rgba(11, 61, 145, 0.08) 45%, transparent 70%);
 }
 
 /* Custom Scrollbars in Pearl Theme */
@@ -311,5 +584,3 @@ body {
 .theme-pearl ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
-
-

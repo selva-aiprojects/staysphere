@@ -156,7 +156,7 @@ export const ForeignGuestCFormWorkspace: React.FC = () => {
     <div className="space-y-6">
       {/* Toast Alert */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#002B4D] border border-[#3CCF91] text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 animate-slide-in">
+        <div data-keep-dark className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#002B4D] border border-[#3CCF91] text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 animate-slide-in">
           <Sparkles className="w-4 h-4 text-[#3CCF91]" />
           <span>{toastMessage}</span>
         </div>
@@ -171,7 +171,7 @@ export const ForeignGuestCFormWorkspace: React.FC = () => {
             </span>
             <span className="text-xs text-slate-400 font-mono">Government Form C • Foreign National Registry</span>
           </div>
-          <h2 className="text-xl font-black text-white tracking-wide">
+          <h2 className="text-xl font-serif-luxury font-bold text-white tracking-wide">
             Foreign Guest Police Registration & C-Form Management
           </h2>
           <p className="text-xs text-slate-300 max-w-2xl">
@@ -311,7 +311,7 @@ export const ForeignGuestCFormWorkspace: React.FC = () => {
               <div>
                 <div className="flex items-center gap-2">
                   <FileText className="w-5 h-5 text-[#FFC857]" />
-                  <h3 className="text-base font-black text-white">Form C Statutory Arrival Declaration</h3>
+                  <h3 className="text-base font-serif-luxury font-bold text-white">Form C Statutory Arrival Declaration</h3>
                 </div>
                 <p className="text-xs text-slate-400 mt-0.5">
                   Ref: {selectedGuest.submissionRef || 'PENDING_OFFICIAL_NUMBER'}

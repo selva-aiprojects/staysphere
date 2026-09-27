@@ -248,7 +248,7 @@ export function PropertyPartnersWorkflow({ onOpenTicketsModal, showToast }: Prop
       <div className="bg-[#001E36] border border-white/10 rounded-3xl p-6 shadow-xl flex flex-wrap items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <h1 className="text-xl font-bold text-white tracking-wide">Property Partners & Franchise Network</h1>
+            <h1 className="text-xl font-serif-luxury font-bold text-white tracking-wide">Property Partners & Franchise Network</h1>
             <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-[#00A9A5]/20 text-[#00A9A5] border border-[#00A9A5]/30">
               OYO & Luxury Network Model
             </span>

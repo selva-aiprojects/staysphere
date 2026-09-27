@@ -301,7 +301,7 @@ export const PropertyPartnerPortal: React.FC<PropertyPartnerPortalProps> = ({
     <div className="min-h-screen bg-[#001020] text-slate-100 flex flex-col font-sans selection:bg-[#00A9A5] selection:text-white">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#002B4D] border border-[#3CCF91] text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 animate-slide-in">
+        <div data-keep-dark className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#002B4D] border border-[#3CCF91] text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 animate-slide-in">
           <Sparkles className="w-4 h-4 text-[#3CCF91]" />
           <span>{toastMessage}</span>
         </div>
@@ -418,7 +418,7 @@ export const PropertyPartnerPortal: React.FC<PropertyPartnerPortalProps> = ({
                   </span>
                   <span className="text-xs text-slate-400 font-mono">Villa ID: PROP-GOA-001</span>
                 </div>
-                <h1 className="text-2xl font-black text-white tracking-wide">
+                <h1 className="text-2xl font-serif-luxury font-bold text-white tracking-wide">
                   The Vana Azure Private Ocean Villa & Estate
                 </h1>
                 <p className="text-xs text-slate-300 max-w-2xl leading-relaxed">

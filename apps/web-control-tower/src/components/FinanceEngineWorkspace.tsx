@@ -383,7 +383,7 @@ export const FinanceEngineWorkspace: React.FC<FinanceEngineWorkspaceProps> = () 
     <div className="space-y-6">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#002B4D] border border-[#3CCF91] text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 animate-slide-in">
+        <div data-keep-dark className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#002B4D] border border-[#3CCF91] text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 animate-slide-in">
           <Sparkles className="w-4 h-4 text-[#3CCF91]" />
           <span>{toastMessage}</span>
         </div>
@@ -393,7 +393,7 @@ export const FinanceEngineWorkspace: React.FC<FinanceEngineWorkspaceProps> = () 
       <div className="p-6 rounded-3xl bg-gradient-to-r from-[#031526] via-[#052340] to-[#0A345C] border border-white/10 shadow-2xl flex flex-wrap items-center justify-between gap-6">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <h1 className="text-xl font-bold text-white tracking-wide">StaySphere Financial Engine & Ledger</h1>
+            <h1 className="text-xl font-serif-luxury font-bold text-white tracking-wide">StaySphere Financial Engine & Ledger</h1>
             <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
               3-Way Reconciled • Section 10 Compliant
             </span>

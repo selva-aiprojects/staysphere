@@ -241,7 +241,7 @@ export const TransportPartnerPortal: React.FC<TransportPartnerPortalProps> = ({
     <div className="min-h-screen bg-[#001020] text-slate-100 flex flex-col font-sans selection:bg-[#FF8A3D] selection:text-[#001020]">
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#002B4D] border border-[#FF8A3D] text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 animate-slide-in">
+        <div data-keep-dark className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#002B4D] border border-[#FF8A3D] text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 animate-slide-in">
           <Sparkles className="w-4 h-4 text-[#FF8A3D]" />
           <span>{toastMessage}</span>
         </div>
@@ -346,7 +346,7 @@ export const TransportPartnerPortal: React.FC<TransportPartnerPortalProps> = ({
                   </span>
                   <span className="text-xs text-slate-400 font-mono">Partner Code: PRT-TRV-APEX</span>
                 </div>
-                <h1 className="text-2xl font-black text-white tracking-wide">
+                <h1 className="text-2xl font-serif-luxury font-bold text-white tracking-wide">
                   Apex Sovereign Chauffeur Fleet Operations
                 </h1>
                 <p className="text-xs text-slate-300 max-w-2xl leading-relaxed">

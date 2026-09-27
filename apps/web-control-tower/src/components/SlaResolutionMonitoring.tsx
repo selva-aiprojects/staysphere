@@ -198,7 +198,7 @@ export const SlaResolutionMonitoring: React.FC = () => {
     <div className="space-y-6">
       {/* Toast */}
       {toastMsg && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#002B4D] border border-[#3CCF91] text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-fade-in">
+        <div data-keep-dark className="fixed bottom-6 right-6 z-50 bg-[#002B4D] border border-[#3CCF91] text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-fade-in">
           <CheckCircle2 className="w-5 h-5 text-[#3CCF91]" />
           <span className="text-sm font-semibold">{toastMsg}</span>
         </div>
@@ -212,7 +212,7 @@ export const SlaResolutionMonitoring: React.FC = () => {
               <Radio className="w-3.5 h-3.5 text-rose-400 animate-pulse" />
               Proactive Sentinel Radar (Zero Guest Friction Architecture)
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-white tracking-tight">
               15-Minute Guaranteed SLA & Proactive Sentinel Command
             </h1>
             <p className="text-sm text-slate-300 max-w-2xl">

@@ -170,7 +170,7 @@ export function CollaborativeTicketsModal({
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-base font-bold text-white tracking-wide">StaySphere Partner & Staff Engagement Hub</h2>
+                <h2 className="text-base font-serif-luxury font-bold text-white tracking-wide">StaySphere Partner & Staff Engagement Hub</h2>
                 <span className="text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#00A9A5]/20 text-[#00A9A5] border border-[#00A9A5]/30">
                   Live Operations Desk
                 </span>

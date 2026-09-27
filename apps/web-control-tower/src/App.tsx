@@ -549,7 +549,7 @@ export default function OperationsControlTower() {
     <div className={`min-h-screen flex flex-col font-sans selection:bg-[#00A9A5] selection:text-white transition-colors duration-300 ${theme === 'pearl' ? 'theme-pearl bg-[#F8FAFD] text-[#0F172A]' : 'bg-[#001428] text-white'}`}>
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#002B4D] border border-[#00A9A5] text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 animate-slide-in">
+        <div data-keep-dark className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#002B4D] border border-[#00A9A5] text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 animate-slide-in">
           <Sparkles className="w-4 h-4 text-[#3CCF91]" />
           <span>{toastMessage}</span>
         </div>
@@ -948,7 +948,7 @@ export default function OperationsControlTower() {
             <div className="bg-[#001E36] border border-white/10 rounded-3xl p-6 shadow-xl flex flex-wrap items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <h1 className="text-xl font-bold text-white tracking-wide">Frontdesk & Concierge Operations</h1>
+                  <h1 className="text-xl font-serif-luxury font-bold text-white tracking-wide">Frontdesk & Concierge Operations</h1>
                   <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-[#FFC857]/20 text-[#FFC857] border border-[#FFC857]/30">
                     Villa & Suite Radar
                   </span>
@@ -1042,7 +1042,7 @@ export default function OperationsControlTower() {
             <div className="bg-[#001E36] border border-white/10 rounded-3xl p-6 shadow-xl flex flex-wrap items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <h1 className="text-xl font-bold text-white tracking-wide">Relationship Manager (RM) Governance</h1>
+                  <h1 className="text-xl font-serif-luxury font-bold text-white tracking-wide">Relationship Manager (RM) Governance</h1>
                   <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
                     Estate Portfolio & Rate Parity
                   </span>

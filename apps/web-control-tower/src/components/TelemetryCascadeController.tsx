@@ -123,7 +123,7 @@ export const TelemetryCascadeController: React.FC = () => {
             </span>
             <span className="text-xs text-slate-400 font-mono">Telemetry Cascade Engine • § 7.1 Protocol</span>
           </div>
-          <h2 className="text-xl font-black text-white tracking-wide">
+          <h2 className="text-xl font-serif-luxury font-bold text-white tracking-wide">
             Live Aviation Telemetry & Delay Cascading Controller
           </h2>
           <p className="text-xs text-slate-300 max-w-2xl">

@@ -184,7 +184,7 @@ export function ChannelPartnersWorkflow({ onOpenTicketsModal, showToast }: Chann
       <div className="bg-[#001E36] border border-white/10 rounded-3xl p-6 shadow-xl flex flex-wrap items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <h1 className="text-xl font-bold text-white tracking-wide">Channel Partners & Corporate Travel Network</h1>
+            <h1 className="text-xl font-serif-luxury font-bold text-white tracking-wide">Channel Partners & Corporate Travel Network</h1>
             <span className="text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
               B2B Concierge & High-Net-Worth Network
             </span>

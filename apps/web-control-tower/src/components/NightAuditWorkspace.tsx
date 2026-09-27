@@ -102,7 +102,7 @@ export const NightAuditWorkspace: React.FC = () => {
     <div className="space-y-6">
       {/* Toast */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#002B4D] border border-[#3CCF91] text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 animate-slide-in">
+        <div data-keep-dark className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl bg-[#002B4D] border border-[#3CCF91] text-white text-xs font-bold shadow-2xl flex items-center gap-2.5 animate-slide-in">
           <Sparkles className="w-4 h-4 text-[#3CCF91]" />
           <span>{toastMessage}</span>
         </div>
@@ -113,7 +113,7 @@ export const NightAuditWorkspace: React.FC = () => {
         <div>
           <div className="flex items-center gap-2.5 mb-1">
             <Moon className="w-6 h-6 text-[#FFC857]" />
-            <h1 className="text-xl font-bold text-white tracking-wide">
+            <h1 className="text-xl font-serif-luxury font-bold text-white tracking-wide">
               Hotel Night Audit & Daily Business Date Roll-over
             </h1>
             <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
@@ -140,7 +140,7 @@ export const NightAuditWorkspace: React.FC = () => {
             className={`px-5 py-2.5 rounded-xl font-bold text-xs shadow-lg transition flex items-center gap-2 cursor-pointer ${
               auditComplete
                 ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 cursor-not-allowed'
-                : 'bg-gradient-to-r from-[#FFC857] to-[#FF8A3D] hover:brightness-110 text-slate-950 font-black'
+                : 'bg-gradient-to-r from-[#FFC857] to-[#FF8A3D] hover:brightness-110 text-[#001428] font-bold'
             }`}
           >
             <RefreshCw className={`w-4 h-4 ${isAuditing ? 'animate-spin' : ''}`} />
@@ -241,7 +241,7 @@ export const NightAuditWorkspace: React.FC = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <FileText className="w-4 h-4 text-[#3CCF91]" />
-            <h3 className="text-sm font-bold text-white">Daily Manager’s Revenue & Ledger Report</h3>
+            <h3 className="text-sm font-serif-luxury font-bold text-white">Daily Manager’s Revenue & Ledger Report</h3>
           </div>
 
           <button

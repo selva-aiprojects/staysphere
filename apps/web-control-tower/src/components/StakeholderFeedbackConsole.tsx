@@ -255,7 +255,7 @@ export const StakeholderFeedbackConsole: React.FC<StakeholderFeedbackConsoleProp
               <MessageSquare className="w-3.5 h-3.5" />
               360° Multi-Stakeholder Reputation
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-white tracking-tight">
               Multi-Party Feedback & Ecosystem Ratings
             </h1>
             <p className="text-sm text-slate-300 max-w-2xl">

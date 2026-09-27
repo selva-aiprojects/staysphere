@@ -323,7 +323,7 @@ export const PropertyMasterDirectory: React.FC<PropertyMasterDirectoryProps> = (
               <Building2 className="w-3.5 h-3.5" />
               Master Entity Catalog
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-white tracking-tight">
               Property Master Entries & HostSphere Sync
             </h1>
             <p className="text-sm text-slate-300 max-w-2xl">

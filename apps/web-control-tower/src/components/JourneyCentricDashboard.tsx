@@ -453,7 +453,7 @@ export const JourneyCentricDashboard: React.FC<JourneyCentricDashboardProps> = (
     <div className="space-y-6">
       {/* Toast */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#002B4D] border border-[#3CCF91] text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-fade-in">
+        <div data-keep-dark className="fixed bottom-6 right-6 z-50 bg-[#002B4D] border border-[#3CCF91] text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 animate-fade-in">
           <CheckCircle2 className="w-5 h-5 text-[#3CCF91]" />
           <span className="text-sm font-semibold">{toastMessage}</span>
         </div>
@@ -468,7 +468,7 @@ export const JourneyCentricDashboard: React.FC<JourneyCentricDashboardProps> = (
               <Compass className="w-3.5 h-3.5 animate-spin" style={{ animationDuration: '8s' }} />
               Central Sovereign Journey Engine
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-serif-luxury font-bold text-white tracking-tight">
               Journey Orchestration & Live Radar Control
             </h1>
             <p className="text-sm text-slate-300 max-w-2xl">
@@ -477,7 +477,7 @@ export const JourneyCentricDashboard: React.FC<JourneyCentricDashboardProps> = (
             <div className="flex items-center gap-3">
               <button
                 onClick={handleCreateAtomicJourney}
-                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-black font-black text-xs shadow-lg hover:brightness-110 flex items-center gap-2 cursor-pointer transition"
+                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#00A9A5] to-[#3CCF91] text-[#001428] font-bold text-xs shadow-lg hover:brightness-110 flex items-center gap-2 cursor-pointer transition"
               >
                 <Plus className="w-4 h-4" />
                 <span>+ Atomic 3-in-1 Journey Booking</span>
@@ -747,7 +747,7 @@ export const JourneyCentricDashboard: React.FC<JourneyCentricDashboardProps> = (
                   {selectedDrilldown.vipTier}
                 </span>
               </div>
-              <h2 className="text-2xl font-black text-white">
+              <h2 className="text-2xl font-serif-luxury font-bold text-white">
                 360° Sovereign Journey Matrix — {selectedDrilldown.guestName}
               </h2>
               <p className="text-xs text-slate-300">

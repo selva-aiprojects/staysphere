@@ -202,7 +202,7 @@ export function OverviewDashboard({ onNavigate }: OverviewDashboardProps) {
                   : 'text-emerald-400'
               }`}
             />
-            <h1 className="text-xl font-black text-white tracking-wide">
+            <h1 className="text-xl font-serif-luxury font-bold text-white tracking-wide">
               Platform Operations Overview
             </h1>
             <span
