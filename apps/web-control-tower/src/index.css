@@ -33,6 +33,53 @@
   /* Theme Canvas */
   --background: #020B18;
   --foreground: #F8FAFC;
+
+  /* ========================================================================= */
+  /* UNIFIED TOWER SEMANTIC DESIGN TOKENS (Deep Ocean Dark Default)            */
+  /* ========================================================================= */
+  --tower-canvas: #001428;
+  --tower-card: #001E36;
+  --tower-card-elevated: #002444;
+  --tower-card-inner: #001830;
+  --tower-card-glass: rgba(0, 30, 54, 0.75);
+  --tower-border: rgba(255, 255, 255, 0.1);
+  --tower-border-subtle: rgba(255, 255, 255, 0.06);
+  --tower-border-accent: rgba(0, 169, 165, 0.4);
+
+  --tower-text-primary: #FFFFFF;
+  --tower-text-secondary: #CBD5E1;
+  --tower-text-muted: #94A3B8;
+  --tower-text-subtle: #64748B;
+
+  --tower-accent-ocean: #0B3D91;
+  --tower-accent-teal: #00A9A5;
+  --tower-accent-cyan: #00D2C4;
+  --tower-accent-gold: #FFC857;
+  --tower-accent-gold-text: #FFC857;
+  --tower-accent-emerald: #10B981;
+  --tower-accent-emerald-text: #34D399;
+  --tower-accent-amber: #F59E0B;
+  --tower-accent-amber-text: #FBBF24;
+  --tower-accent-rose: #F43F5E;
+  --tower-accent-rose-text: #FB7185;
+
+  --tower-btn-primary-from: #0B3D91;
+  --tower-btn-primary-to: #00A9A5;
+  --tower-btn-primary-text: #FFFFFF;
+
+  --tower-btn-secondary-bg: rgba(255, 255, 255, 0.08);
+  --tower-btn-secondary-hover: rgba(255, 255, 255, 0.14);
+  --tower-btn-secondary-text: #F8FAFC;
+  --tower-btn-secondary-border: rgba(255, 255, 255, 0.15);
+
+  --tower-btn-subtle-bg: rgba(255, 255, 255, 0.05);
+  --tower-btn-subtle-hover: rgba(255, 255, 255, 0.1);
+  --tower-btn-subtle-text: #94A3B8;
+
+  --tower-input-bg: #001830;
+  --tower-input-border: rgba(255, 255, 255, 0.12);
+  --tower-input-text: #FFFFFF;
+  --tower-input-placeholder: #64748B;
 }
 
 body {
@@ -137,6 +184,53 @@ body {
   --foreground: #001E3D;
   background-color: #F8FAFD !important;
   color: #001E3D !important;
+
+  /* ========================================================================= */
+  /* UNIFIED TOWER SEMANTIC DESIGN TOKENS (Soothing Pearl Daylight)            */
+  /* ========================================================================= */
+  --tower-canvas: #F8FAFD;
+  --tower-card: #FFFFFF;
+  --tower-card-elevated: #F1F5F9;
+  --tower-card-inner: #F8FAFC;
+  --tower-card-glass: rgba(255, 255, 255, 0.94);
+  --tower-border: #E2E8F0;
+  --tower-border-subtle: #EDF2F7;
+  --tower-border-accent: rgba(0, 169, 165, 0.35);
+
+  --tower-text-primary: #001E3D;
+  --tower-text-secondary: #334155;
+  --tower-text-muted: #64748B;
+  --tower-text-subtle: #94A3B8;
+
+  --tower-accent-ocean: #0B3D91;
+  --tower-accent-teal: #007A78;
+  --tower-accent-cyan: #007A78;
+  --tower-accent-gold: #9E6E16;
+  --tower-accent-gold-text: #9E6E16;
+  --tower-accent-emerald: #0D824D;
+  --tower-accent-emerald-text: #0D824D;
+  --tower-accent-amber: #B45309;
+  --tower-accent-amber-text: #B45309;
+  --tower-accent-rose: #BE123C;
+  --tower-accent-rose-text: #BE123C;
+
+  --tower-btn-primary-from: #0B3D91;
+  --tower-btn-primary-to: #00A9A5;
+  --tower-btn-primary-text: #FFFFFF;
+
+  --tower-btn-secondary-bg: #F1F5F9;
+  --tower-btn-secondary-hover: #E2E8F0;
+  --tower-btn-secondary-text: #001E3D;
+  --tower-btn-secondary-border: #CBD5E1;
+
+  --tower-btn-subtle-bg: rgba(0, 30, 61, 0.04);
+  --tower-btn-subtle-hover: rgba(0, 30, 61, 0.08);
+  --tower-btn-subtle-text: #475569;
+
+  --tower-input-bg: #FFFFFF;
+  --tower-input-border: #CBD5E1;
+  --tower-input-text: #001E3D;
+  --tower-input-placeholder: #94A3B8;
 }
 
 /* Base Headings & Titles in Pearl Theme */
@@ -612,4 +706,275 @@ body {
 
 .theme-pearl ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
+}
+
+/* ========================================================================= */
+/* UNIFIED GLOBAL DESIGN SYSTEM CLASSES                                      */
+/* Standardized across all StaySphere Control Tower workspaces & modules     */
+/* ========================================================================= */
+
+/* Surface & Containers */
+.tower-canvas {
+  background-color: var(--tower-canvas) !important;
+  color: var(--tower-text-primary) !important;
+  min-height: 100vh;
+}
+
+.tower-card {
+  background-color: var(--tower-card) !important;
+  border: 1px solid var(--tower-border) !important;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.15);
+  color: var(--tower-text-primary) !important;
+  transition: all 0.2s ease-in-out;
+}
+
+.tower-card-elevated {
+  background-color: var(--tower-card-elevated) !important;
+  border: 1px solid var(--tower-border) !important;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.25);
+  color: var(--tower-text-primary) !important;
+}
+
+.tower-subcard {
+  background-color: var(--tower-card-inner) !important;
+  border: 1px solid var(--tower-border) !important;
+  border-radius: 0.75rem;
+  color: var(--tower-text-primary) !important;
+}
+
+.tower-glass {
+  background: var(--tower-card-glass) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--tower-border) !important;
+}
+
+/* Master Header / Hero Bar */
+.tower-header-bar {
+  background: linear-gradient(135deg, #001830 0%, #002B4D 50%, #0A4D68 100%) !important;
+  border: 1px solid rgba(0, 169, 165, 0.35) !important;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+  color: #FFFFFF !important;
+}
+
+.theme-pearl .tower-header-bar {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FAF8F5 50%, #F5EFEA 100%) !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 10px 30px -5px rgba(11, 61, 145, 0.06);
+  color: #001E3D !important;
+}
+
+/* Text Hierarchy */
+.tower-text-primary {
+  color: var(--tower-text-primary) !important;
+}
+
+.tower-text-secondary {
+  color: var(--tower-text-secondary) !important;
+}
+
+.tower-text-muted {
+  color: var(--tower-text-muted) !important;
+}
+
+.tower-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--tower-text-primary) !important;
+}
+
+.tower-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--tower-text-muted) !important;
+}
+
+/* Buttons */
+.tower-btn-primary {
+  background: linear-gradient(to right, var(--tower-btn-primary-from), var(--tower-btn-primary-to)) !important;
+  color: var(--tower-btn-primary-text) !important;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(0, 210, 196, 0.4);
+  box-shadow: 0 4px 15px -3px rgba(0, 169, 165, 0.35);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+.tower-btn-primary:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+.tower-btn-primary:active {
+  transform: scale(0.98);
+}
+
+.tower-btn-secondary {
+  background-color: var(--tower-btn-secondary-bg) !important;
+  border: 1px solid var(--tower-btn-secondary-border) !important;
+  color: var(--tower-btn-secondary-text) !important;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+.tower-btn-secondary:hover {
+  background-color: var(--tower-btn-secondary-hover) !important;
+  border-color: var(--tower-border-accent) !important;
+}
+
+.tower-btn-subtle {
+  background-color: var(--tower-btn-subtle-bg) !important;
+  color: var(--tower-btn-subtle-text) !important;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  cursor: pointer;
+}
+.tower-btn-subtle:hover {
+  background-color: var(--tower-btn-subtle-hover) !important;
+  color: var(--tower-text-primary) !important;
+}
+
+.tower-btn-danger {
+  background-color: rgba(244, 63, 94, 0.12) !important;
+  border: 1px solid rgba(244, 63, 94, 0.35) !important;
+  color: var(--tower-accent-rose-text) !important;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+.tower-btn-danger:hover {
+  background-color: rgba(244, 63, 94, 0.22) !important;
+}
+
+.tower-btn-emerald {
+  background: linear-gradient(to right, #059669, #0D9488) !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  box-shadow: 0 4px 15px -3px rgba(16, 185, 129, 0.35);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+.tower-btn-emerald:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+/* Badges & Status Chips */
+.tower-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.125rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.025em;
+}
+
+.tower-badge-emerald {
+  background-color: rgba(16, 185, 129, 0.14) !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+  color: var(--tower-accent-emerald-text) !important;
+}
+
+.tower-badge-amber {
+  background-color: rgba(245, 158, 11, 0.14) !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+  color: var(--tower-accent-amber-text) !important;
+}
+
+.tower-badge-cyan {
+  background-color: rgba(0, 169, 165, 0.14) !important;
+  border: 1px solid rgba(0, 210, 196, 0.3) !important;
+  color: var(--tower-accent-cyan) !important;
+}
+
+.tower-badge-gold {
+  background-color: rgba(255, 200, 87, 0.14) !important;
+  border: 1px solid rgba(255, 200, 87, 0.3) !important;
+  color: var(--tower-accent-gold-text) !important;
+}
+
+.tower-badge-rose {
+  background-color: rgba(244, 63, 94, 0.14) !important;
+  border: 1px solid rgba(244, 63, 94, 0.3) !important;
+  color: var(--tower-accent-rose-text) !important;
+}
+
+.tower-badge-muted {
+  background-color: var(--tower-btn-subtle-bg) !important;
+  border: 1px solid var(--tower-border) !important;
+  color: var(--tower-text-muted) !important;
+}
+
+/* Form Controls */
+.tower-input {
+  background-color: var(--tower-input-bg) !important;
+  border: 1px solid var(--tower-input-border) !important;
+  color: var(--tower-input-text) !important;
+  border-radius: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.tower-input:focus {
+  border-color: var(--tower-accent-teal) !important;
+  box-shadow: 0 0 0 2px rgba(0, 169, 165, 0.2);
+}
+.tower-input::placeholder {
+  color: var(--tower-input-placeholder) !important;
+}
+
+/* Tables */
+.tower-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.75rem;
+}
+.tower-table-th {
+  background-color: var(--tower-card-inner) !important;
+  color: var(--tower-text-muted) !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.625rem 0.875rem;
+  border-bottom: 1px solid var(--tower-border) !important;
+}
+.tower-table-td {
+  padding: 0.75rem 0.875rem;
+  border-bottom: 1px solid var(--tower-border-subtle) !important;
+  color: var(--tower-text-primary) !important;
 }

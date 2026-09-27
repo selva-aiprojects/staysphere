@@ -720,15 +720,15 @@ export default function OperationsControlTower() {
           onOpenTickets={() => setIsCollabTicketsModalOpen(true)}
         />
       ) : portalMode === 'DRIVER_MOBILE' ? (
-        <div className={`p-4 sm:p-8 min-h-screen transition-colors ${theme === 'pearl' ? 'bg-[#F8FAFD] text-[#001E3D]' : 'bg-[#001428] text-white'}`}>
+        <div className="tower-canvas p-4 sm:p-8">
           <div className="flex justify-between items-center mb-4 max-w-md mx-auto">
             <button
               onClick={() => setPortalMode('CONTROL_TOWER')}
-              className={`text-xs hover:underline flex items-center gap-1 font-semibold ${theme === 'pearl' ? 'text-[#0B3D91]' : 'text-[#00D2C4]'}`}
+              className="text-xs hover:underline flex items-center gap-1 font-semibold tower-btn-subtle px-2.5 py-1"
             >
               ← Return to Control Tower
             </button>
-            <span className={`text-xs font-mono font-medium ${theme === 'pearl' ? 'text-slate-500' : 'text-slate-400'}`}>Chauffeur Mobile PWA</span>
+            <span className="text-xs font-mono font-medium tower-text-muted">Chauffeur Mobile PWA</span>
           </div>
           <DriverMobilePwa
             onNotifyProperty={(msg) => showToast(`Sync: ${msg}`)}
