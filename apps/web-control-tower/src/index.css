@@ -187,7 +187,13 @@ body {
 .theme-pearl .bg-emerald-600,
 .theme-pearl .bg-emerald-600 *,
 .theme-pearl .bg-rose-600,
-.theme-pearl .bg-rose-600 * {
+.theme-pearl .bg-rose-600 *,
+.theme-pearl .bg-amber-600,
+.theme-pearl .bg-amber-600 *,
+.theme-pearl button.bg-\[\#002B4D\],
+.theme-pearl button.bg-\[\#002B4D\] *,
+.theme-pearl button.bg-\[\#0B3D91\],
+.theme-pearl button.bg-\[\#0B3D91\] * {
   color: #FFFFFF !important;
 }
 
@@ -256,6 +262,7 @@ body {
   color: #0D824D !important;
 }
 
+.theme-pearl .text-rose-300:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *),
 .theme-pearl .text-rose-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *),
 .theme-pearl .text-red-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *) {
   color: #BE123C !important;
@@ -267,6 +274,7 @@ body {
 }
 
 .theme-pearl .text-blue-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *),
+.theme-pearl .text-indigo-300:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *),
 .theme-pearl .text-indigo-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *),
 .theme-pearl .text-sky-400:not(.image-overlay *):not([data-keep-white] *):not([data-keep-dark] *):not(button *) {
   color: #1D4ED8 !important;
@@ -430,10 +438,31 @@ body {
 .theme-pearl .bg-\[\#00284D\],
 .theme-pearl .bg-\[\#003866\],
 .theme-pearl .bg-\[\#003B6D\],
+.theme-pearl .bg-slate-700:not(button):not([data-keep-dark]),
+.theme-pearl .bg-slate-800:not(button):not([data-keep-dark]),
 .theme-pearl .bg-slate-900,
-.theme-pearl .bg-slate-950 {
+.theme-pearl .bg-slate-900\/80,
+.theme-pearl .bg-slate-900\/60,
+.theme-pearl .bg-slate-950,
+.theme-pearl .bg-slate-950\/80,
+.theme-pearl .bg-indigo-950,
+.theme-pearl .bg-indigo-950\/60,
+.theme-pearl .bg-indigo-900 {
   background-color: #F8FAFC !important;
   border-color: #E2E8F0 !important;
+  color: #001E3D !important;
+}
+
+/* Inactive button slate overrides in Pearl theme */
+.theme-pearl button.bg-slate-800,
+.theme-pearl button.bg-slate-700 {
+  background-color: #F1F5F9 !important;
+  border-color: #CBD5E1 !important;
+  color: #001E3D !important;
+}
+
+.theme-pearl button.bg-slate-800 *,
+.theme-pearl button.bg-slate-700 * {
   color: #001E3D !important;
 }
 
